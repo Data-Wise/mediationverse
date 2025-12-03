@@ -1,0 +1,37 @@
+Package: mediationverse
+Type: Package
+Title: Ecosystem for Mediation Analysis in R
+Version: 0.0.0.9000
+Date: 2025-12-03
+Authors@R: person("Davood", "Tofighi",
+    email = "dtofighi@gmail.com",
+    role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0001-8523-7776"))
+Maintainer: Davood Tofighi <dtofighi@gmail.com>
+Description: A meta-package that loads the core packages in the mediation
+    analysis ecosystem: 'medfit' (infrastructure), 'probmed' (probabilistic
+    effect sizes), 'RMediation' (confidence intervals), and 'medrobust'
+    (sensitivity analysis). This package simplifies installation and provides
+    a unified entry point for mediation analysis in R. Inspired by the
+    'tidyverse' and 'easystats' ecosystems.
+License: GPL (>= 3)
+URL: https://github.com/data-wise/mediationverse
+BugReports: https://github.com/data-wise/mediationverse/issues
+Depends:
+    R (>= 4.1.0)
+Imports:
+    cli,
+    rlang
+Suggests:
+    medfit (>= 0.1.0),
+    probmed (>= 0.2.0),
+    RMediation (>= 1.5.0),
+    medrobust (>= 0.2.0),
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+VignetteBuilder: knitr
+Config/testthat/edition: 3
