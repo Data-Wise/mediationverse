@@ -27,10 +27,10 @@ Remotes:
     data-wise/probmed,
     data-wise/medrobust
 Suggests:
-    medfit (>= 0.1.0),
-    probmed (>= 0.2.0),
-    RMediation (>= 1.5.0),
-    medrobust (>= 0.2.0),
+    medfit,
+    probmed,
+    RMediation,
+    medrobust,
     testthat (>= 3.0.0),
     knitr,
     rmarkdown,
