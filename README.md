@@ -2,8 +2,12 @@
 
 > Unified ecosystem for mediation analysis in R
 
+<!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![Repo Status](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![R-CMD-check](https://github.com/Data-Wise/mediationverse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/mediationverse/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 
 ## Overview
 
