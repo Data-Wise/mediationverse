@@ -1,4 +1,4 @@
-# mediationverse
+# mediationverse <img src="man/figures/logo.png" align="right" height="139" />
 
 > Unified ecosystem for mediation analysis in R
 
