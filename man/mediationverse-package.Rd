@@ -51,6 +51,7 @@ Load all packages:
 Useful links:
 \itemize{
   \item \url{https://github.com/data-wise/mediationverse}
+  \item \url{https://data-wise.github.io/mediationverse/}
   \item Report bugs at \url{https://github.com/data-wise/mediationverse/issues}
 }
 
@@ -58,6 +59,7 @@ Useful links:
 Useful links:
 \itemize{
   \item \url{https://github.com/data-wise/mediationverse}
+  \item \url{https://data-wise.github.io/mediationverse/}
   \item Report bugs at \url{https://github.com/data-wise/mediationverse/issues}
 }
 

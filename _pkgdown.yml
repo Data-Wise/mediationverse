@@ -3,20 +3,23 @@ template:
   bootstrap: 5
   bootswatch: flatly
   bslib:
-    primary: "#0054AD"
+    primary: '#0054AD'
     border-radius: 0.5rem
     btn-border-radius: 0.25rem
-
 home:
-  title: "mediationverse: Ecosystem for Mediation Analysis in R"
-  description: >
-    Meta-package that loads the core packages in the mediation
-    analysis ecosystem: medfit, probmed, RMediation, and medrobust.
-
+  title: 'mediationverse: Ecosystem for Mediation Analysis in R'
+  description: |
+    Meta-package that loads the core packages in the mediation analysis ecosystem: medfit, probmed, RMediation, and medrobust.
 navbar:
   structure:
-    left: [intro, reference, articles, news]
-    right: [search, github]
+    left:
+    - intro
+    - reference
+    - articles
+    - news
+    right:
+    - search
+    - github
   components:
     home:
       icon: fas fa-home fa-lg
@@ -35,7 +38,6 @@ navbar:
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/Data-Wise/mediationverse/
-
 footer:
   structure:
     left: developed_by
@@ -43,5 +45,5 @@ footer:
   components:
     developed_by: |
       Developed by [Davood Tofighi](https://orcid.org/0000-0001-8523-7776).
-    built_with: |
-      Built with [pkgdown](https://pkgdown.r-lib.org/) and R.
+    built_with: Built with [pkgdown](https://pkgdown.r-lib.org/) and R.
+
