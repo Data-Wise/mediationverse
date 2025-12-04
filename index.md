@@ -1,0 +1,148 @@
+# mediationverse
+
+> Unified ecosystem for mediation analysis in R
+
+## Overview
+
+The **mediationverse** is a collection of R packages for mediation
+analysis, providing a unified ecosystem for:
+
+- Model fitting and extraction
+- Effect size computation
+- Confidence interval estimation
+- Sensitivity analysis
+
+## Packages
+
+The mediationverse includes four core packages:
+
+| Package        | Purpose                                          | Status                | Links                                                                                       |
+|----------------|--------------------------------------------------|-----------------------|---------------------------------------------------------------------------------------------|
+| **medfit**     | Infrastructure (S7 classes, fitting, extraction) | In Development        | [GitHub](https://github.com/data-wise/medfit) • [Docs](https://data-wise.github.io/medfit/) |
+| **probmed**    | Probabilistic effect size (P_med)                | Ready for Integration | [GitHub](https://github.com/data-wise/probmed)                                              |
+| **RMediation** | Confidence intervals (DOP, MBCO)                 | On CRAN               | [CRAN](https://cran.r-project.org/package=RMediation)                                       |
+| **medrobust**  | Sensitivity analysis                             | In Development        | [GitHub](https://github.com/data-wise/medrobust)                                            |
+
+## Installation
+
+**Note**: This meta-package is currently in development. Individual
+packages must be installed separately for now.
+
+``` r
+# Install from GitHub (development versions)
+pak::pak("data-wise/medfit")
+pak::pak("data-wise/probmed")
+pak::pak("data-wise/medrobust")
+
+# RMediation from CRAN
+install.packages("RMediation")
+```
+
+**Future** (when mediationverse is released):
+
+``` r
+# Install all packages at once
+install.packages("mediationverse")
+
+# Load all packages
+library(mediationverse)
+```
+
+## Example Workflow
+
+``` r
+# Fit mediation models (medfit)
+library(medfit)
+fit_m <- lm(M ~ X + C, data = mydata)
+fit_y <- lm(Y ~ X + M + C, data = mydata)
+
+# Extract mediation structure
+med_data <- extract_mediation(fit_m, model_y = fit_y,
+                               treatment = "X", mediator = "M")
+
+# Compute probabilistic effect size (probmed)
+library(probmed)
+pmed_result <- compute_pmed(med_data)
+
+# Get confidence intervals (RMediation)
+library(RMediation)
+ci_result <- ci(med_data, type = "dop")
+
+# Sensitivity analysis (medrobust)
+library(medrobust)
+robust_result <- sensitivity_analysis(med_data)
+```
+
+## Design Philosophy
+
+The mediationverse follows these principles:
+
+1.  **Foundation Package**: medfit provides shared S7 infrastructure
+2.  **Specialized Packages**: Each package focuses on one methodological
+    contribution
+3.  **Consistent API**: Unified interfaces across all packages
+4.  **Type Safety**: S7 classes ensure data integrity
+5.  **Comprehensive Testing**: \>90% code coverage across packages
+
+## Development Status
+
+**Current Phase**: Package creation (Q4 2024 - Q1 2025)
+
+medfit MVP in progress (Phase 4 of 8)
+
+probmed integration with medfit
+
+RMediation integration with medfit
+
+medrobust integration with medfit
+
+mediationverse meta-package release
+
+See
+[planning/MEDIATIONVERSE-PROPOSAL.md](https://github.com/data-wise/medfit/blob/main/planning/MEDIATIONVERSE-PROPOSAL.md)
+for detailed roadmap.
+
+## Inspiration
+
+This ecosystem is inspired by successful R package ecosystems:
+
+- [tidyverse](https://www.tidyverse.org/) - Cohesive data science
+  packages
+- [easystats](https://easystats.github.io/easystats/) - Statistical
+  modeling ecosystem
+- [mlr3](https://mlr3.mlr-org.com/) - Machine learning framework
+
+## Contributing
+
+The mediationverse is in active development. Contributions are welcome!
+
+- Report issues: [GitHub
+  Issues](https://github.com/data-wise/mediationverse/issues)
+- Suggest features: Open a discussion on GitHub
+- Contribute code: Submit pull requests
+
+## Citation
+
+If you use packages from the mediationverse in your research, please
+cite the individual packages:
+
+    Tofighi, D. (2025). medfit: Infrastructure for mediation analysis in R.
+    R package version 0.1.0. https://github.com/data-wise/medfit
+
+*(Additional citations will be added as packages are released)*
+
+## Code of Conduct
+
+Please note that the mediationverse project is released with a
+[Contributor Code of
+Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
+## License
+
+GPL (\>= 3)
+
+## Contact
+
+**Maintainer**: Davood Tofighi (<dtofighi@gmail.com>) **ORCID**:
+[0000-0001-8523-7776](https://orcid.org/0000-0001-8523-7776)
