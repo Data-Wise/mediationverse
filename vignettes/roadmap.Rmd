@@ -1,0 +1,291 @@
+---
+title: "Development Roadmap"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Development Roadmap}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# mediationverse Development Roadmap
+
+> **Last Updated**: 2025-12-04
+
+This document outlines the development timeline and milestones for the mediationverse ecosystem.
+
+## Timeline Overview
+
+```
+Q4 2025 (Current)    Q1 2026              Q2 2026              Q3 2026
+    |                    |                    |                    |
+    v                    v                    v                    v
+[Foundation]         [Integration]        [Refinement]         [Release]
+ medfit MVP           Package              Documentation        CRAN
+ medsim               Integration          Polishing            Submissions
+ Documentation        Testing              User Testing         Launch
+```
+
+---
+
+## Phase 1: Foundation (Q4 2025) - **IN PROGRESS**
+
+### Objectives
+Build core infrastructure and establish package foundations.
+
+### Milestones
+
+#### ✅ medfit Phase 1-3 (Complete)
+- [x] Package skeleton and S7 architecture
+- [x] `MediationData` and `SerialMediationData` classes
+- [x] Model extraction (lm/glm, lavaan)
+- [x] Comprehensive Quarto documentation
+- [x] pkgdown website with Bootstrap 5
+
+#### 🚧 medfit Phase 4 (In Progress - 60%)
+- [x] GLM fitting infrastructure
+- [ ] Formula interface implementation
+- [ ] Engine adapter pattern
+- [ ] Integration tests
+
+#### ✅ medsim (Complete)
+- [x] Core simulation infrastructure
+- [x] Environment detection (local/HPC)
+- [x] Parallel processing with progress bars
+- [x] Standard mediation scenarios
+- [x] Publication-ready output
+
+#### ✅ Documentation (Complete)
+- [x] medfit vignettes (4 comprehensive guides)
+- [x] probmed vignettes (integration guides)
+- [x] Package websites for all packages
+- [x] Unified styling (Bootstrap 5 + Litera)
+
+### Deliverables
+- medfit MVP (extract, fit, bootstrap)
+- medsim ready for use
+- Complete package documentation
+- GitHub Actions CI/CD for all packages
+
+---
+
+## Phase 2: Integration (Q1 2026)
+
+### Objectives
+Integrate dependent packages with medfit foundation.
+
+### Milestones
+
+#### medfit Phase 5 (Bootstrap & Testing)
+- [ ] Parametric bootstrap implementation
+- [ ] Nonparametric bootstrap
+- [ ] Plugin estimator
+- [ ] Extended test suite (>90% coverage)
+- [ ] Performance benchmarks
+
+#### probmed Integration
+- [ ] Add medfit to DESCRIPTION (Imports)
+- [ ] Replace extraction code with `medfit::extract_mediation()`
+- [ ] Replace bootstrap with `medfit::bootstrap_mediation()`
+- [ ] Update formula interface to use medfit
+- [ ] Verify backward compatibility
+- [ ] Update all tests and vignettes
+
+#### RMediation Integration
+- [ ] Add medfit to DESCRIPTION (Imports)
+- [ ] Use `medfit::extract_mediation()` for lavaan
+- [ ] Leverage medfit bootstrap utilities
+- [ ] Update ci() function for MediationData
+- [ ] Maintain CRAN stability
+- [ ] Update documentation
+
+#### medrobust Integration (Optional)
+- [ ] Add medfit to DESCRIPTION (Suggests)
+- [ ] Use for naive estimates if beneficial
+- [ ] Document integration patterns
+
+### Deliverables
+- medfit 0.1.0 release
+- probmed 0.2.0 with medfit integration
+- RMediation 1.5.0 with medfit integration
+- Updated integration tests across packages
+
+---
+
+## Phase 3: Refinement (Q2 2026)
+
+### Objectives
+Polish packages for CRAN submission and public release.
+
+### Milestones
+
+#### Package Polishing
+- [ ] Address all R CMD check notes/warnings
+- [ ] Comprehensive testing on multiple platforms
+- [ ] Performance optimization
+- [ ] Memory profiling and optimization
+- [ ] Security audit
+
+#### Documentation Enhancement
+- [ ] Complete API documentation
+- [ ] Add more examples
+- [ ] Create video tutorials
+- [ ] Write blog posts
+- [ ] Prepare manuscript drafts
+
+#### mediationverse Meta-Package
+- [ ] Create package skeleton
+- [ ] Implement attachment logic
+- [ ] Add conflict detection
+- [ ] Create startup message
+- [ ] Write comprehensive vignettes
+- [ ] Set up pkgdown website
+
+#### User Testing
+- [ ] Beta testing with research collaborators
+- [ ] Gather feedback on API design
+- [ ] Address usability issues
+- [ ] Create FAQ documentation
+
+### Deliverables
+- All packages pass R CMD check
+- Complete documentation
+- mediationverse meta-package ready
+- User feedback incorporated
+
+---
+
+## Phase 4: Release (Q3 2026)
+
+### Objectives
+Launch packages to CRAN and announce publicly.
+
+### Milestones
+
+#### CRAN Submissions
+- [ ] Submit medfit to CRAN
+- [ ] Submit probmed to CRAN (update)
+- [ ] Submit medrobust to CRAN
+- [ ] Submit mediationverse to CRAN
+- [ ] Address reviewer feedback
+- [ ] Coordinate releases
+
+#### Public Launch
+- [ ] Announcement blog post
+- [ ] Social media campaign
+- [ ] R-bloggers post
+- [ ] Conference presentations
+- [ ] Workshop materials
+
+#### Long-term Maintenance
+- [ ] Establish release schedule
+- [ ] Set up community guidelines
+- [ ] Create issue templates
+- [ ] Establish code review process
+- [ ] Plan future enhancements
+
+### Deliverables
+- All packages on CRAN
+- Public announcement
+- Workshop materials
+- Maintenance plan
+
+---
+
+## Post-Release: Future Enhancements
+
+### medfit Extensions
+- **Four-way Decomposition**: VanderWeele interaction support
+- **Estimation Engines**: CMAverse adapters (g-formula, IPW)
+- **Advanced Models**: lmer, brms engines
+- **Targeted Learning**: tmle3 adapter
+- **Machine Learning**: DoubleML integration
+
+### New Packages (Tentative)
+- **medcausal**: Causal inference tools
+- **medpower**: Power analysis specialized for mediation
+- **medviz**: Advanced visualization
+- **medML**: Machine learning for mediation
+
+### Integration Priorities
+1. **Q4 2026**: lmer engine for multilevel mediation
+2. **Q1 2027**: CMAverse integration (g-formula, IPW)
+3. **Q2 2027**: Four-way decomposition
+4. **Q3 2027**: Targeted learning (tmle3)
+
+---
+
+## Success Metrics
+
+### Technical Metrics
+- All packages pass R CMD check on CRAN
+- >90% code coverage across packages
+- <500ms for typical mediation analysis
+- Zero critical bugs in production
+
+### Adoption Metrics
+- 1000+ downloads in first quarter
+- 10+ citations in first year
+- Active user community (GitHub stars, issues)
+- Positive feedback from beta testers
+
+### Quality Metrics
+- Comprehensive documentation
+- Responsive issue resolution (<48h)
+- Regular releases (quarterly)
+- Active maintenance
+
+---
+
+## Risk Assessment
+
+### Technical Risks
+| Risk | Probability | Impact | Mitigation |
+|------|-------------|--------|------------|
+| API breaking changes | Medium | High | Extensive testing, deprecation warnings |
+| Performance issues | Low | Medium | Benchmarking, profiling |
+| CRAN rejection | Low | High | Early submission, address feedback quickly |
+| S7 stability | Low | High | Track S7 development, contribute fixes |
+
+### Project Risks
+| Risk | Probability | Impact | Mitigation |
+|------|-------------|--------|------------|
+| Delayed integration | Medium | Medium | Modular design, parallel development |
+| Scope creep | Medium | Medium | Strict MVP definition, phase gates |
+| Resource constraints | Low | High | Prioritize core features |
+
+---
+
+## Communication Plan
+
+### Regular Updates
+- **Monthly**: Progress updates on GitHub Discussions
+- **Quarterly**: Blog posts on major milestones
+- **Ad-hoc**: Announce breaking changes early
+
+### Channels
+- GitHub Issues/Discussions
+- R-bloggers
+- Social media (Twitter/Mastodon)
+- Mailing list (future)
+
+---
+
+## Contact & Feedback
+
+**Project Lead**: Davood Tofighi (dtofighi@gmail.com)
+
+**Provide Feedback**:
+- [GitHub Discussions](https://github.com/data-wise/mediationverse/discussions)
+- [Feature Requests](https://github.com/data-wise/mediationverse/issues/new)
+- Email: dtofighi@gmail.com
+
+---
+
+**Next Review**: End of Q4 2025
