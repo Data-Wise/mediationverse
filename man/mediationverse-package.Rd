@@ -2,23 +2,23 @@
 % Please edit documentation in R/mediationverse-package.R
 \docType{package}
 \name{mediationverse-package}
+\alias{mediationverse}
 \alias{mediationverse-package}
 \title{mediationverse: Ecosystem for Mediation Analysis in R}
 \description{
-A meta-package that loads the core packages in the mediation analysis ecosystem: 'medfit' (infrastructure), 'probmed' (probabilistic effect sizes), 'RMediation' (confidence intervals), and 'medrobust' (sensitivity analysis). This package simplifies installation and provides a unified entry point for mediation analysis in R. Inspired by the 'tidyverse' and 'easystats' ecosystems.
-
 The mediationverse is a collection of R packages for mediation analysis.
-This meta-package loads the core packages with a single command.
+This meta-package loads all core packages with a single \code{library()} command.
 }
 \details{
 \subsection{Core Packages}{
 
 The mediationverse includes the following packages:
 \itemize{
-\item \strong{medfit}: Infrastructure for model fitting and extraction
+\item \strong{medfit}: Infrastructure for model fitting, extraction, and bootstrap inference
 \item \strong{probmed}: Probabilistic effect size (P_med)
 \item \strong{RMediation}: Confidence intervals (DOP, MBCO, MC methods)
 \item \strong{medrobust}: Sensitivity analysis for unmeasured confounding
+\item \strong{medsim}: Simulation infrastructure for mediation research
 }
 }
 
@@ -28,6 +28,11 @@ Install all packages at once:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{install.packages("mediationverse")
 }\if{html}{\out{</div>}}
+
+Or install development versions from GitHub:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{pak::pak("data-wise/mediationverse")
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Usage}{
@@ -35,6 +40,16 @@ Install all packages at once:
 Load all packages:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(mediationverse)
+}\if{html}{\out{</div>}}
+
+Check installed packages:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{mediationverse_packages()
+}\if{html}{\out{</div>}}
+
+Update all packages:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{mediationverse_update()
 }\if{html}{\out{</div>}}
 }
 
@@ -44,18 +59,11 @@ Load all packages:
 \item probmed: \url{https://data-wise.github.io/probmed/}
 \item RMediation: \url{https://cran.r-project.org/package=RMediation}
 \item medrobust: \url{https://data-wise.github.io/medrobust/}
+\item medsim: \url{https://data-wise.github.io/medsim/}
 }
 }
 }
 \seealso{
-Useful links:
-\itemize{
-  \item \url{https://github.com/data-wise/mediationverse}
-  \item \url{https://data-wise.github.io/mediationverse/}
-  \item Report bugs at \url{https://github.com/data-wise/mediationverse/issues}
-}
-
-
 Useful links:
 \itemize{
   \item \url{https://github.com/data-wise/mediationverse}

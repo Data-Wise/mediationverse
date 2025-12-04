@@ -32,6 +32,8 @@ Suggests:
     RMediation,
     medrobust,
     medsim,
+    pak,
+    remotes,
     testthat (>= 3.0.0),
     knitr,
     rmarkdown,

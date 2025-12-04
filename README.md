@@ -5,7 +5,7 @@
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![Repo Status](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
-[![R-CMD-check](https://github.com/Data-Wise/mediationverse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/mediationverse/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/data-wise/mediationverse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/mediationverse/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 
@@ -17,46 +17,70 @@ The **mediationverse** is a collection of R packages for mediation analysis, pro
 - Effect size computation
 - Confidence interval estimation
 - Sensitivity analysis
+- Simulation studies
 
 ## Packages
 
-The mediationverse includes four core packages:
+The mediationverse includes five core packages:
 
 | Package | Purpose | Status | Links |
 |---------|---------|--------|-------|
-| **medfit** | Infrastructure (S7 classes, fitting, extraction) | In Development | [GitHub](https://github.com/data-wise/medfit) • [Docs](https://data-wise.github.io/medfit/) |
+| **medfit** | Infrastructure (S7 classes, fitting, extraction) | In Development | [GitHub](https://github.com/data-wise/medfit) |
 | **probmed** | Probabilistic effect size (P_med) | Ready for Integration | [GitHub](https://github.com/data-wise/probmed) |
 | **RMediation** | Confidence intervals (DOP, MBCO) | On CRAN | [CRAN](https://cran.r-project.org/package=RMediation) |
 | **medrobust** | Sensitivity analysis | In Development | [GitHub](https://github.com/data-wise/medrobust) |
+| **medsim** | Simulation infrastructure | On GitHub | [GitHub](https://github.com/data-wise/medsim) |
 
 ## Installation
 
-**Note**: This meta-package is currently in development. Individual packages must be installed separately for now.
+Install from GitHub (development version):
 
 ```r
-# Install from GitHub (development versions)
+# Install mediationverse (loads all packages)
+pak::pak("data-wise/mediationverse")
+
+# Or install packages individually
 pak::pak("data-wise/medfit")
 pak::pak("data-wise/probmed")
 pak::pak("data-wise/medrobust")
+pak::pak("data-wise/medsim")
 
 # RMediation from CRAN
 install.packages("RMediation")
 ```
 
-**Future** (when mediationverse is released):
-```r
-# Install all packages at once
-install.packages("mediationverse")
+## Usage
 
-# Load all packages
+Load all packages with one command:
+
+```r
 library(mediationverse)
+#> -- Attaching packages ------------------ mediationverse 0.0.0.9000 --
+#> v medfit     0.1.0     v probmed    0.1.0
+#> v RMediation 1.4.0     v medrobust  0.1.0
+#> v medsim     0.1.0
+#> ---------------------------------------------------------------
+```
+
+### Package Management
+
+```r
+# List installed packages and versions
+mediationverse_packages()
+
+# Update all packages
+mediationverse_update()
+
+# Check for function conflicts
+mediationverse_conflicts()
 ```
 
 ## Example Workflow
 
 ```r
+library(mediationverse)
+
 # Fit mediation models (medfit)
-library(medfit)
 fit_m <- lm(M ~ X + C, data = mydata)
 fit_y <- lm(Y ~ X + M + C, data = mydata)
 
@@ -64,16 +88,16 @@ fit_y <- lm(Y ~ X + M + C, data = mydata)
 med_data <- extract_mediation(fit_m, model_y = fit_y,
                                treatment = "X", mediator = "M")
 
+# Bootstrap inference (medfit)
+boot_result <- bootstrap_mediation(med_data, n_boot = 2000)
+
 # Compute probabilistic effect size (probmed)
-library(probmed)
 pmed_result <- compute_pmed(med_data)
 
 # Get confidence intervals (RMediation)
-library(RMediation)
 ci_result <- ci(med_data, type = "dop")
 
 # Sensitivity analysis (medrobust)
-library(medrobust)
 robust_result <- sensitivity_analysis(med_data)
 ```
 
@@ -87,17 +111,28 @@ The mediationverse follows these principles:
 4. **Type Safety**: S7 classes ensure data integrity
 5. **Comprehensive Testing**: >90% code coverage across packages
 
+## Ecosystem
+
+Part of the **mediationverse** ecosystem for causal mediation analysis:
+
+| Package | Role | Description |
+|---------|------|-------------|
+| [medfit](https://data-wise.github.io/medfit/) | Foundation | S7 classes, model fitting, extraction, bootstrap |
+| [probmed](https://data-wise.github.io/probmed/) | Effect Size | Probabilistic effect size (P_med) |
+| [RMediation](https://cran.r-project.org/package=RMediation) | Confidence Intervals | Distribution of Product, MBCO methods |
+| [medrobust](https://data-wise.github.io/medrobust/) | Sensitivity | Bounds and falsification for unmeasured confounding |
+| [medsim](https://data-wise.github.io/medsim/) | Simulation | Standardized simulation infrastructure |
+
 ## Development Status
 
-**Current Phase**: Package creation (Q4 2024 - Q1 2025)
+**Current Phase**: Ecosystem development (Q4 2024 - Q1 2025)
 
-- [x] medfit MVP in progress (Phase 4 of 8)
-- [ ] probmed integration with medfit
-- [ ] RMediation integration with medfit
-- [ ] medrobust integration with medfit
-- [ ] mediationverse meta-package release
-
-See [planning/MEDIATIONVERSE-PROPOSAL.md](https://github.com/data-wise/medfit/blob/main/planning/MEDIATIONVERSE-PROPOSAL.md) for detailed roadmap.
+- [x] medfit Phase 3 complete (S7 classes, extraction)
+- [x] medsim core implementation complete
+- [x] mediationverse meta-package skeleton
+- [ ] medfit Phase 4 (model fitting)
+- [ ] Package integrations
+- [ ] CRAN submissions
 
 ## Inspiration
 

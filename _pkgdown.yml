@@ -1,53 +1,115 @@
 url: https://data-wise.github.io/mediationverse/
+
 template:
   bootstrap: 5
-  bootswatch: flatly
+  bootswatch: litera
   bslib:
-    primary: '#0054AD'
-    border-radius: 0.5rem
-    btn-border-radius: 0.25rem
+    # Consistent academic blue across ecosystem
+    primary: "#0054AD"
+    bg: "#ffffff"
+    fg: "#212529"
+    # Modern, readable fonts (consistent with medfit)
+    base_font: { google: "Inter" }
+    heading_font: { google: "Montserrat" }
+    code_font: { google: "Fira Code" }
+    font-size-base: 0.925rem
+
+home:
+  title: "mediationverse: Ecosystem for Mediation Analysis in R"
+  description: >
+    Meta-package that loads all core packages in the mediation analysis
+    ecosystem with a single library() call. Provides unified access to
+    medfit, probmed, RMediation, medrobust, and medsim.
+  sidebar:
+    structure: [links, license, citation, authors]
+  links:
+  - text: "Source Code"
+    href: https://github.com/data-wise/mediationverse
+  - text: "Report Issues"
+    href: https://github.com/data-wise/mediationverse/issues
+  - text: "Request Feature"
+    href: https://github.com/data-wise/mediationverse/issues/new
 
 logo:
   image: man/figures/logo.png
+  align: right
+  width: 350px
 
-home:
-  title: 'mediationverse: Ecosystem for Mediation Analysis in R'
-  description: |
-    Meta-package that loads the core packages in the mediation analysis ecosystem: medfit, probmed, RMediation, and medrobust.
 navbar:
   structure:
-    left:
-    - intro
-    - reference
-    - articles
-    - news
-    right:
-    - search
-    - github
+    left:  [home, reference, articles, ecosystem, news]
+    right: [search, github]
   components:
     home:
       icon: fas fa-home fa-lg
       href: index.html
+      aria-label: Home
     reference:
       text: Reference
       href: reference/index.html
     articles:
       text: Articles
       menu:
-      - text: Getting Started
+      - text: "Getting Started"
         href: articles/getting-started.html
+      - text: "---------"
+      - text: "Ecosystem Overview"
+      - text: "mediationverse Workflow"
+        href: articles/mediationverse-workflow.html
+    ecosystem:
+      text: Ecosystem
+      menu:
+      - text: "Core Packages"
+      - text: "medfit (Foundation)"
+        href: https://data-wise.github.io/medfit/
+      - text: "probmed (P_med Effect Size)"
+        href: https://data-wise.github.io/probmed/
+      - text: "RMediation (Confidence Intervals)"
+        href: https://data-wise.github.io/rmediation/
+      - text: "medrobust (Sensitivity Analysis)"
+        href: https://data-wise.github.io/medrobust/
+      - text: "---------"
+      - text: "Support Packages"
+      - text: "medsim (Simulation Infrastructure)"
+        href: https://data-wise.github.io/medsim/
     news:
       text: News
       href: news/index.html
     github:
       icon: fab fa-github fa-lg
-      href: https://github.com/Data-Wise/mediationverse/
+      href: https://github.com/data-wise/mediationverse
+      aria-label: GitHub
+
+reference:
+  - title: "Package Management"
+    desc: "Functions for managing the mediationverse ecosystem"
+    contents:
+      - mediationverse_packages
+      - mediationverse_update
+      - mediationverse_conflicts
+
+  - title: "Package Documentation"
+    desc: "Package-level documentation"
+    contents:
+      - mediationverse-package
+
+development:
+  mode: auto
+  version_label: default
+  version_tooltip: "Development version"
+
+authors:
+  Davood Tofighi:
+    href: "https://orcid.org/0000-0001-8523-7776"
+    html: "<img src='https://orcid.org/sites/default/files/images/orcid_16x16.png' height='16' width='16' alt='ORCID iD icon'> Davood Tofighi"
+
 footer:
   structure:
-    left: developed_by
-    right: built_with
+    left: [developed_by, built_with]
+    right: [package_version]
   components:
+    package_version: "Version {version}"
     developed_by: |
-      Developed by [Davood Tofighi](https://orcid.org/0000-0001-8523-7776).
-    built_with: Built with [pkgdown](https://pkgdown.r-lib.org/) and R.
-
+      Developed by [Davood Tofighi](https://orcid.org/0000-0001-8523-7776)
+    built_with: |
+      Built with [pkgdown](https://pkgdown.r-lib.org/)
