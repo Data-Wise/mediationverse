@@ -22,6 +22,10 @@ Depends:
 Imports:
     cli,
     rlang
+Remotes:
+    data-wise/medfit,
+    data-wise/probmed,
+    data-wise/medrobust
 Suggests:
     medfit (>= 0.1.0),
     probmed (>= 0.2.0),
