@@ -8,7 +8,7 @@
 #' @noRd
 mediationverse_attach <- function() {
   # Core packages in the mediationverse
-  core <- c("medfit", "probmed", "RMediation", "medrobust")
+  core <- c("medfit", "probmed", "RMediation", "medrobust", "medsim")
 
   # Determine which packages need to be loaded
   to_load <- core[!is_attached(core)]

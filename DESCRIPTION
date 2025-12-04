@@ -20,17 +20,18 @@ BugReports: https://github.com/data-wise/mediationverse/issues
 Depends:
     R (>= 4.1.0)
 Imports:
-    cli,
-    rlang
+    cli
 Remotes:
     data-wise/medfit,
     data-wise/probmed,
-    data-wise/medrobust
+    data-wise/medrobust,
+    data-wise/medsim
 Suggests:
     medfit,
     probmed,
     RMediation,
     medrobust,
+    medsim,
     testthat (>= 3.0.0),
     knitr,
     rmarkdown,

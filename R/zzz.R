@@ -3,7 +3,7 @@
 .onAttach <- function(libname, pkgname) {
   # Get version information
   med_version <- utils::packageVersion("mediationverse")
-  core_packages <- c("medfit", "probmed", "RMediation", "medrobust")
+  core_packages <- c("medfit", "probmed", "RMediation", "medrobust", "medsim")
 
   # Try to attach core packages
   tryCatch(
@@ -12,7 +12,8 @@
       packageStartupMessage(
         "Some mediationverse packages could not be loaded.\n",
         "Please ensure all packages are installed:\n",
-        "  install.packages(c('medfit', 'probmed', 'RMediation', 'medrobust'))"
+        "  pak::pak(c('data-wise/medfit', 'data-wise/probmed',\n",
+        "             'RMediation', 'data-wise/medrobust', 'data-wise/medsim'))"
       )
     }
   )
@@ -22,25 +23,30 @@
 
   # Create startup message using cli if available
   if (requireNamespace("cli", quietly = TRUE)) {
+    tick <- cli::symbol$tick
     msg <- paste0(
       cli::rule(
         left = "Attaching packages",
         right = paste0("mediationverse ", med_version)
       ),
       "\n",
-      cli::symbol$tick, " medfit     ", versions["medfit"],
-      "     ", cli::symbol$tick, " probmed    ", versions["probmed"], "\n",
-      cli::symbol$tick, " RMediation ", versions["RMediation"],
-      "     ", cli::symbol$tick, " medrobust  ", versions["medrobust"], "\n",
+      tick, " medfit     ", versions["medfit"],
+      "   ", tick, " probmed    ", versions["probmed"], "\n",
+      tick, " RMediation ", versions["RMediation"],
+      "   ", tick, " medrobust  ", versions["medrobust"], "\n",
+      tick, " medsim     ", versions["medsim"], "\n",
       cli::rule()
     )
   } else {
     # Fallback message if cli is not available
     msg <- paste0(
-      "-- Attaching packages ---------------- mediationverse ", med_version, " --\n",
-      "+ medfit     ", versions["medfit"], "     + probmed    ", versions["probmed"], "\n",
-      "+ RMediation ", versions["RMediation"], "     + medrobust  ", versions["medrobust"], "\n",
-      "---------------------------------------------------------------"
+      "-- Attaching packages ----------- mediationverse ", med_version, " --\n",
+      "+ medfit     ", versions["medfit"],
+      "   + probmed    ", versions["probmed"], "\n",
+      "+ RMediation ", versions["RMediation"],
+      "   + medrobust  ", versions["medrobust"], "\n",
+      "+ medsim     ", versions["medsim"], "\n",
+      "-------------------------------------------------------------"
     )
   }
 
