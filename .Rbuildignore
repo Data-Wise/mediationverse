@@ -3,4 +3,5 @@
 ^docs$
 ^pkgdown$
 ^mediationverse\.code-workspace$
-
+^\.github$
+^GITHUB-SETUP\.md$
