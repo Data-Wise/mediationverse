@@ -21,7 +21,7 @@ home:
     ecosystem with a single library() call. Provides unified access to
     medfit, probmed, RMediation, medrobust, and medsim.
   sidebar:
-    structure: [links, license, citation, authors]
+    structure: [links, license, citation, authors, dev]
   links:
   - text: "Source Code"
     href: https://github.com/data-wise/mediationverse
