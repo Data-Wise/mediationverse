@@ -1,14 +1,8 @@
 # mediationverse: Ecosystem for Mediation Analysis in R
 
-A meta-package that loads the core packages in the mediation analysis
-ecosystem: 'medfit' (infrastructure), 'probmed' (probabilistic effect
-sizes), 'RMediation' (confidence intervals), and 'medrobust'
-(sensitivity analysis). This package simplifies installation and
-provides a unified entry point for mediation analysis in R. Inspired by
-the 'tidyverse' and 'easystats' ecosystems.
-
 The mediationverse is a collection of R packages for mediation analysis.
-This meta-package loads the core packages with a single command.
+This meta-package loads all core packages with a single
+[`library()`](https://rdrr.io/r/base/library.html) command.
 
 ## Details
 
@@ -16,7 +10,8 @@ This meta-package loads the core packages with a single command.
 
 The mediationverse includes the following packages:
 
-- **medfit**: Infrastructure for model fitting and extraction
+- **medfit**: Infrastructure for model fitting, extraction, and
+  bootstrap inference
 
 - **probmed**: Probabilistic effect size (P_med)
 
@@ -24,17 +19,31 @@ The mediationverse includes the following packages:
 
 - **medrobust**: Sensitivity analysis for unmeasured confounding
 
+- **medsim**: Simulation infrastructure for mediation research
+
 ### Installation
 
 Install all packages at once:
 
     install.packages("mediationverse")
 
+Or install development versions from GitHub:
+
+    pak::pak("data-wise/mediationverse")
+
 ### Usage
 
 Load all packages:
 
     library(mediationverse)
+
+Check installed packages:
+
+    mediationverse_packages()
+
+Update all packages:
+
+    mediationverse_update()
 
 ### Learn More
 
@@ -46,15 +55,9 @@ Load all packages:
 
 - medrobust: <https://data-wise.github.io/medrobust/>
 
+- medsim: <https://data-wise.github.io/medsim/>
+
 ## See also
-
-Useful links:
-
-- <https://github.com/data-wise/mediationverse>
-
-- <https://data-wise.github.io/mediationverse/>
-
-- Report bugs at <https://github.com/data-wise/mediationverse/issues>
 
 Useful links:
 

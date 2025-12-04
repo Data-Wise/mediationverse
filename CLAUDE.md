@@ -86,11 +86,12 @@ pkgdown::build_site()
 
 ### Planned
 
-- **`mediationverse_packages()`**: List installed ecosystem packages
-  with versions
-- **`mediationverse_update()`**: Update all packages to latest versions
-- **`mediationverse_conflicts()`**: Show function name conflicts between
-  packages
+- **[`mediationverse_packages()`](https://data-wise.github.io/mediationverse/reference/mediationverse_packages.md)**:
+  List installed ecosystem packages with versions
+- **[`mediationverse_update()`](https://data-wise.github.io/mediationverse/reference/mediationverse_update.md)**:
+  Update all packages to latest versions
+- **[`mediationverse_conflicts()`](https://data-wise.github.io/mediationverse/reference/mediationverse_conflicts.md)**:
+  Show function name conflicts between packages
 - **`mediationverse_logo()`**: ASCII art logo
 
 ## Package Loading Behavior
@@ -195,11 +196,17 @@ pkgdown website
 
 ### Next Steps
 
-Add `mediationverse_packages()` function
+Add
+[`mediationverse_packages()`](https://data-wise.github.io/mediationverse/reference/mediationverse_packages.md)
+function
 
-Add `mediationverse_update()` function
+Add
+[`mediationverse_update()`](https://data-wise.github.io/mediationverse/reference/mediationverse_update.md)
+function
 
-Add `mediationverse_conflicts()` function
+Add
+[`mediationverse_conflicts()`](https://data-wise.github.io/mediationverse/reference/mediationverse_conflicts.md)
+function
 
 Create getting started vignette
 
