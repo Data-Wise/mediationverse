@@ -120,7 +120,7 @@ Part of the **mediationverse** ecosystem for causal mediation analysis:
 
 ## Development Status
 
-**Current Phase**: Ecosystem development (Q4 2024 - Q1 2025)
+**Current Phase**: Ecosystem development (Q4 2025 - Q1 2026)
 
 medfit Phase 3 complete (S7 classes, extraction)
 
@@ -128,9 +128,11 @@ medsim core implementation complete
 
 mediationverse meta-package skeleton
 
+RMediation medfit integration (ci() for MediationData)
+
 medfit Phase 4 (model fitting)
 
-Package integrations
+probmed medfit integration
 
 CRAN submissions
 
@@ -200,3 +202,11 @@ Package-level documentation
   [`mediationverse-package`](https://data-wise.github.io/mediationverse/reference/mediationverse-package.md)
   : mediationverse: Ecosystem for Mediation Analysis in R
 
+# Articles
+
+### All vignettes
+
+- [Getting Started with
+  mediationverse](https://data-wise.github.io/mediationverse/articles/getting-started.md):
+- [Complete Mediation Analysis
+  Workflow](https://data-wise.github.io/mediationverse/articles/mediationverse-workflow.md):
