@@ -61,9 +61,9 @@
 <div id="claudemd-for-mediationverse-package" class="section level1">
 
 <p>This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.</p>
-<div class="section level2">
+<hr><div class="section level2">
 <h2 id="about-this-package">About This Package<a class="anchor" aria-label="anchor" href="#about-this-package"></a></h2>
-<p><strong>mediationverse</strong> is a meta-package that provides a unified entry point for the mediation analysis ecosystem in R. Similar to tidyverse for data science or easystats for statistical modeling, mediationverse loads all core packages with a single <code><a href="https://github.com/data-wise/mediationverse" class="external-link">library(mediationverse)</a></code> call.</p>
+<p><strong>mediationverse</strong> is a meta-package that provides a unified entry point for the mediation analysis ecosystem in R. Similar to tidyverse for data science, mediationverse loads all core packages with a single <code><a href="https://github.com/data-wise/mediationverse" class="external-link">library(mediationverse)</a></code> call.</p>
 <div class="section level3">
 <h3 id="core-mission">Core Mission<a class="anchor" aria-label="anchor" href="#core-mission"></a></h3>
 <p>Simplify installation and loading of the complete mediation analysis toolkit, ensuring users have access to all complementary packages for model fitting, effect sizes, confidence intervals, and sensitivity analysis.</p>
@@ -88,196 +88,81 @@
 </tr><tr class="odd"><td><strong>medsim</strong></td>
 <td>Simulation infrastructure</td>
 <td>Support</td>
-</tr></tbody></table></div>
+</tr></tbody></table><hr></div>
 </div>
 <div class="section level2">
 <h2 id="common-development-commands">Common Development Commands<a class="anchor" aria-label="anchor" href="#common-development-commands"></a></h2>
-<div class="section level3">
-<h3 id="package-building-and-checking">Package Building and Checking<a class="anchor" aria-label="anchor" href="#package-building-and-checking"></a></h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Install package dependencies</span></span>
+<code class="sourceCode R"><span><span class="co"># Install dependencies and check package</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_deps.html" class="external-link">install_deps</a></span><span class="op">(</span>dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Check package (standard R CMD check)</span></span>
 <span><span class="fu">rcmdcheck</span><span class="fu">::</span><span class="fu"><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck</a></span><span class="op">(</span>args <span class="op">=</span> <span class="st">"--no-manual"</span>, error_on <span class="op">=</span> <span class="st">"error"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Build package</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">build</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Install and reload during development</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">load_all</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a></h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Generate documentation from roxygen2 comments</span></span>
+<span><span class="co"># Development workflow</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">load_all</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">document</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Build pkgdown site</span></span>
 <span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">build_site</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
+<hr></div>
 <div class="section level2">
-<h2 id="coding-standards">Coding Standards<a class="anchor" aria-label="anchor" href="#coding-standards"></a></h2>
+<h2 id="code-architecture">Code Architecture<a class="anchor" aria-label="anchor" href="#code-architecture"></a></h2>
 <div class="section level3">
-<h3 id="r-version-and-style">R Version and Style<a class="anchor" aria-label="anchor" href="#r-version-and-style"></a></h3>
-<ul><li>
-<strong>Minimum R version</strong>: 4.1.0 (native pipe <code>|&gt;</code> support)</li>
-<li>
-<strong>Style</strong>: tidyverse style guide</li>
-<li>
-<strong>Roxygen2</strong>: Use roxygen2 for documentation</li>
-</ul></div>
-<div class="section level3">
-<h3 id="file-organization">File Organization<a class="anchor" aria-label="anchor" href="#file-organization"></a></h3>
-<pre><code>R/
-├── attach.R              # Package attachment logic
-├── conflicts.R           # Conflict resolution (planned)
-├── logo.R                # ASCII art logo (planned)
-├── mediationverse-package.R  # Package documentation
-├── update.R              # Update function (planned)
-└── zzz.R                 # .onAttach() startup hooks</code></pre>
+<h3 id="key-functions">Key Functions<a class="anchor" aria-label="anchor" href="#key-functions"></a></h3>
+<p><strong>Implemented:</strong> - <code>mediationverse_attach()</code>: Internal function to load core packages - <code>is_attached()</code>: Check if packages are attached - <code>.onAttach()</code>: Startup message with package versions</p>
+<p><strong>Planned:</strong> - <code><a href="reference/mediationverse_packages.html">mediationverse_packages()</a></code>: List installed ecosystem packages with versions - <code><a href="reference/mediationverse_update.html">mediationverse_update()</a></code>: Update all packages to latest versions - <code><a href="reference/mediationverse_conflicts.html">mediationverse_conflicts()</a></code>: Show function name conflicts - <code>mediationverse_logo()</code>: ASCII art logo</p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="key-functions">Key Functions<a class="anchor" aria-label="anchor" href="#key-functions"></a></h2>
 <div class="section level3">
-<h3 id="implemented">Implemented<a class="anchor" aria-label="anchor" href="#implemented"></a></h3>
-<ul><li>
-<strong><code>mediationverse_attach()</code></strong>: Internal function to load core packages</li>
-<li>
-<strong><code>is_attached()</code></strong>: Check if packages are attached</li>
-<li>
-<strong><code>package_version_string()</code></strong>: Get package versions</li>
-<li>
-<strong><code>.onAttach()</code></strong>: Startup message with package versions</li>
-</ul></div>
-<div class="section level3">
-<h3 id="planned">Planned<a class="anchor" aria-label="anchor" href="#planned"></a></h3>
-<ul><li>
-<strong><code><a href="reference/mediationverse_packages.html">mediationverse_packages()</a></code></strong>: List installed ecosystem packages with versions</li>
-<li>
-<strong><code><a href="reference/mediationverse_update.html">mediationverse_update()</a></code></strong>: Update all packages to latest versions</li>
-<li>
-<strong><code><a href="reference/mediationverse_conflicts.html">mediationverse_conflicts()</a></code></strong>: Show function name conflicts between packages</li>
-<li>
-<strong><code>mediationverse_logo()</code></strong>: ASCII art logo</li>
-</ul></div>
-</div>
-<div class="section level2">
-<h2 id="package-loading-behavior">Package Loading Behavior<a class="anchor" aria-label="anchor" href="#package-loading-behavior"></a></h2>
-<p>When <code><a href="https://github.com/data-wise/mediationverse" class="external-link">library(mediationverse)</a></code> is called:</p>
-<ol style="list-style-type: decimal"><li><p>Loads all core packages silently</p></li>
-<li>
-<p>Displays startup message with package versions:</p>
-<pre><code>── Attaching packages ──────────── mediationverse 0.0.0.9000 ──
-✔ medfit     0.1.0     ✔ probmed    0.1.0
-✔ RMediation 1.4.0     ✔ medrobust  0.1.0
-✔ medsim     0.1.0
-───────────────────────────────────────────────────────────────</code></pre>
-</li>
-<li><p>If packages are missing, displays installation instructions</p></li>
-</ol></div>
-<div class="section level2">
-<h2 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a></h2>
-<div class="section level3">
-<h3 id="imports-required">Imports (Required)<a class="anchor" aria-label="anchor" href="#imports-required"></a></h3>
-<ul><li>
-<strong>cli</strong>: Beautiful command line output for startup messages</li>
-</ul></div>
-<div class="section level3">
-<h3 id="suggests-core-packages">Suggests (Core Packages)<a class="anchor" aria-label="anchor" href="#suggests-core-packages"></a></h3>
-<ul><li>
-<strong>medfit</strong>: Foundation package</li>
-<li>
-<strong>probmed</strong>: P_med effect size</li>
-<li>
-<strong>RMediation</strong>: Confidence intervals (CRAN)</li>
-<li>
-<strong>medrobust</strong>: Sensitivity analysis</li>
-<li>
-<strong>medsim</strong>: Simulation infrastructure</li>
-</ul></div>
-<div class="section level3">
-<h3 id="remotes">Remotes<a class="anchor" aria-label="anchor" href="#remotes"></a></h3>
-<p>All development packages installed from GitHub:</p>
-<pre><code><span><span class="va">data</span><span class="op">-</span><span class="va">wise</span><span class="op">/</span><span class="va">medfit</span></span>
-<span><span class="va">data</span><span class="op">-</span><span class="va">wise</span><span class="op">/</span><span class="va">probmed</span></span>
-<span><span class="va">data</span><span class="op">-</span><span class="va">wise</span><span class="op">/</span><span class="va">medrobust</span></span>
-<span><span class="va">data</span><span class="op">-</span><span class="va">wise</span><span class="op">/</span><span class="va">medsim</span></span></code></pre>
-</div>
-</div>
-<div class="section level2">
-<h2 id="testing-strategy">Testing Strategy<a class="anchor" aria-label="anchor" href="#testing-strategy"></a></h2>
-<div class="section level3">
-<h3 id="unit-tests-should-cover">Unit Tests Should Cover<a class="anchor" aria-label="anchor" href="#unit-tests-should-cover"></a></h3>
-<ol style="list-style-type: decimal"><li>
-<strong>Package Loading</strong>
-<ul><li>All packages load without errors</li>
-<li>Startup message displays correctly</li>
-<li>Missing packages handled gracefully</li>
-</ul></li>
-<li>
-<strong>Utility Functions</strong>
-<ul><li>
-<code>is_attached()</code> correctly identifies loaded packages</li>
-<li>
-<code>package_version_string()</code> returns valid versions or “(not installed)”</li>
-</ul></li>
-<li>
-<strong>Conflict Detection</strong> (when implemented)
-<ul><li>Correctly identifies overlapping function names</li>
-<li>Suggests resolution strategies</li>
-</ul></li>
-</ol></div>
+<h3 id="package-loading-behavior">Package Loading Behavior<a class="anchor" aria-label="anchor" href="#package-loading-behavior"></a></h3>
+<p>When <code><a href="https://github.com/data-wise/mediationverse" class="external-link">library(mediationverse)</a></code> is called: 1. Loads all core packages silently 2. Displays startup message with package versions 3. If packages missing, displays installation instructions</p>
+<hr></div>
 </div>
 <div class="section level2">
 <h2 id="ecosystem-coordination">Ecosystem Coordination<a class="anchor" aria-label="anchor" href="#ecosystem-coordination"></a></h2>
 <p>mediationverse is the <strong>meta-package</strong> in the mediationverse ecosystem.</p>
 <div class="section level3">
-<h3 id="central-planning-documents">Central Planning Documents<a class="anchor" aria-label="anchor" href="#central-planning-documents"></a></h3>
-<p>All ecosystem-wide coordination is managed in <code>/Users/dt/mediation-planning/</code>:</p>
-<table class="table"><colgroup><col width="52%"><col width="47%"></colgroup><thead><tr class="header"><th>Document</th>
-<th>Purpose</th>
-</tr></thead><tbody><tr class="odd"><td><code>ECOSYSTEM-COORDINATION.md</code></td>
-<td>Version matrix, change propagation, release timeline</td>
-</tr><tr class="even"><td><code>MONTHLY-CHECKLIST.md</code></td>
-<td>Recurring ecosystem health checks</td>
-</tr><tr class="odd"><td><code>templates/README-template.md</code></td>
-<td>Standardized README structure</td>
-</tr><tr class="even"><td><code>templates/NEWS-template.md</code></td>
-<td>Standardized NEWS.md format</td>
-</tr></tbody></table></div>
+<h3 id="central-planning">Central Planning<a class="anchor" aria-label="anchor" href="#central-planning"></a></h3>
+<p>Ecosystem coordination managed in <code>/Users/dt/mediation-planning/</code>: - <code>ECOSYSTEM-COORDINATION.md</code> - Version matrix, release timeline - <code>MONTHLY-CHECKLIST.md</code> - Health checks</p>
+</div>
 <div class="section level3">
 <h3 id="package-repositories">Package Repositories<a class="anchor" aria-label="anchor" href="#package-repositories"></a></h3>
-<table class="table"><colgroup><col width="39%"><col width="34%"><col width="26%"></colgroup><thead><tr class="header"><th>Package</th>
+<table class="table"><colgroup><col width="28%"><col width="25%"><col width="28%"><col width="18%"></colgroup><thead><tr class="header"><th>Package</th>
 <th>GitHub</th>
+<th>Website</th>
 <th>CRAN</th>
 </tr></thead><tbody><tr class="odd"><td>mediationverse</td>
 <td><a href="https://github.com/data-wise/mediationverse" class="external-link">data-wise/mediationverse</a></td>
+<td><a href="https://data-wise.github.io/mediationverse/">Website</a></td>
 <td>Planned</td>
 </tr><tr class="even"><td>medfit</td>
 <td><a href="https://github.com/data-wise/medfit" class="external-link">data-wise/medfit</a></td>
+<td><a href="https://data-wise.github.io/medfit/" class="external-link">Website</a></td>
 <td>Planned</td>
 </tr><tr class="odd"><td>probmed</td>
 <td><a href="https://github.com/data-wise/probmed" class="external-link">data-wise/probmed</a></td>
+<td><a href="https://data-wise.github.io/probmed/" class="external-link">Website</a></td>
 <td>Planned</td>
 </tr><tr class="even"><td>RMediation</td>
 <td><a href="https://github.com/data-wise/rmediation" class="external-link">data-wise/rmediation</a></td>
-<td><a href="https://cran.r-project.org/package=RMediation" class="external-link">RMediation</a></td>
+<td><a href="https://data-wise.github.io/rmediation/" class="external-link">Website</a></td>
+<td><a href="https://cran.r-project.org/package=RMediation" class="external-link">CRAN</a></td>
 </tr><tr class="odd"><td>medrobust</td>
 <td><a href="https://github.com/data-wise/medrobust" class="external-link">data-wise/medrobust</a></td>
+<td><a href="https://data-wise.github.io/medrobust/" class="external-link">Website</a></td>
 <td>Planned</td>
 </tr><tr class="even"><td>medsim</td>
 <td><a href="https://github.com/data-wise/medsim" class="external-link">data-wise/medsim</a></td>
+<td><a href="https://data-wise.github.io/medsim/" class="external-link">Website</a></td>
 <td>Planned</td>
-</tr></tbody></table><p>See <a href="https://github.com/data-wise/medfit/blob/main/planning/ECOSYSTEM.md" class="external-link">Ecosystem Coordination</a> for guidelines.</p>
-</div>
+</tr></tbody></table></div>
+<div class="section level3">
+<h3 id="consistent-website-features">Consistent Website Features<a class="anchor" aria-label="anchor" href="#consistent-website-features"></a></h3>
+<p>All package websites should have: - <strong>Ecosystem dropdown menu</strong>: Links to all packages - <strong>Status menu</strong>: Dashboard, Roadmap, Contributing links - <strong>Consistent styling</strong>: Academic blue (#0054AD), Inter/Montserrat/Fira Code fonts - <strong>Standard badge order</strong>: CRAN (if applicable), Lifecycle, R-CMD-check, Website, R-hub, Codecov</p>
+<hr></div>
 </div>
 <div class="section level2">
 <h2 id="development-roadmap">Development Roadmap<a class="anchor" aria-label="anchor" href="#development-roadmap"></a></h2>
 <div class="section level3">
-<h3 id="current-status-v0009000">Current Status (v0.0.0.9000)<a class="anchor" aria-label="anchor" href="#current-status-v0009000"></a></h3>
+<h3 id="current-status">Current Status<a class="anchor" aria-label="anchor" href="#current-status"></a></h3>
 <ul class="task-list"><li><label><input type="checkbox" checked>Package skeleton</label></li>
 <li><label><input type="checkbox" checked>Basic attach functionality</label></li>
 <li><label><input type="checkbox" checked>Startup message with cli</label></li>
@@ -289,37 +174,9 @@
 <li><label><input type="checkbox">Add <code><a href="reference/mediationverse_update.html">mediationverse_update()</a></code> function</label></li>
 <li><label><input type="checkbox">Add <code><a href="reference/mediationverse_conflicts.html">mediationverse_conflicts()</a></code> function</label></li>
 <li><label><input type="checkbox">Create getting started vignette</label></li>
-<li><label><input type="checkbox">Add logo (hex sticker)</label></li>
-<li><label><input type="checkbox">Test with all packages installed</label></li>
 <li><label><input type="checkbox">CRAN submission (after all dependencies stable)</label></li>
-</ul></div>
+</ul><hr><p><strong>Last Updated</strong>: 2025-12-04</p>
 </div>
-<div class="section level2">
-<h2 id="inspiration">Inspiration<a class="anchor" aria-label="anchor" href="#inspiration"></a></h2>
-<p>This package is modeled after successful R meta-packages:</p>
-<ul><li>
-<strong>tidyverse</strong>: Data science ecosystem</li>
-<li>
-<strong>easystats</strong>: Statistical modeling ecosystem</li>
-<li>
-<strong>mlr3verse</strong>: Machine learning ecosystem</li>
-</ul></div>
-<div class="section level2">
-<h2 id="additional-resources">Additional Resources<a class="anchor" aria-label="anchor" href="#additional-resources"></a></h2>
-<div class="section level3">
-<h3 id="package-website">Package Website<a class="anchor" aria-label="anchor" href="#package-website"></a></h3>
-<ul><li>GitHub: <a href="https://github.com/data-wise/mediationverse" class="external-link uri">https://github.com/data-wise/mediationverse</a>
-</li>
-<li>Documentation: <a href="https://data-wise.github.io/mediationverse/" class="uri">https://data-wise.github.io/mediationverse/</a>
-</li>
-</ul></div>
-<div class="section level3">
-<h3 id="related-packages">Related Packages<a class="anchor" aria-label="anchor" href="#related-packages"></a></h3>
-<ul><li>tidyverse source: <a href="https://github.com/tidyverse/tidyverse" class="external-link uri">https://github.com/tidyverse/tidyverse</a>
-</li>
-<li>easystats source: <a href="https://github.com/easystats/easystats" class="external-link uri">https://github.com/easystats/easystats</a>
-</li>
-</ul></div>
 </div>
 </div>
 

@@ -216,7 +216,7 @@ sessionInfo()
     [1] stats     graphics  grDevices utils     datasets  methods   base
 
     loaded via a namespace (and not attached):
-     [1] compiler_4.5.2    fastmap_1.2.0     cli_3.6.5         tools_4.5.2
-     [5] htmltools_0.5.8.1 yaml_2.3.11       rmarkdown_2.30    knitr_1.50
-     [9] jsonlite_2.0.0    xfun_0.54         digest_0.6.39     rlang_1.1.6
-    [13] evaluate_1.0.5   
+     [1] compiler_4.5.2  fastmap_1.2.0   cli_3.6.5       tools_4.5.2
+     [5] htmltools_0.5.9 yaml_2.3.11     rmarkdown_2.30  knitr_1.50
+     [9] jsonlite_2.0.0  xfun_0.54       digest_0.6.39   rlang_1.1.6
+    [13] evaluate_1.0.5 
