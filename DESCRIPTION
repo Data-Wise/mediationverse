@@ -14,8 +14,8 @@ Description: A meta-package that loads the core packages in the mediation
     a unified entry point for mediation analysis in R. Inspired by the
     'tidyverse' and 'easystats' ecosystems.
 License: GPL (>= 3)
-URL: https://github.com/data-wise/mediationverse, https://data-wise.github.io/mediationverse/
-BugReports: https://github.com/data-wise/mediationverse/issues
+URL: https://Data-Wise.github.io/mediationverse/, https://github.com/Data-Wise/mediationverse
+BugReports: https://github.com/Data-Wise/mediationverse/issues
 Depends:
     R (>= 4.1.0)
 Imports:
