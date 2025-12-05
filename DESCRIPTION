@@ -2,7 +2,6 @@ Package: mediationverse
 Type: Package
 Title: Ecosystem for Mediation Analysis in R
 Version: 0.0.0.9000
-Date: 2025-12-03
 Authors@R: person("Davood", "Tofighi",
     email = "dtofighi@gmail.com",
     role = c("aut", "cre"),
