@@ -4,6 +4,9 @@
 
 ### Bug Fixes
 
+- Fixed badge URLs in README.md to use correct GitHub organization case
+  (`Data-Wise` instead of `data-wise`). Updated workflow badges and
+  ecosystem package table for consistency
 - Fixed pkgdown workflow failure caused by version constraint on
   RMediation in DESCRIPTION. Removed `(>= 1.4.0)` constraint as it
   conflicted with pak dependency resolution in CI environments
