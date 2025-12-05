@@ -5,9 +5,9 @@
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![Repo Status](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
-[![R-CMD-check](https://github.com/data-wise/mediationverse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/mediationverse/actions/workflows/R-CMD-check.yaml)
-[![Website Status](https://github.com/data-wise/mediationverse/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/data-wise/mediationverse/actions/workflows/pkgdown.yaml)
-[![R-hub](https://github.com/data-wise/mediationverse/actions/workflows/rhub.yaml/badge.svg)](https://github.com/data-wise/mediationverse/actions/workflows/rhub.yaml)
+[![R-CMD-check](https://github.com/Data-Wise/mediationverse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/mediationverse/actions/workflows/R-CMD-check.yaml)
+[![Website Status](https://github.com/Data-Wise/mediationverse/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Data-Wise/mediationverse/actions/workflows/pkgdown.yaml)
+[![R-hub](https://github.com/Data-Wise/mediationverse/actions/workflows/rhub.yaml/badge.svg)](https://github.com/Data-Wise/mediationverse/actions/workflows/rhub.yaml)
 <!-- badges: end -->
 
 
@@ -48,26 +48,26 @@ sensitivity <- sensitivity_analysis(med_data)
 
 ### Package Overview
 
-| Package | Status | Build | Website | Role |
-|---------|--------|-------|---------|------|
-| [**medfit**](https://data-wise.github.io/medfit/) | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/data-wise/medfit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/medfit/actions) | [![Docs](https://github.com/data-wise/medfit/actions/workflows/pkgdown.yaml/badge.svg)](https://data-wise.github.io/medfit/) | **Foundation** |
-| [**probmed**](https://data-wise.github.io/probmed/) | ![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg) | [![Build](https://github.com/data-wise/probmed/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/probmed/actions) | [![Docs](https://github.com/data-wise/probmed/actions/workflows/pkgdown.yaml/badge.svg)](https://data-wise.github.io/probmed/) | Effect Size |
-| [**RMediation**](https://cran.r-project.org/package=RMediation) | ![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg) | [![Build](https://github.com/data-wise/rmediation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/rmediation/actions) | [![Docs](https://github.com/data-wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg)](https://data-wise.github.io/rmediation/) | Confidence Intervals |
-| [**medrobust**](https://data-wise.github.io/medrobust/) | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/data-wise/medrobust/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/medrobust/actions) | [![Docs](https://github.com/data-wise/medrobust/actions/workflows/pkgdown.yaml/badge.svg)](https://data-wise.github.io/medrobust/) | Sensitivity Analysis |
-| [**medsim**](https://data-wise.github.io/medsim/) | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/data-wise/medsim/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/medsim/actions) | [![Docs](https://github.com/data-wise/medsim/actions/workflows/pkgdown.yaml/badge.svg)](https://data-wise.github.io/medsim/) | Simulation Infrastructure |
+| Package                                                         | Status                                                                       | Build                                                                                                                                             | Website                                                                                                                              | Role                      |
+| --------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------- |
+| [**medfit**](https://Data-Wise.github.io/medfit/)               | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/Data-Wise/medfit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medfit/actions)         | [![Docs](https://github.com/Data-Wise/medfit/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medfit/)         | **Foundation**            |
+| [**probmed**](https://Data-Wise.github.io/probmed/)             | ![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)  | [![Build](https://github.com/Data-Wise/probmed/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/probmed/actions)       | [![Docs](https://github.com/Data-Wise/probmed/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/probmed/)       | Effect Size               |
+| [**RMediation**](https://cran.r-project.org/package=RMediation) | ![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)  | [![Build](https://github.com/Data-Wise/rmediation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/rmediation/actions) | [![Docs](https://github.com/Data-Wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/rmediation/) | Confidence Intervals      |
+| [**medrobust**](https://Data-Wise.github.io/medrobust/)         | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/Data-Wise/medrobust/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medrobust/actions)   | [![Docs](https://github.com/Data-Wise/medrobust/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medrobust/)   | Sensitivity Analysis      |
+| [**medsim**](https://Data-Wise.github.io/medsim/)               | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/Data-Wise/medsim/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medsim/actions)         | [![Docs](https://github.com/Data-Wise/medsim/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medsim/)         | Simulation Infrastructure |
 
 ### Development Progress
 
 **Current Quarter (Q4 2025)**: Ecosystem Development Phase
 
-| Milestone | Status | Progress |
-|-----------|--------|----------|
-| medfit Phase 3 (Extraction) | ✅ Complete | 100% |
-| medfit Phase 4 (Model Fitting) | 🚧 In Progress | 60% |
-| probmed Integration | ⏳ Pending | 0% |
-| RMediation Integration | ⏳ Pending | 0% |
-| medsim Core Implementation | ✅ Complete | 100% |
-| Comprehensive Documentation | ✅ Complete | 100% |
+| Milestone                      | Status        | Progress |
+| ------------------------------ | ------------- | -------- |
+| medfit Phase 3 (Extraction)    | ✅ Complete    | 100%     |
+| medfit Phase 4 (Model Fitting) | 🚧 In Progress | 60%      |
+| probmed Integration            | ⏳ Pending     | 0%       |
+| RMediation Integration         | ⏳ Pending     | 0%       |
+| medsim Core Implementation     | ✅ Complete    | 100%     |
+| Comprehensive Documentation    | ✅ Complete    | 100%     |
 
 **Next Quarter (Q1 2026)**: Integration & Release
 
