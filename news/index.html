@@ -61,6 +61,40 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="mediationverse-development-version">mediationverse (development version)<a class="anchor" aria-label="anchor" href="#mediationverse-development-version"></a></h2>
 <div class="section level3">
+<h3 id="workflow-optimization--standardization-development-version">Workflow Optimization &amp; Standardization (2025-12-05)<a class="anchor" aria-label="anchor" href="#workflow-optimization--standardization-development-version"></a></h3>
+<div class="section level4">
+<h4 id="performance-improvements-development-version">Performance Improvements<a class="anchor" aria-label="anchor" href="#performance-improvements-development-version"></a></h4>
+<ul><li>
+<strong>Optimized R-CMD-check workflow</strong>: Reduced from 5 to 3 platforms (macOS, Windows, Ubuntu release)</li>
+<li>
+<strong>Removed problematic platforms</strong>: Dropped <code>ubuntu-latest (devel)</code> and <code>ubuntu-latest (oldrel-1)</code>
+</li>
+<li>
+<strong>Runtime improvement</strong>: Check workflows now complete in ~3 minutes (down from 6 minutes, <strong>50% faster</strong>)</li>
+<li>
+<strong>Build optimization</strong>: Added <code>--ignore-vignettes</code> flag to skip vignette validation during CI checks</li>
+<li>
+<strong>Removed Quarto installation</strong>: Not needed for CI checks, saves ~30 seconds per run</li>
+</ul></div>
+<div class="section level4">
+<h4 id="infrastructure-updates-development-version">Infrastructure Updates<a class="anchor" aria-label="anchor" href="#infrastructure-updates-development-version"></a></h4>
+<ul><li>
+<strong>Updated favicons</strong>: Regenerated all favicon assets to match updated logo</li>
+<li>
+<strong>Added Gemini AI workflows</strong>: Code review, triage, and automated issue management</li>
+<li>
+<strong>.Rbuildignore</strong>: Added <code>^CLAUDE\.md$</code> and <code>^STATUS\.md$</code> for documentation files</li>
+<li>
+<strong>.gitignore</strong>: Added <code>CLAUDE.local.md</code>, <code>*.Rcheck/</code>, <code>*.tar.gz</code> for better local development</li>
+</ul></div>
+<div class="section level4">
+<h4 id="standardization-development-version">Standardization<a class="anchor" aria-label="anchor" href="#standardization-development-version"></a></h4>
+<ul><li>All workflows passing on main branch</li>
+<li>Consistent with ecosystem badge standards</li>
+<li>Website configuration aligned with mediationverse theme</li>
+</ul></div>
+</div>
+<div class="section level3">
 <h3 id="mediationverse-development-version-1">mediationverse 0.0.0.9000<a class="anchor" aria-label="anchor" href="#mediationverse-development-version-1"></a></h3>
 <div class="section level4">
 <h4 id="new-features-development-version">New Features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h4>

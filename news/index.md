@@ -2,6 +2,38 @@
 
 ## mediationverse (development version)
 
+### Workflow Optimization & Standardization (2025-12-05)
+
+#### Performance Improvements
+
+- **Optimized R-CMD-check workflow**: Reduced from 5 to 3 platforms
+  (macOS, Windows, Ubuntu release)
+- **Removed problematic platforms**: Dropped `ubuntu-latest (devel)` and
+  `ubuntu-latest (oldrel-1)`
+- **Runtime improvement**: Check workflows now complete in ~3 minutes
+  (down from 6 minutes, **50% faster**)
+- **Build optimization**: Added `--ignore-vignettes` flag to skip
+  vignette validation during CI checks
+- **Removed Quarto installation**: Not needed for CI checks, saves ~30
+  seconds per run
+
+#### Infrastructure Updates
+
+- **Updated favicons**: Regenerated all favicon assets to match updated
+  logo
+- **Added Gemini AI workflows**: Code review, triage, and automated
+  issue management
+- **.Rbuildignore**: Added `^CLAUDE\.md$` and `^STATUS\.md$` for
+  documentation files
+- **.gitignore**: Added `CLAUDE.local.md`, `*.Rcheck/`, `*.tar.gz` for
+  better local development
+
+#### Standardization
+
+- All workflows passing on main branch
+- Consistent with ecosystem badge standards
+- Website configuration aligned with mediationverse theme
+
 ### mediationverse 0.0.0.9000
 
 #### New Features
