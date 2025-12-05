@@ -14,7 +14,18 @@
       "Bash(gh pr view:*)",
       "Bash(git checkout:*)",
       "Bash(git pull:*)",
-      "Bash(git merge:*)"
+      "Bash(git merge:*)",
+      "Bash(gh issue list:*)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "Bash(for repo in medfit probmed medrobust medsim)",
+      "Bash(do echo \"=== $repo ===\")",
+      "Bash(done)",
+      "Bash(gh repo view:*)",
+      "Bash(gh run watch:*)",
+      "Bash(ls:*)",
+      "Bash(xargs:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []
