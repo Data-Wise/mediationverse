@@ -23,7 +23,7 @@ A data frame with columns:
 
 - `installed`: Logical, whether package is installed
 
-- `version`: Package version (NA if not installed
+- `version`: Package version (NA if not installed)
 
 - `attached`: Logical, whether package is currently attached
 
