@@ -6,3 +6,5 @@
 .quarto
 docs
 mediationverse.code-workspace
+.gemini/
+gha-creds-*.json
