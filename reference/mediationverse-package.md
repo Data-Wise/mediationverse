@@ -29,7 +29,7 @@ Install all packages at once:
 
 Or install development versions from GitHub:
 
-    pak::pak("data-wise/mediationverse")
+    pak::pak("Data-Wise/mediationverse")
 
 ### Usage
 

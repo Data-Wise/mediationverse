@@ -4,6 +4,9 @@
 
 ### Bug Fixes
 
+- Fixed pkgdown workflow failure caused by version constraint on
+  RMediation in DESCRIPTION. Removed `(>= 1.4.0)` constraint as it
+  conflicted with pak dependency resolution in CI environments
 - Fixed documentation typo in
   [`mediationverse_packages()`](https://data-wise.github.io/mediationverse/reference/mediationverse_packages.md)
   where the `@return` section had a missing closing parenthesis in the
