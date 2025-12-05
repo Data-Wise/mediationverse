@@ -5,3 +5,5 @@
 ^mediationverse\.code-workspace$
 ^\.github$
 ^GITHUB-SETUP\.md$
+^\.claude$
+^vignettes/\.quarto$
