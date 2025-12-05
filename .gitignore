@@ -8,3 +8,8 @@ docs
 mediationverse.code-workspace
 .gemini/
 gha-creds-*.json
+
+# Claude Code local configuration (don't commit personal settings)
+CLAUDE.local.md
+*.Rcheck/
+*.tar.gz

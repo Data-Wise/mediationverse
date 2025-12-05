@@ -1,0 +1,41 @@
+{
+  "allowedTools": [
+    "Edit",
+    "Bash(R -e:*)",
+    "Bash(Rscript:*)",
+    "Bash(devtools::*)",
+    "Bash(testthat::*)",
+    "Bash(git add:*)",
+    "Bash(git commit:*)",
+    "Bash(git push:*)",
+    "Bash(git checkout:*)",
+    "Bash(git branch:*)",
+    "Bash(git status:*)",
+    "Bash(git diff:*)",
+    "Bash(git log:*)",
+    "Bash(git worktree:*)",
+    "Bash(gh issue:*)",
+    "Bash(gh pr:*)",
+    "Bash(covr::*)",
+    "Bash(styler::*)",
+    "Bash(lintr::*)",
+    "Bash(pkgdown::*)",
+    "Bash(goodpractice::*)",
+    "Bash(spelling::*)"
+  ],
+  "denyOverrides": [
+    "Bash(rm -rf:*)",
+    "Bash(sudo:*)"
+  ],
+  "contextOptimization": {
+    "excludePaths": [
+      ".Rproj.user/",
+      ".Rhistory",
+      ".RData",
+      "*.Rcheck/",
+      "docs/",
+      "*.tar.gz",
+      "*.pdf"
+    ]
+  }
+}

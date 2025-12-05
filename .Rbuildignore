@@ -7,3 +7,5 @@
 ^GITHUB-SETUP\.md$
 ^\.claude$
 ^vignettes/\.quarto$
+^CLAUDE\.md$
+^STATUS\.md$

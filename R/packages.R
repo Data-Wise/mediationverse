@@ -21,7 +21,7 @@ mediationverse_packages <- function(include_self = TRUE) {
   core <- c("medfit", "probmed", "RMediation", "medrobust", "medsim")
 
 
-if (include_self) {
+  if (include_self) {
     core <- c("mediationverse", core)
   }
 

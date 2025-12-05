@@ -84,7 +84,6 @@ mediationverse_update <- function(packages = NULL, ...) {
     }
 
     pak::pak(specs, ...)
-
   } else {
     # Fall back to remotes/install.packages
     if (requireNamespace("cli", quietly = TRUE)) {
@@ -102,7 +101,8 @@ mediationverse_update <- function(packages = NULL, ...) {
     if (length(github_to_update) > 0) {
       if (!requireNamespace("remotes", quietly = TRUE)) {
         stop("Package 'remotes' required. Install with: install.packages('remotes')",
-             call. = FALSE)
+          call. = FALSE
+        )
       }
       for (pkg in github_to_update) {
         remotes::install_github(github_pkgs[pkg], ...)
