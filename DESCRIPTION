@@ -24,7 +24,7 @@ Imports:
     medsim,
     medrobust,
     probmed,
-    RMediation (>= 1.4.0)
+    RMediation
 Remotes:
     Data-Wise/medfit,
     Data-Wise/medsim,
