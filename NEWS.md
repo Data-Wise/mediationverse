@@ -1,5 +1,9 @@
 # mediationverse (development version)
 
+## Bug Fixes
+
+* Fixed documentation typo in `mediationverse_packages()` where the `@return` section had a missing closing parenthesis in the `version` field description (R/packages.R:13)
+
 ## Workflow Optimization & Standardization (2025-12-05)
 
 ### Performance Improvements

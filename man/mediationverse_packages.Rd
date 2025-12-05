@@ -15,7 +15,7 @@ A data frame with columns:
 \itemize{
 \item \code{package}: Package name
 \item \code{installed}: Logical, whether package is installed
-\item \code{version}: Package version (NA if not installed
+\item \code{version}: Package version (NA if not installed)
 \item \code{attached}: Logical, whether package is currently attached
 }
 }

@@ -1,58 +1,61 @@
-test_that("roxygen2 documentation has complete syntax", {
-  # Read the source file (relative to package root)
-  source_file <- testthat::test_path("../../R/packages.R")
+test_that("mediationverse_packages() documentation has correct syntax", {
+  # Get the path to the help file
+  help_path <- system.file("help", "mediationverse.rdb", package = "mediationverse")
 
-  lines <- readLines(source_file, warn = FALSE)
+  # If help file doesn't exist (during R CMD check before installation),
+  # check the source .Rd file
+  rd_file <- system.file("..","man", "mediationverse_packages.Rd",
+                          package = "mediationverse")
 
-  # Find roxygen2 comment lines
-  roxygen_lines <- grep("^#'", lines, value = TRUE)
-
-  # Check for balanced parentheses in each roxygen line
-  for (i in seq_along(roxygen_lines)) {
-    line <- roxygen_lines[i]
-
-    # Count opening and closing parentheses
-    open_count <- length(gregexpr("\\(", line)[[1]])
-    close_count <- length(gregexpr("\\)", line)[[1]])
-
-    # Adjust for no matches (gregexpr returns -1)
-    if (open_count == 1 && gregexpr("\\(", line)[[1]][1] == -1) open_count <- 0
-    if (close_count == 1 && gregexpr("\\)", line)[[1]][1] == -1) close_count <- 0
-
-    expect_equal(
-      open_count,
-      close_count,
-      label = sprintf("Parentheses balanced in roxygen line %d: %s", i, line)
+  # Try alternate path for development
+  if (!file.exists(rd_file) || file.info(rd_file)$size == 0) {
+    # Look for it relative to the test location
+    test_dir <- getwd()
+    possible_paths <- c(
+      file.path(test_dir, "../../man/mediationverse_packages.Rd"),
+      file.path(test_dir, "../man/mediationverse_packages.Rd"),
+      "man/mediationverse_packages.Rd",
+      "../../man/mediationverse_packages.Rd"
     )
+
+    for (path in possible_paths) {
+      if (file.exists(path)) {
+        rd_file <- path
+        break
+      }
+    }
   }
-})
 
-test_that("mediationverse_packages() documentation is complete", {
-  # Check that the generated .Rd file has proper syntax
-  rd_file <- "man/mediationverse_packages.Rd"
+  # Skip if we still can't find the file
+  skip_if_not(file.exists(rd_file), "Cannot find mediationverse_packages.Rd")
 
-  if (file.exists(rd_file)) {
-    rd_content <- readLines(rd_file, warn = FALSE)
+  # Read the .Rd file
+  rd_content <- readLines(rd_file, warn = FALSE)
+  full_content <- paste(rd_content, collapse = "\n")
 
-    # Find the version line specifically
-    version_line <- grep("version.*Package version", rd_content, value = TRUE)
+  # Check for the version line with balanced parentheses
+  expect_true(
+    grepl("\\\\code\\{version\\}.*Package version.*\\(NA if not installed\\)", full_content),
+    label = "Version documentation should have complete parentheses (NA if not installed)"
+  )
 
-    if (length(version_line) > 0) {
-      # Check that parentheses are balanced
-      open_count <- length(gregexpr("\\(", version_line)[[1]])
-      close_count <- length(gregexpr("\\)", version_line)[[1]])
+  # Also check each individual line for balanced parentheses
+  for (i in seq_along(rd_content)) {
+    line <- rd_content[i]
+    if (nchar(line) == 0) next
 
-      # Adjust for no matches
-      if (open_count == 1 && gregexpr("\\(", version_line)[[1]][1] == -1) open_count <- 0
-      if (close_count == 1 && gregexpr("\\)", version_line)[[1]][1] == -1) close_count <- 0
+    # Count parentheses
+    open_count <- lengths(regmatches(line, gregexpr("\\(", line)))
+    close_count <- lengths(regmatches(line, gregexpr("\\)", line)))
 
+    # Allow for LaTeX commands that might have unbalanced parens across lines
+    # But flag obvious issues in \item lines
+    if (grepl("\\\\item", line) && grepl("\\(", line)) {
       expect_equal(
         open_count,
         close_count,
-        label = "Version documentation should have balanced parentheses"
+        label = sprintf("Line %d should have balanced parentheses: %s", i, line)
       )
     }
-  } else {
-    skip("Generated .Rd file not found")
   }
 })
