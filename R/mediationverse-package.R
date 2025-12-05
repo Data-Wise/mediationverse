@@ -24,7 +24,7 @@
 #'
 #' Or install development versions from GitHub:
 #' ```r
-#' pak::pak("data-wise/mediationverse")
+#' pak::pak("Data-Wise/mediationverse")
 #' ```
 #'
 #' ## Usage
@@ -54,6 +54,12 @@
 #'
 #' @keywords internal
 "_PACKAGE"
+
+# Core packages are declared in Imports to ensure they're installed
+# with mediationverse, but are attached via library() calls in .onAttach()
+# rather than imported with :: or @importFrom. This is the standard
+# meta-package pattern (see tidyverse). The R CMD check NOTE about
+# "Namespaces in Imports field not imported from" is expected and harmless.
 
 ## usethis namespace: start
 ## usethis namespace: end

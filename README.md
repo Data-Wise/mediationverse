@@ -162,13 +162,13 @@ The mediationverse follows a **modular architecture** inspired by [tidyverse](ht
 
 ```r
 # Install all packages
-pak::pak("data-wise/mediationverse")
+pak::pak("Data-Wise/mediationverse")
 
 # Or install individually
-pak::pak("data-wise/medfit")
-pak::pak("data-wise/probmed")
-pak::pak("data-wise/medrobust")
-pak::pak("data-wise/medsim")
+pak::pak("Data-Wise/medfit")
+pak::pak("Data-Wise/probmed")
+pak::pak("Data-Wise/medrobust")
+pak::pak("Data-Wise/medsim")
 
 # RMediation from CRAN
 install.packages("RMediation")

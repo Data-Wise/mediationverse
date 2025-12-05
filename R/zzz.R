@@ -12,8 +12,8 @@
       packageStartupMessage(
         "Some mediationverse packages could not be loaded.\n",
         "Please ensure all packages are installed:\n",
-        "  pak::pak(c('data-wise/medfit', 'data-wise/probmed',\n",
-        "             'RMediation', 'data-wise/medrobust', 'data-wise/medsim'))"
+        "  pak::pak(c('Data-Wise/medfit', 'Data-Wise/probmed',\n",
+        "             'RMediation', 'Data-Wise/medrobust', 'Data-Wise/medsim'))"
       )
     }
   )

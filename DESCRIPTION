@@ -19,27 +19,28 @@ BugReports: https://github.com/data-wise/mediationverse/issues
 Depends:
     R (>= 4.1.0)
 Imports:
-    cli
-Remotes:
-    data-wise/medfit,
-    data-wise/probmed,
-    data-wise/medrobust,
-    data-wise/medsim
-Suggests:
+    cli,
     medfit,
-    probmed,
-    RMediation,
-    medrobust,
     medsim,
+    medrobust,
+    probmed,
+    RMediation (>= 1.4.0)
+Remotes:
+    Data-Wise/medfit,
+    Data-Wise/medsim,
+    Data-Wise/medrobust,
+    Data-Wise/probmed
+Suggests:
+    knitr,
     lavaan,
     pak,
     quarto,
     remotes,
-    testthat (>= 3.0.0),
-    knitr,
     rmarkdown,
-    pkgdown,
-    rprojroot
+    rprojroot,
+    testthat (>= 3.0.0)
+Config/Needs/website:
+    pkgdown
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3

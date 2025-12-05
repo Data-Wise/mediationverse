@@ -31,7 +31,7 @@ Install all packages at once:
 
 Or install development versions from GitHub:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{pak::pak("data-wise/mediationverse")
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{pak::pak("Data-Wise/mediationverse")
 }\if{html}{\out{</div>}}
 }
 
