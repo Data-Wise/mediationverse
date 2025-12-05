@@ -180,7 +180,7 @@ med_data <- MediationData(
 ## Next Steps
 
 - Read the [mediationverse
-  Workflow](https://data-wise.github.io/mediationverse/articles/mediationverse-workflow.md)
+  Workflow](https://Data-Wise.github.io/mediationverse/articles/mediationverse-workflow.md)
   article for a complete analysis example
 - Explore individual package documentation:
   - [medfit](https://data-wise.github.io/medfit/)

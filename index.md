@@ -296,7 +296,7 @@ branch from `dev` 3. Make your changes with tests 4. Submit a pull
 request to `dev`
 
 See
-[CONTRIBUTING.md](https://data-wise.github.io/mediationverse/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://Data-Wise.github.io/mediationverse/CONTRIBUTING.md)
 for detailed guidelines.
 
 ## Citation

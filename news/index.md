@@ -11,7 +11,7 @@
   RMediation in DESCRIPTION. Removed `(>= 1.4.0)` constraint as it
   conflicted with pak dependency resolution in CI environments
 - Fixed documentation typo in
-  [`mediationverse_packages()`](https://data-wise.github.io/mediationverse/reference/mediationverse_packages.md)
+  [`mediationverse_packages()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_packages.md)
   where the `@return` section had a missing closing parenthesis in the
   `version` field description (R/packages.R:13)
 
@@ -52,11 +52,11 @@
 #### New Features
 
 - Initial package skeleton with core functionality
-- [`mediationverse_packages()`](https://data-wise.github.io/mediationverse/reference/mediationverse_packages.md) -
+- [`mediationverse_packages()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_packages.md) -
   List installed ecosystem packages with versions
-- [`mediationverse_update()`](https://data-wise.github.io/mediationverse/reference/mediationverse_update.md) -
+- [`mediationverse_update()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_update.md) -
   Update all ecosystem packages from GitHub/CRAN
-- [`mediationverse_conflicts()`](https://data-wise.github.io/mediationverse/reference/mediationverse_conflicts.md) -
+- [`mediationverse_conflicts()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_conflicts.md) -
   Detect and display function name conflicts
 - Startup message displays attached packages when loading mediationverse
 
