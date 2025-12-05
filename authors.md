@@ -10,7 +10,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/data-wise/mediationverse/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/data-wise/mediationverse/blob/dev/DESCRIPTION)
 
 Tofighi D (2025). *mediationverse: Ecosystem for Mediation Analysis in
 R*. R package version 0.0.0.9000,
