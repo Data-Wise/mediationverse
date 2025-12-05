@@ -28,9 +28,9 @@ Using `medsim`, we generate data with known population parameters:
 
 ``` r
 # Population parameters
-a_true <- 0.5    # X -> M effect
-b_true <- 0.4    # M -> Y effect
-c_prime_true <- 0.2  # X -> Y direct effect
+a_true <- 0.5 # X -> M effect
+b_true <- 0.4 # M -> Y effect
+c_prime_true <- 0.2 # X -> Y direct effect
 
 # True indirect effect
 indirect_true <- a_true * b_true
@@ -146,7 +146,7 @@ Assess robustness to unmeasured confounding:
 # Compute sensitivity bounds
 sens_bounds <- sensitivity_bounds(
   med_data,
-  rho_range = c(-0.5, 0.5)  # Range of confounding
+  rho_range = c(-0.5, 0.5) # Range of confounding
 )
 
 print(sens_bounds)
@@ -173,17 +173,19 @@ print(boot_result)
 
 # Access bootstrap distribution
 hist(boot_result@boot_estimates,
-     main = "Bootstrap Distribution of Indirect Effect",
-     xlab = "Indirect Effect (a * b)",
-     col = "steelblue",
-     border = "white")
+  main = "Bootstrap Distribution of Indirect Effect",
+  xlab = "Indirect Effect (a * b)",
+  col = "steelblue",
+  border = "white"
+)
 abline(v = indirect_true, col = "red", lwd = 2, lty = 2)
 abline(v = boot_result@estimate, col = "blue", lwd = 2)
 legend("topright",
-       legend = c("True value", "Estimate"),
-       col = c("red", "blue"),
-       lwd = 2,
-       lty = c(2, 1))
+  legend = c("True value", "Estimate"),
+  col = c("red", "blue"),
+  lwd = 2,
+  lty = c(2, 1)
+)
 ```
 
 ## Complete Results Summary
@@ -252,14 +254,14 @@ The mediationverse also supports structural equation models:
 library(lavaan)
 
 # Specify mediation model
-model <- '
+model <- "
   # Regressions
   M ~ a*X
   Y ~ b*M + c*X
 
   # Indirect effect
   indirect := a*b
-'
+"
 
 # Fit model
 fit_lavaan <- sem(model, data = sim_data)
