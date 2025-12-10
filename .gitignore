@@ -13,3 +13,6 @@ gha-creds-*.json
 CLAUDE.local.md
 *.Rcheck/
 *.tar.gz
+altdoc/freeze.rds
+_quarto/*
+!_quarto/_freeze/

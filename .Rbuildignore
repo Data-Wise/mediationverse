@@ -9,3 +9,5 @@
 ^vignettes/\.quarto$
 ^CLAUDE\.md$
 ^STATUS\.md$
+^altdoc$
+^_quarto$
