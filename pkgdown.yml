@@ -1,12 +1,8 @@
-pandoc: 3.1.11
-pkgdown: 2.2.0
+altdoc: 0.7.0
+pandoc: 3.1.3
+pkgdown: 2.1.3
 pkgdown_sha: ~
-articles:
-  contributing: contributing.html
-  getting-started: getting-started.html
-  mediationverse-workflow: mediationverse-workflow.html
-  roadmap: roadmap.html
-last_built: 2025-12-05T20:31Z
+last_built: 2025-12-10T02:32:02+0000
 urls:
-  reference: https://Data-Wise.github.io/mediationverse/reference
-  article: https://Data-Wise.github.io/mediationverse/articles
+  reference: https://Data-Wise.github.io/mediationverse/man
+  article: https://Data-Wise.github.io/mediationverse/vignettes
