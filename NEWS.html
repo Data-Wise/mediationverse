@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -221,6 +256,57 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="mediationverse-development-version" class="level1">
 <h1>mediationverse (development version)</h1>
+<section id="major-changes-2025-12-15" class="level2">
+<h2 class="anchored" data-anchor-id="major-changes-2025-12-15">Major Changes (2025-12-15)</h2>
+<section id="selective-loading-strategy-v0.1.0-preparation" class="level3">
+<h3 class="anchored" data-anchor-id="selective-loading-strategy-v0.1.0-preparation">Selective Loading Strategy (v0.1.0 preparation)</h3>
+<p><strong>Breaking Change</strong>: mediationverse now uses <strong>selective loading</strong> - only <code>medfit</code> (foundation package) is loaded by default. Other packages must be loaded explicitly.</p>
+<p><strong>Why this change?</strong> - Clean namespace with minimal function conflicts - Users load only packages they need - Explicit &gt; implicit (better code clarity) - Coordinated with medfit ecosystem integration</p>
+<p><strong>Migration</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OLD behavior (v0.0.x)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mediationverse)  <span class="co"># Loaded all 5 packages</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># NEW behavior (v0.1.0+)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mediationverse)  <span class="co"># Loads only medfit</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(probmed)         <span class="co"># Load explicitly as needed</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RMediation)      <span class="co"># Load explicitly as needed</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>New startup message</strong>:</p>
+<pre><code>── Attaching mediationverse 0.0.0.9000 ──
+✔ medfit 0.1.0 (foundation package)
+ℹ Use library(probmed) for P_med effect size
+ℹ Use library(RMediation) for DOP/MBCO inference
+ℹ Use library(medrobust) for sensitivity analysis
+ℹ Use library(medsim) for simulation utilities</code></pre>
+</section>
+<section id="documentation-improvements" class="level3">
+<h3 class="anchored" data-anchor-id="documentation-improvements">Documentation Improvements</h3>
+<ul>
+<li><strong>Architecture diagrams</strong>: Added comprehensive ecosystem architecture and data flow diagrams to README</li>
+<li><strong>Vignettes updated</strong>: All vignettes now demonstrate selective loading pattern
+<ul>
+<li><code>getting-started.qmd</code>: Updated with selective loading explanation and examples</li>
+<li><code>mediationverse-workflow.qmd</code>: Complete workflow showing explicit package loading</li>
+</ul></li>
+<li><strong>Testing documentation</strong>: Added <code>SELECTIVE-LOADING-TEST.md</code> with comprehensive test results</li>
+</ul>
+</section>
+<section id="implementation" class="level3">
+<h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
+<ul>
+<li><code>R/attach.R</code>: Refactored to load only medfit by default</li>
+<li><code>R/zzz.R</code>: Updated <code>.onAttach()</code> with informative startup message</li>
+<li>All utility functions (<code>mediationverse_packages()</code>, <code>mediationverse_conflicts()</code>) tested and verified</li>
+</ul>
+</section>
+<section id="coordination" class="level3">
+<h3 class="anchored" data-anchor-id="coordination">Coordination</h3>
+<ul>
+<li>Aligned with medfit COORDINATION-BRAINSTORM.md (Option 2 strategy)</li>
+<li>Ready for medfit v0.1.0 integration (ETA Dec 21, 2025)</li>
+<li>Progress: 85% complete (waiting on medfit stabilization)</li>
+</ul>
+</section>
+</section>
 <section id="bug-fixes" class="level2">
 <h2 class="anchored" data-anchor-id="bug-fixes">Bug Fixes</h2>
 <ul>

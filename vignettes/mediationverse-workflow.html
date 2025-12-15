@@ -285,16 +285,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>The mediationverse uses <strong>selective loading</strong>: only <code>medfit</code> (foundation) is loaded by default. We’ll load additional packages as needed throughout the workflow.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mediationverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2025</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load foundation package</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mediationverse)  <span class="co"># Loads medfit automatically</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages for this workflow</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(medsim)       <span class="co"># For data simulation</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(probmed)      <span class="co"># For P_med effect size</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RMediation)   <span class="co"># For confidence intervals</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(medrobust)    <span class="co"># For sensitivity analysis</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2025</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="step-1-simulate-data" class="level2">
 <h2 class="anchored" data-anchor-id="step-1-simulate-data">Step 1: Simulate Data</h2>
-<p>Using <code>medsim</code>, we generate data with known population parameters:</p>
+<p>Using <code>medsim</code> (already loaded), we generate data with known population parameters:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Population parameters</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>a_true <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="co"># X -&gt; M effect</span></span>
@@ -356,7 +364,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="step-4-confidence-intervals-rmediation" class="level2">
 <h2 class="anchored" data-anchor-id="step-4-confidence-intervals-rmediation">Step 4: Confidence Intervals (RMediation)</h2>
-<p>Use <code>RMediation</code> to compute confidence intervals for the indirect effect:</p>
+<p>Use <code>RMediation</code> (already loaded) to compute confidence intervals for the indirect effect:</p>
 <section id="distribution-of-product-method" class="level3">
 <h3 class="anchored" data-anchor-id="distribution-of-product-method">Distribution of Product Method</h3>
 <p>The most accurate method for normal theory CIs:</p>
@@ -390,7 +398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="step-5-probabilistic-effect-size-probmed" class="level2">
 <h2 class="anchored" data-anchor-id="step-5-probabilistic-effect-size-probmed">Step 5: Probabilistic Effect Size (probmed)</h2>
-<p>Compute P_med, the probability of a positive indirect effect:</p>
+<p>Compute P_med (using <code>probmed</code> already loaded), the probability of a positive indirect effect:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pmed_result <span class="ot">&lt;-</span> <span class="fu">compute_pmed</span>(med_data)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pmed_result)</span>
@@ -403,7 +411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="step-6-sensitivity-analysis-medrobust" class="level2">
 <h2 class="anchored" data-anchor-id="step-6-sensitivity-analysis-medrobust">Step 6: Sensitivity Analysis (medrobust)</h2>
-<p>Assess robustness to unmeasured confounding:</p>
+<p>Assess robustness to unmeasured confounding (using <code>medrobust</code> already loaded):</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sensitivity bounds</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sens_bounds <span class="ot">&lt;-</span> <span class="fu">sensitivity_bounds</span>(</span>
@@ -555,7 +563,7 @@ attached base packages:
 
 loaded via a namespace (and not attached):
  [1] compiler_4.5.2  fastmap_1.2.0   cli_3.6.5       tools_4.5.2    
- [5] htmltools_0.5.9 yaml_2.3.11     bspm_0.5.7      rmarkdown_2.30 
+ [5] htmltools_0.5.9 yaml_2.3.12     bspm_0.5.7      rmarkdown_2.30 
  [9] knitr_1.50      jsonlite_2.0.0  xfun_0.54       digest_0.6.39  
 [13] rlang_1.1.6     evaluate_1.0.5 </code></pre>
 </div>
