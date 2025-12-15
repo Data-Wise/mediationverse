@@ -1,5 +1,58 @@
 # mediationverse (development version)
 
+## Major Changes (2025-12-15)
+
+### Selective Loading Strategy (v0.1.0 preparation)
+
+**Breaking Change**: mediationverse now uses **selective loading** - only `medfit` (foundation package) is loaded by default. Other packages must be loaded explicitly.
+
+**Why this change?**
+- Clean namespace with minimal function conflicts
+- Users load only packages they need
+- Explicit > implicit (better code clarity)
+- Coordinated with medfit ecosystem integration
+
+**Migration**:
+```r
+# OLD behavior (v0.0.x)
+library(mediationverse)  # Loaded all 5 packages
+
+# NEW behavior (v0.1.0+)
+library(mediationverse)  # Loads only medfit
+library(probmed)         # Load explicitly as needed
+library(RMediation)      # Load explicitly as needed
+```
+
+**New startup message**:
+```
+── Attaching mediationverse 0.0.0.9000 ──
+✔ medfit 0.1.0 (foundation package)
+ℹ Use library(probmed) for P_med effect size
+ℹ Use library(RMediation) for DOP/MBCO inference
+ℹ Use library(medrobust) for sensitivity analysis
+ℹ Use library(medsim) for simulation utilities
+```
+
+### Documentation Improvements
+
+* **Architecture diagrams**: Added comprehensive ecosystem architecture and data flow diagrams to README
+* **Vignettes updated**: All vignettes now demonstrate selective loading pattern
+  - `getting-started.qmd`: Updated with selective loading explanation and examples
+  - `mediationverse-workflow.qmd`: Complete workflow showing explicit package loading
+* **Testing documentation**: Added `SELECTIVE-LOADING-TEST.md` with comprehensive test results
+
+### Implementation
+
+* `R/attach.R`: Refactored to load only medfit by default
+* `R/zzz.R`: Updated `.onAttach()` with informative startup message
+* All utility functions (`mediationverse_packages()`, `mediationverse_conflicts()`) tested and verified
+
+### Coordination
+
+* Aligned with medfit COORDINATION-BRAINSTORM.md (Option 2 strategy)
+* Ready for medfit v0.1.0 integration (ETA Dec 21, 2025)
+* Progress: 85% complete (waiting on medfit stabilization)
+
 ## Bug Fixes
 
 * Fixed badge URLs in README.md to use correct GitHub organization case (`Data-Wise` instead of `data-wise`). Updated workflow badges and ecosystem package table for consistency

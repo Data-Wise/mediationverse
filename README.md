@@ -27,8 +27,11 @@ The **mediationverse** is a collection of R packages for mediation analysis, pro
 # Install mediationverse
 pak::pak("data-wise/mediationverse")
 
-# Load all packages at once
-library(mediationverse)
+# Load foundation package + packages you need
+library(mediationverse)  # Loads medfit (foundation)
+library(probmed)         # For P_med effect size
+library(RMediation)      # For confidence intervals
+library(medrobust)       # For sensitivity analysis
 
 # Fit mediation models
 fit_m <- lm(M ~ X + C, data = mydata)
@@ -78,25 +81,84 @@ sensitivity <- sensitivity_analysis(med_data)
 
 ## Package Ecosystem
 
-The mediationverse follows a **modular architecture** inspired by [tidyverse](https://www.tidyverse.org/) and [easystats](https://easystats.github.io/easystats/):
+The mediationverse follows a **modular architecture** with **selective loading** inspired by [tidyverse](https://www.tidyverse.org/) and [easystats](https://easystats.github.io/easystats/):
+
+### Architecture Diagram
 
 ```
-                    ┌─────────────┐
-                    │   medfit    │
-                    │ (Foundation)│
-                    └──────┬──────┘
-                           │
-            ┌──────────────┼──────────────┐
-            │              │              │
-      ┌─────▼─────┐  ┌────▼────┐  ┌──────▼──────┐
-      │  probmed  │  │RMediation│  │  medrobust  │
-      │   (P_med) │  │(DOP,MBCO)│  │(Sensitivity)│
-      └───────────┘  └─────────┘  └─────────────┘
-                           │
-                    ┌──────▼──────┐
-                    │   medsim    │
-                    │ (Simulation)│
-                    └─────────────┘
+┌──────────────────────────────────────────────────────────────────────┐
+│                        mediationverse                                │
+│                      (Meta-Package Loader)                           │
+│                                                                      │
+│  library(mediationverse)  →  Loads only medfit (foundation)         │
+│  library(probmed)         →  Explicit loading for effect sizes       │
+│  library(RMediation)      →  Explicit loading for CIs                │
+│  library(medrobust)       →  Explicit loading for sensitivity        │
+│  library(medsim)          →  Explicit loading for simulation         │
+└──────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    │ Always loads
+                                    ▼
+┌──────────────────────────────────────────────────────────────────────┐
+│                            FOUNDATION LAYER                          │
+│  ┌────────────────────────────────────────────────────────────┐     │
+│  │                         medfit                             │     │
+│  │  • S7 classes (MediationData, SerialMediationData)         │     │
+│  │  • extract_mediation() - Extract from lm/glm/lavaan        │     │
+│  │  • fit_mediation() - Formula interface                     │     │
+│  │  • bootstrap_mediation() - Bootstrap inference             │     │
+│  └────────────────────────────────────────────────────────────┘     │
+└──────────────────────────────────────────────────────────────────────┘
+                                    │
+                    ┌───────────────┼───────────────┐
+                    │               │               │
+                    ▼               ▼               ▼
+┌──────────────────────────────────────────────────────────────────────┐
+│                      SPECIALIZED PACKAGES LAYER                      │
+├────────────────┬─────────────────┬────────────────┬─────────────────┤
+│   probmed      │  RMediation     │  medrobust     │    medsim       │
+│ ┌────────────┐ │ ┌─────────────┐ │ ┌────────────┐ │ ┌─────────────┐ │
+│ │ Effect     │ │ │ Confidence  │ │ │Sensitivity │ │ │ Simulation  │ │
+│ │ Sizes      │ │ │ Intervals   │ │ │ Analysis   │ │ │Infrastructure│ │
+│ ├────────────┤ │ ├─────────────┤ │ ├────────────┤ │ ├─────────────┤ │
+│ │• P_med     │ │ │• DOP        │ │ │• Bounds    │ │ │• Data gen   │ │
+│ │• Scale-free│ │ │• Monte Carlo│ │ │• Falsify   │ │ │• Parallel   │ │
+│ │• Continuous│ │ │• MBCO       │ │ │• Partial ID│ │ │• Caching    │ │
+│ │• Binary    │ │ │• Asymmetric │ │ │• Plots     │ │ │• Tables     │ │
+│ └────────────┘ │ └─────────────┘ │ └────────────┘ │ └─────────────┘ │
+└────────────────┴─────────────────┴────────────────┴─────────────────┘
+                                    │
+                                    │ All packages use
+                                    ▼
+                        ┌─────────────────────┐
+                        │  MediationData (S7) │
+                        │  Unified Interface  │
+                        └─────────────────────┘
+```
+
+### Data Flow
+
+```
+User Data
+   │
+   ▼
+fit_mediation() or lm()/glm()/lavaan::sem()
+   │
+   ▼
+extract_mediation()  ──────►  MediationData object
+   │                                  │
+   │                                  │
+   ├──────────────┬──────────────┬────┴────────────┐
+   │              │              │                 │
+   ▼              ▼              ▼                 ▼
+probmed::     RMediation::   medrobust::      medfit::
+compute_pmed() medci()        sensitivity()   bootstrap_mediation()
+   │              │              │                 │
+   │              │              │                 │
+   └──────────────┴──────────────┴─────────────────┘
+                        │
+                        ▼
+                Results & Inference
 ```
 
 ### Core Packages
@@ -185,14 +247,29 @@ install.packages("mediationverse")
 
 ### Loading Packages
 
+The mediationverse uses **selective loading**: only the foundation package (`medfit`) is loaded by default. Load other packages as needed for your analysis.
+
 ```r
 library(mediationverse)
-#> ── Attaching packages ─────────────────────────────── mediationverse 0.0.0.9000 ──
-#> ✔ medfit     0.1.0     ✔ probmed    0.1.0
-#> ✔ RMediation 1.4.0     ✔ medrobust  0.1.0
-#> ✔ medsim     0.1.0
-#> ──────────────────────────────────────────────────────────────────────────────────
+#> ── Attaching mediationverse 0.0.0.9000 ──
+#> ✔ medfit 0.1.0 (foundation package)
+#> ℹ Use library(probmed) for P_med effect size
+#> ℹ Use library(RMediation) for DOP/MBCO inference
+#> ℹ Use library(medrobust) for sensitivity analysis
+#> ℹ Use library(medsim) for simulation utilities
+#> ──────────────────────────────────────────────────────
+
+# Load additional packages as needed
+library(probmed)      # For probabilistic effect sizes
+library(RMediation)   # For confidence intervals
+library(medrobust)    # For sensitivity analysis
+library(medsim)       # For simulation studies
 ```
+
+**Why selective loading?**
+- Clean namespace (avoids function conflicts)
+- Only load what you need for your analysis
+- `medfit` is always available (foundation for all packages)
 
 ### Package Management
 
@@ -210,9 +287,13 @@ mediationverse_conflicts()
 ### Complete Analysis Workflow
 
 ```r
-library(mediationverse)
+# Load foundation and packages you need
+library(mediationverse)  # Loads medfit (foundation)
+library(probmed)         # For P_med effect size
+library(RMediation)      # For confidence intervals
+library(medrobust)       # For sensitivity analysis
 
-# 1. Fit mediation models (medfit)
+# 1. Fit mediation models (medfit - already loaded)
 fit_m <- lm(M ~ X + C, data = mydata)
 fit_y <- lm(Y ~ X + M + C, data = mydata)
 
@@ -232,7 +313,8 @@ ci_result <- ci(med_data, type = "dop")
 # 6. Sensitivity analysis (medrobust)
 robust_result <- sensitivity_analysis(med_data)
 
-# 7. Run simulation study (medsim)
+# 7. Run simulation study (medsim - load if needed)
+library(medsim)
 sim_results <- medsim_run(
   method = my_method,
   scenarios = medsim_scenarios_mediation(),

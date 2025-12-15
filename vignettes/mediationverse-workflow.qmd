@@ -24,9 +24,20 @@ packages in the mediationverse ecosystem. We will:
 
 ## Setup
 
+The mediationverse uses **selective loading**: only `medfit` (foundation) is
+loaded by default. We'll load additional packages as needed throughout the
+workflow.
+
 ```{r}
 #| label: setup
-library(mediationverse)
+# Load foundation package
+library(mediationverse)  # Loads medfit automatically
+
+# Load packages for this workflow
+library(medsim)       # For data simulation
+library(probmed)      # For P_med effect size
+library(RMediation)   # For confidence intervals
+library(medrobust)    # For sensitivity analysis
 
 # Set seed for reproducibility
 set.seed(2025)
@@ -34,7 +45,7 @@ set.seed(2025)
 
 ## Step 1: Simulate Data
 
-Using `medsim`, we generate data with known population parameters:
+Using `medsim` (already loaded), we generate data with known population parameters:
 
 ```{r}
 #| label: simulate
@@ -102,7 +113,7 @@ cat("Estimated indirect effect:", med_data@a_path * med_data@b_path, "\n")
 
 ## Step 4: Confidence Intervals (RMediation)
 
-Use `RMediation` to compute confidence intervals for the indirect effect:
+Use `RMediation` (already loaded) to compute confidence intervals for the indirect effect:
 
 ### Distribution of Product Method
 
@@ -141,7 +152,7 @@ print(ci_comparison)
 
 ## Step 5: Probabilistic Effect Size (probmed)
 
-Compute P_med, the probability of a positive indirect effect:
+Compute P_med (using `probmed` already loaded), the probability of a positive indirect effect:
 
 ```{r}
 #| label: pmed
@@ -156,7 +167,7 @@ print(pmed_result)
 
 ## Step 6: Sensitivity Analysis (medrobust)
 
-Assess robustness to unmeasured confounding:
+Assess robustness to unmeasured confounding (using `medrobust` already loaded):
 
 ```{r}
 #| label: sensitivity

@@ -3,49 +3,52 @@
 .onAttach <- function(libname, pkgname) {
   # Get version information
   med_version <- utils::packageVersion("mediationverse")
-  core_packages <- c("medfit", "probmed", "RMediation", "medrobust", "medsim")
 
-  # Try to attach core packages
+  # Try to attach medfit (foundation package only)
   tryCatch(
     mediationverse_attach(),
     error = function(e) {
       packageStartupMessage(
-        "Some mediationverse packages could not be loaded.\n",
-        "Please ensure all packages are installed:\n",
-        "  pak::pak(c('Data-Wise/medfit', 'Data-Wise/probmed',\n",
-        "             'RMediation', 'Data-Wise/medrobust', 'Data-Wise/medsim'))"
+        "medfit could not be loaded.\n",
+        "Please ensure it is installed:\n",
+        "  pak::pak('Data-Wise/medfit')"
       )
+      return(invisible())
     }
   )
 
-  # Get versions of loaded packages
-  versions <- package_version_string(core_packages)
+  # Get medfit version
+  medfit_version <- tryCatch(
+    as.character(utils::packageVersion("medfit")),
+    error = function(e) "(not installed)"
+  )
 
   # Create startup message using cli if available
   if (requireNamespace("cli", quietly = TRUE)) {
     tick <- cli::symbol$tick
+    info <- cli::symbol$info
     msg <- paste0(
       cli::rule(
-        left = "Attaching packages",
-        right = paste0("mediationverse ", med_version)
+        left = "Attaching mediationverse",
+        right = med_version
       ),
       "\n",
-      tick, " medfit     ", versions["medfit"],
-      "   ", tick, " probmed    ", versions["probmed"], "\n",
-      tick, " RMediation ", versions["RMediation"],
-      "   ", tick, " medrobust  ", versions["medrobust"], "\n",
-      tick, " medsim     ", versions["medsim"], "\n",
+      tick, " medfit ", medfit_version, " (foundation package)\n",
+      info, " Use library(probmed) for P_med effect size\n",
+      info, " Use library(RMediation) for DOP/MBCO inference\n",
+      info, " Use library(medrobust) for sensitivity analysis\n",
+      info, " Use library(medsim) for simulation utilities\n",
       cli::rule()
     )
   } else {
     # Fallback message if cli is not available
     msg <- paste0(
-      "-- Attaching packages ----------- mediationverse ", med_version, " --\n",
-      "+ medfit     ", versions["medfit"],
-      "   + probmed    ", versions["probmed"], "\n",
-      "+ RMediation ", versions["RMediation"],
-      "   + medrobust  ", versions["medrobust"], "\n",
-      "+ medsim     ", versions["medsim"], "\n",
+      "-- Attaching mediationverse ", med_version, " --\n",
+      "+ medfit ", medfit_version, " (foundation package)\n",
+      "i Use library(probmed) for P_med effect size\n",
+      "i Use library(RMediation) for DOP/MBCO inference\n",
+      "i Use library(medrobust) for sensitivity analysis\n",
+      "i Use library(medsim) for simulation utilities\n",
       "-------------------------------------------------------------"
     )
   }

@@ -2,25 +2,24 @@
 #'
 #' @description
 #' This function is called when the mediationverse package is attached.
-#' It loads the core packages in the ecosystem.
+#' Following the selective loading strategy (Option 2), only medfit is
+#' loaded by default. Other packages should be loaded explicitly.
 #'
 #' @keywords internal
 #' @noRd
 mediationverse_attach <- function() {
-  # Core packages in the mediationverse
-  core <- c("medfit", "probmed", "RMediation", "medrobust", "medsim")
+  # Only load medfit (foundation package) by default
+  # Other packages: probmed, RMediation, medrobust, medsim
+  # should be loaded explicitly with library()
+  foundation <- "medfit"
 
-  # Determine which packages need to be loaded
-  to_load <- core[!is_attached(core)]
-
-  if (length(to_load) == 0) {
-    return(invisible())
+  # Check if medfit needs to be loaded
+  if (!is_attached(foundation)) {
+    # Suppress startup messages from medfit
+    suppressPackageStartupMessages(
+      library(foundation, character.only = TRUE, warn.conflicts = FALSE)
+    )
   }
-
-  # Suppress startup messages from individual packages
-  suppressPackageStartupMessages(
-    lapply(to_load, library, character.only = TRUE, warn.conflicts = FALSE)
-  )
 
   invisible()
 }
