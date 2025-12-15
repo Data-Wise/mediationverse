@@ -33,19 +33,40 @@ This will install all core packages:
 
 ## Loading the Ecosystem
 
-Load all packages with a single command:
+The mediationverse uses **selective loading**: only the foundation
+package (`medfit`) is loaded by default. This keeps your namespace clean
+and lets you load only what you need.
 
 ``` r
 library(mediationverse)
 ```
 
-This attaches all core packages and displays a summary:
+This attaches medfit and displays helpful information:
 
-    -- Attaching packages ------------------- mediationverse 0.0.0.9000 --
-    v medfit     0.1.0     v probmed    0.1.0
-    v RMediation 1.4.0     v medrobust  0.1.0
-    v medsim     0.1.0
-    ---------------------------------------------------------------
+    ── Attaching mediationverse 0.0.0.9000 ──
+    ✔ medfit 0.1.0 (foundation package)
+    ℹ Use library(probmed) for P_med effect size
+    ℹ Use library(RMediation) for DOP/MBCO inference
+    ℹ Use library(medrobust) for sensitivity analysis
+    ℹ Use library(medsim) for simulation utilities
+    ──────────────────────────────────────────
+
+Load additional packages as needed for your analysis:
+
+``` r
+# Load packages you need
+library(probmed)      # For probabilistic effect sizes
+library(RMediation)   # For confidence intervals
+library(medrobust)    # For sensitivity analysis
+library(medsim)       # For simulation studies (if needed)
+```
+
+**Why selective loading?**
+
+- **Clean namespace**: Avoids function name conflicts
+- **Explicit**: You control which packages are loaded
+- **Foundation always available**: `medfit` is loaded automatically
+  since all other packages depend on it
 
 ## Package Management
 
@@ -74,11 +95,19 @@ mediationverse_conflicts()
 
 ## Core Workflow
 
-The mediationverse follows a consistent workflow for mediation analysis:
+The mediationverse follows a consistent workflow for mediation analysis.
+
+First, load the packages you need (medfit is already loaded via
+mediationverse):
+
+``` r
+library(probmed)      # For this example
+library(RMediation)   # For this example
+```
 
 ### 1. Fit Models
 
-Using `medfit`, fit your mediator and outcome models:
+Using `medfit` (already loaded), fit your mediator and outcome models:
 
 ``` r
 # Fit models
@@ -155,12 +184,12 @@ The mediationverse follows several design principles:
 
 Each package focuses on one methodological contribution:
 
-| Package    | Focus                | Key Functions               |
-|------------|----------------------|-----------------------------|
-| probmed    | Effect sizes         | `compute_pmed()`, `pmed()`  |
-| RMediation | Confidence intervals | `ci()`, `medci()`, `mbco()` |
-| medrobust  | Sensitivity          | `sensitivity_bounds()`      |
-| medsim     | Simulation           | `run_simulation()`          |
+| Package    | Focus                | Key Functions                                                                                                                                                                                                        |
+|------------|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| probmed    | Effect sizes         | `compute_pmed()`, [`pmed()`](https://data-wise.github.io/probmed/reference/pmed.html)                                                                                                                                |
+| RMediation | Confidence intervals | [`ci()`](https://data-wise.github.io/rmediation/reference/ci.html), [`medci()`](https://data-wise.github.io/rmediation/reference/medci.html), [`mbco()`](https://data-wise.github.io/rmediation/reference/mbco.html) |
+| medrobust  | Sensitivity          | `sensitivity_bounds()`                                                                                                                                                                                               |
+| medsim     | Simulation           | `run_simulation()`                                                                                                                                                                                                   |
 
 ### Type Safety
 
@@ -217,6 +246,6 @@ sessionInfo()
 
     loaded via a namespace (and not attached):
      [1] compiler_4.5.2  fastmap_1.2.0   cli_3.6.5       tools_4.5.2
-     [5] htmltools_0.5.9 yaml_2.3.11     rmarkdown_2.30  knitr_1.50
+     [5] htmltools_0.5.9 yaml_2.3.12     rmarkdown_2.30  knitr_1.50
      [9] jsonlite_2.0.0  xfun_0.54       digest_0.6.39   rlang_1.1.6
     [13] evaluate_1.0.5 

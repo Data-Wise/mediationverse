@@ -15,8 +15,19 @@ all packages in the mediationverse ecosystem. We will:
 
 ## Setup
 
+The mediationverse uses **selective loading**: only `medfit`
+(foundation) is loaded by default. We’ll load additional packages as
+needed throughout the workflow.
+
 ``` r
-library(mediationverse)
+# Load foundation package
+library(mediationverse)  # Loads medfit automatically
+
+# Load packages for this workflow
+library(medsim)       # For data simulation
+library(probmed)      # For P_med effect size
+library(RMediation)   # For confidence intervals
+library(medrobust)    # For sensitivity analysis
 
 # Set seed for reproducibility
 set.seed(2025)
@@ -24,7 +35,8 @@ set.seed(2025)
 
 ## Step 1: Simulate Data
 
-Using `medsim`, we generate data with known population parameters:
+Using `medsim` (already loaded), we generate data with known population
+parameters:
 
 ``` r
 # Population parameters
@@ -89,8 +101,8 @@ cat("Estimated indirect effect:", med_data@a_path * med_data@b_path, "\n")
 
 ## Step 4: Confidence Intervals (RMediation)
 
-Use `RMediation` to compute confidence intervals for the indirect
-effect:
+Use `RMediation` (already loaded) to compute confidence intervals for
+the indirect effect:
 
 ### Distribution of Product Method
 
@@ -126,7 +138,8 @@ print(ci_comparison)
 
 ## Step 5: Probabilistic Effect Size (probmed)
 
-Compute P_med, the probability of a positive indirect effect:
+Compute P_med (using `probmed` already loaded), the probability of a
+positive indirect effect:
 
 ``` r
 pmed_result <- compute_pmed(med_data)
@@ -140,7 +153,8 @@ print(pmed_result)
 
 ## Step 6: Sensitivity Analysis (medrobust)
 
-Assess robustness to unmeasured confounding:
+Assess robustness to unmeasured confounding (using `medrobust` already
+loaded):
 
 ``` r
 # Compute sensitivity bounds
@@ -302,7 +316,7 @@ sessionInfo()
 
     loaded via a namespace (and not attached):
      [1] compiler_4.5.2  fastmap_1.2.0   cli_3.6.5       tools_4.5.2
-     [5] htmltools_0.5.9 yaml_2.3.11     rmarkdown_2.30  knitr_1.50
+     [5] htmltools_0.5.9 yaml_2.3.12     rmarkdown_2.30  knitr_1.50
      [9] jsonlite_2.0.0  xfun_0.54       digest_0.6.39   rlang_1.1.6
     [13] evaluate_1.0.5 
 

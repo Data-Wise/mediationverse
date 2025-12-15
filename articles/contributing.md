@@ -152,7 +152,8 @@ Commits are clear and atomic
 Follow the [tidyverse style guide](https://style.tidyverse.org/) with
 these specifics:
 
-**Naming**: - Functions: `snake_case()` (e.g., `extract_mediation()`) -
+**Naming**: - Functions: `snake_case()` (e.g.,
+[`extract_mediation()`](https://data-wise.github.io/medfit/reference/extract_mediation.html)) -
 Variables: `snake_case` (e.g., `med_data`) - S7 Classes: `CamelCase`
 (e.g., `MediationData`) - Private functions: `.snake_case()` (e.g.,
 `.fit_mediation_glm()`)

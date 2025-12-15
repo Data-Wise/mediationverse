@@ -61,6 +61,58 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="mediationverse-development-version">mediationverse (development version)<a class="anchor" aria-label="anchor" href="#mediationverse-development-version"></a></h2>
 <div class="section level3">
+<h3 id="major-changes-development-version">Major Changes (2025-12-15)<a class="anchor" aria-label="anchor" href="#major-changes-development-version"></a></h3>
+<div class="section level4">
+<h4 id="selective-loading-strategy-v010-preparation-development-version">Selective Loading Strategy (v0.1.0 preparation)<a class="anchor" aria-label="anchor" href="#selective-loading-strategy-v010-preparation-development-version"></a></h4>
+<p><strong>Breaking Change</strong>: mediationverse now uses <strong>selective loading</strong> - only <code>medfit</code> (foundation package) is loaded by default. Other packages must be loaded explicitly.</p>
+<p><strong>Why this change?</strong> - Clean namespace with minimal function conflicts - Users load only packages they need - Explicit &gt; implicit (better code clarity) - Coordinated with medfit ecosystem integration</p>
+<p><strong>Migration</strong>:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># OLD behavior (v0.0.x)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://Data-Wise.github.io/mediationverse/">mediationverse</a></span><span class="op">)</span>  <span class="co"># Loaded all 5 packages</span></span>
+<span></span>
+<span><span class="co"># NEW behavior (v0.1.0+)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://Data-Wise.github.io/mediationverse/">mediationverse</a></span><span class="op">)</span>  <span class="co"># Loads only medfit</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/probmed/" class="external-link">probmed</a></span><span class="op">)</span>         <span class="co"># Load explicitly as needed</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/rmediation/" class="external-link">RMediation</a></span><span class="op">)</span>      <span class="co"># Load explicitly as needed</span></span></code></pre></div>
+<p><strong>New startup message</strong>:</p>
+<pre><code>── Attaching mediationverse 0.0.0.9000 ──
+✔ medfit 0.1.0 (foundation package)
+ℹ Use library(probmed) for P_med effect size
+ℹ Use library(RMediation) for DOP/MBCO inference
+ℹ Use library(medrobust) for sensitivity analysis
+ℹ Use library(medsim) for simulation utilities</code></pre>
+</div>
+<div class="section level4">
+<h4 id="documentation-improvements-development-version">Documentation Improvements<a class="anchor" aria-label="anchor" href="#documentation-improvements-development-version"></a></h4>
+<ul><li>
+<strong>Architecture diagrams</strong>: Added comprehensive ecosystem architecture and data flow diagrams to README</li>
+<li>
+<strong>Vignettes updated</strong>: All vignettes now demonstrate selective loading pattern
+<ul><li>
+<code>getting-started.qmd</code>: Updated with selective loading explanation and examples</li>
+<li>
+<code>mediationverse-workflow.qmd</code>: Complete workflow showing explicit package loading</li>
+</ul></li>
+<li>
+<strong>Testing documentation</strong>: Added <code>SELECTIVE-LOADING-TEST.md</code> with comprehensive test results</li>
+</ul></div>
+<div class="section level4">
+<h4 id="implementation-development-version">Implementation<a class="anchor" aria-label="anchor" href="#implementation-development-version"></a></h4>
+<ul><li>
+<code>R/attach.R</code>: Refactored to load only medfit by default</li>
+<li>
+<code>R/zzz.R</code>: Updated <code>.onAttach()</code> with informative startup message</li>
+<li>All utility functions (<code><a href="../reference/mediationverse_packages.html">mediationverse_packages()</a></code>, <code><a href="../reference/mediationverse_conflicts.html">mediationverse_conflicts()</a></code>) tested and verified</li>
+</ul></div>
+<div class="section level4">
+<h4 id="coordination-development-version">Coordination<a class="anchor" aria-label="anchor" href="#coordination-development-version"></a></h4>
+<ul><li>Aligned with medfit COORDINATION-BRAINSTORM.md (Option 2 strategy)</li>
+<li>Ready for medfit v0.1.0 integration (ETA Dec 21, 2025)</li>
+<li>Progress: 85% complete (waiting on medfit stabilization)</li>
+</ul></div>
+</div>
+<div class="section level3">
 <h3 id="bug-fixes-development-version">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
 <ul><li>Fixed badge URLs in README.md to use correct GitHub organization case (<code>Data-Wise</code> instead of <code>data-wise</code>). Updated workflow badges and ecosystem package table for consistency</li>
 <li>Fixed pkgdown workflow failure caused by version constraint on RMediation in DESCRIPTION. Removed <code>(&gt;= 1.4.0)</code> constraint as it conflicted with pak dependency resolution in CI environments</li>

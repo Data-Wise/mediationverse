@@ -116,16 +116,24 @@
 <li>Bootstrap inference</li>
 </ol></section><section class="level2"><h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
+<p>The mediationverse uses <strong>selective loading</strong>: only <code>medfit</code> (foundation) is loaded by default. We’ll load additional packages as needed throughout the workflow.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://Data-Wise.github.io/mediationverse/">mediationverse</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Load foundation package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://Data-Wise.github.io/mediationverse/">mediationverse</a></span><span class="op">)</span>  <span class="co"># Loads medfit automatically</span></span>
+<span></span>
+<span><span class="co"># Load packages for this workflow</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/data-wise/medsim" class="external-link">medsim</a></span><span class="op">)</span>       <span class="co"># For data simulation</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/probmed/" class="external-link">probmed</a></span><span class="op">)</span>      <span class="co"># For P_med effect size</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/rmediation/" class="external-link">RMediation</a></span><span class="op">)</span>   <span class="co"># For confidence intervals</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/data-wise/medrobust" class="external-link">medrobust</a></span><span class="op">)</span>    <span class="co"># For sensitivity analysis</span></span>
 <span></span>
 <span><span class="co"># Set seed for reproducibility</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h2 id="step-1-simulate-data">Step 1: Simulate Data<a class="anchor" aria-label="anchor" href="#step-1-simulate-data"></a>
 </h2>
-<p>Using <code>medsim</code>, we generate data with known population parameters:</p>
+<p>Using <code>medsim</code> (already loaded), we generate data with known population parameters:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Population parameters</span></span>
@@ -169,7 +177,7 @@
 <p>Using <code>medfit</code>, extract the mediation paths into a standardized object:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">med_data</span> <span class="op">&lt;-</span> <span class="fu">extract_mediation</span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">med_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/medfit/reference/extract_mediation.html" class="external-link">extract_mediation</a></span><span class="op">(</span></span>
 <span>  <span class="va">fit_m</span>,</span>
 <span>  model_y <span class="op">=</span> <span class="va">fit_y</span>,</span>
 <span>  treatment <span class="op">=</span> <span class="st">"X"</span>,</span>
@@ -187,13 +195,13 @@
 </div>
 </section><section class="level2"><h2 id="step-4-confidence-intervals-rmediation">Step 4: Confidence Intervals (RMediation)<a class="anchor" aria-label="anchor" href="#step-4-confidence-intervals-rmediation"></a>
 </h2>
-<p>Use <code>RMediation</code> to compute confidence intervals for the indirect effect:</p>
+<p>Use <code>RMediation</code> (already loaded) to compute confidence intervals for the indirect effect:</p>
 <section class="level3"><h3 id="distribution-of-product-method">Distribution of Product Method<a class="anchor" aria-label="anchor" href="#distribution-of-product-method"></a>
 </h3>
 <p>The most accurate method for normal theory CIs:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ci_dop</span> <span class="op">&lt;-</span> <span class="fu">ci</span><span class="op">(</span><span class="va">med_data</span>, type <span class="op">=</span> <span class="st">"dop"</span>, level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ci_dop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/rmediation/reference/ci.html" class="external-link">ci</a></span><span class="op">(</span><span class="va">med_data</span>, type <span class="op">=</span> <span class="st">"dop"</span>, level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ci_dop</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level3"><h3 id="monte-carlo-method">Monte Carlo Method<a class="anchor" aria-label="anchor" href="#monte-carlo-method"></a>
@@ -201,7 +209,7 @@
 <p>Simulation-based CIs that work for any distribution:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ci_mc</span> <span class="op">&lt;-</span> <span class="fu">ci</span><span class="op">(</span><span class="va">med_data</span>, type <span class="op">=</span> <span class="st">"MC"</span>, n.mc <span class="op">=</span> <span class="fl">10000</span>, level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ci_mc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/rmediation/reference/ci.html" class="external-link">ci</a></span><span class="op">(</span><span class="va">med_data</span>, type <span class="op">=</span> <span class="st">"MC"</span>, n.mc <span class="op">=</span> <span class="fl">10000</span>, level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ci_mc</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level3"><h3 id="compare-methods">Compare Methods<a class="anchor" aria-label="anchor" href="#compare-methods"></a>
@@ -220,7 +228,7 @@
 </div>
 </section></section><section class="level2"><h2 id="step-5-probabilistic-effect-size-probmed">Step 5: Probabilistic Effect Size (probmed)<a class="anchor" aria-label="anchor" href="#step-5-probabilistic-effect-size-probmed"></a>
 </h2>
-<p>Compute P_med, the probability of a positive indirect effect:</p>
+<p>Compute P_med (using <code>probmed</code> already loaded), the probability of a positive indirect effect:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pmed_result</span> <span class="op">&lt;-</span> <span class="fu">compute_pmed</span><span class="op">(</span><span class="va">med_data</span><span class="op">)</span></span>
@@ -233,7 +241,7 @@
 </div>
 </section><section class="level2"><h2 id="step-6-sensitivity-analysis-medrobust">Step 6: Sensitivity Analysis (medrobust)<a class="anchor" aria-label="anchor" href="#step-6-sensitivity-analysis-medrobust"></a>
 </h2>
-<p>Assess robustness to unmeasured confounding:</p>
+<p>Assess robustness to unmeasured confounding (using <code>medrobust</code> already loaded):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Compute sensitivity bounds</span></span>
@@ -350,10 +358,10 @@
 <span><span class="va">fit_lavaan</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">model</span>, data <span class="op">=</span> <span class="va">sim_data</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Extract mediation structure</span></span>
-<span><span class="va">med_data_lavaan</span> <span class="op">&lt;-</span> <span class="fu">extract_mediation</span><span class="op">(</span><span class="va">fit_lavaan</span><span class="op">)</span></span>
+<span><span class="va">med_data_lavaan</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/medfit/reference/extract_mediation.html" class="external-link">extract_mediation</a></span><span class="op">(</span><span class="va">fit_lavaan</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Use same analysis pipeline</span></span>
-<span><span class="va">ci_lavaan</span> <span class="op">&lt;-</span> <span class="fu">ci</span><span class="op">(</span><span class="va">med_data_lavaan</span>, type <span class="op">=</span> <span class="st">"dop"</span><span class="op">)</span></span>
+<span><span class="va">ci_lavaan</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/rmediation/reference/ci.html" class="external-link">ci</a></span><span class="op">(</span><span class="va">med_data_lavaan</span>, type <span class="op">=</span> <span class="st">"dop"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ci_lavaan</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h2 id="session-information">Session Information<a class="anchor" aria-label="anchor" href="#session-information"></a>
@@ -384,7 +392,7 @@ attached base packages:
 
 loaded via a namespace (and not attached):
  [1] compiler_4.5.2  fastmap_1.2.0   cli_3.6.5       tools_4.5.2
- [5] htmltools_0.5.9 yaml_2.3.11     rmarkdown_2.30  knitr_1.50
+ [5] htmltools_0.5.9 yaml_2.3.12     rmarkdown_2.30  knitr_1.50
  [9] jsonlite_2.0.0  xfun_0.54       digest_0.6.39   rlang_1.1.6
 [13] evaluate_1.0.5 </code></pre>
 </div>
