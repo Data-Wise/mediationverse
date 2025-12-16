@@ -1,0 +1,115 @@
+project:
+  type: website
+  pre-render:
+    - _extensions/quarto-rdocs/R/rdocs-render.R
+  output-dir: docs
+
+# Include generated sidebar
+metadata-files:
+  - reference/_sidebar.yml
+
+website:
+  title: "mediationverse"
+  site-url: https://data-wise.github.io/mediationverse/
+  repo-url: https://github.com/Data-Wise/mediationverse
+  repo-actions: [edit, issue]
+
+  navbar:
+    background: "#0054AD"
+    foreground: "#ffffff"
+    search: true
+    left:
+      - text: Home
+        href: index.qmd
+      - text: Get Started
+        href: vignettes/getting-started.qmd
+      - text: Reference
+        href: reference/index.qmd
+      - text: Articles
+        menu:
+          - text: "Getting Started"
+            href: vignettes/getting-started.qmd
+          - text: "---"
+          - text: "Ecosystem Workflow"
+            href: vignettes/mediationverse-workflow.qmd
+      - text: Ecosystem
+        menu:
+          - text: "Core Packages"
+          - text: "medfit (Foundation)"
+            href: https://Data-Wise.github.io/medfit/
+          - text: "probmed (P_med Effect Size)"
+            href: https://Data-Wise.github.io/probmed/
+          - text: "RMediation (Confidence Intervals)"
+            href: https://Data-Wise.github.io/rmediation/
+          - text: "---"
+          - text: "Support Packages"
+          - text: "medrobust (Sensitivity Analysis)"
+            href: https://Data-Wise.github.io/medrobust/
+          - text: "medsim (Simulation Infrastructure)"
+            href: https://Data-Wise.github.io/medsim/
+      - text: News
+        href: news.qmd
+    right:
+      - icon: github
+        href: https://github.com/Data-Wise/mediationverse
+        aria-label: GitHub
+
+  sidebar:
+    - id: reference
+      title: "Reference"
+      style: docked
+      collapse-level: 2
+      contents:
+        - text: "Index"
+          file: reference/index.qmd
+        - section: "Package Management"
+          contents:
+            - reference/mediationverse_packages.qmd
+            - reference/mediationverse_update.qmd
+            - reference/mediationverse_conflicts.qmd
+
+  page-footer:
+    left: |
+      Part of the [Data-Wise](https://github.com/Data-Wise) ecosystem
+    right: |
+      Built with [Quarto](https://quarto.org/) via [quarto-rdocs](https://github.com/Data-Wise/quarto-rdocs)
+
+# R package documentation configuration
+rdocs:
+  package: mediationverse
+  dir: reference
+  sidebar: reference/_sidebar.yml
+
+  sections:
+    - title: "Package Management"
+      desc: "Functions for managing the mediationverse ecosystem"
+      contents:
+        - mediationverse_packages
+        - mediationverse_update
+        - mediationverse_conflicts
+
+    - title: "Package Documentation"
+      desc: "Package-level documentation"
+      contents:
+        - mediationverse-package
+
+  options:
+    examples: false          # Don't evaluate examples (faster builds)
+    freeze: true             # Cache example output when enabled
+    source_links: true       # Link to GitHub source
+    repo_url: https://github.com/Data-Wise/mediationverse
+
+format:
+  html:
+    theme:
+      light: [flatly, _extensions/quarto-rdocs/scss/rdocs.scss]
+      dark: [darkly, _extensions/quarto-rdocs/scss/rdocs.scss]
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    code-overflow: wrap
+    code-link: true
+    highlight-style: github
+
+execute:
+  freeze: auto

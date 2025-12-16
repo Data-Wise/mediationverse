@@ -1,0 +1,68 @@
+---
+title: "mediationverse"
+subtitle: "A Unified Ecosystem for Causal Mediation Analysis in R"
+---
+
+```{r}
+#| echo: false
+#| message: false
+# Load package for examples
+library(mediationverse)
+```
+
+## Overview
+
+**mediationverse** is a meta-package that provides a unified interface to a comprehensive ecosystem of R packages for causal mediation analysis. With a single `library(mediationverse)` call, you get access to state-of-the-art methods for:
+
+- **Model fitting** via [medfit](https://data-wise.github.io/medfit/)
+- **Effect size calculation** via [probmed](https://data-wise.github.io/probmed/)
+- **Confidence intervals** via [RMediation](https://data-wise.github.io/rmediation/)
+- **Sensitivity analysis** via [medrobust](https://data-wise.github.io/medrobust/)
+- **Simulation studies** via [medsim](https://data-wise.github.io/medsim/)
+
+## Installation
+
+```r
+# Install from GitHub
+# install.packages("pak")
+pak::pak("Data-Wise/mediationverse")
+```
+## Quick Start
+
+```{r}
+#| eval: false
+# Load the ecosystem
+library(mediationverse)
+
+# Check which packages are available
+mediationverse_packages()
+
+# Update all packages
+mediationverse_update()
+```
+
+## Ecosystem Status
+
+```{r}
+#| echo: false
+mediationverse_packages()
+```
+
+## Learn More
+
+- [Getting Started](vignettes/getting-started.qmd) - Installation and basic usage
+- [Workflow Guide](vignettes/mediationverse-workflow.qmd) - Complete analysis workflow
+- [Function Reference](reference/index.qmd) - API documentation
+
+## Citation
+
+If you use mediationverse in your research, please cite:
+
+```
+@software{mediationverse,
+  author = {Tofighi, Davood},
+  title = {mediationverse: A Unified Ecosystem for Causal Mediation Analysis in R},
+  year = {2025},
+  url = {https://github.com/Data-Wise/mediationverse}
+}
+```
