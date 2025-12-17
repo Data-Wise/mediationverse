@@ -102,7 +102,7 @@ library(RMediation)
     ℹ Use `package::function()` to call a specific version
 
 **Result**: ✅ PASS - Detects real conflict:
-[`extract_mediation()`](https://data-wise.github.io/medfit/reference/extract_mediation.html)
+[`extract_mediation()`](https://rdrr.io/pkg/medfit/man/extract_mediation.html)
 exists in both medfit and probmed - Shows which version is used (medfit
 wins) - Internal S7 method conflicts are expected and don’t affect
 users - Provides helpful guidance to use `package::function()` syntax

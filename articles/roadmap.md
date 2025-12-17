@@ -2,10 +2,22 @@
 
 ## mediationverse Development Roadmap
 
-> **Last Updated**: 2025-12-04
+> **Last Updated**: 2025-12-17 **Coordination Hub**: [mediation-planning
+> repository](https://github.com/data-wise/mediation-planning)
 
-This document outlines the development timeline and milestones for the
-mediationverse ecosystem.
+This document provides a high-level overview of the development timeline
+for the mediationverse ecosystem.
+
+> **Note**: For detailed planning documents, cross-package coordination,
+> and up-to-date progress tracking, see the [mediation-planning
+> repository](https://github.com/data-wise/mediation-planning),
+> specifically: - [Master
+> Roadmap](https://github.com/data-wise/mediation-planning/blob/main/docs/ROADMAP.md) -
+> Detailed timeline and status -
+> [PROJECT-HUB](https://github.com/data-wise/mediation-planning/blob/main/PROJECT-HUB.md) -
+> Dashboard and coordination -
+> [TODOS](https://github.com/data-wise/mediation-planning/blob/main/TODOS.md) -
+> Active task tracking
 
 ### Timeline Overview
 
@@ -19,7 +31,7 @@ mediationverse ecosystem.
 
 ------------------------------------------------------------------------
 
-### Phase 1: Foundation (Q4 2025) - **IN PROGRESS**
+### Phase 1: Foundation (Q4 2025) - ✅ **COMPLETE** (Ahead of Schedule!)
 
 #### Objectives
 
@@ -27,7 +39,7 @@ Build core infrastructure and establish package foundations.
 
 #### Milestones
 
-##### ✅ medfit Phase 1-3 (Complete)
+##### ✅ medfit Phase 1-7 (Complete!)
 
 Package skeleton and S7 architecture
 
@@ -39,15 +51,27 @@ Comprehensive Quarto documentation
 
 pkgdown website with Bootstrap 5
 
-##### 🚧 medfit Phase 4 (In Progress - 60%)
-
 GLM fitting infrastructure
 
 Formula interface implementation
 
 Engine adapter pattern
 
-Integration tests
+Integration tests (427 tests passing)
+
+Bootstrap methods (parametric, nonparametric, plugin)
+
+Generic functions (coef, vcov, confint, nobs)
+
+Effect extractors (nie, nde, te, pm, paths)
+
+Tidyverse methods (tidy, glance)
+
+ADHD-friendly API (med, quick)
+
+R CMD check clean
+
+Final CRAN submission (pending)
 
 ##### ✅ medsim (Complete)
 
@@ -80,7 +104,10 @@ Unified styling (Bootstrap 5 + Litera)
 
 ------------------------------------------------------------------------
 
-### Phase 2: Integration (Q1 2026)
+### Phase 2: Integration (Q4 2025 - READY NOW!)
+
+**Status**: medfit complete, ready for ecosystem integration (3 months
+ahead of schedule!)
 
 #### Objectives
 
@@ -88,7 +115,7 @@ Integrate dependent packages with medfit foundation.
 
 #### Milestones
 
-##### medfit Phase 5 (Bootstrap & Testing)
+##### ✅ medfit Phase 5 (Complete)
 
 Parametric bootstrap implementation
 
@@ -96,19 +123,24 @@ Nonparametric bootstrap
 
 Plugin estimator
 
-Extended test suite (\>90% coverage)
+Extended test suite (427 tests, 100% pass rate)
 
 Performance benchmarks
 
-##### probmed Integration
+##### probmed Integration (Priority 1)
 
 Add medfit to DESCRIPTION (Imports)
 
 Replace extraction code with
-[`medfit::extract_mediation()`](https://data-wise.github.io/medfit/reference/extract_mediation.html)
+[`medfit::extract_mediation()`](https://rdrr.io/pkg/medfit/man/extract_mediation.html)
 
 Replace bootstrap with
-[`medfit::bootstrap_mediation()`](https://data-wise.github.io/medfit/reference/bootstrap_mediation.html)
+[`medfit::bootstrap_mediation()`](https://rdrr.io/pkg/medfit/man/bootstrap_mediation.html)
+
+Re-export medfit generics (nie, nde, te, pm, paths)
+
+Add [`pmed()`](https://data-wise.github.io/probmed/reference/pmed.html)
+extractor for P_med effect size
 
 Update formula interface to use medfit
 
@@ -116,23 +148,29 @@ Verify backward compatibility
 
 Update all tests and vignettes
 
-##### RMediation Integration
+Integration tests (probmed + medfit workflow)
+
+##### RMediation Integration (Priority 2)
 
 Add medfit to DESCRIPTION (Imports)
 
 Use
-[`medfit::extract_mediation()`](https://data-wise.github.io/medfit/reference/extract_mediation.html)
+[`medfit::extract_mediation()`](https://rdrr.io/pkg/medfit/man/extract_mediation.html)
 for lavaan
 
 Leverage medfit bootstrap utilities
 
-Update ci() function for MediationData
+Update
+[`ci()`](https://data-wise.github.io/rmediation/reference/ci.html)
+function for MediationData class
 
-Maintain CRAN stability
+Maintain CRAN stability (careful testing)
 
 Update documentation
 
-##### medrobust Integration (Optional)
+Version bump to 1.5.0
+
+##### medrobust Integration (Priority 3)
 
 Add medfit to DESCRIPTION (Suggests)
 
@@ -140,16 +178,20 @@ Use for naive estimates if beneficial
 
 Document integration patterns
 
+Add short aliases (sens, bounds, power)
+
 #### Deliverables
 
-- medfit 0.1.0 release
+- medfit 0.1.0 release ✅ (ready, pending final merge)
 - probmed 0.2.0 with medfit integration
 - RMediation 1.5.0 with medfit integration
 - Updated integration tests across packages
 
+**Timeline**: Q4 2025 - Q1 2026 (Dec 2025 - Jan 2026)
+
 ------------------------------------------------------------------------
 
-### Phase 3: Refinement (Q2 2026)
+### Phase 3: Refinement (Q1 2026)
 
 #### Objectives
 
@@ -181,19 +223,21 @@ Write blog posts
 
 Prepare manuscript drafts
 
-##### mediationverse Meta-Package
+##### mediationverse Meta-Package Enhancement
 
-Create package skeleton
+Package skeleton (complete)
 
-Implement attachment logic
+Basic attachment logic (complete)
 
-Add conflict detection
+pkgdown website (complete)
 
-Create startup message
+Update attachment logic for new medfit API
 
-Write comprehensive vignettes
+Enhanced conflict detection
 
-Set up pkgdown website
+Improved startup message with version info
+
+Comprehensive vignettes (getting-started, workflow)
 
 ##### User Testing
 
@@ -214,7 +258,7 @@ Create FAQ documentation
 
 ------------------------------------------------------------------------
 
-### Phase 4: Release (Q3 2026)
+### Phase 4: Release (Q2 2026)
 
 #### Objectives
 
@@ -373,4 +417,30 @@ Email: <dtofighi@gmail.com>
 
 ------------------------------------------------------------------------
 
-**Next Review**: End of Q4 2025
+### See Also
+
+For detailed planning, cross-package coordination, and real-time
+updates:
+
+- [**mediation-planning
+  repository**](https://github.com/data-wise/mediation-planning) -
+  Coordination hub
+  - [Master
+    Roadmap](https://github.com/data-wise/mediation-planning/blob/main/docs/ROADMAP.md) -
+    Detailed timeline
+  - [PROJECT-HUB](https://github.com/data-wise/mediation-planning/blob/main/PROJECT-HUB.md) -
+    Dashboard
+  - [TODOS](https://github.com/data-wise/mediation-planning/blob/main/TODOS.md) -
+    Task tracking
+  - [IDEAS](https://github.com/data-wise/mediation-planning/blob/main/IDEAS.md) -
+    Future enhancements
+
+Individual packages: - [medfit](https://data-wise.github.io/medfit/) -
+Foundation package - [probmed](https://data-wise.github.io/probmed/) -
+Probabilistic mediation -
+[RMediation](https://data-wise.github.io/RMediation/) - Distribution
+methods (CRAN)
+
+------------------------------------------------------------------------
+
+**Next Review**: End of Q4 2025 (Dec 31, 2025)

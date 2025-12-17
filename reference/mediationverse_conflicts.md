@@ -30,7 +30,7 @@ A data frame with columns:
 When multiple packages export a function with the same name, R uses the
 version from the package that was loaded last. This function helps
 identify such conflicts so you can use explicit namespacing (e.g.,
-[`medfit::extract_mediation()`](https://data-wise.github.io/medfit/reference/extract_mediation.html))
+[`medfit::extract_mediation()`](https://rdrr.io/pkg/medfit/man/extract_mediation.html))
 when needed.
 
 ## Examples
