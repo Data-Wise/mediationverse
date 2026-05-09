@@ -55,7 +55,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="logo.png" class="logo" alt=""><h1>mediationverse Package Development</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Data-Wise/mediationverse/blob/main/CLAUDE.md" class="external-link"><code>CLAUDE.md</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Data-Wise/mediationverse/blob/dev/CLAUDE.md" class="external-link"><code>CLAUDE.md</code></a></small>
     </div>
 
 <div id="mediationverse-package-development" class="section level1">
@@ -301,7 +301,7 @@
 <div class="section level2">
 <h2 id="common-pitfalls-to-avoid">Common Pitfalls to Avoid<a class="anchor" aria-label="anchor" href="#common-pitfalls-to-avoid"></a></h2>
 <div class="section level3">
-<h3 id="id_-dont-do-this">❌ DON’T DO THIS<a class="anchor" aria-label="anchor" href="#id_-dont-do-this"></a></h3>
+<h3 id="x-dont-do-this">❌ DON’T DO THIS<a class="anchor" aria-label="anchor" href="#x-dont-do-this"></a></h3>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Using library() in package code</span></span>
 <span><span class="va">my_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
@@ -322,7 +322,7 @@
 <span><span class="va">data</span><span class="op">[</span>, <span class="st">"outcome"</span><span class="op">]</span>  <span class="co"># Can be ambiguous</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="id_-do-this-instead">✅ DO THIS INSTEAD<a class="anchor" aria-label="anchor" href="#id_-do-this-instead"></a></h3>
+<h3 id="white_check_mark-do-this-instead">✅ DO THIS INSTEAD<a class="anchor" aria-label="anchor" href="#white_check_mark-do-this-instead"></a></h3>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Use :: notation</span></span>
 <span><span class="va">my_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>

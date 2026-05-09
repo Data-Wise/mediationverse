@@ -22,6 +22,7 @@ issue](https://github.com/data-wise/mediationverse/issues/new) with:
 **Example**:
 
 ``` r
+
 # Bug report template
 library(mediationverse)
 
@@ -97,6 +98,7 @@ git checkout -b feature/your-feature-name
 Follow our [coding standards](#coding-standards):
 
 ``` r
+
 # Load package
 devtools::load_all()
 
@@ -153,7 +155,7 @@ Follow the [tidyverse style guide](https://style.tidyverse.org/) with
 these specifics:
 
 **Naming**: - Functions: `snake_case()` (e.g.,
-[`extract_mediation()`](https://rdrr.io/pkg/medfit/man/extract_mediation.html)) -
+[`extract_mediation()`](https://data-wise.github.io/medfit/reference/extract_mediation.html)) -
 Variables: `snake_case` (e.g., `med_data`) - S7 Classes: `CamelCase`
 (e.g., `MediationData`) - Private functions: `.snake_case()` (e.g.,
 `.fit_mediation_glm()`)
@@ -161,6 +163,7 @@ Variables: `snake_case` (e.g., `med_data`) - S7 Classes: `CamelCase`
 **Code organization**:
 
 ``` r
+
 # Function template
 my_function <- function(x, y, method = "default") {
   # 1. Input validation
@@ -179,6 +182,7 @@ my_function <- function(x, y, method = "default") {
 #### Documentation (roxygen2)
 
 ``` r
+
 #' Extract Mediation Structure from Models
 #'
 #' @description
@@ -218,6 +222,7 @@ extract_mediation <- S7::new_generic("extract_mediation", "object")
 Write tests for all new functionality:
 
 ``` r
+
 # tests/testthat/test-extraction.R
 test_that("extract_mediation works for lm", {
   # Setup

@@ -20,6 +20,7 @@ The mediationverse uses **selective loading**: only `medfit`
 needed throughout the workflow.
 
 ``` r
+
 # Load foundation package
 library(mediationverse)  # Loads medfit automatically
 
@@ -39,6 +40,7 @@ Using `medsim` (already loaded), we generate data with known population
 parameters:
 
 ``` r
+
 # Population parameters
 a_true <- 0.5 # X -> M effect
 b_true <- 0.4 # M -> Y effect
@@ -66,6 +68,7 @@ head(sim_data)
 Fit the mediator and outcome models using standard regression:
 
 ``` r
+
 # Mediator model: M ~ X
 fit_m <- lm(M ~ X, data = sim_data)
 
@@ -82,6 +85,7 @@ summary(fit_y)
 Using `medfit`, extract the mediation paths into a standardized object:
 
 ``` r
+
 med_data <- extract_mediation(
   fit_m,
   model_y = fit_y,
@@ -109,6 +113,7 @@ the indirect effect:
 The most accurate method for normal theory CIs:
 
 ``` r
+
 ci_dop <- ci(med_data, type = "dop", level = 0.95)
 print(ci_dop)
 ```
@@ -118,6 +123,7 @@ print(ci_dop)
 Simulation-based CIs that work for any distribution:
 
 ``` r
+
 ci_mc <- ci(med_data, type = "MC", n.mc = 10000, level = 0.95)
 print(ci_mc)
 ```
@@ -125,6 +131,7 @@ print(ci_mc)
 ### Compare Methods
 
 ``` r
+
 # Create comparison table
 ci_comparison <- data.frame(
   Method = c("DOP", "Monte Carlo"),
@@ -142,6 +149,7 @@ Compute P_med (using `probmed` already loaded), the probability of a
 positive indirect effect:
 
 ``` r
+
 pmed_result <- compute_pmed(med_data)
 print(pmed_result)
 
@@ -157,6 +165,7 @@ Assess robustness to unmeasured confounding (using `medrobust` already
 loaded):
 
 ``` r
+
 # Compute sensitivity bounds
 sens_bounds <- sensitivity_bounds(
   med_data,
@@ -175,6 +184,7 @@ print(falsification)
 Perform bootstrap inference for the indirect effect:
 
 ``` r
+
 # Nonparametric bootstrap
 boot_result <- bootstrap_mediation(
   med_data,
@@ -205,6 +215,7 @@ legend("topright",
 ## Complete Results Summary
 
 ``` r
+
 # Compile all results
 results <- list(
   # Point estimates
@@ -265,6 +276,7 @@ Based on our analysis:
 The mediationverse also supports structural equation models:
 
 ``` r
+
 library(lavaan)
 
 # Specify mediation model
@@ -291,12 +303,13 @@ print(ci_lavaan)
 ## Session Information
 
 ``` r
+
 sessionInfo()
 ```
 
-    R version 4.5.2 (2025-10-31)
+    R version 4.6.0 (2026-04-24)
     Platform: x86_64-pc-linux-gnu
-    Running under: Ubuntu 24.04.3 LTS
+    Running under: Ubuntu 24.04.4 LTS
 
     Matrix products: default
     BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
@@ -315,9 +328,9 @@ sessionInfo()
     [1] stats     graphics  grDevices utils     datasets  methods   base
 
     loaded via a namespace (and not attached):
-     [1] compiler_4.5.2  fastmap_1.2.0   cli_3.6.5       tools_4.5.2
-     [5] htmltools_0.5.9 yaml_2.3.12     rmarkdown_2.30  knitr_1.50
-     [9] jsonlite_2.0.0  xfun_0.55       digest_0.6.39   rlang_1.1.6
+     [1] compiler_4.6.0  fastmap_1.2.0   cli_3.6.6       tools_4.6.0
+     [5] htmltools_0.5.9 yaml_2.3.12     rmarkdown_2.31  knitr_1.51
+     [9] jsonlite_2.0.0  xfun_0.57       digest_0.6.39   rlang_1.2.0
     [13] evaluate_1.0.5 
 
 ## References

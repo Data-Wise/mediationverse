@@ -28,6 +28,7 @@ The mediationverse package is ready to be pushed to GitHub.
 4.  **Set up GitHub Pages** (for pkgdown):
 
     ``` r
+
     usethis::use_pkgdown_github_pages()
     ```
 

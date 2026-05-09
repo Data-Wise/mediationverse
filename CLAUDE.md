@@ -14,6 +14,7 @@ applied researchers
 ### Development Workflow
 
 ``` r
+
 devtools::load_all()           # Load package during development (Cmd+Shift+L in RStudio)
 devtools::test()               # Run test suite (Cmd+Shift+T)
 devtools::check()              # R CMD check (Cmd+Shift+E)
@@ -24,6 +25,7 @@ devtools::build()              # Build package tarball
 ### Testing & Coverage
 
 ``` r
+
 devtools::test_active_file()   # Test current file only
 testthat::test_file("tests/testthat/test-mediation.R")
 covr::package_coverage()       # Must maintain >80% coverage
@@ -33,6 +35,7 @@ covr::report()                 # View coverage report in browser
 ### Code Quality
 
 ``` r
+
 styler::style_pkg()            # Auto-format to tidyverse style
 lintr::lint_package()          # Static code analysis
 spelling::spell_check_package() # Check spelling in docs
@@ -42,6 +45,7 @@ goodpractice::gp()             # Comprehensive package checks
 ### Documentation
 
 ``` r
+
 pkgdown::build_site()          # Build package website
 pkgdown::build_reference()     # Just rebuild function reference
 usethis::use_vignette("name")  # Create new vignette
@@ -63,6 +67,7 @@ usethis::use_vignette("name")  # Create new vignette
 #### Class Definitions
 
 ``` r
+
 # GOOD - Complete S7 class with validator
 MediationResult <- new_class(
   name = "MediationResult",
@@ -98,6 +103,7 @@ BadClass <- new_class(
 #### Method Definitions
 
 ``` r
+
 # GOOD - Proper generic and method
 method(print, MediationResult) <- function(x, ...) {
   cat("Mediation Analysis Results\n")
@@ -114,6 +120,7 @@ print.MediationResult <- function(x, ...) { }  # Don't do this!
 EVERY exported function MUST include:
 
 ``` r
+
 #' @title Brief one-line description
 #' @description Longer description with statistical details
 #' @param outcome Character. Name of outcome variable
@@ -149,6 +156,7 @@ EVERY exported function MUST include:
 ### Code Style (tidyverse)
 
 ``` r
+
 # GOOD
 calculate_natural_effects <- function(outcome, mediator, treatment, 
                                       data, confounders = NULL) {
@@ -182,6 +190,7 @@ calcNatEff <- function(y,m,a,d,c=NULL) {  # Unclear names
 ### Test Structure (testthat3)
 
 ``` r
+
 # tests/testthat/test-mediation.R
 
 test_that("mediate() handles continuous mediator correctly", {
@@ -229,6 +238,7 @@ Non-standard variable names (spaces, special characters)
 For complex output:
 
 ``` r
+
 test_that("print method produces correct output", {
   result <- create_test_mediation_result()
   expect_snapshot(print(result))
@@ -248,6 +258,7 @@ probability 3. **Consistency**: Well-defined interventions 4.
 Include assumption checking functions where possible:
 
 ``` r
+
 check_positivity(data, treatment, mediator)
 assess_overlap(data, treatment, confounders)
 ```
@@ -272,6 +283,7 @@ user to specify - **Monte Carlo**: For complex mediation models -
 ### ❌ DON’T DO THIS
 
 ``` r
+
 # Using library() in package code
 my_function <- function(data) {
   library(dplyr)  # WRONG!
@@ -294,6 +306,7 @@ data[, "outcome"]  # Can be ambiguous
 ### ✅ DO THIS INSTEAD
 
 ``` r
+
 # Use :: notation
 my_function <- function(data) {
   dplyr::mutate(data, x = 1)
@@ -348,6 +361,7 @@ data[, "outcome", drop = FALSE]
 ### Vectorization
 
 ``` r
+
 # GOOD - Vectorized
 effects <- mean((Y1 - Y0) * weights)
 
@@ -369,6 +383,7 @@ effects <- effects / length(Y1)
 ### Bootstrap Parallelization
 
 ``` r
+
 # Template for parallel bootstrap
 bootstrap_ci <- function(data, B = 1000, parallel = TRUE) {
   ncores <- if (parallel) parallel::detectCores() - 1 else 1

@@ -132,10 +132,10 @@ Performance benchmarks
 Add medfit to DESCRIPTION (Imports)
 
 Replace extraction code with
-[`medfit::extract_mediation()`](https://rdrr.io/pkg/medfit/man/extract_mediation.html)
+[`medfit::extract_mediation()`](https://data-wise.github.io/medfit/reference/extract_mediation.html)
 
 Replace bootstrap with
-[`medfit::bootstrap_mediation()`](https://rdrr.io/pkg/medfit/man/bootstrap_mediation.html)
+[`medfit::bootstrap_mediation()`](https://data-wise.github.io/medfit/reference/bootstrap_mediation.html)
 
 Re-export medfit generics (nie, nde, te, pm, paths)
 
@@ -155,7 +155,7 @@ Integration tests (probmed + medfit workflow)
 Add medfit to DESCRIPTION (Imports)
 
 Use
-[`medfit::extract_mediation()`](https://rdrr.io/pkg/medfit/man/extract_mediation.html)
+[`medfit::extract_mediation()`](https://data-wise.github.io/medfit/reference/extract_mediation.html)
 for lavaan
 
 Leverage medfit bootstrap utilities
@@ -345,7 +345,7 @@ Plan future enhancements
 
 - All packages pass R CMD check on CRAN
 
-- 90% code coverage across packages
+- > 90% code coverage across packages
 
 - \<500ms for typical mediation analysis
 
@@ -371,20 +371,20 @@ Plan future enhancements
 
 #### Technical Risks
 
-| Risk                 | Probability | Impact | Mitigation                                 |
-|----------------------|-------------|--------|--------------------------------------------|
-| API breaking changes | Medium      | High   | Extensive testing, deprecation warnings    |
-| Performance issues   | Low         | Medium | Benchmarking, profiling                    |
-| CRAN rejection       | Low         | High   | Early submission, address feedback quickly |
-| S7 stability         | Low         | High   | Track S7 development, contribute fixes     |
+| Risk | Probability | Impact | Mitigation |
+|----|----|----|----|
+| API breaking changes | Medium | High | Extensive testing, deprecation warnings |
+| Performance issues | Low | Medium | Benchmarking, profiling |
+| CRAN rejection | Low | High | Early submission, address feedback quickly |
+| S7 stability | Low | High | Track S7 development, contribute fixes |
 
 #### Project Risks
 
-| Risk                 | Probability | Impact | Mitigation                           |
-|----------------------|-------------|--------|--------------------------------------|
-| Delayed integration  | Medium      | Medium | Modular design, parallel development |
-| Scope creep          | Medium      | Medium | Strict MVP definition, phase gates   |
-| Resource constraints | Low         | High   | Prioritize core features             |
+| Risk | Probability | Impact | Mitigation |
+|----|----|----|----|
+| Delayed integration | Medium | Medium | Modular design, parallel development |
+| Scope creep | Medium | Medium | Strict MVP definition, phase gates |
+| Resource constraints | Low | High | Prioritize core features |
 
 ------------------------------------------------------------------------
 

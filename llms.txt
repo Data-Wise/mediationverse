@@ -16,6 +16,7 @@ analysis, providing a unified ecosystem for:
 ## Quick Start
 
 ``` r
+
 # Install mediationverse
 pak::pak("data-wise/mediationverse")
 
@@ -46,13 +47,13 @@ sensitivity <- sensitivity_analysis(med_data)
 
 ### Package Overview
 
-| Package                                                         | Status                                                                       | Build                                                                                                                                             | Website                                                                                                                              | Role                      |
-|-----------------------------------------------------------------|------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| [**medfit**](https://Data-Wise.github.io/medfit/)               | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/Data-Wise/medfit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medfit/actions)         | [![Docs](https://github.com/Data-Wise/medfit/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medfit/)         | **Foundation**            |
-| [**probmed**](https://Data-Wise.github.io/probmed/)             | ![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)  | [![Build](https://github.com/Data-Wise/probmed/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/probmed/actions)       | [![Docs](https://github.com/Data-Wise/probmed/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/probmed/)       | Effect Size               |
-| [**RMediation**](https://cran.r-project.org/package=RMediation) | ![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)  | [![Build](https://github.com/Data-Wise/rmediation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/rmediation/actions) | [![Docs](https://github.com/Data-Wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/rmediation/) | Confidence Intervals      |
-| [**medrobust**](https://Data-Wise.github.io/medrobust/)         | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | —                                                                                                                                                 | [![Docs](https://github.com/Data-Wise/medrobust/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medrobust/)   | Sensitivity Analysis      |
-| [**medsim**](https://Data-Wise.github.io/medsim/)               | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/Data-Wise/medsim/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medsim/actions)         | [![Docs](https://github.com/Data-Wise/medsim/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medsim/)         | Simulation Infrastructure |
+| Package | Status | Build | Website | Role |
+|----|----|----|----|----|
+| [**medfit**](https://Data-Wise.github.io/medfit/) | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/Data-Wise/medfit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medfit/actions) | [![Docs](https://github.com/Data-Wise/medfit/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medfit/) | **Foundation** |
+| [**probmed**](https://Data-Wise.github.io/probmed/) | ![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg) | [![Build](https://github.com/Data-Wise/probmed/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/probmed/actions) | [![Docs](https://github.com/Data-Wise/probmed/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/probmed/) | Effect Size |
+| [**RMediation**](https://cran.r-project.org/package=RMediation) | ![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg) | [![Build](https://github.com/Data-Wise/rmediation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/rmediation/actions) | [![Docs](https://github.com/Data-Wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/rmediation/) | Confidence Intervals |
+| [**medrobust**](https://Data-Wise.github.io/medrobust/) | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | — | [![Docs](https://github.com/Data-Wise/medrobust/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medrobust/) | Sensitivity Analysis |
+| [**medsim**](https://Data-Wise.github.io/medsim/) | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/Data-Wise/medsim/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medsim/actions) | [![Docs](https://github.com/Data-Wise/medsim/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medsim/) | Simulation Infrastructure |
 
 ### Development Progress
 
@@ -219,6 +220,7 @@ LaTeX tables
 ### From GitHub (Development)
 
 ``` r
+
 # Install all packages
 pak::pak("Data-Wise/mediationverse")
 
@@ -235,6 +237,7 @@ install.packages("RMediation")
 ### From CRAN (Future)
 
 ``` r
+
 # Planned for Q2-Q3 2026
 install.packages("mediationverse")
 ```
@@ -248,6 +251,7 @@ package (`medfit`) is loaded by default. Load other packages as needed
 for your analysis.
 
 ``` r
+
 library(mediationverse)
 #> ── Attaching mediationverse 0.0.0.9000 ──
 #> ✔ medfit 0.1.0 (foundation package)
@@ -271,6 +275,7 @@ always available (foundation for all packages)
 ### Package Management
 
 ``` r
+
 # List installed packages and versions
 mediationverse_packages()
 
@@ -284,6 +289,7 @@ mediationverse_conflicts()
 ### Complete Analysis Workflow
 
 ``` r
+
 # Load foundation and packages you need
 library(mediationverse)  # Loads medfit (foundation)
 library(probmed)         # For P_med effect size

@@ -17,6 +17,7 @@ clarity) - Coordinated with medfit ecosystem integration
 **Migration**:
 
 ``` r
+
 # OLD behavior (v0.0.x)
 library(mediationverse)  # Loaded all 5 packages
 

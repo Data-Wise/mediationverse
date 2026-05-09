@@ -55,14 +55,14 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="logo.png" class="logo" alt=""><h1>Selective Loading Test Results</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Data-Wise/mediationverse/blob/main/SELECTIVE-LOADING-TEST.md" class="external-link"><code>SELECTIVE-LOADING-TEST.md</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Data-Wise/mediationverse/blob/dev/SELECTIVE-LOADING-TEST.md" class="external-link"><code>SELECTIVE-LOADING-TEST.md</code></a></small>
     </div>
 
 <div id="selective-loading-test-results" class="section level1">
 
 <p><strong>Date</strong>: 2025-12-15 <strong>Package</strong>: mediationverse 0.0.0.9000 <strong>Strategy</strong>: Option 2 - Selective Loading (only medfit by default)</p>
 <hr><div class="section level2">
-<h2 id="id_-test-results">✅ Test Results<a class="anchor" aria-label="anchor" href="#id_-test-results"></a></h2>
+<h2 id="white_check_mark-test-results">✅ Test Results<a class="anchor" aria-label="anchor" href="#white_check_mark-test-results"></a></h2>
 <div class="section level3">
 <h3 id="id_1-startup-message-test">1. Startup Message Test<a class="anchor" aria-label="anchor" href="#id_1-startup-message-test"></a></h3>
 <p><strong>Command</strong>: <code>devtools::load_all()</code></p>
@@ -125,36 +125,36 @@
 `.__T__$&lt;-:base()` from medfit, RMediation (using medfit)
 
 ℹ Use `package::function()` to call a specific version</code></pre>
-<p><strong>Result</strong>: ✅ PASS - Detects real conflict: <code><a href="https://rdrr.io/pkg/medfit/man/extract_mediation.html" class="external-link">extract_mediation()</a></code> exists in both medfit and probmed - Shows which version is used (medfit wins) - Internal S7 method conflicts are expected and don’t affect users - Provides helpful guidance to use <code>package::function()</code> syntax</p>
+<p><strong>Result</strong>: ✅ PASS - Detects real conflict: <code><a href="https://data-wise.github.io/medfit/reference/extract_mediation.html" class="external-link">extract_mediation()</a></code> exists in both medfit and probmed - Shows which version is used (medfit wins) - Internal S7 method conflicts are expected and don’t affect users - Provides helpful guidance to use <code>package::function()</code> syntax</p>
 <hr></div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="id_-summary">📊 Summary<a class="anchor" aria-label="anchor" href="#id_-summary"></a></h2>
+<h2 id="bar_chart-summary">📊 Summary<a class="anchor" aria-label="anchor" href="#bar_chart-summary"></a></h2>
 <div class="section level3">
-<h3 id="id_-all-tests-passed">✅ All Tests Passed<a class="anchor" aria-label="anchor" href="#id_-all-tests-passed"></a></h3>
-<table class="table"><colgroup><col width="28%"><col width="38%"><col width="33%"></colgroup><thead><tr class="header"><th>Test</th>
+<h3 id="white_check_mark-all-tests-passed">✅ All Tests Passed<a class="anchor" aria-label="anchor" href="#white_check_mark-all-tests-passed"></a></h3>
+<table class="table"><colgroup><col width="28%"><col width="38%"><col width="33%"></colgroup><thead><tr><th>Test</th>
 <th>Status</th>
 <th>Notes</th>
-</tr></thead><tbody><tr class="odd"><td>Startup message</td>
+</tr></thead><tbody><tr><td>Startup message</td>
 <td>✅ PASS</td>
 <td>Clean, informative</td>
-</tr><tr class="even"><td>Selective loading</td>
+</tr><tr><td>Selective loading</td>
 <td>✅ PASS</td>
 <td>Only medfit attached</td>
-</tr><tr class="odd"><td>Package status</td>
+</tr><tr><td>Package status</td>
 <td>✅ PASS</td>
 <td>Utility function works</td>
-</tr><tr class="even"><td>Conflict detection (minimal)</td>
+</tr><tr><td>Conflict detection (minimal)</td>
 <td>✅ PASS</td>
 <td>No conflicts with medfit only</td>
-</tr><tr class="odd"><td>Conflict detection (multiple)</td>
+</tr><tr><td>Conflict detection (multiple)</td>
 <td>✅ PASS</td>
 <td>Correctly identifies conflicts</td>
 </tr></tbody></table><hr></div>
 </div>
 <div class="section level2">
-<h2 id="id_-benefits-demonstrated">🎯 Benefits Demonstrated<a class="anchor" aria-label="anchor" href="#id_-benefits-demonstrated"></a></h2>
+<h2 id="dart-benefits-demonstrated">🎯 Benefits Demonstrated<a class="anchor" aria-label="anchor" href="#dart-benefits-demonstrated"></a></h2>
 <ol style="list-style-type: decimal"><li>
 <strong>Clean Namespace</strong>
 <ul><li>Only medfit loaded by default</li>
@@ -177,16 +177,16 @@
 </ul></li>
 </ol><hr></div>
 <div class="section level2">
-<h2 id="id_-coordination-status">🔄 Coordination Status<a class="anchor" aria-label="anchor" href="#id_-coordination-status"></a></h2>
+<h2 id="arrows_counterclockwise-coordination-status">🔄 Coordination Status<a class="anchor" aria-label="anchor" href="#arrows_counterclockwise-coordination-status"></a></h2>
 <div class="section level3">
-<h3 id="id_-aligned-with-medfit">✅ Aligned with medfit<a class="anchor" aria-label="anchor" href="#id_-aligned-with-medfit"></a></h3>
+<h3 id="white_check_mark-aligned-with-medfit">✅ Aligned with medfit<a class="anchor" aria-label="anchor" href="#white_check_mark-aligned-with-medfit"></a></h3>
 <ul><li>Follows COORDINATION-BRAINSTORM.md recommendation (Option 2)</li>
 <li>medfit always loaded (foundation package)</li>
 <li>Other packages loaded explicitly as needed</li>
 <li>Integration ready when medfit v0.1.0 releases</li>
 </ul></div>
 <div class="section level3">
-<h3 id="id_-next-steps">📋 Next Steps<a class="anchor" aria-label="anchor" href="#id_-next-steps"></a></h3>
+<h3 id="clipboard-next-steps">📋 Next Steps<a class="anchor" aria-label="anchor" href="#clipboard-next-steps"></a></h3>
 <ol style="list-style-type: decimal"><li>✅ Documentation updated (README, vignettes)</li>
 <li>✅ Loading mechanism tested</li>
 <li>⏳ Wait for medfit v0.1.0 stabilization</li>
@@ -195,7 +195,7 @@
 </ol><hr></div>
 </div>
 <div class="section level2">
-<h2 id="id_-files-modified">📝 Files Modified<a class="anchor" aria-label="anchor" href="#id_-files-modified"></a></h2>
+<h2 id="pencil-files-modified">📝 Files Modified<a class="anchor" aria-label="anchor" href="#pencil-files-modified"></a></h2>
 <p><strong>Core Loading</strong>: - <code>R/attach.R</code> - Selective loading implementation - <code>R/zzz.R</code> - Startup message</p>
 <p><strong>Documentation</strong>: - <code>README.md</code> - Loading examples, architecture diagram - <code>vignettes/getting-started.qmd</code> - Tutorial updates - <code>vignettes/mediationverse-workflow.qmd</code> - Workflow updates</p>
 <p><strong>Testing</strong>: - This file - Test documentation</p>
