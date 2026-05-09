@@ -498,7 +498,8 @@ Closes #42</code></pre>
 <span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a></span>
 <span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a><span class="co"># Coverage report</span></span>
 <span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a><span class="ex">R</span> <span class="at">-e</span> <span class="st">"covr::report()"</span></span></code></pre></div>
-<hr><p><strong>Last Updated</strong>: 2025-12-05 <strong>Maintainer</strong>: Update this file as patterns emerge!</p>
+<hr><p><strong>Last Updated</strong>: 2026-05-09 <strong>Maintainer</strong>: Update this file as patterns emerge!</p>
+<p><strong>Architecture note (2026-05-09):</strong> mediationverse is a meta-package using selective loading (R/attach.R) — only <code>medfit</code> and <code>cli</code> are in DESCRIPTION Imports; <code>medsim</code>, <code>medrobust</code>, <code>probmed</code>, <code>RMediation</code> are in Suggests and opt-in via <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code>. See PR #2 and project memory <code>project_imports_suggests_selective_loading.md</code>.</p>
 </div>
 </div>
 
