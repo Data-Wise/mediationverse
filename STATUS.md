@@ -2,7 +2,17 @@
 
 > Centralized monitoring for all mediationverse packages
 
-**Last Updated**: 2025-12-04
+**Last Updated**: 2026-05-09
+
+> 📋 **Recent Activity (2026-05-09)**: Branch protection added across
+> all 5 mediation repos (PR required, no force, no delete). Three open
+> PRs awaiting review:
+> [medsim#1](https://github.com/Data-Wise/medsim/pull/1) (Remotes:
+> field), [medrobust#1](https://github.com/Data-Wise/medrobust/pull/1)
+> (R-CMD-check workflow),
+> [mediationverse#2](https://github.com/Data-Wise/mediationverse/pull/2)
+> (Imports → Suggests, ✅ all CI green). See [master
+> roadmap](https://github.com/Data-Wise/mediation-planning/blob/main/docs/ROADMAP.md).
 
 ------------------------------------------------------------------------
 
