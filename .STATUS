@@ -1,7 +1,7 @@
 status: active
 priority: P1
-progress: 85
-next: Integration test mediationverse + medfit v0.1.0; bump to v0.1.0
+progress: 90
+next: Investigate medsim CI trigger mystery, OR start medfit CRAN prep (vignette decision)
 type: r
 last_updated: 2026-05-09
 
@@ -56,11 +56,16 @@ Version: 0.0.0.9000
 
 Blocked: None (medfit v0.1.0 released; all deps available)
 
-📋 Recent Housekeeping (2026-05-09):
+📋 Recent Housekeeping (2026-05-09 — full session):
 - ✅ Synced dev branch with main (4 commits fast-forward)
 - ✅ Added GitHub branch protection on main (PR required, no force/delete, R-CMD-check on ubuntu-latest required)
 - ✅ Aligned global ~/.claude/CLAUDE.md git workflow rules with dev-tools/craft as source of truth
 - ✅ Reviewed entire mediationverse ecosystem (all 5 packages dashboard)
+- ✅ PR #2 MERGED: Imports → Suggests fix (DESCRIPTION now correctly reflects selective loading)
+- ✅ Integration tested mediationverse + medfit v0.1.0; pkgload::load_all now works standalone
+- ✅ Created/updated CLAUDE.md + memory dirs for all 5 packages (~13 new memory entries)
+- ✅ Refreshed mediation-planning master dashboard (PROJECT-HUB, ROADMAP, TODOS) — PR #1 merged
+- ✅ medrobust PR #1 MERGED: Added R-CMD-check workflow with Windows quarto fix; all 3 platforms green
 
 📋 Earlier Completed (Dec 15 — selective loading work):
 - ✅ Implemented selective loading strategy (Option 2)
