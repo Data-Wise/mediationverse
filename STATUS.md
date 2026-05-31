@@ -2,17 +2,24 @@
 
 > Centralized monitoring for all mediationverse packages
 
-**Last Updated**: 2026-05-09
+**Last Updated**: 2026-05-31
 
-> 📋 **Recent Activity (2026-05-09)**: Branch protection added across
-> all 5 mediation repos (PR required, no force, no delete). Three open
-> PRs awaiting review:
-> [medsim#1](https://github.com/Data-Wise/medsim/pull/1) (Remotes:
-> field), [medrobust#1](https://github.com/Data-Wise/medrobust/pull/1)
-> (R-CMD-check workflow),
-> [mediationverse#2](https://github.com/Data-Wise/mediationverse/pull/2)
-> (Imports → Suggests, ✅ all CI green). See [master
+> 📋 **Recent Activity (2026-05-31)**: medfit ↔︎ RMediation covariance
+> integration landed. Merged:
+> [RMediation#4](https://github.com/Data-Wise/rmediation/pull/4)
+> (→develop — name-based path covariance extraction in
+> [`ci()`](https://data-wise.github.io/rmediation/reference/ci.html)),
+> [medfit#19](https://github.com/Data-Wise/medfit/pull/19) (→dev —
+> Blocker A: lavaan off-diagonal covariances + print.mediation_effect S3
+> dispatch fix),
+> [mediation-planning#2](https://github.com/Data-Wise/mediation-planning/pull/2)
+> (→main — ecosystem proposal + covariance specs). **Remaining:** medfit
+> **Blocker B** (serial mediation extractor) before RMediation’s serial
+> lavaan pipeline is end-to-end. See [master
 > roadmap](https://github.com/Data-Wise/mediation-planning/blob/main/docs/ROADMAP.md).
+>
+> *Prior (2026-05-09): branch protection across all 5 repos; Imports →
+> Suggests (mediationverse#2).*
 
 ------------------------------------------------------------------------
 
