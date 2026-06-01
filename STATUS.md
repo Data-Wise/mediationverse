@@ -79,16 +79,16 @@ All packages should use this badge order in their README.md:
 ## Current Issues
 
 ### medfit
-- Status: Under active development
-- Issues: None currently blocking
+- Status: Under active development; dev has Blocker A (PR #19) + Blocker B **lavaan serial extractor** (PR #20) merged; CI fully green (lint debt cleared, PR #21).
+- Issues: Blocker B remaining work = the **lm/sequential-regression** serial path only — decision-complete and spec'd (`medfit/planning/specs/SPEC-lm-serial-extractor-2026-05-31.md`). The lavaan serial pipeline is verified end-to-end against RMediation. See `mediation-planning/specs/MEDFIT-COVARIANCE-EXTRACTION-BLOCKERS-SPEC.md`.
 
 ### probmed
 - Status: Stable, ready for integration testing
 - Issues: None
 
 ### RMediation
-- Status: On CRAN, stable
-- Issues: None
+- Status: On CRAN (1.4.0); develop has medfit covariance integration (PR #4 merged 2026-05-31)
+- Issues: None blocking. v1.5.0 needs medfit on CRAN (Suggests → Imports). Serial lavaan path is unblocked (medfit Blocker B lavaan merged + verified end-to-end); only lm-fit serial chains await medfit's lm serial extractor.
 
 ### medrobust
 - Status: Under active development
