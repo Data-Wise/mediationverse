@@ -191,8 +191,8 @@
 <h2 id="current-issues">Current Issues<a class="anchor" aria-label="anchor" href="#current-issues"></a></h2>
 <div class="section level3">
 <h3 id="medfit">medfit<a class="anchor" aria-label="anchor" href="#medfit"></a></h3>
-<ul><li>Status: Under active development</li>
-<li>Issues: None currently blocking</li>
+<ul><li>Status: Under active development; dev has Blocker A (PR #19) + Blocker B <strong>lavaan serial extractor</strong> (PR #20) merged; CI fully green (lint debt cleared, PR #21).</li>
+<li>Issues: Blocker B remaining work = the <strong>lm/sequential-regression</strong> serial path only — decision-complete and spec’d (<code>medfit/planning/specs/SPEC-lm-serial-extractor-2026-05-31.md</code>). The lavaan serial pipeline is verified end-to-end against RMediation. See <code>mediation-planning/specs/MEDFIT-COVARIANCE-EXTRACTION-BLOCKERS-SPEC.md</code>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="probmed">probmed<a class="anchor" aria-label="anchor" href="#probmed"></a></h3>
@@ -201,8 +201,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="rmediation">RMediation<a class="anchor" aria-label="anchor" href="#rmediation"></a></h3>
-<ul><li>Status: On CRAN, stable</li>
-<li>Issues: None</li>
+<ul><li>Status: On CRAN (1.4.0); develop has medfit covariance integration (PR #4 merged 2026-05-31)</li>
+<li>Issues: None blocking. v1.5.0 needs medfit on CRAN (Suggests → Imports). Serial lavaan path is unblocked (medfit Blocker B lavaan merged + verified end-to-end); only lm-fit serial chains await medfit’s lm serial extractor.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="medrobust">medrobust<a class="anchor" aria-label="anchor" href="#medrobust"></a></h3>
