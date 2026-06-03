@@ -1,9 +1,9 @@
 status: active
 priority: P1
 progress: 90
-next: Investigate medsim CI trigger mystery, OR start medfit CRAN prep (vignette decision)
+next: Waiting on medfit CRAN acceptance — then drop `Data-Wise/medfit` from Remotes + pin `medfit (>= 0.2.0)` in Imports (cascade pre-staged in medfit/planning/CASCADE-cran-flip-2026-06-03.md). Also: reconcile NEWS/README (0.1.0) vs DESCRIPTION (0.0.0.9000); expand thin test suite (1 test_that).
 type: r
-last_updated: 2026-05-09
+last_updated: 2026-06-03
 
 # ═══════════════════════════════════════════════════════════════════
 # Below is the original .STATUS content (preserved for reference)
