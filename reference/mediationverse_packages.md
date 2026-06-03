@@ -34,7 +34,7 @@ mediationverse_packages()
 #> 
 #> ── mediationverse packages ─────────────────────────────────────────────────────
 #> ✔ mediationverse 0.0.0.9000 (attached)
-#> ✔ medfit 0.1.0 (attached)
+#> ✔ medfit 0.2.0 (attached)
 #> ✔ probmed 0.0.0.9000
 #> ✔ RMediation 1.3.0
 #> ✔ medrobust 0.1.0.9000
