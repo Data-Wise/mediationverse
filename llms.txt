@@ -57,23 +57,15 @@ sensitivity <- sensitivity_analysis(med_data)
 
 ### Development Progress
 
-**Current Quarter (Q4 2025)**: Ecosystem Development Phase
+Detailed milestones and current status are maintained in the [planning
+hub](https://github.com/data-wise/mediation-planning) — kept in one
+place to stay current rather than duplicated (and drifting) here:
 
-| Milestone                      | Status         | Progress |
-|--------------------------------|----------------|----------|
-| medfit Phase 3 (Extraction)    | ✅ Complete    | 100%     |
-| medfit Phase 4 (Model Fitting) | 🚧 In Progress | 60%      |
-| probmed Integration            | ⏳ Pending     | 0%       |
-| RMediation Integration         | ⏳ Pending     | 0%       |
-| medsim Core Implementation     | ✅ Complete    | 100%     |
-| Comprehensive Documentation    | ✅ Complete    | 100%     |
-
-**Next Quarter (Q1 2026)**: Integration & Release
-
-- Complete medfit Phase 4-5 (Bootstrap, Testing)
-- Integrate probmed and RMediation with medfit
-- CRAN submissions for medfit, probmed
-- Finalize mediationverse meta-package
+- [🗺️ Master
+  Roadmap](https://github.com/data-wise/mediation-planning/blob/main/docs/ROADMAP.md)
+- [📊
+  PROJECT-HUB](https://github.com/data-wise/mediation-planning/blob/main/PROJECT-HUB.md)
+  — dashboard & current focus
 
 ## Package Ecosystem
 
@@ -238,7 +230,7 @@ install.packages("RMediation")
 
 ``` r
 
-# Planned for Q2-Q3 2026
+# Planned — once published to CRAN
 install.packages("mediationverse")
 ```
 
@@ -355,8 +347,11 @@ Following principles from [tidyverse](https://design.tidyverse.org/) and
   Roadmap](https://data-wise.github.io/mediationverse/articles/roadmap.html)
 - [🤝 Contributing
   Guide](https://data-wise.github.io/mediationverse/articles/contributing.html)
+- [🧭 Planning
+  Hub](https://github.com/data-wise/mediation-planning/blob/main/PROJECT-HUB.md)
+  — roadmap, specs, coordination
 - [📋 Ecosystem
-  Coordination](https://github.com/data-wise/medfit/blob/main/planning/ECOSYSTEM.md)
+  Coordination](https://github.com/data-wise/mediation-planning/blob/main/docs/ECOSYSTEM-COORDINATION.md)
 
 ### Package Documentation
 

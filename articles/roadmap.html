@@ -68,7 +68,8 @@
     <li><a class="dropdown-item" href="../articles/roadmap.html">🗺️ Development Roadmap</a></li>
     <li><a class="dropdown-item" href="../articles/contributing.html">🤝 Contributing Guide</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="external-link dropdown-item" href="https://github.com/Data-Wise/medfit/blob/main/planning/ECOSYSTEM.md">📋 Ecosystem Coordination</a></li>
+    <li><a class="external-link dropdown-item" href="https://github.com/Data-Wise/mediation-planning/blob/main/PROJECT-HUB.md">🧭 Planning Hub</a></li>
+    <li><a class="external-link dropdown-item" href="https://github.com/Data-Wise/mediation-planning/blob/main/docs/ECOSYSTEM-COORDINATION.md">📋 Ecosystem Coordination</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">News</a></li>
@@ -103,622 +104,104 @@
 <h2 id="mediationverse-development-roadmap">mediationverse Development Roadmap<a class="anchor" aria-label="anchor" href="#mediationverse-development-roadmap"></a>
 </h2>
 <blockquote>
-<p><strong>Last Updated</strong>: 2025-12-17 <strong>Coordination
-Hub</strong>: <a href="https://github.com/data-wise/mediation-planning" class="external-link">mediation-planning
-repository</a></p>
-</blockquote>
-<p>This document provides a high-level overview of the development
-timeline for the mediationverse ecosystem.</p>
-<blockquote>
-<p><strong>Note</strong>: For detailed planning documents, cross-package
-coordination, and up-to-date progress tracking, see the <a href="https://github.com/data-wise/mediation-planning" class="external-link">mediation-planning
-repository</a>, specifically: - <a href="https://github.com/data-wise/mediation-planning/blob/main/docs/ROADMAP.md" class="external-link">Master
-Roadmap</a> - Detailed timeline and status - <a href="https://github.com/data-wise/mediation-planning/blob/main/PROJECT-HUB.md" class="external-link">PROJECT-HUB</a>
-- Dashboard and coordination - <a href="https://github.com/data-wise/mediation-planning/blob/main/TODOS.md" class="external-link">TODOS</a>
-- Active task tracking</p>
+<p><strong>Authoritative, always-current roadmap:</strong> the <a href="https://github.com/data-wise/mediation-planning" class="external-link">mediation-planning
+hub</a>. This page is a high-level orientation only — detailed phases,
+milestones, and status are maintained in the hub (and generated live by
+tooling), so they are not duplicated here where they would drift.</p>
 </blockquote>
 <div class="section level3">
-<h3 id="timeline-overview">Timeline Overview<a class="anchor" aria-label="anchor" href="#timeline-overview"></a>
+<h3 id="what-the-ecosystem-is">What the ecosystem is<a class="anchor" aria-label="anchor" href="#what-the-ecosystem-is"></a>
 </h3>
-<pre><code>Q4 2025 (Current)    Q1 2026              Q2 2026              Q3 2026
-    |                    |                    |                    |
-    v                    v                    v                    v
-[Foundation]         [Integration]        [Refinement]         [Release]
- medfit MVP           Package              Documentation        CRAN
- medsim               Integration          Polishing            Submissions
- Documentation        Testing              User Testing         Launch</code></pre>
-<hr>
+<p>The mediationverse builds outward from a shared foundation —
+<strong>medfit</strong> (S7 data classes, model extraction, fitting, and
+bootstrap inference) — that the analysis packages build on:</p>
+<ul>
+<li>
+<strong>probmed</strong> — P_med effect size</li>
+<li>
+<strong>RMediation</strong> — confidence intervals (DOP / MBCO /
+Monte Carlo)</li>
+<li>
+<strong>medrobust</strong> — sensitivity analysis</li>
+<li>
+<strong>medsim</strong> — simulation infrastructure</li>
+<li>
+<strong>missingmed</strong> — missing-data mediation (multiple
+imputation)</li>
+</ul>
+<p>The <strong>mediationverse</strong> meta-package ties them together
+with selective loading.</p>
 </div>
 <div class="section level3">
-<h3 id="phase-1-foundation-q4-2025---complete-ahead-of-schedule">Phase 1: Foundation (Q4 2025) - ✅ <strong>COMPLETE</strong> (Ahead
-of Schedule!)<a class="anchor" aria-label="anchor" href="#phase-1-foundation-q4-2025---complete-ahead-of-schedule"></a>
+<h3 id="direction-high-level">Direction (high level)<a class="anchor" aria-label="anchor" href="#direction-high-level"></a>
 </h3>
-<div class="section level4">
-<h4 id="objectives">Objectives<a class="anchor" aria-label="anchor" href="#objectives"></a>
-</h4>
-<p>Build core infrastructure and establish package foundations.</p>
-</div>
-<div class="section level4">
-<h4 id="milestones">Milestones<a class="anchor" aria-label="anchor" href="#milestones"></a>
-</h4>
-<div class="section level5">
-<h5 id="medfit-phase-1-7-complete">✅ medfit Phase 1-7 (Complete!)<a class="anchor" aria-label="anchor" href="#medfit-phase-1-7-complete"></a>
-</h5>
-<ul class="task-list">
-<li><label><input type="checkbox" checked>Package skeleton and S7
-architecture</label></li>
-<li><label><input type="checkbox" checked><code>MediationData</code> and
-<code>SerialMediationData</code> classes</label></li>
-<li><label><input type="checkbox" checked>Model extraction (lm/glm,
-lavaan)</label></li>
-<li><label><input type="checkbox" checked>Comprehensive Quarto
-documentation</label></li>
-<li><label><input type="checkbox" checked>pkgdown website with
-Bootstrap 5</label></li>
-<li><label><input type="checkbox" checked>GLM fitting
-infrastructure</label></li>
-<li><label><input type="checkbox" checked>Formula interface
-implementation</label></li>
-<li><label><input type="checkbox" checked>Engine adapter
-pattern</label></li>
-<li><label><input type="checkbox" checked>Integration tests (427
-tests passing)</label></li>
-<li><label><input type="checkbox" checked>Bootstrap methods
-(parametric, nonparametric, plugin)</label></li>
-<li><label><input type="checkbox" checked>Generic functions (coef,
-vcov, confint, nobs)</label></li>
-<li><label><input type="checkbox" checked>Effect extractors (nie,
-nde, te, pm, paths)</label></li>
-<li><label><input type="checkbox" checked>Tidyverse methods (tidy,
-glance)</label></li>
-<li><label><input type="checkbox" checked>ADHD-friendly API (med,
-quick)</label></li>
-<li><label><input type="checkbox" checked>R CMD check
-clean</label></li>
-<li><label><input type="checkbox">Final CRAN submission
-(pending)</label></li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="medsim-complete">✅ medsim (Complete)<a class="anchor" aria-label="anchor" href="#medsim-complete"></a>
-</h5>
-<ul class="task-list">
-<li><label><input type="checkbox" checked>Core simulation
-infrastructure</label></li>
-<li><label><input type="checkbox" checked>Environment detection
-(local/HPC)</label></li>
-<li><label><input type="checkbox" checked>Parallel processing with
-progress bars</label></li>
-<li><label><input type="checkbox" checked>Standard mediation
-scenarios</label></li>
-<li><label><input type="checkbox" checked>Publication-ready
-output</label></li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="documentation-complete">✅ Documentation (Complete)<a class="anchor" aria-label="anchor" href="#documentation-complete"></a>
-</h5>
-<ul class="task-list">
-<li><label><input type="checkbox" checked>medfit vignettes (4
-comprehensive guides)</label></li>
-<li><label><input type="checkbox" checked>probmed vignettes
-(integration guides)</label></li>
-<li><label><input type="checkbox" checked>Package websites for all
-packages</label></li>
-<li><label><input type="checkbox" checked>Unified styling
-(Bootstrap 5 + Litera)</label></li>
-</ul>
-</div>
-</div>
-<div class="section level4">
-<h4 id="deliverables">Deliverables<a class="anchor" aria-label="anchor" href="#deliverables"></a>
-</h4>
-<ul>
-<li>medfit MVP (extract, fit, bootstrap)</li>
-<li>medsim ready for use</li>
-<li>Complete package documentation</li>
-<li>GitHub Actions CI/CD for all packages</li>
-</ul>
-<hr>
-</div>
-</div>
-<div class="section level3">
-<h3 id="phase-2-integration-q4-2025---ready-now">Phase 2: Integration (Q4 2025 - READY NOW!)<a class="anchor" aria-label="anchor" href="#phase-2-integration-q4-2025---ready-now"></a>
-</h3>
-<p><strong>Status</strong>: medfit complete, ready for ecosystem
-integration (3 months ahead of schedule!)</p>
-<div class="section level4">
-<h4 id="objectives-1">Objectives<a class="anchor" aria-label="anchor" href="#objectives-1"></a>
-</h4>
-<p>Integrate dependent packages with medfit foundation.</p>
-</div>
-<div class="section level4">
-<h4 id="milestones-1">Milestones<a class="anchor" aria-label="anchor" href="#milestones-1"></a>
-</h4>
-<div class="section level5">
-<h5 id="medfit-phase-5-complete">✅ medfit Phase 5 (Complete)<a class="anchor" aria-label="anchor" href="#medfit-phase-5-complete"></a>
-</h5>
-<ul class="task-list">
-<li><label><input type="checkbox" checked>Parametric bootstrap
-implementation</label></li>
-<li><label><input type="checkbox" checked>Nonparametric
-bootstrap</label></li>
-<li><label><input type="checkbox" checked>Plugin
-estimator</label></li>
-<li><label><input type="checkbox" checked>Extended test suite (427
-tests, 100% pass rate)</label></li>
-<li><label><input type="checkbox" checked>Performance
-benchmarks</label></li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="probmed-integration-priority-1">probmed Integration (Priority 1)<a class="anchor" aria-label="anchor" href="#probmed-integration-priority-1"></a>
-</h5>
-<ul class="task-list">
-<li><label><input type="checkbox">Add medfit to DESCRIPTION
-(Imports)</label></li>
-<li><label><input type="checkbox">Replace extraction code with
-<code><a href="https://data-wise.github.io/medfit/reference/extract_mediation.html" class="external-link">medfit::extract_mediation()</a></code></label></li>
-<li><label><input type="checkbox">Replace bootstrap with
-<code><a href="https://data-wise.github.io/medfit/reference/bootstrap_mediation.html" class="external-link">medfit::bootstrap_mediation()</a></code></label></li>
-<li><label><input type="checkbox">Re-export medfit generics (nie, nde,
-te, pm, paths)</label></li>
-<li><label><input type="checkbox">Add <code><a href="https://data-wise.github.io/probmed/reference/pmed.html" class="external-link">pmed()</a></code> extractor
-for P_med effect size</label></li>
-<li><label><input type="checkbox">Update formula interface to use
-medfit</label></li>
-<li><label><input type="checkbox">Verify backward
-compatibility</label></li>
-<li><label><input type="checkbox">Update all tests and
-vignettes</label></li>
-<li><label><input type="checkbox">Integration tests (probmed + medfit
-workflow)</label></li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="rmediation-integration-priority-2">RMediation Integration (Priority 2)<a class="anchor" aria-label="anchor" href="#rmediation-integration-priority-2"></a>
-</h5>
-<ul class="task-list">
-<li><label><input type="checkbox">Add medfit to DESCRIPTION
-(Imports)</label></li>
-<li><label><input type="checkbox">Use
-<code><a href="https://data-wise.github.io/medfit/reference/extract_mediation.html" class="external-link">medfit::extract_mediation()</a></code> for lavaan</label></li>
-<li><label><input type="checkbox">Leverage medfit bootstrap
-utilities</label></li>
-<li><label><input type="checkbox">Update <code><a href="https://data-wise.github.io/rmediation/reference/ci.html" class="external-link">ci()</a></code> function
-for MediationData class</label></li>
-<li><label><input type="checkbox">Maintain CRAN stability (careful
-testing)</label></li>
-<li><label><input type="checkbox">Update documentation</label></li>
-<li><label><input type="checkbox">Version bump to 1.5.0</label></li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="medrobust-integration-priority-3">medrobust Integration (Priority 3)<a class="anchor" aria-label="anchor" href="#medrobust-integration-priority-3"></a>
-</h5>
-<ul class="task-list">
-<li><label><input type="checkbox">Add medfit to DESCRIPTION
-(Suggests)</label></li>
-<li><label><input type="checkbox">Use for naive estimates if
-beneficial</label></li>
-<li><label><input type="checkbox">Document integration
-patterns</label></li>
-<li><label><input type="checkbox">Add short aliases (sens, bounds,
-power)</label></li>
-</ul>
-</div>
-</div>
-<div class="section level4">
-<h4 id="deliverables-1">Deliverables<a class="anchor" aria-label="anchor" href="#deliverables-1"></a>
-</h4>
-<ul>
-<li>medfit 0.1.0 release ✅ (ready, pending final merge)</li>
-<li>probmed 0.2.0 with medfit integration</li>
-<li>RMediation 1.5.0 with medfit integration</li>
-<li>Updated integration tests across packages</li>
-</ul>
-<p><strong>Timeline</strong>: Q4 2025 - Q1 2026 (Dec 2025 - Jan
-2026)</p>
-<hr>
-</div>
-</div>
-<div class="section level3">
-<h3 id="phase-3-refinement-q1-2026">Phase 3: Refinement (Q1 2026)<a class="anchor" aria-label="anchor" href="#phase-3-refinement-q1-2026"></a>
-</h3>
-<div class="section level4">
-<h4 id="objectives-2">Objectives<a class="anchor" aria-label="anchor" href="#objectives-2"></a>
-</h4>
-<p>Polish packages for CRAN submission and public release.</p>
-</div>
-<div class="section level4">
-<h4 id="milestones-2">Milestones<a class="anchor" aria-label="anchor" href="#milestones-2"></a>
-</h4>
-<div class="section level5">
-<h5 id="package-polishing">Package Polishing<a class="anchor" aria-label="anchor" href="#package-polishing"></a>
-</h5>
-<ul class="task-list">
-<li><label><input type="checkbox">Address all R CMD check
-notes/warnings</label></li>
-<li><label><input type="checkbox">Comprehensive testing on multiple
-platforms</label></li>
-<li><label><input type="checkbox">Performance
-optimization</label></li>
-<li><label><input type="checkbox">Memory profiling and
-optimization</label></li>
-<li><label><input type="checkbox">Security audit</label></li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="documentation-enhancement">Documentation Enhancement<a class="anchor" aria-label="anchor" href="#documentation-enhancement"></a>
-</h5>
-<ul class="task-list">
-<li><label><input type="checkbox">Complete API
-documentation</label></li>
-<li><label><input type="checkbox">Add more examples</label></li>
-<li><label><input type="checkbox">Create video tutorials</label></li>
-<li><label><input type="checkbox">Write blog posts</label></li>
-<li><label><input type="checkbox">Prepare manuscript
-drafts</label></li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="mediationverse-meta-package-enhancement">mediationverse Meta-Package Enhancement<a class="anchor" aria-label="anchor" href="#mediationverse-meta-package-enhancement"></a>
-</h5>
-<ul class="task-list">
-<li><label><input type="checkbox" checked>Package skeleton
-(complete)</label></li>
-<li><label><input type="checkbox" checked>Basic attachment logic
-(complete)</label></li>
-<li><label><input type="checkbox" checked>pkgdown website
-(complete)</label></li>
-<li><label><input type="checkbox">Update attachment logic for new
-medfit API</label></li>
-<li><label><input type="checkbox">Enhanced conflict
-detection</label></li>
-<li><label><input type="checkbox">Improved startup message with
-version info</label></li>
-<li><label><input type="checkbox">Comprehensive vignettes
-(getting-started, workflow)</label></li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="user-testing">User Testing<a class="anchor" aria-label="anchor" href="#user-testing"></a>
-</h5>
-<ul class="task-list">
-<li><label><input type="checkbox">Beta testing with research
-collaborators</label></li>
-<li><label><input type="checkbox">Gather feedback on API
-design</label></li>
-<li><label><input type="checkbox">Address usability
-issues</label></li>
-<li><label><input type="checkbox">Create FAQ
-documentation</label></li>
-</ul>
-</div>
-</div>
-<div class="section level4">
-<h4 id="deliverables-2">Deliverables<a class="anchor" aria-label="anchor" href="#deliverables-2"></a>
-</h4>
-<ul>
-<li>All packages pass R CMD check</li>
-<li>Complete documentation</li>
-<li>mediationverse meta-package ready</li>
-<li>User feedback incorporated</li>
-</ul>
-<hr>
-</div>
-</div>
-<div class="section level3">
-<h3 id="phase-4-release-q2-2026">Phase 4: Release (Q2 2026)<a class="anchor" aria-label="anchor" href="#phase-4-release-q2-2026"></a>
-</h3>
-<div class="section level4">
-<h4 id="objectives-3">Objectives<a class="anchor" aria-label="anchor" href="#objectives-3"></a>
-</h4>
-<p>Launch packages to CRAN and announce publicly.</p>
-</div>
-<div class="section level4">
-<h4 id="milestones-3">Milestones<a class="anchor" aria-label="anchor" href="#milestones-3"></a>
-</h4>
-<div class="section level5">
-<h5 id="cran-submissions">CRAN Submissions<a class="anchor" aria-label="anchor" href="#cran-submissions"></a>
-</h5>
-<ul class="task-list">
-<li><label><input type="checkbox">Submit medfit to CRAN</label></li>
-<li><label><input type="checkbox">Submit probmed to CRAN
-(update)</label></li>
-<li><label><input type="checkbox">Submit medrobust to
-CRAN</label></li>
-<li><label><input type="checkbox">Submit mediationverse to
-CRAN</label></li>
-<li><label><input type="checkbox">Address reviewer
-feedback</label></li>
-<li><label><input type="checkbox">Coordinate releases</label></li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="public-launch">Public Launch<a class="anchor" aria-label="anchor" href="#public-launch"></a>
-</h5>
-<ul class="task-list">
-<li><label><input type="checkbox">Announcement blog post</label></li>
-<li><label><input type="checkbox">Social media campaign</label></li>
-<li><label><input type="checkbox">R-bloggers post</label></li>
-<li><label><input type="checkbox">Conference
-presentations</label></li>
-<li><label><input type="checkbox">Workshop materials</label></li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="long-term-maintenance">Long-term Maintenance<a class="anchor" aria-label="anchor" href="#long-term-maintenance"></a>
-</h5>
-<ul class="task-list">
-<li><label><input type="checkbox">Establish release
-schedule</label></li>
-<li><label><input type="checkbox">Set up community
-guidelines</label></li>
-<li><label><input type="checkbox">Create issue templates</label></li>
-<li><label><input type="checkbox">Establish code review
-process</label></li>
-<li><label><input type="checkbox">Plan future
-enhancements</label></li>
-</ul>
-</div>
-</div>
-<div class="section level4">
-<h4 id="deliverables-3">Deliverables<a class="anchor" aria-label="anchor" href="#deliverables-3"></a>
-</h4>
-<ul>
-<li>All packages on CRAN</li>
-<li>Public announcement</li>
-<li>Workshop materials</li>
-<li>Maintenance plan</li>
-</ul>
-<hr>
-</div>
-</div>
-<div class="section level3">
-<h3 id="post-release-future-enhancements">Post-Release: Future Enhancements<a class="anchor" aria-label="anchor" href="#post-release-future-enhancements"></a>
-</h3>
-<div class="section level4">
-<h4 id="medfit-extensions">medfit Extensions<a class="anchor" aria-label="anchor" href="#medfit-extensions"></a>
-</h4>
-<ul>
-<li>
-<strong>Four-way Decomposition</strong>: VanderWeele interaction
-support</li>
-<li>
-<strong>Estimation Engines</strong>: CMAverse adapters (g-formula,
-IPW)</li>
-<li>
-<strong>Advanced Models</strong>: lmer, brms engines</li>
-<li>
-<strong>Targeted Learning</strong>: tmle3 adapter</li>
-<li>
-<strong>Machine Learning</strong>: DoubleML integration</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="new-packages-tentative">New Packages (Tentative)<a class="anchor" aria-label="anchor" href="#new-packages-tentative"></a>
-</h4>
-<ul>
-<li>
-<strong>medcausal</strong>: Causal inference tools</li>
-<li>
-<strong>medpower</strong>: Power analysis specialized for
-mediation</li>
-<li>
-<strong>medviz</strong>: Advanced visualization</li>
-<li>
-<strong>medML</strong>: Machine learning for mediation</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="integration-priorities">Integration Priorities<a class="anchor" aria-label="anchor" href="#integration-priorities"></a>
-</h4>
 <ol style="list-style-type: decimal">
 <li>
-<strong>Q4 2026</strong>: lmer engine for multilevel mediation</li>
+<strong>Foundation</strong> — medfit feature-complete: extraction
+(lm/glm, lavaan), GLM fitting, bootstrap, S7 classes, plus tidyverse and
+ADHD-friendly APIs.</li>
 <li>
-<strong>Q1 2027</strong>: CMAverse integration (g-formula, IPW)</li>
+<strong>Integration</strong> — analysis packages consume medfit’s
+shared infrastructure instead of duplicating it (the probmed and
+RMediation integrations have landed).</li>
 <li>
-<strong>Q2 2027</strong>: Four-way decomposition</li>
+<strong>CRAN</strong> — medfit leads the submission sequence;
+dependents follow in dependency order.</li>
 <li>
-<strong>Q3 2027</strong>: Targeted learning (tmle3)</li>
+<strong>Beyond the MVP</strong> — interaction (four-way)
+decomposition, estimation-engine adapters (CMAverse g-formula / IPW),
+multilevel (<code>lmer</code>) and Bayesian (<code>brms</code>) engines,
+and targeted learning (<code>tmle3</code>).</li>
 </ol>
-<hr>
-</div>
 </div>
 <div class="section level3">
-<h3 id="success-metrics">Success Metrics<a class="anchor" aria-label="anchor" href="#success-metrics"></a>
+<h3 id="current-status-detailed-plan">Current status &amp; detailed plan<a class="anchor" aria-label="anchor" href="#current-status-detailed-plan"></a>
 </h3>
-<div class="section level4">
-<h4 id="technical-metrics">Technical Metrics<a class="anchor" aria-label="anchor" href="#technical-metrics"></a>
-</h4>
-<ul>
-<li>All packages pass R CMD check on CRAN</li>
-<li><blockquote>
-<p>90% code coverage across packages</p>
-</blockquote></li>
-<li>&lt;500ms for typical mediation analysis</li>
-<li>Zero critical bugs in production</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="adoption-metrics">Adoption Metrics<a class="anchor" aria-label="anchor" href="#adoption-metrics"></a>
-</h4>
-<ul>
-<li>1000+ downloads in first quarter</li>
-<li>10+ citations in first year</li>
-<li>Active user community (GitHub stars, issues)</li>
-<li>Positive feedback from beta testers</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="quality-metrics">Quality Metrics<a class="anchor" aria-label="anchor" href="#quality-metrics"></a>
-</h4>
-<ul>
-<li>Comprehensive documentation</li>
-<li>Responsive issue resolution (&lt;48h)</li>
-<li>Regular releases (quarterly)</li>
-<li>Active maintenance</li>
-</ul>
-<hr>
-</div>
-</div>
-<div class="section level3">
-<h3 id="risk-assessment">Risk Assessment<a class="anchor" aria-label="anchor" href="#risk-assessment"></a>
-</h3>
-<div class="section level4">
-<h4 id="technical-risks">Technical Risks<a class="anchor" aria-label="anchor" href="#technical-risks"></a>
-</h4>
-<table class="table">
-<colgroup>
-<col width="15%">
-<col width="33%">
-<col width="20%">
-<col width="30%">
-</colgroup>
-<thead><tr class="header">
-<th>Risk</th>
-<th>Probability</th>
-<th>Impact</th>
-<th>Mitigation</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>API breaking changes</td>
-<td>Medium</td>
-<td>High</td>
-<td>Extensive testing, deprecation warnings</td>
-</tr>
-<tr class="even">
-<td>Performance issues</td>
-<td>Low</td>
-<td>Medium</td>
-<td>Benchmarking, profiling</td>
-</tr>
-<tr class="odd">
-<td>CRAN rejection</td>
-<td>Low</td>
-<td>High</td>
-<td>Early submission, address feedback quickly</td>
-</tr>
-<tr class="even">
-<td>S7 stability</td>
-<td>Low</td>
-<td>High</td>
-<td>Track S7 development, contribute fixes</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="project-risks">Project Risks<a class="anchor" aria-label="anchor" href="#project-risks"></a>
-</h4>
-<table class="table">
-<colgroup>
-<col width="15%">
-<col width="33%">
-<col width="20%">
-<col width="30%">
-</colgroup>
-<thead><tr class="header">
-<th>Risk</th>
-<th>Probability</th>
-<th>Impact</th>
-<th>Mitigation</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>Delayed integration</td>
-<td>Medium</td>
-<td>Medium</td>
-<td>Modular design, parallel development</td>
-</tr>
-<tr class="even">
-<td>Scope creep</td>
-<td>Medium</td>
-<td>Medium</td>
-<td>Strict MVP definition, phase gates</td>
-</tr>
-<tr class="odd">
-<td>Resource constraints</td>
-<td>Low</td>
-<td>High</td>
-<td>Prioritize core features</td>
-</tr>
-</tbody>
-</table>
-<hr>
-</div>
-</div>
-<div class="section level3">
-<h3 id="communication-plan">Communication Plan<a class="anchor" aria-label="anchor" href="#communication-plan"></a>
-</h3>
-<div class="section level4">
-<h4 id="regular-updates">Regular Updates<a class="anchor" aria-label="anchor" href="#regular-updates"></a>
-</h4>
-<ul>
-<li>
-<strong>Monthly</strong>: Progress updates on GitHub
-Discussions</li>
-<li>
-<strong>Quarterly</strong>: Blog posts on major milestones</li>
-<li>
-<strong>Ad-hoc</strong>: Announce breaking changes early</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="channels">Channels<a class="anchor" aria-label="anchor" href="#channels"></a>
-</h4>
-<ul>
-<li>GitHub Issues/Discussions</li>
-<li>R-bloggers</li>
-<li>Social media (Twitter/Mastodon)</li>
-<li>Mailing list (future)</li>
-</ul>
-<hr>
-</div>
-</div>
-<div class="section level3">
-<h3 id="contact-feedback">Contact &amp; Feedback<a class="anchor" aria-label="anchor" href="#contact-feedback"></a>
-</h3>
-<p><strong>Project Lead</strong>: Davood Tofighi (<a href="mailto:dtofighi@gmail.com" class="email">dtofighi@gmail.com</a>)</p>
-<p><strong>Provide Feedback</strong>: - <a href="https://github.com/data-wise/mediationverse/discussions" class="external-link">GitHub
-Discussions</a> - <a href="https://github.com/data-wise/mediationverse/issues/new" class="external-link">Feature
-Requests</a> - Email: <a href="mailto:dtofighi@gmail.com" class="email">dtofighi@gmail.com</a></p>
-<hr>
-</div>
-<div class="section level3">
-<h3 id="see-also">See Also<a class="anchor" aria-label="anchor" href="#see-also"></a>
-</h3>
-<p>For detailed planning, cross-package coordination, and real-time
-updates:</p>
-<ul>
-<li>
-<a href="https://github.com/data-wise/mediation-planning" class="external-link"><strong>mediation-planning
-repository</strong></a> - Coordination hub
+<p>Maintained in the hub so it stays current (rather than drifting in
+this vignette):</p>
 <ul>
 <li>
 <a href="https://github.com/data-wise/mediation-planning/blob/main/docs/ROADMAP.md" class="external-link">Master
-Roadmap</a> - Detailed timeline</li>
+Roadmap</a> — detailed phases and timeline</li>
 <li>
 <a href="https://github.com/data-wise/mediation-planning/blob/main/PROJECT-HUB.md" class="external-link">PROJECT-HUB</a>
-- Dashboard</li>
+— dashboard and current focus</li>
 <li>
 <a href="https://github.com/data-wise/mediation-planning/blob/main/TODOS.md" class="external-link">TODOS</a>
-- Task tracking</li>
-<li>
-<a href="https://github.com/data-wise/mediation-planning/blob/main/IDEAS.md" class="external-link">IDEAS</a>
-- Future enhancements</li>
-</ul>
+— active cross-package tasks</li>
+<li>Live per-package health:
+<code>cd ~/projects/r-packages &amp;&amp; /rforge:status</code>
 </li>
 </ul>
-<p>Individual packages: - <a href="https://data-wise.github.io/medfit/" class="external-link">medfit</a> - Foundation
-package - <a href="https://data-wise.github.io/probmed/" class="external-link">probmed</a> -
-Probabilistic mediation - <a href="https://data-wise.github.io/RMediation/" class="external-link">RMediation</a> -
-Distribution methods (CRAN)</p>
-<hr>
-<p><strong>Next Review</strong>: End of Q4 2025 (Dec 31, 2025)</p>
+</div>
+<div class="section level3">
+<h3 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a>
+</h3>
+<ul>
+<li>
+<a href="https://data-wise.github.io/medfit/" class="external-link">medfit</a> —
+foundation</li>
+<li>
+<a href="https://data-wise.github.io/probmed/" class="external-link">probmed</a> — P_med
+effect size</li>
+<li>
+<a href="https://data-wise.github.io/rmediation/" class="external-link">RMediation</a> —
+confidence intervals (CRAN)</li>
+<li>
+<a href="https://data-wise.github.io/medrobust/" class="external-link">medrobust</a> —
+sensitivity analysis</li>
+<li>
+<a href="https://data-wise.github.io/medsim/" class="external-link">medsim</a> —
+simulation infrastructure</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="feedback">Feedback<a class="anchor" aria-label="anchor" href="#feedback"></a>
+</h3>
+<p><strong>Project Lead:</strong> Davood Tofighi (<a href="mailto:dtofighi@gmail.com" class="email">dtofighi@gmail.com</a>) ·
+<a href="https://github.com/data-wise/mediationverse/discussions" class="external-link">GitHub
+Discussions</a> · <a href="https://github.com/data-wise/mediationverse/issues/new" class="external-link">Feature
+Requests</a></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

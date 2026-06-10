@@ -41,7 +41,8 @@
     <li><a class="dropdown-item" href="articles/roadmap.html">🗺️ Development Roadmap</a></li>
     <li><a class="dropdown-item" href="articles/contributing.html">🤝 Contributing Guide</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="external-link dropdown-item" href="https://github.com/Data-Wise/medfit/blob/main/planning/ECOSYSTEM.md">📋 Ecosystem Coordination</a></li>
+    <li><a class="external-link dropdown-item" href="https://github.com/Data-Wise/mediation-planning/blob/main/PROJECT-HUB.md">🧭 Planning Hub</a></li>
+    <li><a class="external-link dropdown-item" href="https://github.com/Data-Wise/mediation-planning/blob/main/docs/ECOSYSTEM-COORDINATION.md">📋 Ecosystem Coordination</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">News</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -61,12 +62,12 @@
 <div id="mediationverse-ecosystem-status" class="section level1">
 
 <blockquote>
-<p>Centralized monitoring for all mediationverse packages</p>
+<p><strong>The live CI/CD badge wall</strong> for the ecosystem. This page is intentionally a badge dashboard — per-package status, blockers, dependency order, and CRAN sequence are <strong>not</strong> hand-maintained here (they drift).</p>
 </blockquote>
-<p><strong>Last Updated</strong>: 2026-05-31</p>
+<p><strong>Last Updated</strong>: 2026-06-10</p>
 <blockquote>
-<p>📋 <strong>Recent Activity (2026-05-31)</strong>: medfit ↔︎ RMediation covariance integration landed. Merged: <a href="https://github.com/Data-Wise/rmediation/pull/4" class="external-link">RMediation#4</a> (→develop — name-based path covariance extraction in <code><a href="https://data-wise.github.io/rmediation/reference/ci.html" class="external-link">ci()</a></code>), <a href="https://github.com/Data-Wise/medfit/pull/19" class="external-link">medfit#19</a> (→dev — Blocker A: lavaan off-diagonal covariances + print.mediation_effect S3 dispatch fix), <a href="https://github.com/Data-Wise/mediation-planning/pull/2" class="external-link">mediation-planning#2</a> (→main — ecosystem proposal + covariance specs). <strong>Remaining:</strong> medfit <strong>Blocker B</strong> (serial mediation extractor) before RMediation’s serial lavaan pipeline is end-to-end. See <a href="https://github.com/Data-Wise/mediation-planning/blob/main/docs/ROADMAP.md" class="external-link">master roadmap</a>.</p>
-<p><em>Prior (2026-05-09): branch protection across all 5 repos; Imports → Suggests (mediationverse#2).</em></p>
+<p>🩺 <strong>Live health:</strong> <code>cd ~/projects/r-packages &amp;&amp; /rforge:status</code> (or <code>:thorough</code>). Per-package status lives in each repo’s <code>.STATUS</code> file.</p>
+<p>🗺️ <strong>Planning &amp; roadmap:</strong> the ecosystem hub — <a href="https://github.com/Data-Wise/mediation-planning" class="external-link"><code>mediation-planning</code></a> (<code>PROJECT-HUB.md</code>, <code>ECOSYSTEM-MANIFEST.yaml</code>, <code>docs/ROADMAP.md</code>).</p>
 </blockquote>
 <hr><div class="section level2">
 <h2 id="package-status-overview">Package Status Overview<a class="anchor" aria-label="anchor" href="#package-status-overview"></a></h2>
@@ -188,41 +189,13 @@
 </ul><hr></div>
 </div>
 <div class="section level2">
-<h2 id="current-issues">Current Issues<a class="anchor" aria-label="anchor" href="#current-issues"></a></h2>
-<div class="section level3">
-<h3 id="medfit">medfit<a class="anchor" aria-label="anchor" href="#medfit"></a></h3>
-<ul><li>Status: Under active development; dev has Blocker A (PR #19) + Blocker B <strong>lavaan serial extractor</strong> (PR #20) merged; CI fully green (lint debt cleared, PR #21).</li>
-<li>Issues: Blocker B remaining work = the <strong>lm/sequential-regression</strong> serial path only — decision-complete and spec’d (<code>medfit/planning/specs/SPEC-lm-serial-extractor-2026-05-31.md</code>). The lavaan serial pipeline is verified end-to-end against RMediation. See <code>mediation-planning/specs/MEDFIT-COVARIANCE-EXTRACTION-BLOCKERS-SPEC.md</code>.</li>
-</ul></div>
-<div class="section level3">
-<h3 id="probmed">probmed<a class="anchor" aria-label="anchor" href="#probmed"></a></h3>
-<ul><li>Status: Stable, ready for integration testing</li>
-<li>Issues: None</li>
-</ul></div>
-<div class="section level3">
-<h3 id="rmediation">RMediation<a class="anchor" aria-label="anchor" href="#rmediation"></a></h3>
-<ul><li>Status: On CRAN (1.4.0); develop has medfit covariance integration (PR #4 merged 2026-05-31)</li>
-<li>Issues: None blocking. v1.5.0 needs medfit on CRAN (Suggests → Imports). Serial lavaan path is unblocked (medfit Blocker B lavaan merged + verified end-to-end); only lm-fit serial chains await medfit’s lm serial extractor.</li>
-</ul></div>
-<div class="section level3">
-<h3 id="medrobust">medrobust<a class="anchor" aria-label="anchor" href="#medrobust"></a></h3>
-<ul><li>Status: Under active development</li>
-<li>Issues: None currently blocking</li>
-</ul></div>
-<div class="section level3">
-<h3 id="medsim">medsim<a class="anchor" aria-label="anchor" href="#medsim"></a></h3>
-<ul><li>Status: Core features complete</li>
-<li>Issues: ⚠️ R-CMD-check failing (optional Suggests packages not available)
-<ul><li>Expected: Will resolve when medfit/probmed published</li>
-<li>Workaround: Tests skip gracefully when packages unavailable</li>
-</ul></li>
-</ul></div>
-<div class="section level3">
-<h3 id="mediationverse">mediationverse<a class="anchor" aria-label="anchor" href="#mediationverse"></a></h3>
-<ul><li>Status: Meta-package skeleton complete</li>
-<li>Issues: None</li>
+<h2 id="current-issues--per-package-status">Current Issues &amp; Per-Package Status<a class="anchor" aria-label="anchor" href="#current-issues--per-package-status"></a></h2>
+<p>Not tracked here — it drifts. Two sources of truth:</p>
+<ul><li>
+<strong>Live status / blockers / progress:</strong> <code>cd ~/projects/r-packages &amp;&amp; /rforge:status</code> (reads each package’s <code>.STATUS</code>). For the full rollup incl. dependency order and CRAN sequence: <code>/rforge:thorough</code>.</li>
+<li>
+<strong>Cross-package tasks &amp; roadmap:</strong> the hub — <a href="https://github.com/Data-Wise/mediation-planning/blob/main/TODOS.md" class="external-link"><code>mediation-planning/TODOS.md</code></a> and <a href="https://github.com/Data-Wise/mediation-planning/blob/main/docs/ROADMAP.md" class="external-link"><code>docs/ROADMAP.md</code></a>.</li>
 </ul><hr></div>
-</div>
 <div class="section level2">
 <h2 id="monitoring-best-practices">Monitoring Best Practices<a class="anchor" aria-label="anchor" href="#monitoring-best-practices"></a></h2>
 <ol style="list-style-type: decimal"><li>
@@ -241,8 +214,11 @@
 <strong>Expected failures</strong>: Some packages may fail until dependencies published</li>
 </ol><hr></div>
 <div class="section level2">
-<h2 id="release-readiness-checklist">Release Readiness Checklist<a class="anchor" aria-label="anchor" href="#release-readiness-checklist"></a></h2>
-<p>Before CRAN submission, ensure: - [ ] All R-CMD-check badges are green - [ ] pkgdown website builds successfully - [ ] Code coverage &gt;80% (if applicable) - [ ] All dependencies available on CRAN - [ ] NEWS.md updated with release notes - [ ] Version number incremented appropriately</p>
+<h2 id="release-readiness">Release Readiness<a class="anchor" aria-label="anchor" href="#release-readiness"></a></h2>
+<p>Per-package CRAN gate and ecosystem submission order are automated — don’t track them by hand here:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="bu">cd</span> ~/projects/r-packages</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">/rforge:r:cran-prep</span>    <span class="co"># per-package gate: document→lint→spell→urlcheck→test→coverage→check→revdep</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="ex">/rforge:release</span>        <span class="co"># dependency-ordered ecosystem CRAN submission sequence</span></span></code></pre></div>
 <hr></div>
 <div class="section level2">
 <h2 id="contact">Contact<a class="anchor" aria-label="anchor" href="#contact"></a></h2>
