@@ -1,12 +1,17 @@
 # Mediationverse Ecosystem Status
 
-> Centralized monitoring for all mediationverse packages
+> **The live CI/CD badge wall** for the ecosystem. This page is intentionally a
+> badge dashboard — per-package status, blockers, dependency order, and CRAN
+> sequence are **not** hand-maintained here (they drift).
 
-**Last Updated**: 2026-05-31
+**Last Updated**: 2026-06-10
 
-> 📋 **Recent Activity (2026-05-31)**: medfit ↔ RMediation covariance integration landed. Merged: [RMediation#4](https://github.com/Data-Wise/rmediation/pull/4) (→develop — name-based path covariance extraction in `ci()`), [medfit#19](https://github.com/Data-Wise/medfit/pull/19) (→dev — Blocker A: lavaan off-diagonal covariances + print.mediation_effect S3 dispatch fix), [mediation-planning#2](https://github.com/Data-Wise/mediation-planning/pull/2) (→main — ecosystem proposal + covariance specs). **Remaining:** medfit **Blocker B** (serial mediation extractor) before RMediation's serial lavaan pipeline is end-to-end. See [master roadmap](https://github.com/Data-Wise/mediation-planning/blob/main/docs/ROADMAP.md).
+> 🩺 **Live health:** `cd ~/projects/r-packages && /rforge:status` (or `:thorough`).
+> Per-package status lives in each repo's `.STATUS` file.
 >
-> _Prior (2026-05-09): branch protection across all 5 repos; Imports → Suggests (mediationverse#2)._
+> 🗺️ **Planning & roadmap:** the ecosystem hub —
+> [`mediation-planning`](https://github.com/Data-Wise/mediation-planning)
+> (`PROJECT-HUB.md`, `ECOSYSTEM-MANIFEST.yaml`, `docs/ROADMAP.md`).
 
 ---
 
@@ -76,33 +81,16 @@ All packages should use this badge order in their README.md:
 
 ---
 
-## Current Issues
+## Current Issues & Per-Package Status
 
-### medfit
-- Status: Under active development; dev has Blocker A (PR #19) + Blocker B **lavaan serial extractor** (PR #20) merged; CI fully green (lint debt cleared, PR #21).
-- Issues: Blocker B remaining work = the **lm/sequential-regression** serial path only — decision-complete and spec'd (`medfit/planning/specs/SPEC-lm-serial-extractor-2026-05-31.md`). The lavaan serial pipeline is verified end-to-end against RMediation. See `mediation-planning/specs/MEDFIT-COVARIANCE-EXTRACTION-BLOCKERS-SPEC.md`.
+Not tracked here — it drifts. Two sources of truth:
 
-### probmed
-- Status: Stable, ready for integration testing
-- Issues: None
-
-### RMediation
-- Status: On CRAN (1.4.0); develop has medfit covariance integration (PR #4 merged 2026-05-31)
-- Issues: None blocking. v1.5.0 needs medfit on CRAN (Suggests → Imports). Serial lavaan path is unblocked (medfit Blocker B lavaan merged + verified end-to-end); only lm-fit serial chains await medfit's lm serial extractor.
-
-### medrobust
-- Status: Under active development
-- Issues: None currently blocking
-
-### medsim
-- Status: Core features complete
-- Issues: ⚠️ R-CMD-check failing (optional Suggests packages not available)
-  - Expected: Will resolve when medfit/probmed published
-  - Workaround: Tests skip gracefully when packages unavailable
-
-### mediationverse
-- Status: Meta-package skeleton complete
-- Issues: None
+- **Live status / blockers / progress:** `cd ~/projects/r-packages && /rforge:status`
+  (reads each package's `.STATUS`). For the full rollup incl. dependency order and
+  CRAN sequence: `/rforge:thorough`.
+- **Cross-package tasks & roadmap:** the hub —
+  [`mediation-planning/TODOS.md`](https://github.com/Data-Wise/mediation-planning/blob/main/TODOS.md)
+  and [`docs/ROADMAP.md`](https://github.com/Data-Wise/mediation-planning/blob/main/docs/ROADMAP.md).
 
 ---
 
@@ -119,15 +107,16 @@ All packages should use this badge order in their README.md:
 
 ---
 
-## Release Readiness Checklist
+## Release Readiness
 
-Before CRAN submission, ensure:
-- [ ] All R-CMD-check badges are green
-- [ ] pkgdown website builds successfully
-- [ ] Code coverage >80% (if applicable)
-- [ ] All dependencies available on CRAN
-- [ ] NEWS.md updated with release notes
-- [ ] Version number incremented appropriately
+Per-package CRAN gate and ecosystem submission order are automated — don't track
+them by hand here:
+
+```bash
+cd ~/projects/r-packages
+/rforge:r:cran-prep    # per-package gate: document→lint→spell→urlcheck→test→coverage→check→revdep
+/rforge:release        # dependency-ordered ecosystem CRAN submission sequence
+```
 
 ---
 
