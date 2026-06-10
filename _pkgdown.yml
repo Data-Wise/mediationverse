@@ -83,8 +83,10 @@ navbar:
       - text: "🤝 Contributing Guide"
         href: articles/contributing.html
       - text: "---------"
+      - text: "🧭 Planning Hub"
+        href: https://github.com/Data-Wise/mediation-planning/blob/main/PROJECT-HUB.md
       - text: "📋 Ecosystem Coordination"
-        href: https://github.com/Data-Wise/medfit/blob/main/planning/ECOSYSTEM.md
+        href: https://github.com/Data-Wise/mediation-planning/blob/main/docs/ECOSYSTEM-COORDINATION.md
     news:
       text: News
       href: news/index.html

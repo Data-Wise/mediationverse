@@ -342,7 +342,8 @@ Following principles from [tidyverse](https://design.tidyverse.org/) and [easyst
 - [📊 Package Status Dashboard](https://github.com/data-wise/mediationverse/blob/main/STATUS.md)
 - [🗺️ Development Roadmap](https://data-wise.github.io/mediationverse/articles/roadmap.html)
 - [🤝 Contributing Guide](https://data-wise.github.io/mediationverse/articles/contributing.html)
-- [📋 Ecosystem Coordination](https://github.com/data-wise/medfit/blob/main/planning/ECOSYSTEM.md)
+- [🧭 Planning Hub](https://github.com/data-wise/mediation-planning/blob/main/PROJECT-HUB.md) — roadmap, specs, coordination
+- [📋 Ecosystem Coordination](https://github.com/data-wise/mediation-planning/blob/main/docs/ECOSYSTEM-COORDINATION.md)
 
 ### Package Documentation
 - [medfit Documentation](https://data-wise.github.io/medfit/)
