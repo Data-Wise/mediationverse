@@ -7,6 +7,7 @@
 [![Repo Status](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![R-CMD-check](https://github.com/Data-Wise/mediationverse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/mediationverse/actions/workflows/R-CMD-check.yaml)
 [![Website Status](https://github.com/Data-Wise/mediationverse/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Data-Wise/mediationverse/actions/workflows/pkgdown.yaml)
+[![r-universe](https://data-wise.r-universe.dev/badges/mediationverse)](https://data-wise.r-universe.dev/mediationverse)
 <!-- badges: end -->
 
 
@@ -222,6 +223,22 @@ pak::pak("Data-Wise/medsim")
 
 # RMediation from CRAN
 install.packages("RMediation")
+```
+
+### From r-universe (pre-built binaries)
+
+The whole ecosystem is published at the
+[Data-Wise r-universe](https://data-wise.r-universe.dev) — no compiler needed,
+and cross-package dependencies resolve automatically:
+
+```r
+install.packages(
+  "mediationverse",
+  repos = c("https://data-wise.r-universe.dev", "https://cloud.r-project.org")
+)
+
+# Or any individual package, e.g.
+install.packages("medsim", repos = "https://data-wise.r-universe.dev")
 ```
 
 ### From CRAN (Future)
