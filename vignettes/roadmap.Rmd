@@ -32,7 +32,7 @@ packages build on:
 - **RMediation** — confidence intervals (DOP / MBCO / Monte Carlo)
 - **medrobust** — sensitivity analysis
 - **medsim** — simulation infrastructure
-- **missingmed** — missing-data mediation (multiple imputation)
+- **missingmed** — missing-data mediation (multiple imputation + IPW)
 
 The **mediationverse** meta-package ties them together with selective loading.
 
