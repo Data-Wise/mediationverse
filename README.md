@@ -257,7 +257,7 @@ The mediationverse uses **selective loading**: only the foundation package (`med
 ```r
 library(mediationverse)
 #> ── Attaching mediationverse 0.0.0.9000 ──
-#> ✔ medfit 0.1.0 (foundation package)
+#> ✔ medfit 0.2.1 (foundation package)
 #> ℹ Use library(probmed) for P_med effect size
 #> ℹ Use library(RMediation) for DOP/MBCO inference
 #> ℹ Use library(medrobust) for sensitivity analysis
@@ -381,10 +381,10 @@ If you use packages from the mediationverse in your research, please cite the in
 
 ```
 Tofighi, D. (2025). medfit: Infrastructure for mediation analysis in R.
-R package version 0.1.0. https://github.com/data-wise/medfit
+R package version 0.2.1. https://CRAN.R-project.org/package=medfit
 
 Tofighi, D. (2025). probmed: Probabilistic effect sizes for mediation analysis.
-R package version 0.1.0. https://github.com/data-wise/probmed
+R package version 0.0.0.9000. https://github.com/data-wise/probmed
 ```
 
 Full citations available via `citation("packagename")`.
