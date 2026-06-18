@@ -20,9 +20,8 @@ Depends:
     R (>= 4.1.0)
 Imports:
     cli,
-    medfit
+    medfit (>= 0.2.0)
 Remotes:
-    Data-Wise/medfit,
     Data-Wise/medsim,
     Data-Wise/medrobust,
     Data-Wise/probmed
