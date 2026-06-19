@@ -1,110 +1,41 @@
 status: active
-priority: P1
-progress: 90
-next: Waiting on medfit CRAN acceptance — then drop `Data-Wise/medfit` from Remotes + pin `medfit (>= 0.2.0)` in Imports (cascade pre-staged in medfit/planning/CASCADE-cran-flip-2026-06-03.md). Also: reconcile NEWS/README (0.1.0) vs DESCRIPTION (0.0.0.9000); expand thin test suite (1 test_that).
+priority: P2
+progress: 92
+next: Drop Data-Wise/medsim and Data-Wise/medrobust from Remotes once those packages reach CRAN. Reconcile NEWS/README version (0.1.0) vs DESCRIPTION (0.0.0.9000). Expand thin test suite (1 test_that).
 type: r
-last_updated: 2026-06-03
+last_updated: 2026-06-19
 
-# ═══════════════════════════════════════════════════════════════════
-# Below is the original .STATUS content (preserved for reference)
-# ═══════════════════════════════════════════════════════════════════
+## mediationverse — Ecosystem Meta-Package
 
-📦 mediationverse - Ecosystem for Mediation Analysis
-────────────────────────────────────────────────
+**Version**: 0.0.0.9000 (dev; not yet on CRAN)
 
-📍 LOCATION
-~/projects/r-packages/active/mediationverse/
+Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
+`RMediation`, `medrobust`, `medsim`.
 
-⏰ LAST UPDATED
-2026-05-09
+---
 
-────────────────────────────────────────────────
+## CRAN Status by Dependency
 
-🎯 CURRENT STATUS
-Priority: P1
-Status: active
-Progress: 85
+| Package | CRAN | Notes |
+|---------|------|-------|
+| medfit | ✅ 0.2.0+ | Dropped from `Remotes`; pinned in `Imports (>= 0.2.0)` |
+| RMediation | ✅ 1.5.0 | Released 2026-06-18 |
+| probmed | ❌ | Still GitHub-only |
+| medsim | ❌ | Still in `Remotes: Data-Wise/medsim` |
+| medrobust | ❌ | Still in `Remotes: Data-Wise/medrobust` |
 
-────────────────────────────────────────────────
+---
 
-📋 DESCRIPTION
-Meta-package that loads the core mediation ecosystem:
-- medfit (infrastructure)
-- probmed (probabilistic effect sizes)
-- RMediation (confidence intervals)
-- medrobust (sensitivity analysis)
-- medsim (simulations)
+## Completed (2026-06-19)
 
-Inspired by tidyverse and easystats ecosystems.
-Version: 0.0.0.9000
+- medfit on CRAN — dropped from `Remotes`; pinned `Imports >= 0.2.0` ✓
+- STATUS.md badge updated (medfit CRAN badge live) ✓
+- dev → main PR #5 merged; pkgdown rebuilt ✓
+- Selective loading strategy (Option 2) implemented ✓
+- GitHub branch protection on main ✓
 
-────────────────────────────────────────────────
+## Next
 
-🎯 Next Action:
-**Choose one:**
-- **A)** Integration test mediationverse + medfit v0.1.0 [1-2 hr] 🟢
-  - Confirm selective loading still works against released medfit
-  - Smoke-test getting-started vignette end-to-end
-  - Bump to v0.1.0 if green
-- **B)** Help fix medsim R-CMD-check failure [1-3 hr]
-  - Root cause: pak can't resolve GitHub-only deps (medfit/probmed/medrobust)
-  - Likely fix: add `Remotes:` field or change workflow install method
-- **C)** Help land R-CMD-check workflow on medrobust [2 hr]
-  - Currently the only ecosystem package with no R-CMD-check
-  - Add via standard r-lib/actions template
-- **D)** medfit CRAN submission prep [4+ hr, separate session]
-
-Blocked: None (medfit v0.1.0 released; all deps available)
-
-📋 Recent Housekeeping (2026-05-09 — full session):
-- ✅ Synced dev branch with main (4 commits fast-forward)
-- ✅ Added GitHub branch protection on main (PR required, no force/delete, R-CMD-check on ubuntu-latest required)
-- ✅ Aligned global ~/.claude/CLAUDE.md git workflow rules with dev-tools/craft as source of truth
-- ✅ Reviewed entire mediationverse ecosystem (all 5 packages dashboard)
-- ✅ PR #2 MERGED: Imports → Suggests fix (DESCRIPTION now correctly reflects selective loading)
-- ✅ Integration tested mediationverse + medfit v0.1.0; pkgload::load_all now works standalone
-- ✅ Created/updated CLAUDE.md + memory dirs for all 5 packages (~13 new memory entries)
-- ✅ Refreshed mediation-planning master dashboard (PROJECT-HUB, ROADMAP, TODOS) — PR #1 merged
-- ✅ medrobust PR #1 MERGED: Added R-CMD-check workflow with Windows quarto fix; all 3 platforms green
-
-📋 Earlier Completed (Dec 15 — selective loading work):
-- ✅ Implemented selective loading strategy (Option 2)
-- ✅ R/attach.R loads only medfit by default
-- ✅ Ecosystem architecture diagrams + data flow
-- ✅ Updated vignettes + README
-- ✅ R CMD check (0 errors, 0 warnings, 3 minor notes)
-- ✅ Built and previewed pkgdown site
-- ✅ NEWS.md v0.1.0 changelog drafted
-
-────────────────────────────────────────────────
-
-✅ COMPLETED
-- Package structure
-- Import configuration
-- Remotes setup
-- Selective loading mechanism (Option 2)
-- Updated startup messages
-- Ecosystem architecture diagrams
-- Data flow visualization
-- Updated README documentation
-- Updated getting-started vignette
-- Updated mediationverse-workflow vignette
-- Comprehensive testing (all pass)
-- Test documentation (SELECTIVE-LOADING-TEST.md)
-- Coordination with medfit package
-- Utility functions verified (packages, conflicts)
-- GitHub branch protection (2026-05-09)
-- Global git workflow rules aligned with craft (2026-05-09)
-
-────────────────────────────────────────────────
-
-📁 KEY FILES
-R/              # Loading logic
-DESCRIPTION     # Package dependencies
-vignettes/      # Getting started guide
-
-────────────────────────────────────────────────
-
-🔗 DEPENDENCIES
-Imports: medfit, medsim, medrobust, probmed, RMediation
-Role: Meta-package orchestrator
+1. **CRAN path for medsim / medrobust** — unblocks dropping their `Remotes:` entries and submitting mediationverse itself to CRAN.
+2. **Version reconciliation** — NEWS/README say 0.1.0, DESCRIPTION says 0.0.0.9000; align before any CRAN submission.
+3. **Test coverage** — currently 1 `test_that`; expand before CRAN.

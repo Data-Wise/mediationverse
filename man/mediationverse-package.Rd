@@ -66,9 +66,9 @@ Update all packages:
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/data-wise/mediationverse}
-  \item \url{https://data-wise.github.io/mediationverse/}
-  \item Report bugs at \url{https://github.com/data-wise/mediationverse/issues}
+  \item \url{https://Data-Wise.github.io/mediationverse/}
+  \item \url{https://github.com/Data-Wise/mediationverse}
+  \item Report bugs at \url{https://github.com/Data-Wise/mediationverse/issues}
 }
 
 }

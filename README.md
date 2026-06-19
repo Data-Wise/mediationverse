@@ -25,7 +25,7 @@ The **mediationverse** is a collection of R packages for mediation analysis, pro
 
 ```r
 # Install mediationverse
-pak::pak("data-wise/mediationverse")
+pak::pak("Data-Wise/mediationverse")
 
 # Load foundation package + packages you need
 library(mediationverse)  # Loads medfit (foundation)
@@ -215,14 +215,30 @@ compute_pmed() medci()        sensitivity()   bootstrap_mediation()
 # Install all packages
 pak::pak("Data-Wise/mediationverse")
 
-# Or install individually
-pak::pak("Data-Wise/medfit")
+# Or install individually (GitHub-only packages)
 pak::pak("Data-Wise/probmed")
 pak::pak("Data-Wise/medrobust")
 pak::pak("Data-Wise/medsim")
 
-# RMediation from CRAN
+# CRAN packages
 install.packages("RMediation")
+install.packages("medfit")
+```
+
+### From r-universe (pre-built binaries)
+
+The whole ecosystem is published at the
+[Data-Wise r-universe](https://data-wise.r-universe.dev) — no compiler needed,
+and cross-package dependencies resolve automatically:
+
+```r
+install.packages(
+  "mediationverse",
+  repos = c("https://data-wise.r-universe.dev", "https://cloud.r-project.org")
+)
+
+# Or any individual package, e.g.
+install.packages("medsim", repos = "https://data-wise.r-universe.dev")
 ```
 
 ### From r-universe (pre-built binaries)

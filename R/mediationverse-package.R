@@ -62,5 +62,6 @@
 # "Namespaces in Imports field not imported from" is expected and harmless.
 
 ## usethis namespace: start
+#' @importFrom medfit extract_mediation
 ## usethis namespace: end
 NULL
