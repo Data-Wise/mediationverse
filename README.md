@@ -209,42 +209,30 @@ compute_pmed() medci()        sensitivity()   bootstrap_mediation()
 
 ## Installation
 
-### From GitHub (Development)
+### From r-universe (recommended)
 
-```r
-# Install all packages
-pak::pak("Data-Wise/mediationverse")
-
-# Or install individually (GitHub-only packages)
-pak::pak("Data-Wise/probmed")
-pak::pak("Data-Wise/medrobust")
-pak::pak("Data-Wise/medsim")
-
-# CRAN packages
-install.packages("RMediation")
-install.packages("medfit")
-```
-
-### From r-universe (pre-built binaries)
-
-The whole ecosystem is published at the
-[Data-Wise r-universe](https://data-wise.r-universe.dev) — no compiler needed,
-and cross-package dependencies resolve automatically:
+The whole ecosystem is available as pre-built binaries at the
+[Data-Wise r-universe](https://data-wise.r-universe.dev/mediationverse) — no
+compiler needed, and GitHub-only packages resolve automatically:
 
 ```r
 install.packages(
   "mediationverse",
   repos = c("https://data-wise.r-universe.dev", "https://cloud.r-project.org")
 )
-
-# Or any individual package, e.g.
-install.packages("medsim", repos = "https://data-wise.r-universe.dev")
 ```
 
-### From CRAN (Future)
+### From GitHub (development)
 
 ```r
-# Planned — once published to CRAN
+# Install via pak (handles CRAN + GitHub deps automatically)
+pak::pak("Data-Wise/mediationverse")
+```
+
+### From CRAN (future)
+
+```r
+# Planned — once mediationverse itself is submitted to CRAN
 install.packages("mediationverse")
 ```
 
