@@ -90,9 +90,9 @@ mediationverse_sitrep <- function() {
     cli::cli_rule()
     cli::cli_h2("CRAN status")
     cli::cli_bullets(c(
-      "*" = "{.pkg medfit} {.field 0.2.0+} — {.url https://cran.r-project.org/package=medfit}",
-      "*" = "{.pkg RMediation} {.field 1.5.0} — {.url https://cran.r-project.org/package=RMediation}",
-      "i" = "{.pkg probmed}, {.pkg medrobust}, {.pkg medsim} — GitHub only (pre-CRAN)"
+      "*" = "{.pkg medfit} {.field 0.2.0+} - {.url https://cran.r-project.org/package=medfit}",
+      "*" = "{.pkg RMediation} {.field 1.5.0} - {.url https://cran.r-project.org/package=RMediation}",
+      "i" = "{.pkg probmed}, {.pkg medrobust}, {.pkg medsim} - GitHub only (pre-CRAN)"
     ))
   } else {
     cat(strrep("-", 50), "\n")
