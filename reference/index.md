@@ -4,6 +4,8 @@
 
 Functions for managing the mediationverse ecosystem
 
+- [`mediationverse_sitrep()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_sitrep.md)
+  : Situation Report for the mediationverse Ecosystem
 - [`mediationverse_packages()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_packages.md)
   : List mediationverse Packages
 - [`mediationverse_update()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_update.md)

@@ -38,7 +38,7 @@ Package sources:
 
 - **mediationverse**: GitHub (data-wise/mediationverse)
 
-- **medfit**: GitHub (data-wise/medfit)
+- **medfit**: CRAN
 
 - **probmed**: GitHub (data-wise/probmed)
 
