@@ -23,6 +23,8 @@ home:
   sidebar:
     structure: [links, license, citation, authors, dev]
   links:
+  - text: "r-universe (binaries)"
+    href: https://data-wise.r-universe.dev/mediationverse
   - text: "Source Code"
     href: https://github.com/Data-Wise/mediationverse
   - text: "Report Issues"
@@ -99,6 +101,7 @@ reference:
   - title: "Package Management"
     desc: "Functions for managing the mediationverse ecosystem"
     contents:
+      - mediationverse_sitrep
       - mediationverse_packages
       - mediationverse_update
       - mediationverse_conflicts

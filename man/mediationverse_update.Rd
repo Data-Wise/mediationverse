@@ -27,7 +27,7 @@ falls back to \code{remotes::install_github()} for GitHub packages and
 Package sources:
 \itemize{
 \item \strong{mediationverse}: GitHub (data-wise/mediationverse)
-\item \strong{medfit}: GitHub (data-wise/medfit)
+\item \strong{medfit}: CRAN
 \item \strong{probmed}: GitHub (data-wise/probmed)
 \item \strong{RMediation}: CRAN
 \item \strong{medrobust}: GitHub (data-wise/medrobust)
