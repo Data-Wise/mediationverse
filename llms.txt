@@ -243,6 +243,23 @@ install.packages(
 install.packages("medsim", repos = "https://data-wise.r-universe.dev")
 ```
 
+### From r-universe (pre-built binaries)
+
+The whole ecosystem is published at the [Data-Wise
+r-universe](https://data-wise.r-universe.dev) — no compiler needed, and
+cross-package dependencies resolve automatically:
+
+``` r
+
+install.packages(
+  "mediationverse",
+  repos = c("https://data-wise.r-universe.dev", "https://cloud.r-project.org")
+)
+
+# Or any individual package, e.g.
+install.packages("medsim", repos = "https://data-wise.r-universe.dev")
+```
+
 ### From CRAN (Future)
 
 ``` r
