@@ -18,7 +18,7 @@ analysis, providing a unified ecosystem for:
 ``` r
 
 # Install mediationverse
-pak::pak("data-wise/mediationverse")
+pak::pak("Data-Wise/mediationverse")
 
 # Load foundation package + packages you need
 library(mediationverse)  # Loads medfit (foundation)
@@ -216,14 +216,14 @@ LaTeX tables
 # Install all packages
 pak::pak("Data-Wise/mediationverse")
 
-# Or install individually
-pak::pak("Data-Wise/medfit")
+# Or install individually (GitHub-only packages)
 pak::pak("Data-Wise/probmed")
 pak::pak("Data-Wise/medrobust")
 pak::pak("Data-Wise/medsim")
 
-# RMediation from CRAN
+# CRAN packages
 install.packages("RMediation")
+install.packages("medfit")
 ```
 
 ### From r-universe (pre-built binaries)

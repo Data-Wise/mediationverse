@@ -62,6 +62,16 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="mediationverse-development-version">mediationverse (development version)<a class="anchor" aria-label="anchor" href="#mediationverse-development-version"></a></h2>
 <div class="section level3">
+<h3 id="bug-fixes-development-version">Bug Fixes (2026-06-19)<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<ul><li>
+<code><a href="../reference/mediationverse_update.html">mediationverse_update()</a></code>: moved <code>medfit</code> from <code>github_pkgs</code> to <code>cran_pkgs</code> — medfit 0.2.0+ is on CRAN; fetching it from GitHub was incorrect (#fix-update-sources).</li>
+<li>
+<code><a href="../reference/mediationverse_update.html">mediationverse_update()</a></code>: <code>RMediation</code> was already in <code>cran_pkgs</code>; now both CRAN packages (<code>RMediation</code>, <code>medfit</code>) are correctly sourced from CRAN.</li>
+<li>Updated <code>@details</code> roxygen bullet for <code>medfit</code> from “GitHub (data-wise/medfit)” to “CRAN”.</li>
+<li>README: unified <code>pak::pak("Data-Wise/mediationverse")</code> casing in Quick Start block to match the Installation section.</li>
+<li>README: removed <code>pak::pak("Data-Wise/medfit")</code> from the “GitHub (Development)” install block; added <code>install.packages("medfit")</code> to the CRAN block.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="major-changes-development-version">Major Changes (2025-12-15)<a class="anchor" aria-label="anchor" href="#major-changes-development-version"></a></h3>
 <div class="section level4">
 <h4 id="selective-loading-strategy-v010-preparation-development-version">Selective Loading Strategy (v0.1.0 preparation)<a class="anchor" aria-label="anchor" href="#selective-loading-strategy-v010-preparation-development-version"></a></h4>
@@ -114,7 +124,7 @@
 </ul></div>
 </div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-development-version-1">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version-1"></a></h3>
 <ul><li>Fixed badge URLs in README.md to use correct GitHub organization case (<code>Data-Wise</code> instead of <code>data-wise</code>). Updated workflow badges and ecosystem package table for consistency</li>
 <li>Fixed pkgdown workflow failure caused by version constraint on RMediation in DESCRIPTION. Removed <code>(&gt;= 1.4.0)</code> constraint as it conflicted with pak dependency resolution in CI environments</li>
 <li>Fixed documentation typo in <code><a href="../reference/mediationverse_packages.html">mediationverse_packages()</a></code> where the <code>@return</code> section had a missing closing parenthesis in the <code>version</code> field description (R/packages.R:13)</li>

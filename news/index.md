@@ -2,6 +2,22 @@
 
 ## mediationverse (development version)
 
+### Bug Fixes (2026-06-19)
+
+- [`mediationverse_update()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_update.md):
+  moved `medfit` from `github_pkgs` to `cran_pkgs` — medfit 0.2.0+ is on
+  CRAN; fetching it from GitHub was incorrect (#fix-update-sources).
+- [`mediationverse_update()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_update.md):
+  `RMediation` was already in `cran_pkgs`; now both CRAN packages
+  (`RMediation`, `medfit`) are correctly sourced from CRAN.
+- Updated `@details` roxygen bullet for `medfit` from “GitHub
+  (data-wise/medfit)” to “CRAN”.
+- README: unified `pak::pak("Data-Wise/mediationverse")` casing in Quick
+  Start block to match the Installation section.
+- README: removed `pak::pak("Data-Wise/medfit")` from the “GitHub
+  (Development)” install block; added `install.packages("medfit")` to
+  the CRAN block.
+
 ### Major Changes (2025-12-15)
 
 #### Selective Loading Strategy (v0.1.0 preparation)

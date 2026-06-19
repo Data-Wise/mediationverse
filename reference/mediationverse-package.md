@@ -61,11 +61,11 @@ Update all packages:
 
 Useful links:
 
-- <https://github.com/data-wise/mediationverse>
+- <https://Data-Wise.github.io/mediationverse/>
 
-- <https://data-wise.github.io/mediationverse/>
+- <https://github.com/Data-Wise/mediationverse>
 
-- Report bugs at <https://github.com/data-wise/mediationverse/issues>
+- Report bugs at <https://github.com/Data-Wise/mediationverse/issues>
 
 ## Author
 
