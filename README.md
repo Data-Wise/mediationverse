@@ -7,6 +7,7 @@
 [![Repo Status](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![R-CMD-check](https://github.com/Data-Wise/mediationverse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/mediationverse/actions/workflows/R-CMD-check.yaml)
 [![Website Status](https://github.com/Data-Wise/mediationverse/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Data-Wise/mediationverse/actions/workflows/pkgdown.yaml)
+[![r-universe](https://data-wise.r-universe.dev/badges/mediationverse)](https://data-wise.r-universe.dev/mediationverse)
 <!-- badges: end -->
 
 
@@ -60,23 +61,12 @@ sensitivity <- sensitivity_analysis(med_data)
 
 ### Development Progress
 
-**Current Quarter (Q4 2025)**: Ecosystem Development Phase
+Detailed milestones and current status are maintained in the
+[planning hub](https://github.com/data-wise/mediation-planning) — kept in one place
+to stay current rather than duplicated (and drifting) here:
 
-| Milestone                      | Status        | Progress |
-| ------------------------------ | ------------- | -------- |
-| medfit Phase 3 (Extraction)    | ✅ Complete    | 100%     |
-| medfit Phase 4 (Model Fitting) | 🚧 In Progress | 60%      |
-| probmed Integration            | ⏳ Pending     | 0%       |
-| RMediation Integration         | ⏳ Pending     | 0%       |
-| medsim Core Implementation     | ✅ Complete    | 100%     |
-| Comprehensive Documentation    | ✅ Complete    | 100%     |
-
-**Next Quarter (Q1 2026)**: Integration & Release
-
-- Complete medfit Phase 4-5 (Bootstrap, Testing)
-- Integrate probmed and RMediation with medfit
-- CRAN submissions for medfit, probmed
-- Finalize mediationverse meta-package
+- [🗺️ Master Roadmap](https://github.com/data-wise/mediation-planning/blob/main/docs/ROADMAP.md)
+- [📊 PROJECT-HUB](https://github.com/data-wise/mediation-planning/blob/main/PROJECT-HUB.md) — dashboard & current focus
 
 ## Package Ecosystem
 
@@ -235,10 +225,26 @@ pak::pak("Data-Wise/medsim")
 install.packages("RMediation")
 ```
 
+### From r-universe (pre-built binaries)
+
+The whole ecosystem is published at the
+[Data-Wise r-universe](https://data-wise.r-universe.dev) — no compiler needed,
+and cross-package dependencies resolve automatically:
+
+```r
+install.packages(
+  "mediationverse",
+  repos = c("https://data-wise.r-universe.dev", "https://cloud.r-project.org")
+)
+
+# Or any individual package, e.g.
+install.packages("medsim", repos = "https://data-wise.r-universe.dev")
+```
+
 ### From CRAN (Future)
 
 ```r
-# Planned for Q2-Q3 2026
+# Planned — once published to CRAN
 install.packages("mediationverse")
 ```
 
@@ -251,7 +257,7 @@ The mediationverse uses **selective loading**: only the foundation package (`med
 ```r
 library(mediationverse)
 #> ── Attaching mediationverse 0.0.0.9000 ──
-#> ✔ medfit 0.1.0 (foundation package)
+#> ✔ medfit 0.2.1 (foundation package)
 #> ℹ Use library(probmed) for P_med effect size
 #> ℹ Use library(RMediation) for DOP/MBCO inference
 #> ℹ Use library(medrobust) for sensitivity analysis
@@ -342,7 +348,8 @@ Following principles from [tidyverse](https://design.tidyverse.org/) and [easyst
 - [📊 Package Status Dashboard](https://github.com/data-wise/mediationverse/blob/main/STATUS.md)
 - [🗺️ Development Roadmap](https://data-wise.github.io/mediationverse/articles/roadmap.html)
 - [🤝 Contributing Guide](https://data-wise.github.io/mediationverse/articles/contributing.html)
-- [📋 Ecosystem Coordination](https://github.com/data-wise/medfit/blob/main/planning/ECOSYSTEM.md)
+- [🧭 Planning Hub](https://github.com/data-wise/mediation-planning/blob/main/PROJECT-HUB.md) — roadmap, specs, coordination
+- [📋 Ecosystem Coordination](https://github.com/data-wise/mediation-planning/blob/main/docs/ECOSYSTEM-COORDINATION.md)
 
 ### Package Documentation
 - [medfit Documentation](https://data-wise.github.io/medfit/)
@@ -374,10 +381,10 @@ If you use packages from the mediationverse in your research, please cite the in
 
 ```
 Tofighi, D. (2025). medfit: Infrastructure for mediation analysis in R.
-R package version 0.1.0. https://github.com/data-wise/medfit
+R package version 0.2.1. https://CRAN.R-project.org/package=medfit
 
 Tofighi, D. (2025). probmed: Probabilistic effect sizes for mediation analysis.
-R package version 0.1.0. https://github.com/data-wise/probmed
+R package version 0.0.0.9000. https://github.com/data-wise/probmed
 ```
 
 Full citations available via `citation("packagename")`.

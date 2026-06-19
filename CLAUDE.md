@@ -440,5 +440,7 @@ R -e "covr::report()"
 
 ---
 
-**Last Updated**: 2025-12-05
+**Last Updated**: 2026-05-09
 **Maintainer**: Update this file as patterns emerge!
+
+**Architecture note (2026-05-09):** mediationverse is a meta-package using selective loading (R/attach.R) — only `medfit` and `cli` are in DESCRIPTION Imports; `medsim`, `medrobust`, `probmed`, `RMediation` are in Suggests and opt-in via `library()`. See PR #2 and project memory `project_imports_suggests_selective_loading.md`.

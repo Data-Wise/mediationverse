@@ -1,3 +1,14 @@
+status: active
+priority: P1
+progress: 90
+next: Waiting on medfit CRAN acceptance — then drop `Data-Wise/medfit` from Remotes + pin `medfit (>= 0.2.0)` in Imports (cascade pre-staged in medfit/planning/CASCADE-cran-flip-2026-06-03.md). Also: reconcile NEWS/README (0.1.0) vs DESCRIPTION (0.0.0.9000); expand thin test suite (1 test_that).
+type: r
+last_updated: 2026-06-03
+
+# ═══════════════════════════════════════════════════════════════════
+# Below is the original .STATUS content (preserved for reference)
+# ═══════════════════════════════════════════════════════════════════
+
 📦 mediationverse - Ecosystem for Mediation Analysis
 ────────────────────────────────────────────────
 
@@ -5,7 +16,7 @@
 ~/projects/r-packages/active/mediationverse/
 
 ⏰ LAST UPDATED
-2025-12-15 (Evening)
+2026-05-09
 
 ────────────────────────────────────────────────
 
@@ -31,34 +42,39 @@ Version: 0.0.0.9000
 
 🎯 Next Action:
 **Choose one:**
-- **A)** Review and enhance pkgdown site configuration [30-60 min] 🟢
-  - Add custom CSS/styling if desired
-  - Review article organization
-  - Check all cross-links work
-- **B)** Wait for medfit v0.1.0 release then do integration testing (ETA Dec 21)
-- **C)** Switch to medfit and help complete MVP (unblocks ecosystem)
+- **A)** Integration test mediationverse + medfit v0.1.0 [1-2 hr] 🟢
+  - Confirm selective loading still works against released medfit
+  - Smoke-test getting-started vignette end-to-end
+  - Bump to v0.1.0 if green
+- **B)** Help fix medsim R-CMD-check failure [1-3 hr]
+  - Root cause: pak can't resolve GitHub-only deps (medfit/probmed/medrobust)
+  - Likely fix: add `Remotes:` field or change workflow install method
+- **C)** Help land R-CMD-check workflow on medrobust [2 hr]
+  - Currently the only ecosystem package with no R-CMD-check
+  - Add via standard r-lib/actions template
+- **D)** medfit CRAN submission prep [4+ hr, separate session]
 
-Blocked: Waiting for medfit v0.1.0 (75% complete, ETA Dec 21)
+Blocked: None (medfit v0.1.0 released; all deps available)
 
-📋 Just Completed (Dec 15 - Evening Session):
+📋 Recent Housekeeping (2026-05-09 — full session):
+- ✅ Synced dev branch with main (4 commits fast-forward)
+- ✅ Added GitHub branch protection on main (PR required, no force/delete, R-CMD-check on ubuntu-latest required)
+- ✅ Aligned global ~/.claude/CLAUDE.md git workflow rules with dev-tools/craft as source of truth
+- ✅ Reviewed entire mediationverse ecosystem (all 5 packages dashboard)
+- ✅ PR #2 MERGED: Imports → Suggests fix (DESCRIPTION now correctly reflects selective loading)
+- ✅ Integration tested mediationverse + medfit v0.1.0; pkgload::load_all now works standalone
+- ✅ Created/updated CLAUDE.md + memory dirs for all 5 packages (~13 new memory entries)
+- ✅ Refreshed mediation-planning master dashboard (PROJECT-HUB, ROADMAP, TODOS) — PR #1 merged
+- ✅ medrobust PR #1 MERGED: Added R-CMD-check workflow with Windows quarto fix; all 3 platforms green
+
+📋 Earlier Completed (Dec 15 — selective loading work):
 - ✅ Implemented selective loading strategy (Option 2)
-- ✅ Updated R/attach.R to load only medfit by default
-- ✅ Updated R/zzz.R with new startup message
-- ✅ Updated README.md with selective loading documentation
-- ✅ Created comprehensive ecosystem architecture diagrams
-- ✅ Added data flow diagram to README
-- ✅ Updated getting-started.qmd vignette
-- ✅ Updated mediationverse-workflow.qmd vignette
-- ✅ Tested selective loading mechanism (all tests pass)
-- ✅ Created SELECTIVE-LOADING-TEST.md documentation
-- ✅ Verified utility functions work correctly
-- ✅ Fixed README badge issues (removed broken medrobust badge)
-- ✅ Ran R CMD check (0 errors, 0 warnings, 3 minor notes)
+- ✅ R/attach.R loads only medfit by default
+- ✅ Ecosystem architecture diagrams + data flow
+- ✅ Updated vignettes + README
+- ✅ R CMD check (0 errors, 0 warnings, 3 minor notes)
 - ✅ Built and previewed pkgdown site
-- ✅ Reviewed ecosystem status (all 5 packages)
-- ✅ Updated NEWS.md with v0.1.0 changelog
-- ✅ Coordinated with medfit COORDINATION-BRAINSTORM.md
-- ✅ Committed and pushed major changes to GitHub
+- ✅ NEWS.md v0.1.0 changelog drafted
 
 ────────────────────────────────────────────────
 
@@ -77,6 +93,8 @@ Blocked: Waiting for medfit v0.1.0 (75% complete, ETA Dec 21)
 - Test documentation (SELECTIVE-LOADING-TEST.md)
 - Coordination with medfit package
 - Utility functions verified (packages, conflicts)
+- GitHub branch protection (2026-05-09)
+- Global git workflow rules aligned with craft (2026-05-09)
 
 ────────────────────────────────────────────────
 

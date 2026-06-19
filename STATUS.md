@@ -1,8 +1,17 @@
 # Mediationverse Ecosystem Status
 
-> Centralized monitoring for all mediationverse packages
+> **The live CI/CD badge wall** for the ecosystem. This page is intentionally a
+> badge dashboard — per-package status, blockers, dependency order, and CRAN
+> sequence are **not** hand-maintained here (they drift).
 
-**Last Updated**: 2025-12-04
+**Last Updated**: 2026-06-19
+
+> 🩺 **Live health:** `cd ~/projects/r-packages && /rforge:status` (or `:thorough`).
+> Per-package status lives in each repo's `.STATUS` file.
+>
+> 🗺️ **Planning & roadmap:** the ecosystem hub —
+> [`mediation-planning`](https://github.com/Data-Wise/mediation-planning)
+> (`PROJECT-HUB.md`, `ECOSYSTEM-MANIFEST.yaml`, `docs/ROADMAP.md`).
 
 ---
 
@@ -10,7 +19,7 @@
 
 | Package | Lifecycle | Repo Status | Build | Website | R-hub | Coverage | CRAN |
 |---------|-----------|-------------|-------|---------|-------|----------|------|
-| [medfit](https://github.com/data-wise/medfit) | [![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) | [![Repo Status](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip) | [![R-CMD-check](https://github.com/data-wise/medfit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/medfit/actions/workflows/R-CMD-check.yaml) | [![Website Status](https://github.com/data-wise/medfit/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/data-wise/medfit/actions/workflows/pkgdown.yaml) | [![R-hub](https://github.com/data-wise/medfit/actions/workflows/rhub.yaml/badge.svg)](https://github.com/data-wise/medfit/actions/workflows/rhub.yaml) | [![Codecov](https://codecov.io/gh/data-wise/medfit/graph/badge.svg)](https://codecov.io/gh/data-wise/medfit) | Not on CRAN |
+| [medfit](https://github.com/data-wise/medfit) | [![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) | [![Repo Status](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip) | [![R-CMD-check](https://github.com/data-wise/medfit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/medfit/actions/workflows/R-CMD-check.yaml) | [![Website Status](https://github.com/data-wise/medfit/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/data-wise/medfit/actions/workflows/pkgdown.yaml) | [![R-hub](https://github.com/data-wise/medfit/actions/workflows/rhub.yaml/badge.svg)](https://github.com/data-wise/medfit/actions/workflows/rhub.yaml) | [![Codecov](https://codecov.io/gh/data-wise/medfit/graph/badge.svg)](https://codecov.io/gh/data-wise/medfit) | [![CRAN](https://www.r-pkg.org/badges/version/medfit)](https://CRAN.R-project.org/package=medfit) |
 | [probmed](https://github.com/data-wise/probmed) | [![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) | [![Repo Status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![R-CMD-check](https://github.com/data-wise/probmed/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/probmed/actions/workflows/R-CMD-check.yaml) | [![Website Status](https://github.com/data-wise/probmed/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/data-wise/probmed/actions/workflows/pkgdown.yaml) | [![R-hub](https://github.com/data-wise/probmed/actions/workflows/rhub.yaml/badge.svg)](https://github.com/data-wise/probmed/actions/workflows/rhub.yaml) | [![Codecov](https://codecov.io/gh/data-wise/probmed/graph/badge.svg)](https://codecov.io/gh/data-wise/probmed) | Not on CRAN |
 | [RMediation](https://github.com/data-wise/rmediation) | [![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) | [![Repo Status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![R-CMD-check](https://github.com/data-wise/rmediation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/rmediation/actions/workflows/R-CMD-check.yaml) | [![Website Status](https://github.com/data-wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/data-wise/rmediation/actions/workflows/pkgdown.yaml) | [![R-hub](https://github.com/data-wise/rmediation/actions/workflows/rhub.yaml/badge.svg)](https://github.com/data-wise/rmediation/actions/workflows/rhub.yaml) | [![Codecov](https://codecov.io/gh/data-wise/rmediation/graph/badge.svg)](https://codecov.io/gh/data-wise/rmediation) | [![CRAN](https://www.r-pkg.org/badges/version/RMediation)](https://CRAN.R-project.org/package=RMediation) |
 | [medrobust](https://github.com/data-wise/medrobust) | [![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) | [![Repo Status](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip) | [![R-CMD-check](https://github.com/data-wise/medrobust/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/medrobust/actions/workflows/R-CMD-check.yaml) | [![Website Status](https://github.com/data-wise/medrobust/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/data-wise/medrobust/actions/workflows/pkgdown.yaml) | [![R-hub](https://github.com/data-wise/medrobust/actions/workflows/rhub.yaml/badge.svg)](https://github.com/data-wise/medrobust/actions/workflows/rhub.yaml) | [![Codecov](https://codecov.io/gh/data-wise/medrobust/graph/badge.svg)](https://codecov.io/gh/data-wise/medrobust) | Not on CRAN |
@@ -72,33 +81,16 @@ All packages should use this badge order in their README.md:
 
 ---
 
-## Current Issues
+## Current Issues & Per-Package Status
 
-### medfit
-- Status: Under active development
-- Issues: None currently blocking
+Not tracked here — it drifts. Two sources of truth:
 
-### probmed
-- Status: Stable, ready for integration testing
-- Issues: None
-
-### RMediation
-- Status: On CRAN, stable
-- Issues: None
-
-### medrobust
-- Status: Under active development
-- Issues: None currently blocking
-
-### medsim
-- Status: Core features complete
-- Issues: ⚠️ R-CMD-check failing (optional Suggests packages not available)
-  - Expected: Will resolve when medfit/probmed published
-  - Workaround: Tests skip gracefully when packages unavailable
-
-### mediationverse
-- Status: Meta-package skeleton complete
-- Issues: None
+- **Live status / blockers / progress:** `cd ~/projects/r-packages && /rforge:status`
+  (reads each package's `.STATUS`). For the full rollup incl. dependency order and
+  CRAN sequence: `/rforge:thorough`.
+- **Cross-package tasks & roadmap:** the hub —
+  [`mediation-planning/TODOS.md`](https://github.com/Data-Wise/mediation-planning/blob/main/TODOS.md)
+  and [`docs/ROADMAP.md`](https://github.com/Data-Wise/mediation-planning/blob/main/docs/ROADMAP.md).
 
 ---
 
@@ -115,15 +107,16 @@ All packages should use this badge order in their README.md:
 
 ---
 
-## Release Readiness Checklist
+## Release Readiness
 
-Before CRAN submission, ensure:
-- [ ] All R-CMD-check badges are green
-- [ ] pkgdown website builds successfully
-- [ ] Code coverage >80% (if applicable)
-- [ ] All dependencies available on CRAN
-- [ ] NEWS.md updated with release notes
-- [ ] Version number incremented appropriately
+Per-package CRAN gate and ecosystem submission order are automated — don't track
+them by hand here:
+
+```bash
+cd ~/projects/r-packages
+/rforge:r:cran-prep    # per-package gate: document→lint→spell→urlcheck→test→coverage→check→revdep
+/rforge:release        # dependency-ordered ecosystem CRAN submission sequence
+```
 
 ---
 

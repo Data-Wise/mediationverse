@@ -20,13 +20,8 @@ Depends:
     R (>= 4.1.0)
 Imports:
     cli,
-    medfit,
-    medsim,
-    medrobust,
-    probmed,
-    RMediation
+    medfit (>= 0.2.0)
 Remotes:
-    Data-Wise/medfit,
     Data-Wise/medsim,
     Data-Wise/medrobust,
     Data-Wise/probmed
@@ -34,10 +29,14 @@ Suggests:
     altdoc,
     knitr,
     lavaan,
+    medrobust,
+    medsim,
     pak,
+    probmed,
     quarto,
     remotes,
     rmarkdown,
+    RMediation,
     rprojroot,
     testthat (>= 3.0.0)
 Config/Needs/website:
