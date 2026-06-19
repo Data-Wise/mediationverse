@@ -1,7 +1,7 @@
 status: active
 priority: P2
 progress: 92
-next: Drop Data-Wise/medsim and Data-Wise/medrobust from Remotes once those packages reach CRAN. Reconcile NEWS/README version (0.1.0) vs DESCRIPTION (0.0.0.9000). Expand thin test suite (1 test_that).
+next: Drop Data-Wise/medsim, Data-Wise/medrobust, Data-Wise/probmed from Remotes once those packages reach CRAN. Expand thin test suite (1 test_that). Submit to CRAN once all Remotes entries cleared.
 type: r
 last_updated: 2026-06-19
 
@@ -29,13 +29,17 @@ Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 ## Completed (2026-06-19)
 
 - medfit on CRAN — dropped from `Remotes`; pinned `Imports >= 0.2.0` ✓
+- `mediationverse_update()` CRAN source map fixed (medfit moved from github_pkgs) ✓
+- R CMD check NOTEs silenced: `.STATUS` in `.Rbuildignore`, `importFrom(medfit,extract_mediation)` ✓
 - STATUS.md badge updated (medfit CRAN badge live) ✓
-- dev → main PR #5 merged; pkgdown rebuilt ✓
+- dev → main PR #5/#6/#8 merged; pkgdown rebuilt ✓
 - Selective loading strategy (Option 2) implemented ✓
 - GitHub branch protection on main ✓
+- r-universe: binary install recommended in README; sidebar link added ✓
+- Install section reordered: r-universe → GitHub → CRAN (future) ✓
 
 ## Next
 
-1. **CRAN path for medsim / medrobust** — unblocks dropping their `Remotes:` entries and submitting mediationverse itself to CRAN.
-2. **Version reconciliation** — NEWS/README say 0.1.0, DESCRIPTION says 0.0.0.9000; align before any CRAN submission.
-3. **Test coverage** — currently 1 `test_that`; expand before CRAN.
+1. **CRAN path for medsim / medrobust / probmed** — unblocks dropping their `Remotes:` entries and submitting mediationverse itself to CRAN.
+2. **Test coverage** — currently 1 `test_that`; expand before CRAN.
+3. **mediationverse_sitrep()** — add situation report function (see BRAINSTORM-tidyverse-functions-2026-06-19.md).
