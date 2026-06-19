@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Development Roadmap – mediationverse</title>
+<title>mediationverse_sitrep – mediationverse</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -107,7 +142,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vignettes/contributing.html">Articles</a></li><li class="breadcrumb-item"><a href="../vignettes/roadmap.html">Development Roadmap</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../man/mediationverse_conflicts.html">Reference</a></li><li class="breadcrumb-item"><a href="../man/mediationverse_sitrep.html">mediationverse_sitrep</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -127,13 +162,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Articles</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../vignettes/contributing.html" class="sidebar-item-text sidebar-link">
@@ -154,7 +189,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../vignettes/roadmap.html" class="sidebar-item-text sidebar-link active">
+  <a href="../vignettes/roadmap.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Development Roadmap</span></a>
   </div>
 </li>
@@ -162,13 +197,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Reference</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../man/mediationverse_conflicts.html" class="sidebar-item-text sidebar-link">
@@ -183,7 +218,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../man/mediationverse_sitrep.html" class="sidebar-item-text sidebar-link">
+  <a href="../man/mediationverse_sitrep.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">mediationverse_sitrep</span></a>
   </div>
 </li>
@@ -222,76 +257,33 @@ ul.task-list li input[type="checkbox"] {
         
     <div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="undefined"><i class="bi bi-link-45deg"></i></a></li></ul></div></div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../man/mediationverse_conflicts.html">Reference</a></li><li class="breadcrumb-item"><a href="../man/mediationverse_sitrep.html">mediationverse_sitrep</a></li></ol></nav></header>
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../vignettes/contributing.html">Articles</a></li><li class="breadcrumb-item"><a href="../vignettes/roadmap.html">Development Roadmap</a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title">Development Roadmap</h1>
+
+
+
+<section id="situation-report-for-the-mediationverse-ecosystem" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="situation-report-for-the-mediationverse-ecosystem">Situation Report for the mediationverse Ecosystem</h2>
+<section id="description" class="level3">
+<h3 class="anchored" data-anchor-id="description">Description</h3>
+<p>Prints a summary of the installed mediationverse packages, their versions, and installation sources. Inspired by <code>tidyverse::tidyverse_sitrep()</code>.</p>
+</section>
+<section id="usage" class="level3">
+<h3 class="anchored" data-anchor-id="usage">Usage</h3>
+<pre><code class="language-R">mediationverse_sitrep()
+</code></pre>
+</section>
+<section id="value" class="level3">
+<h3 class="anchored" data-anchor-id="value">Value</h3>
+<p>Invisibly returns a data frame with package status. Called for its side effect of printing the situation report.</p>
+</section>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"mediationverse"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mediationverse_sitrep</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="mediationverse-development-roadmap" class="level1">
-<h1>mediationverse Development Roadmap</h1>
-<blockquote class="blockquote">
-<p><strong>Authoritative, always-current roadmap:</strong> the <a href="https://github.com/data-wise/mediation-planning">mediation-planning hub</a>. This page is a high-level orientation only — detailed phases, milestones, and status are maintained in the hub (and generated live by tooling), so they are not duplicated here where they would drift.</p>
-</blockquote>
-<section id="what-the-ecosystem-is" class="level2">
-<h2 class="anchored" data-anchor-id="what-the-ecosystem-is">What the ecosystem is</h2>
-<p>The mediationverse builds outward from a shared foundation — <strong>medfit</strong> (S7 data classes, model extraction, fitting, and bootstrap inference) — that the analysis packages build on:</p>
-<ul>
-<li><strong>probmed</strong> — P_med effect size</li>
-<li><strong>RMediation</strong> — confidence intervals (DOP / MBCO / Monte Carlo)</li>
-<li><strong>medrobust</strong> — sensitivity analysis</li>
-<li><strong>medsim</strong> — simulation infrastructure</li>
-<li><strong>missingmed</strong> — missing-data mediation (multiple imputation + IPW)</li>
-</ul>
-<p>The <strong>mediationverse</strong> meta-package ties them together with selective loading.</p>
-</section>
-<section id="direction-high-level" class="level2">
-<h2 class="anchored" data-anchor-id="direction-high-level">Direction (high level)</h2>
-<ol type="1">
-<li><strong>Foundation</strong> — medfit feature-complete: extraction (lm/glm, lavaan), GLM fitting, bootstrap, S7 classes, plus tidyverse and ADHD-friendly APIs.</li>
-<li><strong>Integration</strong> — analysis packages consume medfit’s shared infrastructure instead of duplicating it (the probmed and RMediation integrations have landed).</li>
-<li><strong>CRAN</strong> — medfit leads the submission sequence; dependents follow in dependency order.</li>
-<li><strong>Beyond the MVP</strong> — interaction (four-way) decomposition, estimation-engine adapters (CMAverse g-formula / IPW), multilevel (<code>lmer</code>) and Bayesian (<code>brms</code>) engines, and targeted learning (<code>tmle3</code>).</li>
-</ol>
-</section>
-<section id="current-status-detailed-plan" class="level2">
-<h2 class="anchored" data-anchor-id="current-status-detailed-plan">Current status &amp; detailed plan</h2>
-<p>Maintained in the hub so it stays current (rather than drifting in this vignette):</p>
-<ul>
-<li><a href="https://github.com/data-wise/mediation-planning/blob/main/docs/ROADMAP.md">Master Roadmap</a> — detailed phases and timeline</li>
-<li><a href="https://github.com/data-wise/mediation-planning/blob/main/PROJECT-HUB.md">PROJECT-HUB</a> — dashboard and current focus</li>
-<li><a href="https://github.com/data-wise/mediation-planning/blob/main/TODOS.md">TODOS</a> — active cross-package tasks</li>
-<li>Live per-package health: <code>cd ~/projects/r-packages &amp;&amp; /rforge:status</code></li>
-</ul>
-</section>
-<section id="see-also" class="level2">
-<h2 class="anchored" data-anchor-id="see-also">See also</h2>
-<ul>
-<li><a href="https://data-wise.github.io/medfit/">medfit</a> — foundation</li>
-<li><a href="https://data-wise.github.io/probmed/">probmed</a> — P_med effect size</li>
-<li><a href="https://data-wise.github.io/rmediation/">RMediation</a> — confidence intervals (CRAN)</li>
-<li><a href="https://data-wise.github.io/medrobust/">medrobust</a> — sensitivity analysis</li>
-<li><a href="https://data-wise.github.io/medsim/">medsim</a> — simulation infrastructure</li>
-</ul>
-</section>
-<section id="feedback" class="level2">
-<h2 class="anchored" data-anchor-id="feedback">Feedback</h2>
-<p><strong>Project Lead:</strong> Davood Tofighi (dtofighi@gmail.com) · <a href="https://github.com/data-wise/mediationverse/discussions">GitHub Discussions</a> · <a href="https://github.com/data-wise/mediationverse/issues/new">Feature Requests</a></p>
 
 
 </section>
