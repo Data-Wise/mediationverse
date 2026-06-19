@@ -101,6 +101,7 @@ reference:
   - title: "Package Management"
     desc: "Functions for managing the mediationverse ecosystem"
     contents:
+      - mediationverse_sitrep
       - mediationverse_packages
       - mediationverse_update
       - mediationverse_conflicts
