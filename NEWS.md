@@ -1,17 +1,19 @@
 # mediationverse (development version)
 
-## Bug Fixes (2026-06-19)
+## Bug Fixes (2026-06-21)
 
-* `mediationverse_update()`: moved `medfit` from `github_pkgs` to `cran_pkgs` —
-  medfit 0.2.0+ is on CRAN; fetching it from GitHub was incorrect (#fix-update-sources).
-* `mediationverse_update()`: `RMediation` was already in `cran_pkgs`; now both CRAN
-  packages (`RMediation`, `medfit`) are correctly sourced from CRAN.
-* Updated `@details` roxygen bullet for `medfit` from "GitHub (data-wise/medfit)"
-  to "CRAN".
-* README: unified `pak::pak("Data-Wise/mediationverse")` casing in Quick Start block
-  to match the Installation section.
-* README: removed `pak::pak("Data-Wise/medfit")` from the "GitHub (Development)"
-  install block; added `install.packages("medfit")` to the CRAN block.
+* `mediationverse_update()` / `mediationverse_sitrep()`: keep `medfit` sourced from
+  **GitHub** (`data-wise/medfit`), reverting the 2026-06-19 reclassification to
+  `cran_pkgs`. CRAN serves only medfit 0.2.1, but the ecosystem requires
+  medfit >= 0.3.0 (probmed, missingmed) — sourcing it from CRAN resolves a version too
+  old for those packages. `RMediation` remains the only CRAN-sourced core package.
+* `DESCRIPTION`: added `Data-Wise/medfit` to `Remotes:` so GitHub installs resolve
+  medfit 0.3.x rather than CRAN 0.2.1.
+* README + vignettes: corrected example calls to use real sibling exports
+  (`pmed()`, `bound_ne()`, `falsification_summary()`, `medsim_run()`) in place of
+  functions that do not exist in those packages.
+* README: unified `pak::pak("Data-Wise/mediationverse")` casing in the Quick Start
+  block to match the Installation section.
 
 ## Major Changes (2025-12-15)
 

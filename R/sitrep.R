@@ -13,8 +13,8 @@
 #' @export
 mediationverse_sitrep <- function() {
   # Known package sources (CRAN vs GitHub-only)
-  cran_pkgs <- c("medfit", "RMediation")
-  github_only <- c("probmed", "medrobust", "medsim", "mediationverse")
+  cran_pkgs <- c("RMediation")
+  github_only <- c("medfit", "probmed", "medrobust", "medsim", "mediationverse")
 
   core <- c("medfit", "probmed", "RMediation", "medrobust", "medsim")
   github_repos <- c(
@@ -90,15 +90,15 @@ mediationverse_sitrep <- function() {
     cli::cli_rule()
     cli::cli_h2("CRAN status")
     cli::cli_bullets(c(
-      "*" = "{.pkg medfit} {.field 0.2.0+} - {.url https://cran.r-project.org/package=medfit}",
       "*" = "{.pkg RMediation} {.field 1.5.0} - {.url https://cran.r-project.org/package=RMediation}",
+      "i" = "{.pkg medfit} - install {.field 0.3.x} from GitHub; CRAN has {.field 0.2.1}, but the ecosystem needs >= 0.3.0",
       "i" = "{.pkg probmed}, {.pkg medrobust}, {.pkg medsim} - GitHub only (pre-CRAN)"
     ))
   } else {
     cat(strrep("-", 50), "\n")
     cat("CRAN status:\n")
-    cat("  [CRAN] medfit 0.2.0+\n")
     cat("  [CRAN] RMediation 1.5.0\n")
+    cat("  [GitHub] medfit 0.3.x (CRAN has 0.2.1; ecosystem needs >= 0.3.0)\n")
     cat("  [GitHub only] probmed, medrobust, medsim\n")
   }
 
