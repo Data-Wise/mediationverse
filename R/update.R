@@ -16,7 +16,7 @@
 #'
 #' Package sources:
 #' - **mediationverse**: GitHub (data-wise/mediationverse)
-#' - **medfit**: CRAN
+#' - **medfit**: GitHub (data-wise/medfit) — CRAN 0.2.1 is behind; the ecosystem needs >= 0.3.0
 #' - **probmed**: GitHub (data-wise/probmed)
 #' - **RMediation**: CRAN
 #' - **medrobust**: GitHub (data-wise/medrobust)
@@ -38,12 +38,13 @@ mediationverse_update <- function(packages = NULL, ...) {
   # Package sources
   github_pkgs <- c(
     mediationverse = "data-wise/mediationverse",
+    medfit         = "data-wise/medfit",
     probmed        = "data-wise/probmed",
     medrobust      = "data-wise/medrobust",
     medsim         = "data-wise/medsim"
   )
 
-  cran_pkgs <- c("RMediation", "medfit")
+  cran_pkgs <- c("RMediation")
 
   # Default to all packages
   if (is.null(packages)) {

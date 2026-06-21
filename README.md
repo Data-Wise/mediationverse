@@ -40,9 +40,21 @@ med_data <- extract_mediation(fit_m, model_y = fit_y,
                                treatment = "X", mediator = "M")
 
 # Get P_med effect size, confidence intervals, and sensitivity analysis
-pmed_result <- compute_pmed(med_data)
+pmed_result <- pmed(med_data)
 ci_result <- ci(med_data, type = "dop")
-sensitivity <- sensitivity_analysis(med_data)
+# medrobust takes the raw data frame + a misclassification sensitivity region
+sensitivity <- bound_ne(
+  data = mydata, exposure = "X", mediator = "M", outcome = "Y",
+  sensitivity_region = list(sn0_range = c(0.80, 0.90), sp0_range = c(0.80, 0.90))
+)
+```
+
+### Verify your installation
+
+```r
+# Prints a situation report of all ecosystem packages, their versions,
+# and installation sources
+mediationverse_sitrep()
 ```
 
 ## Ecosystem Status Dashboard
@@ -56,17 +68,18 @@ sensitivity <- sensitivity_analysis(med_data)
 | [**medfit**](https://Data-Wise.github.io/medfit/)               | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/Data-Wise/medfit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medfit/actions)         | [![Docs](https://github.com/Data-Wise/medfit/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medfit/)         | **Foundation**            |
 | [**probmed**](https://Data-Wise.github.io/probmed/)             | ![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)  | [![Build](https://github.com/Data-Wise/probmed/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/probmed/actions)       | [![Docs](https://github.com/Data-Wise/probmed/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/probmed/)       | Effect Size               |
 | [**RMediation**](https://cran.r-project.org/package=RMediation) | ![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)  | [![Build](https://github.com/Data-Wise/rmediation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/rmediation/actions) | [![Docs](https://github.com/Data-Wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/rmediation/) | Confidence Intervals      |
-| [**medrobust**](https://Data-Wise.github.io/medrobust/)         | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | —   | [![Docs](https://github.com/Data-Wise/medrobust/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medrobust/)   | Sensitivity Analysis      |
+| [**medrobust**](https://Data-Wise.github.io/medrobust/)         | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/Data-Wise/medrobust/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medrobust/actions/workflows/R-CMD-check.yaml) | [![Docs](https://github.com/Data-Wise/medrobust/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medrobust/)   | Sensitivity Analysis      |
 | [**medsim**](https://Data-Wise.github.io/medsim/)               | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/Data-Wise/medsim/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medsim/actions)         | [![Docs](https://github.com/Data-Wise/medsim/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medsim/)         | Simulation Infrastructure |
 
-### Development Progress
+### Development Status
 
-Detailed milestones and current status are maintained in the
-[planning hub](https://github.com/data-wise/mediation-planning) — kept in one place
-to stay current rather than duplicated (and drifting) here:
-
-- [🗺️ Master Roadmap](https://github.com/data-wise/mediation-planning/blob/main/docs/ROADMAP.md)
-- [📊 PROJECT-HUB](https://github.com/data-wise/mediation-planning/blob/main/PROJECT-HUB.md) — dashboard & current focus
+| Package    | Status       | Next Milestone                          |
+| ---------- | ------------ | --------------------------------------- |
+| medfit     | Stable/CRAN  | Phase 5 — serial mediation              |
+| probmed    | Stable       | CRAN submission                         |
+| RMediation | Stable/CRAN  | Maintenance only                        |
+| medrobust  | Experimental | Complete partial ID bounds              |
+| medsim     | Experimental | HPC integration                         |
 
 ## Package Ecosystem
 
@@ -141,7 +154,7 @@ extract_mediation()  ──────►  MediationData object
    │              │              │                 │
    ▼              ▼              ▼                 ▼
 probmed::     RMediation::   medrobust::      medfit::
-compute_pmed() medci()        sensitivity()   bootstrap_mediation()
+pmed()        medci()        bound_ne()       bootstrap_mediation()
    │              │              │                 │
    │              │              │                 │
    └──────────────┴──────────────┴─────────────────┘
@@ -229,6 +242,12 @@ install.packages(
 pak::pak("Data-Wise/mediationverse")
 ```
 
+> **Note:** `probmed`, `medrobust`, and `medsim` are not on CRAN yet.
+> Install them individually as needed:
+> ```r
+> pak::pak(c("Data-Wise/probmed", "Data-Wise/medrobust", "Data-Wise/medsim"))
+> ```
+
 ### From CRAN (future)
 
 ```r
@@ -298,13 +317,17 @@ med_data <- extract_mediation(fit_m, model_y = fit_y,
 boot_result <- bootstrap_mediation(med_data, n_boot = 2000)
 
 # 4. Compute probabilistic effect size (probmed)
-pmed_result <- compute_pmed(med_data)
+pmed_result <- pmed(med_data)
 
 # 5. Get confidence intervals (RMediation)
 ci_result <- ci(med_data, type = "dop")
 
 # 6. Sensitivity analysis (medrobust)
-robust_result <- sensitivity_analysis(med_data)
+# medrobust operates on the raw data frame + a misclassification sensitivity region
+robust_result <- bound_ne(
+  data = mydata, exposure = "X", mediator = "M", outcome = "Y",
+  sensitivity_region = list(sn0_range = c(0.80, 0.90), sp0_range = c(0.80, 0.90))
+)
 
 # 7. Run simulation study (medsim - load if needed)
 library(medsim)

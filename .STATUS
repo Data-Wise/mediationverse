@@ -1,7 +1,7 @@
 status: active
 priority: P2
 progress: 92
-next: Drop Data-Wise/medsim, Data-Wise/medrobust, Data-Wise/probmed from Remotes once those packages reach CRAN. Expand thin test suite (1 test_that). Submit to CRAN once all Remotes entries cleared.
+next: ⛔ BLOCKED — cascade Phase 4 (last). Blocked on: medrobust (pending CRAN review), medsim (blocked on medrobust), probmed (blocked on medfit>=0.3.x on CRAN), RMediation (CRAN-submitted 2026-06-20, awaiting acceptance). Once all Suggests packages on CRAN: drop Remotes entries, CRAN-check, submit. Expand thin test suite (1 test_that) before submission.
 type: r
 last_updated: 2026-06-19
 
