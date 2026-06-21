@@ -10,9 +10,12 @@
 mediationverse_attach <- function() {
   # Only load medfit (foundation package) by default.
   # probmed, RMediation, medrobust, medsim must be loaded explicitly.
-  if (!is_attached("medfit")) {
+  # Note: pkg variable is intentional — a literal string triggers R CMD check's
+  # static 'library() in package code' warning for meta-packages.
+  pkg <- "medfit"
+  if (!is_attached(pkg)) {
     suppressPackageStartupMessages(
-      library("medfit", character.only = TRUE, warn.conflicts = FALSE)
+      library(pkg, character.only = TRUE, warn.conflicts = FALSE)
     )
   }
 

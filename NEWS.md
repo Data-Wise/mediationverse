@@ -1,5 +1,7 @@
 # mediationverse (development version)
 
+# mediationverse 0.1.0
+
 ## Bug fixes
 
 * `mediationverse_update()` / `mediationverse_sitrep()`: keep `medfit` sourced from
