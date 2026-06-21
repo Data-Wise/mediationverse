@@ -146,15 +146,22 @@
 <span><span class="va">indirect_true</span> <span class="op">&lt;-</span> <span class="va">a_true</span> <span class="op">*</span> <span class="va">b_true</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"True indirect effect:"</span>, <span class="va">indirect_true</span>, <span class="st">"\n"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Simulate data using medsim</span></span>
-<span><span class="va">sim_data</span> <span class="op">&lt;-</span> <span class="fu">simulate_mediation</span><span class="op">(</span></span>
-<span>  n <span class="op">=</span> <span class="fl">200</span>,</span>
-<span>  a <span class="op">=</span> <span class="va">a_true</span>,</span>
-<span>  b <span class="op">=</span> <span class="va">b_true</span>,</span>
-<span>  c_prime <span class="op">=</span> <span class="va">c_prime_true</span>,</span>
-<span>  sigma_m <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  sigma_y <span class="op">=</span> <span class="fl">1</span></span>
+<span><span class="co"># Define a data-generating scenario with medsim, then draw one dataset.</span></span>
+<span><span class="co"># medsim_scenario() wraps a data_generator(n) returning columns X, M, Y.</span></span>
+<span><span class="va">scenario</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/medsim/man/medsim_scenario.html" class="external-link">medsim_scenario</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="st">"Workflow demo"</span>,</span>
+<span>  description <span class="op">=</span> <span class="st">"Single mediator, a = 0.5, b = 0.4, c' = 0.2"</span>,</span>
+<span>  data_generator <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span> <span class="op">=</span> <span class="fl">200</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span>    <span class="va">M</span> <span class="op">&lt;-</span> <span class="va">a_true</span> <span class="op">*</span> <span class="va">X</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="va">Y</span> <span class="op">&lt;-</span> <span class="va">b_true</span> <span class="op">*</span> <span class="va">M</span> <span class="op">+</span> <span class="va">c_prime_true</span> <span class="op">*</span> <span class="va">X</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">X</span>, M <span class="op">=</span> <span class="va">M</span>, Y <span class="op">=</span> <span class="va">Y</span><span class="op">)</span></span>
+<span>  <span class="op">}</span>,</span>
+<span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="va">a_true</span>, b <span class="op">=</span> <span class="va">b_true</span>, indirect <span class="op">=</span> <span class="va">indirect_true</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Generate one dataset from the scenario</span></span>
+<span><span class="va">sim_data</span> <span class="op">&lt;-</span> <span class="va">scenario</span><span class="op">$</span><span class="fu">data_generator</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sim_data</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -232,7 +239,7 @@
 <p>Compute P_med (using <code>probmed</code> already loaded), the probability of a positive indirect effect:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pmed_result</span> <span class="op">&lt;-</span> <span class="fu">compute_pmed</span><span class="op">(</span><span class="va">med_data</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">pmed_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/probmed/reference/pmed.html" class="external-link">pmed</a></span><span class="op">(</span><span class="va">med_data</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">pmed_result</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># P_med interpretation:</span></span>
@@ -245,16 +252,40 @@
 <p>Assess robustness to unmeasured confounding (using <code>medrobust</code> already loaded):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Compute sensitivity bounds</span></span>
-<span><span class="va">sens_bounds</span> <span class="op">&lt;-</span> <span class="fu">sensitivity_bounds</span><span class="op">(</span></span>
-<span>  <span class="va">med_data</span>,</span>
-<span>  rho_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span> <span class="co"># Range of confounding</span></span>
+<code class="sourceCode R"><span><span class="co"># medrobust derives partial-identification bounds for the natural effects when a</span></span>
+<span><span class="co"># variable is subject to differential misclassification. It needs the raw data,</span></span>
+<span><span class="co"># the (mis)measured variable, and a sensitivity region of sensitivity/specificity</span></span>
+<span><span class="co"># ranges. Here we generate a dataset with a misclassified exposure for illustration.</span></span>
+<span><span class="va">sim_dm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/medrobust/reference/simulate_dm_data.html" class="external-link">simulate_dm_data</a></span><span class="op">(</span></span>
+<span>  n <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>  true_params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>beta_AM <span class="op">=</span> <span class="fl">0.405</span>, theta_AY <span class="op">=</span> <span class="fl">0.405</span>, theta_MY <span class="op">=</span> <span class="fl">0.405</span><span class="op">)</span>,</span>
+<span>  dm_params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sn0 <span class="op">=</span> <span class="fl">0.85</span>, sp0 <span class="op">=</span> <span class="fl">0.85</span>, psi_sn <span class="op">=</span> <span class="fl">1.5</span>, psi_sp <span class="op">=</span> <span class="fl">1.0</span><span class="op">)</span>,</span>
+<span>  misclass_type <span class="op">=</span> <span class="st">"exposure"</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fl">12345</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute sensitivity bounds over the misclassification region</span></span>
+<span><span class="va">sens_bounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/medrobust/reference/bound_ne.html" class="external-link">bound_ne</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">sim_dm</span><span class="op">@</span><span class="va">observed</span>,</span>
+<span>  exposure <span class="op">=</span> <span class="st">"A_star"</span>,</span>
+<span>  mediator <span class="op">=</span> <span class="st">"M"</span>,</span>
+<span>  outcome <span class="op">=</span> <span class="st">"Y"</span>,</span>
+<span>  confounders <span class="op">=</span> <span class="st">"C1"</span>,</span>
+<span>  misclassified_variable <span class="op">=</span> <span class="st">"exposure"</span>,</span>
+<span>  sensitivity_region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    sn0_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.80</span>, <span class="fl">0.90</span><span class="op">)</span>,</span>
+<span>    sp0_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.80</span>, <span class="fl">0.90</span><span class="op">)</span>,</span>
+<span>    psi_sn_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.0</span>, <span class="fl">2.0</span><span class="op">)</span>,</span>
+<span>    psi_sp_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.0</span>, <span class="fl">1.0</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  n_grid <span class="op">=</span> <span class="fl">10</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sens_bounds</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Falsification test</span></span>
-<span><span class="va">falsification</span> <span class="op">&lt;-</span> <span class="fu">falsify_mediation</span><span class="op">(</span><span class="va">med_data</span>, threshold <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="co"># Falsification test: which regions of the sensitivity space are ruled out by</span></span>
+<span><span class="co"># the data. falsification_summary() consumes the bounds object from bound_ne().</span></span>
+<span><span class="va">falsification</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/medrobust/reference/falsification_summary.html" class="external-link">falsification_summary</a></span><span class="op">(</span><span class="va">sens_bounds</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">falsification</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h2 id="step-7-bootstrap-inference-medfit">Step 7: Bootstrap Inference (medfit)<a class="anchor" aria-label="anchor" href="#step-7-bootstrap-inference-medfit"></a>
@@ -308,7 +339,7 @@
 <span>  ci_boot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">boot_result</span><span class="op">@</span><span class="va">ci_lower</span>, <span class="va">boot_result</span><span class="op">@</span><span class="va">ci_upper</span><span class="op">)</span>,</span>
 <span></span>
 <span>  <span class="co"># Effect size</span></span>
-<span>  pmed <span class="op">=</span> <span class="va">pmed_result</span><span class="op">$</span><span class="va">pmed</span>,</span>
+<span>  pmed <span class="op">=</span> <span class="va">pmed_result</span><span class="op">@</span><span class="va">estimate</span>,</span>
 <span></span>
 <span>  <span class="co"># Sensitivity</span></span>
 <span>  sensitivity <span class="op">=</span> <span class="va">sens_bounds</span></span>
@@ -394,7 +425,7 @@ attached base packages:
 loaded via a namespace (and not attached):
  [1] compiler_4.6.0  fastmap_1.2.0   cli_3.6.6       tools_4.6.0
  [5] htmltools_0.5.9 otel_0.2.0      yaml_2.3.12     rmarkdown_2.31
- [9] knitr_1.51      jsonlite_2.0.0  xfun_0.58       digest_0.6.39
+ [9] knitr_1.51      jsonlite_2.0.0  xfun_0.59       digest_0.6.39
 [13] rlang_1.2.0     evaluate_1.0.5 </code></pre>
 </div>
 </div>

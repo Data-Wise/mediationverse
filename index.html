@@ -133,9 +133,13 @@
 <span>                               treatment <span class="op">=</span> <span class="st">"X"</span>, mediator <span class="op">=</span> <span class="st">"M"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Get P_med effect size, confidence intervals, and sensitivity analysis</span></span>
-<span><span class="va">pmed_result</span> <span class="op">&lt;-</span> <span class="fu">compute_pmed</span><span class="op">(</span><span class="va">med_data</span><span class="op">)</span></span>
+<span><span class="va">pmed_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/probmed/reference/pmed.html" class="external-link">pmed</a></span><span class="op">(</span><span class="va">med_data</span><span class="op">)</span></span>
 <span><span class="va">ci_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/rmediation/reference/ci.html" class="external-link">ci</a></span><span class="op">(</span><span class="va">med_data</span>, type <span class="op">=</span> <span class="st">"dop"</span><span class="op">)</span></span>
-<span><span class="va">sensitivity</span> <span class="op">&lt;-</span> <span class="fu">sensitivity_analysis</span><span class="op">(</span><span class="va">med_data</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># medrobust takes the raw data frame + a misclassification sensitivity region</span></span>
+<span><span class="va">sensitivity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/medrobust/reference/bound_ne.html" class="external-link">bound_ne</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">mydata</span>, exposure <span class="op">=</span> <span class="st">"X"</span>, mediator <span class="op">=</span> <span class="st">"M"</span>, outcome <span class="op">=</span> <span class="st">"Y"</span>,</span>
+<span>  sensitivity_region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sn0_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.80</span>, <span class="fl">0.90</span><span class="op">)</span>, sp0_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.80</span>, <span class="fl">0.90</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="ecosystem-status-dashboard">Ecosystem Status Dashboard<a class="anchor" aria-label="anchor" href="#ecosystem-status-dashboard"></a>
@@ -283,7 +287,7 @@ extract_mediation()  ──────►  MediationData object
    │              │              │                 │
    ▼              ▼              ▼                 ▼
 probmed::     RMediation::   medrobust::      medfit::
-compute_pmed() medci()        sensitivity()   bootstrap_mediation()
+pmed()        medci()        bound_ne()       bootstrap_mediation()
    │              │              │                 │
    │              │              │                 │
    └──────────────┴──────────────┴─────────────────┘
@@ -413,20 +417,24 @@ compute_pmed() medci()        sensitivity()   bootstrap_mediation()
 <span><span class="va">boot_result</span> <span class="op">&lt;-</span> <span class="fu">bootstrap_mediation</span><span class="op">(</span><span class="va">med_data</span>, n_boot <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 4. Compute probabilistic effect size (probmed)</span></span>
-<span><span class="va">pmed_result</span> <span class="op">&lt;-</span> <span class="fu">compute_pmed</span><span class="op">(</span><span class="va">med_data</span><span class="op">)</span></span>
+<span><span class="va">pmed_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/probmed/reference/pmed.html" class="external-link">pmed</a></span><span class="op">(</span><span class="va">med_data</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 5. Get confidence intervals (RMediation)</span></span>
 <span><span class="va">ci_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/rmediation/reference/ci.html" class="external-link">ci</a></span><span class="op">(</span><span class="va">med_data</span>, type <span class="op">=</span> <span class="st">"dop"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 6. Sensitivity analysis (medrobust)</span></span>
-<span><span class="va">robust_result</span> <span class="op">&lt;-</span> <span class="fu">sensitivity_analysis</span><span class="op">(</span><span class="va">med_data</span><span class="op">)</span></span>
+<span><span class="co"># medrobust operates on the raw data frame + a misclassification sensitivity region</span></span>
+<span><span class="va">robust_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/medrobust/reference/bound_ne.html" class="external-link">bound_ne</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">mydata</span>, exposure <span class="op">=</span> <span class="st">"X"</span>, mediator <span class="op">=</span> <span class="st">"M"</span>, outcome <span class="op">=</span> <span class="st">"Y"</span>,</span>
+<span>  sensitivity_region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sn0_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.80</span>, <span class="fl">0.90</span><span class="op">)</span>, sp0_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.80</span>, <span class="fl">0.90</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 7. Run simulation study (medsim - load if needed)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Data-Wise/medsim" class="external-link">medsim</a></span><span class="op">)</span></span>
-<span><span class="va">sim_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/medsim/reference/medsim_run.html" class="external-link">medsim_run</a></span><span class="op">(</span></span>
+<span><span class="va">sim_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/medsim/man/medsim_run.html" class="external-link">medsim_run</a></span><span class="op">(</span></span>
 <span>  method <span class="op">=</span> <span class="va">my_method</span>,</span>
-<span>  scenarios <span class="op">=</span> <span class="fu"><a href="https://data-wise.github.io/medsim/reference/medsim_scenarios_mediation.html" class="external-link">medsim_scenarios_mediation</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  config <span class="op">=</span> <span class="fu"><a href="https://data-wise.github.io/medsim/reference/medsim_config.html" class="external-link">medsim_config</a></span><span class="op">(</span><span class="st">"local"</span><span class="op">)</span></span>
+<span>  scenarios <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/medsim/man/medsim_scenarios_mediation.html" class="external-link">medsim_scenarios_mediation</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  config <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/medsim/man/medsim_config.html" class="external-link">medsim_config</a></span><span class="op">(</span><span class="st">"local"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>

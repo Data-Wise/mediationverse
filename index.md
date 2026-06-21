@@ -33,9 +33,13 @@ med_data <- extract_mediation(fit_m, model_y = fit_y,
                                treatment = "X", mediator = "M")
 
 # Get P_med effect size, confidence intervals, and sensitivity analysis
-pmed_result <- compute_pmed(med_data)
+pmed_result <- pmed(med_data)
 ci_result <- ci(med_data, type = "dop")
-sensitivity <- sensitivity_analysis(med_data)
+# medrobust takes the raw data frame + a misclassification sensitivity region
+sensitivity <- bound_ne(
+  data = mydata, exposure = "X", mediator = "M", outcome = "Y",
+  sensitivity_region = list(sn0_range = c(0.80, 0.90), sp0_range = c(0.80, 0.90))
+)
 ```
 
 ## Ecosystem Status Dashboard
@@ -139,7 +143,7 @@ loading** inspired by [tidyverse](https://www.tidyverse.org/) and
        │              │              │                 │
        ▼              ▼              ▼                 ▼
     probmed::     RMediation::   medrobust::      medfit::
-    compute_pmed() medci()        sensitivity()   bootstrap_mediation()
+    pmed()        medci()        bound_ne()       bootstrap_mediation()
        │              │              │                 │
        │              │              │                 │
        └──────────────┴──────────────┴─────────────────┘
@@ -305,13 +309,17 @@ med_data <- extract_mediation(fit_m, model_y = fit_y,
 boot_result <- bootstrap_mediation(med_data, n_boot = 2000)
 
 # 4. Compute probabilistic effect size (probmed)
-pmed_result <- compute_pmed(med_data)
+pmed_result <- pmed(med_data)
 
 # 5. Get confidence intervals (RMediation)
 ci_result <- ci(med_data, type = "dop")
 
 # 6. Sensitivity analysis (medrobust)
-robust_result <- sensitivity_analysis(med_data)
+# medrobust operates on the raw data frame + a misclassification sensitivity region
+robust_result <- bound_ne(
+  data = mydata, exposure = "X", mediator = "M", outcome = "Y",
+  sensitivity_region = list(sn0_range = c(0.80, 0.90), sp0_range = c(0.80, 0.90))
+)
 
 # 7. Run simulation study (medsim - load if needed)
 library(medsim)

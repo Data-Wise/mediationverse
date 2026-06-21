@@ -161,15 +161,29 @@ ci_mc <- ci(med_data, type = "MC", n.mc = 10000)
 ``` r
 
 # Compute P_med
-pmed_result <- compute_pmed(med_data)
+pmed_result <- pmed(med_data)
 ```
 
 #### Sensitivity Analysis (medrobust)
 
 ``` r
 
-# Bounds for unmeasured confounding
-bounds <- sensitivity_bounds(med_data)
+# Partial identification bounds under misclassification
+# (medrobust works from the raw data; returns a medrobust_bounds object)
+bounds <- bound_ne(
+  data = mydata,
+  exposure = "X",
+  mediator = "M",
+  outcome = "Y",
+  confounders = "C",
+  misclassified_variable = "exposure",
+  sensitivity_region = list(
+    sn0_range    = c(0.80, 0.90),
+    sp0_range    = c(0.80, 0.90),
+    psi_sn_range = c(1.0, 2.0),
+    psi_sp_range = c(1.0, 1.0)
+  )
+)
 ```
 
 #### Bootstrap Inference (medfit)
@@ -199,10 +213,10 @@ Each package focuses on one methodological contribution:
 
 | Package | Focus | Key Functions |
 |----|----|----|
-| probmed | Effect sizes | `compute_pmed()`, [`pmed()`](https://data-wise.github.io/probmed/reference/pmed.html) |
+| probmed | Effect sizes | [`pmed()`](https://data-wise.github.io/probmed/reference/pmed.html) |
 | RMediation | Confidence intervals | [`ci()`](https://data-wise.github.io/rmediation/reference/ci.html), [`medci()`](https://data-wise.github.io/rmediation/reference/medci.html), [`mbco()`](https://data-wise.github.io/rmediation/reference/mbco.html) |
-| medrobust | Sensitivity | `sensitivity_bounds()` |
-| medsim | Simulation | `run_simulation()` |
+| medrobust | Sensitivity | [`bound_ne()`](https://data-wise.github.io/medrobust/reference/bound_ne.html) |
+| medsim | Simulation | [`medsim_run()`](https://rdrr.io/pkg/medsim/man/medsim_run.html) |
 
 ### Type Safety
 
@@ -262,5 +276,5 @@ sessionInfo()
     loaded via a namespace (and not attached):
      [1] compiler_4.6.0  fastmap_1.2.0   cli_3.6.6       tools_4.6.0
      [5] htmltools_0.5.9 otel_0.2.0      yaml_2.3.12     rmarkdown_2.31
-     [9] knitr_1.51      jsonlite_2.0.0  xfun_0.58       digest_0.6.39
+     [9] knitr_1.51      jsonlite_2.0.0  xfun_0.59       digest_0.6.39
     [13] rlang_1.2.0     evaluate_1.0.5 

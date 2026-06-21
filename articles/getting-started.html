@@ -238,14 +238,28 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Compute P_med</span></span>
-<span><span class="va">pmed_result</span> <span class="op">&lt;-</span> <span class="fu">compute_pmed</span><span class="op">(</span><span class="va">med_data</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">pmed_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/probmed/reference/pmed.html" class="external-link">pmed</a></span><span class="op">(</span><span class="va">med_data</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level4"><h4 id="sensitivity-analysis-medrobust">Sensitivity Analysis (medrobust)<a class="anchor" aria-label="anchor" href="#sensitivity-analysis-medrobust"></a>
 </h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Bounds for unmeasured confounding</span></span>
-<span><span class="va">bounds</span> <span class="op">&lt;-</span> <span class="fu">sensitivity_bounds</span><span class="op">(</span><span class="va">med_data</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Partial identification bounds under misclassification</span></span>
+<span><span class="co"># (medrobust works from the raw data; returns a medrobust_bounds object)</span></span>
+<span><span class="va">bounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/medrobust/reference/bound_ne.html" class="external-link">bound_ne</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">mydata</span>,</span>
+<span>  exposure <span class="op">=</span> <span class="st">"X"</span>,</span>
+<span>  mediator <span class="op">=</span> <span class="st">"M"</span>,</span>
+<span>  outcome <span class="op">=</span> <span class="st">"Y"</span>,</span>
+<span>  confounders <span class="op">=</span> <span class="st">"C"</span>,</span>
+<span>  misclassified_variable <span class="op">=</span> <span class="st">"exposure"</span>,</span>
+<span>  sensitivity_region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    sn0_range    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.80</span>, <span class="fl">0.90</span><span class="op">)</span>,</span>
+<span>    sp0_range    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.80</span>, <span class="fl">0.90</span><span class="op">)</span>,</span>
+<span>    psi_sn_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.0</span>, <span class="fl">2.0</span><span class="op">)</span>,</span>
+<span>    psi_sp_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.0</span>, <span class="fl">1.0</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level4"><h4 id="bootstrap-inference-medfit">Bootstrap Inference (medfit)<a class="anchor" aria-label="anchor" href="#bootstrap-inference-medfit"></a>
 </h4>
@@ -278,9 +292,7 @@
 <tr class="odd">
 <td>probmed</td>
 <td>Effect sizes</td>
-<td>
-<code>compute_pmed()</code>, <code><a href="https://data-wise.github.io/probmed/reference/pmed.html" class="external-link">pmed()</a></code>
-</td>
+<td><code><a href="https://data-wise.github.io/probmed/reference/pmed.html" class="external-link">pmed()</a></code></td>
 </tr>
 <tr class="even">
 <td>RMediation</td>
@@ -292,12 +304,12 @@
 <tr class="odd">
 <td>medrobust</td>
 <td>Sensitivity</td>
-<td><code>sensitivity_bounds()</code></td>
+<td><code><a href="https://data-wise.github.io/medrobust/reference/bound_ne.html" class="external-link">bound_ne()</a></code></td>
 </tr>
 <tr class="even">
 <td>medsim</td>
 <td>Simulation</td>
-<td><code>run_simulation()</code></td>
+<td><code><a href="https://rdrr.io/pkg/medsim/man/medsim_run.html" class="external-link">medsim_run()</a></code></td>
 </tr>
 </tbody>
 </table></section><section class="level3"><h3 id="type-safety">Type Safety<a class="anchor" aria-label="anchor" href="#type-safety"></a>
@@ -356,7 +368,7 @@ attached base packages:
 loaded via a namespace (and not attached):
  [1] compiler_4.6.0  fastmap_1.2.0   cli_3.6.6       tools_4.6.0
  [5] htmltools_0.5.9 otel_0.2.0      yaml_2.3.12     rmarkdown_2.31
- [9] knitr_1.51      jsonlite_2.0.0  xfun_0.58       digest_0.6.39
+ [9] knitr_1.51      jsonlite_2.0.0  xfun_0.59       digest_0.6.39
 [13] rlang_1.2.0     evaluate_1.0.5 </code></pre>
 </div>
 </div>

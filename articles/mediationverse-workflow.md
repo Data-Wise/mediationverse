@@ -50,15 +50,22 @@ c_prime_true <- 0.2 # X -> Y direct effect
 indirect_true <- a_true * b_true
 cat("True indirect effect:", indirect_true, "\n")
 
-# Simulate data using medsim
-sim_data <- simulate_mediation(
-  n = 200,
-  a = a_true,
-  b = b_true,
-  c_prime = c_prime_true,
-  sigma_m = 1,
-  sigma_y = 1
+# Define a data-generating scenario with medsim, then draw one dataset.
+# medsim_scenario() wraps a data_generator(n) returning columns X, M, Y.
+scenario <- medsim_scenario(
+  name = "Workflow demo",
+  description = "Single mediator, a = 0.5, b = 0.4, c' = 0.2",
+  data_generator = function(n = 200) {
+    X <- rnorm(n)
+    M <- a_true * X + rnorm(n, sd = 1)
+    Y <- b_true * M + c_prime_true * X + rnorm(n, sd = 1)
+    data.frame(X = X, M = M, Y = Y)
+  },
+  params = list(a = a_true, b = b_true, indirect = indirect_true)
 )
+
+# Generate one dataset from the scenario
+sim_data <- scenario$data_generator(n = 200)
 
 head(sim_data)
 ```
@@ -150,7 +157,7 @@ positive indirect effect:
 
 ``` r
 
-pmed_result <- compute_pmed(med_data)
+pmed_result <- pmed(med_data)
 print(pmed_result)
 
 # P_med interpretation:
@@ -166,16 +173,40 @@ loaded):
 
 ``` r
 
-# Compute sensitivity bounds
-sens_bounds <- sensitivity_bounds(
-  med_data,
-  rho_range = c(-0.5, 0.5) # Range of confounding
+# medrobust derives partial-identification bounds for the natural effects when a
+# variable is subject to differential misclassification. It needs the raw data,
+# the (mis)measured variable, and a sensitivity region of sensitivity/specificity
+# ranges. Here we generate a dataset with a misclassified exposure for illustration.
+sim_dm <- simulate_dm_data(
+  n = 500,
+  true_params = list(beta_AM = 0.405, theta_AY = 0.405, theta_MY = 0.405),
+  dm_params = list(sn0 = 0.85, sp0 = 0.85, psi_sn = 1.5, psi_sp = 1.0),
+  misclass_type = "exposure",
+  seed = 12345
+)
+
+# Compute sensitivity bounds over the misclassification region
+sens_bounds <- bound_ne(
+  data = sim_dm@observed,
+  exposure = "A_star",
+  mediator = "M",
+  outcome = "Y",
+  confounders = "C1",
+  misclassified_variable = "exposure",
+  sensitivity_region = list(
+    sn0_range = c(0.80, 0.90),
+    sp0_range = c(0.80, 0.90),
+    psi_sn_range = c(1.0, 2.0),
+    psi_sp_range = c(1.0, 1.0)
+  ),
+  n_grid = 10
 )
 
 print(sens_bounds)
 
-# Falsification test
-falsification <- falsify_mediation(med_data, threshold = 0.1)
+# Falsification test: which regions of the sensitivity space are ruled out by
+# the data. falsification_summary() consumes the bounds object from bound_ne().
+falsification <- falsification_summary(sens_bounds)
 print(falsification)
 ```
 
@@ -232,7 +263,7 @@ results <- list(
   ci_boot = c(boot_result@ci_lower, boot_result@ci_upper),
 
   # Effect size
-  pmed = pmed_result$pmed,
+  pmed = pmed_result@estimate,
 
   # Sensitivity
   sensitivity = sens_bounds
@@ -330,7 +361,7 @@ sessionInfo()
     loaded via a namespace (and not attached):
      [1] compiler_4.6.0  fastmap_1.2.0   cli_3.6.6       tools_4.6.0
      [5] htmltools_0.5.9 otel_0.2.0      yaml_2.3.12     rmarkdown_2.31
-     [9] knitr_1.51      jsonlite_2.0.0  xfun_0.58       digest_0.6.39
+     [9] knitr_1.51      jsonlite_2.0.0  xfun_0.59       digest_0.6.39
     [13] rlang_1.2.0     evaluate_1.0.5 
 
 ## References
