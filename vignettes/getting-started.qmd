@@ -165,15 +165,29 @@ ci_mc <- ci(med_data, type = "MC", n.mc = 10000)
 ```{r}
 #| label: pmed
 # Compute P_med
-pmed_result <- compute_pmed(med_data)
+pmed_result <- pmed(med_data)
 ```
 
 #### Sensitivity Analysis (medrobust)
 
 ```{r}
 #| label: robust
-# Bounds for unmeasured confounding
-bounds <- sensitivity_bounds(med_data)
+# Partial identification bounds under misclassification
+# (medrobust works from the raw data; returns a medrobust_bounds object)
+bounds <- bound_ne(
+  data = mydata,
+  exposure = "X",
+  mediator = "M",
+  outcome = "Y",
+  confounders = "C",
+  misclassified_variable = "exposure",
+  sensitivity_region = list(
+    sn0_range    = c(0.80, 0.90),
+    sp0_range    = c(0.80, 0.90),
+    psi_sn_range = c(1.0, 2.0),
+    psi_sp_range = c(1.0, 1.0)
+  )
+)
 ```
 
 #### Bootstrap Inference (medfit)
@@ -203,10 +217,10 @@ Each package focuses on one methodological contribution:
 
 | Package | Focus | Key Functions |
 |---------|-------|---------------|
-| probmed | Effect sizes | `compute_pmed()`, `pmed()` |
+| probmed | Effect sizes | `pmed()` |
 | RMediation | Confidence intervals | `ci()`, `medci()`, `mbco()` |
-| medrobust | Sensitivity | `sensitivity_bounds()` |
-| medsim | Simulation | `run_simulation()` |
+| medrobust | Sensitivity | `bound_ne()` |
+| medsim | Simulation | `medsim_run()` |
 
 ### Type Safety
 
