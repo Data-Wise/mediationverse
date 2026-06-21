@@ -264,146 +264,94 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="mediationverse-development-version" class="level1">
 <h1>mediationverse (development version)</h1>
-<section id="bug-fixes-2026-06-19" class="level2">
-<h2 class="anchored" data-anchor-id="bug-fixes-2026-06-19">Bug Fixes (2026-06-19)</h2>
+</section>
+<section id="mediationverse-0.1.0" class="level1">
+<h1>mediationverse 0.1.0</h1>
+<section id="bug-fixes" class="level2">
+<h2 class="anchored" data-anchor-id="bug-fixes">Bug fixes</h2>
 <ul>
-<li><code>mediationverse_update()</code>: moved <code>medfit</code> from <code>github_pkgs</code> to <code>cran_pkgs</code> — medfit 0.2.0+ is on CRAN; fetching it from GitHub was incorrect (#fix-update-sources).</li>
-<li><code>mediationverse_update()</code>: <code>RMediation</code> was already in <code>cran_pkgs</code>; now both CRAN packages (<code>RMediation</code>, <code>medfit</code>) are correctly sourced from CRAN.</li>
-<li>Updated <code>@details</code> roxygen bullet for <code>medfit</code> from “GitHub (data-wise/medfit)” to “CRAN”.</li>
-<li>README: unified <code>pak::pak("Data-Wise/mediationverse")</code> casing in Quick Start block to match the Installation section.</li>
-<li>README: removed <code>pak::pak("Data-Wise/medfit")</code> from the “GitHub (Development)” install block; added <code>install.packages("medfit")</code> to the CRAN block.</li>
+<li><code>mediationverse_update()</code> / <code>mediationverse_sitrep()</code>: keep <code>medfit</code> sourced from <strong>GitHub</strong> (<code>data-wise/medfit</code>), reverting the 2026-06-19 reclassification to <code>cran_pkgs</code>. CRAN serves only medfit 0.2.1, but the ecosystem requires medfit &gt;= 0.3.0 (probmed, missingmed) — sourcing it from CRAN resolves a version too old for those packages. <code>RMediation</code> remains the only CRAN-sourced core package.</li>
+<li><code>DESCRIPTION</code>: added <code>Data-Wise/medfit</code> to <code>Remotes:</code> so GitHub installs resolve medfit 0.3.x rather than CRAN 0.2.1.</li>
+<li>README + vignettes: corrected example calls to use real sibling exports (<code>pmed()</code>, <code>bound_ne()</code>, <code>falsification_summary()</code>, <code>medsim_run()</code>) in place of functions that do not exist in those packages.</li>
+<li>README: unified <code>pak::pak("Data-Wise/mediationverse")</code> casing in the Quick Start block to match the Installation section.</li>
+<li>Fixed badge URLs in README.md to use correct GitHub organization case (<code>Data-Wise</code> instead of <code>data-wise</code>). Updated workflow badges and ecosystem package table for consistency.</li>
+<li>Fixed pkgdown workflow failure caused by version constraint on RMediation in DESCRIPTION. Removed <code>(&gt;= 1.4.0)</code> constraint as it conflicted with pak dependency resolution in CI environments.</li>
+<li>Fixed documentation typo in <code>mediationverse_packages()</code> where the <code>@return</code> section had a missing closing parenthesis in the <code>version</code> field description (R/packages.R:13).</li>
 </ul>
 </section>
-<section id="major-changes-2025-12-15" class="level2">
-<h2 class="anchored" data-anchor-id="major-changes-2025-12-15">Major Changes (2025-12-15)</h2>
-<section id="selective-loading-strategy-v0.1.0-preparation" class="level3">
-<h3 class="anchored" data-anchor-id="selective-loading-strategy-v0.1.0-preparation">Selective Loading Strategy (v0.1.0 preparation)</h3>
-<p><strong>Breaking Change</strong>: mediationverse now uses <strong>selective loading</strong> - only <code>medfit</code> (foundation package) is loaded by default. Other packages must be loaded explicitly.</p>
-<p><strong>Why this change?</strong> - Clean namespace with minimal function conflicts - Users load only packages they need - Explicit &gt; implicit (better code clarity) - Coordinated with medfit ecosystem integration</p>
-<p><strong>Migration</strong>:</p>
+<section id="breaking-changes" class="level2">
+<h2 class="anchored" data-anchor-id="breaking-changes">Breaking changes</h2>
+<ul>
+<li><p><strong>Selective loading</strong>: mediationverse now loads only <code>medfit</code> (foundation package) by default. Other packages must be loaded explicitly with <code>library()</code>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OLD behavior (v0.0.x)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mediationverse)  <span class="co"># Loaded all 5 packages</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># NEW behavior (v0.1.0+)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># NEW behavior</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mediationverse)  <span class="co"># Loads only medfit</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(probmed)         <span class="co"># Load explicitly as needed</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RMediation)      <span class="co"># Load explicitly as needed</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>New startup message</strong>:</p>
-<pre><code>── Attaching mediationverse 0.0.0.9000 ──
-✔ medfit 0.1.0 (foundation package)
-ℹ Use library(probmed) for P_med effect size
-ℹ Use library(RMediation) for DOP/MBCO inference
-ℹ Use library(medrobust) for sensitivity analysis
-ℹ Use library(medsim) for simulation utilities</code></pre>
+<p>New startup message shows which packages are available but not yet loaded.</p></li>
+</ul>
 </section>
-<section id="documentation-improvements" class="level3">
-<h3 class="anchored" data-anchor-id="documentation-improvements">Documentation Improvements</h3>
+<section id="documentation" class="level2">
+<h2 class="anchored" data-anchor-id="documentation">Documentation</h2>
 <ul>
-<li><strong>Architecture diagrams</strong>: Added comprehensive ecosystem architecture and data flow diagrams to README</li>
-<li><strong>Vignettes updated</strong>: All vignettes now demonstrate selective loading pattern
+<li>Added comprehensive ecosystem architecture and data flow diagrams to README.</li>
+<li>Updated all vignettes to demonstrate selective loading pattern:
 <ul>
-<li><code>getting-started.qmd</code>: Updated with selective loading explanation and examples</li>
-<li><code>mediationverse-workflow.qmd</code>: Complete workflow showing explicit package loading</li>
+<li><code>getting-started.qmd</code>: selective loading explanation and examples.</li>
+<li><code>mediationverse-workflow.qmd</code>: complete workflow showing explicit package loading.</li>
 </ul></li>
-<li><strong>Testing documentation</strong>: Added <code>SELECTIVE-LOADING-TEST.md</code> with comprehensive test results</li>
+<li>Added <code>SELECTIVE-LOADING-TEST.md</code> with comprehensive test results.</li>
 </ul>
 </section>
-<section id="implementation" class="level3">
-<h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
+<section id="infrastructure" class="level2">
+<h2 class="anchored" data-anchor-id="infrastructure">Infrastructure</h2>
 <ul>
-<li><code>R/attach.R</code>: Refactored to load only medfit by default</li>
-<li><code>R/zzz.R</code>: Updated <code>.onAttach()</code> with informative startup message</li>
-<li>All utility functions (<code>mediationverse_packages()</code>, <code>mediationverse_conflicts()</code>) tested and verified</li>
+<li><code>R/attach.R</code>: refactored to load only medfit by default.</li>
+<li><code>R/zzz.R</code>: updated <code>.onAttach()</code> with informative startup message.</li>
+<li>Optimized R-CMD-check workflow: reduced from 5 to 3 platforms (macOS, Windows, Ubuntu release). Check workflows now complete in ~3 minutes (~50% faster).</li>
+<li>Added <code>--ignore-vignettes</code> flag to skip vignette validation during CI checks.</li>
+<li>Updated favicons; added Gemini AI workflows for code review and issue triage.</li>
+<li><code>.Rbuildignore</code>: added <code>^CLAUDE\.md$</code> and <code>^STATUS\.md$</code>.</li>
+<li><code>.gitignore</code>: added <code>CLAUDE.local.md</code>, <code>*.Rcheck/</code>, <code>*.tar.gz</code>.</li>
+<li>Aligned with medfit COORDINATION-BRAINSTORM.md (Option 2 selective loading strategy).</li>
 </ul>
 </section>
-<section id="coordination" class="level3">
-<h3 class="anchored" data-anchor-id="coordination">Coordination</h3>
+</section>
+<section id="mediationverse-0.0.0.9000" class="level1">
+<h1>mediationverse 0.0.0.9000</h1>
+<section id="new-features" class="level2">
+<h2 class="anchored" data-anchor-id="new-features">New features</h2>
 <ul>
-<li>Aligned with medfit COORDINATION-BRAINSTORM.md (Option 2 strategy)</li>
-<li>Ready for medfit v0.1.0 integration (ETA Dec 21, 2025)</li>
-<li>Progress: 85% complete (waiting on medfit stabilization)</li>
+<li><code>mediationverse_packages()</code> — list installed ecosystem packages with versions.</li>
+<li><code>mediationverse_update()</code> — update all ecosystem packages from GitHub/CRAN.</li>
+<li><code>mediationverse_conflicts()</code> — detect and display function name conflicts.</li>
+<li>Startup message displays attached packages when loading mediationverse.</li>
 </ul>
 </section>
-</section>
-<section id="bug-fixes" class="level2">
-<h2 class="anchored" data-anchor-id="bug-fixes">Bug Fixes</h2>
-<ul>
-<li>Fixed badge URLs in README.md to use correct GitHub organization case (<code>Data-Wise</code> instead of <code>data-wise</code>). Updated workflow badges and ecosystem package table for consistency</li>
-<li>Fixed pkgdown workflow failure caused by version constraint on RMediation in DESCRIPTION. Removed <code>(&gt;= 1.4.0)</code> constraint as it conflicted with pak dependency resolution in CI environments</li>
-<li>Fixed documentation typo in <code>mediationverse_packages()</code> where the <code>@return</code> section had a missing closing parenthesis in the <code>version</code> field description (R/packages.R:13)</li>
-</ul>
-</section>
-<section id="workflow-optimization-standardization-2025-12-05" class="level2">
-<h2 class="anchored" data-anchor-id="workflow-optimization-standardization-2025-12-05">Workflow Optimization &amp; Standardization (2025-12-05)</h2>
-<section id="performance-improvements" class="level3">
-<h3 class="anchored" data-anchor-id="performance-improvements">Performance Improvements</h3>
-<ul>
-<li><strong>Optimized R-CMD-check workflow</strong>: Reduced from 5 to 3 platforms (macOS, Windows, Ubuntu release)</li>
-<li><strong>Removed problematic platforms</strong>: Dropped <code>ubuntu-latest (devel)</code> and <code>ubuntu-latest (oldrel-1)</code></li>
-<li><strong>Runtime improvement</strong>: Check workflows now complete in ~3 minutes (down from 6 minutes, <strong>50% faster</strong>)</li>
-<li><strong>Build optimization</strong>: Added <code>--ignore-vignettes</code> flag to skip vignette validation during CI checks</li>
-<li><strong>Removed Quarto installation</strong>: Not needed for CI checks, saves ~30 seconds per run</li>
-</ul>
-</section>
-<section id="infrastructure-updates" class="level3">
-<h3 class="anchored" data-anchor-id="infrastructure-updates">Infrastructure Updates</h3>
-<ul>
-<li><strong>Updated favicons</strong>: Regenerated all favicon assets to match updated logo</li>
-<li><strong>Added Gemini AI workflows</strong>: Code review, triage, and automated issue management</li>
-<li><strong>.Rbuildignore</strong>: Added <code>^CLAUDE\.md$</code> and <code>^STATUS\.md$</code> for documentation files</li>
-<li><strong>.gitignore</strong>: Added <code>CLAUDE.local.md</code>, <code>*.Rcheck/</code>, <code>*.tar.gz</code> for better local development</li>
-</ul>
-</section>
-<section id="standardization" class="level3">
-<h3 class="anchored" data-anchor-id="standardization">Standardization</h3>
-<ul>
-<li>All workflows passing on main branch</li>
-<li>Consistent with ecosystem badge standards</li>
-<li>Website configuration aligned with mediationverse theme</li>
-</ul>
-</section>
-</section>
-<section id="mediationverse-0.0.0.9000" class="level2">
-<h2 class="anchored" data-anchor-id="mediationverse-0.0.0.9000">mediationverse 0.0.0.9000</h2>
-<section id="new-features" class="level3">
-<h3 class="anchored" data-anchor-id="new-features">New Features</h3>
-<ul>
-<li>Initial package skeleton with core functionality</li>
-<li><code>mediationverse_packages()</code> - List installed ecosystem packages with versions</li>
-<li><code>mediationverse_update()</code> - Update all ecosystem packages from GitHub/CRAN</li>
-<li><code>mediationverse_conflicts()</code> - Detect and display function name conflicts</li>
-<li>Startup message displays attached packages when loading mediationverse</li>
-</ul>
-</section>
-<section id="ecosystem" class="level3">
-<h3 class="anchored" data-anchor-id="ecosystem">Ecosystem</h3>
+<section id="ecosystem" class="level2">
+<h2 class="anchored" data-anchor-id="ecosystem">Ecosystem</h2>
 <p>The mediationverse meta-package provides unified access to:</p>
 <ul>
-<li><strong>medfit</strong> - Infrastructure (S7 classes, model fitting, extraction, bootstrap)</li>
-<li><strong>probmed</strong> - Probabilistic effect size (P_med)</li>
-<li><strong>RMediation</strong> - Confidence intervals (Distribution of Product, MBCO)</li>
-<li><strong>medrobust</strong> - Sensitivity analysis (bounds, falsification)</li>
-<li><strong>medsim</strong> - Simulation infrastructure</li>
+<li><strong>medfit</strong> — infrastructure (S7 classes, model fitting, extraction, bootstrap).</li>
+<li><strong>probmed</strong> — probabilistic effect size (P_med).</li>
+<li><strong>RMediation</strong> — confidence intervals (Distribution of Product, MBCO).</li>
+<li><strong>medrobust</strong> — sensitivity analysis (bounds, falsification).</li>
+<li><strong>medsim</strong> — simulation infrastructure.</li>
 </ul>
 </section>
-<section id="documentation" class="level3">
-<h3 class="anchored" data-anchor-id="documentation">Documentation</h3>
+<section id="infrastructure-1" class="level2">
+<h2 class="anchored" data-anchor-id="infrastructure-1">Infrastructure</h2>
 <ul>
-<li>pkgdown website with standardized ecosystem theme</li>
-<li>README with installation and usage instructions</li>
-<li>Function documentation for all exports</li>
-</ul>
-</section>
-<section id="infrastructure" class="level3">
-<h3 class="anchored" data-anchor-id="infrastructure">Infrastructure</h3>
-<ul>
-<li>GitHub Actions for R CMD check</li>
-<li>GitHub Actions for pkgdown deployment</li>
-<li>Standardized package structure following tidyverse patterns</li>
+<li>pkgdown website with standardized ecosystem theme.</li>
+<li>README with installation and usage instructions.</li>
+<li>Function documentation for all exports.</li>
+<li>GitHub Actions for R CMD check and pkgdown deployment.</li>
+<li>Standardized package structure following tidyverse patterns.</li>
 </ul>
 
 
-</section>
 </section>
 </section>
 
