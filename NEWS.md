@@ -1,6 +1,6 @@
 # mediationverse (development version)
 
-## Bug Fixes (2026-06-21)
+## Bug fixes
 
 * `mediationverse_update()` / `mediationverse_sitrep()`: keep `medfit` sourced from
   **GitHub** (`data-wise/medfit`), reverting the 2026-06-19 reclassification to
@@ -14,114 +14,75 @@
   functions that do not exist in those packages.
 * README: unified `pak::pak("Data-Wise/mediationverse")` casing in the Quick Start
   block to match the Installation section.
+* Fixed badge URLs in README.md to use correct GitHub organization case (`Data-Wise`
+  instead of `data-wise`). Updated workflow badges and ecosystem package table for
+  consistency.
+* Fixed pkgdown workflow failure caused by version constraint on RMediation in
+  DESCRIPTION. Removed `(>= 1.4.0)` constraint as it conflicted with pak dependency
+  resolution in CI environments.
+* Fixed documentation typo in `mediationverse_packages()` where the `@return` section
+  had a missing closing parenthesis in the `version` field description (R/packages.R:13).
 
-## Major Changes (2025-12-15)
+## Breaking changes
 
-### Selective Loading Strategy (v0.1.0 preparation)
+* **Selective loading**: mediationverse now loads only `medfit` (foundation package) by
+  default. Other packages must be loaded explicitly with `library()`.
 
-**Breaking Change**: mediationverse now uses **selective loading** - only `medfit` (foundation package) is loaded by default. Other packages must be loaded explicitly.
+  ```r
+  # OLD behavior (v0.0.x)
+  library(mediationverse)  # Loaded all 5 packages
 
-**Why this change?**
-- Clean namespace with minimal function conflicts
-- Users load only packages they need
-- Explicit > implicit (better code clarity)
-- Coordinated with medfit ecosystem integration
+  # NEW behavior
+  library(mediationverse)  # Loads only medfit
+  library(probmed)         # Load explicitly as needed
+  library(RMediation)      # Load explicitly as needed
+  ```
 
-**Migration**:
-```r
-# OLD behavior (v0.0.x)
-library(mediationverse)  # Loaded all 5 packages
+  New startup message shows which packages are available but not yet loaded.
 
-# NEW behavior (v0.1.0+)
-library(mediationverse)  # Loads only medfit
-library(probmed)         # Load explicitly as needed
-library(RMediation)      # Load explicitly as needed
-```
+## Documentation
 
-**New startup message**:
-```
-── Attaching mediationverse 0.0.0.9000 ──
-✔ medfit 0.1.0 (foundation package)
-ℹ Use library(probmed) for P_med effect size
-ℹ Use library(RMediation) for DOP/MBCO inference
-ℹ Use library(medrobust) for sensitivity analysis
-ℹ Use library(medsim) for simulation utilities
-```
+* Added comprehensive ecosystem architecture and data flow diagrams to README.
+* Updated all vignettes to demonstrate selective loading pattern:
+  - `getting-started.qmd`: selective loading explanation and examples.
+  - `mediationverse-workflow.qmd`: complete workflow showing explicit package loading.
+* Added `SELECTIVE-LOADING-TEST.md` with comprehensive test results.
 
-### Documentation Improvements
+## Infrastructure
 
-* **Architecture diagrams**: Added comprehensive ecosystem architecture and data flow diagrams to README
-* **Vignettes updated**: All vignettes now demonstrate selective loading pattern
-  - `getting-started.qmd`: Updated with selective loading explanation and examples
-  - `mediationverse-workflow.qmd`: Complete workflow showing explicit package loading
-* **Testing documentation**: Added `SELECTIVE-LOADING-TEST.md` with comprehensive test results
+* `R/attach.R`: refactored to load only medfit by default.
+* `R/zzz.R`: updated `.onAttach()` with informative startup message.
+* Optimized R-CMD-check workflow: reduced from 5 to 3 platforms (macOS, Windows,
+  Ubuntu release). Check workflows now complete in ~3 minutes (~50% faster).
+* Added `--ignore-vignettes` flag to skip vignette validation during CI checks.
+* Updated favicons; added Gemini AI workflows for code review and issue triage.
+* `.Rbuildignore`: added `^CLAUDE\.md$` and `^STATUS\.md$`.
+* `.gitignore`: added `CLAUDE.local.md`, `*.Rcheck/`, `*.tar.gz`.
+* Aligned with medfit COORDINATION-BRAINSTORM.md (Option 2 selective loading strategy).
 
-### Implementation
+# mediationverse 0.0.0.9000
 
-* `R/attach.R`: Refactored to load only medfit by default
-* `R/zzz.R`: Updated `.onAttach()` with informative startup message
-* All utility functions (`mediationverse_packages()`, `mediationverse_conflicts()`) tested and verified
+## New features
 
-### Coordination
+* `mediationverse_packages()` — list installed ecosystem packages with versions.
+* `mediationverse_update()` — update all ecosystem packages from GitHub/CRAN.
+* `mediationverse_conflicts()` — detect and display function name conflicts.
+* Startup message displays attached packages when loading mediationverse.
 
-* Aligned with medfit COORDINATION-BRAINSTORM.md (Option 2 strategy)
-* Ready for medfit v0.1.0 integration (ETA Dec 21, 2025)
-* Progress: 85% complete (waiting on medfit stabilization)
-
-## Bug Fixes
-
-* Fixed badge URLs in README.md to use correct GitHub organization case (`Data-Wise` instead of `data-wise`). Updated workflow badges and ecosystem package table for consistency
-* Fixed pkgdown workflow failure caused by version constraint on RMediation in DESCRIPTION. Removed `(>= 1.4.0)` constraint as it conflicted with pak dependency resolution in CI environments
-* Fixed documentation typo in `mediationverse_packages()` where the `@return` section had a missing closing parenthesis in the `version` field description (R/packages.R:13)
-
-## Workflow Optimization & Standardization (2025-12-05)
-
-### Performance Improvements
-* **Optimized R-CMD-check workflow**: Reduced from 5 to 3 platforms (macOS, Windows, Ubuntu release)
-* **Removed problematic platforms**: Dropped `ubuntu-latest (devel)` and `ubuntu-latest (oldrel-1)`
-* **Runtime improvement**: Check workflows now complete in ~3 minutes (down from 6 minutes, **50% faster**)
-* **Build optimization**: Added `--ignore-vignettes` flag to skip vignette validation during CI checks
-* **Removed Quarto installation**: Not needed for CI checks, saves ~30 seconds per run
-
-### Infrastructure Updates
-* **Updated favicons**: Regenerated all favicon assets to match updated logo
-* **Added Gemini AI workflows**: Code review, triage, and automated issue management
-* **.Rbuildignore**: Added `^CLAUDE\.md$` and `^STATUS\.md$` for documentation files
-* **.gitignore**: Added `CLAUDE.local.md`, `*.Rcheck/`, `*.tar.gz` for better local development
-
-### Standardization
-* All workflows passing on main branch
-* Consistent with ecosystem badge standards
-* Website configuration aligned with mediationverse theme
-
-## mediationverse 0.0.0.9000
-
-### New Features
-
-* Initial package skeleton with core functionality
-* `mediationverse_packages()` - List installed ecosystem packages with versions
-* `mediationverse_update()` - Update all ecosystem packages from GitHub/CRAN
-* `mediationverse_conflicts()` - Detect and display function name conflicts
-* Startup message displays attached packages when loading mediationverse
-
-### Ecosystem
+## Ecosystem
 
 The mediationverse meta-package provides unified access to:
 
-* **medfit** - Infrastructure (S7 classes, model fitting, extraction, bootstrap)
-* **probmed** - Probabilistic effect size (P_med)
-* **RMediation** - Confidence intervals (Distribution of Product, MBCO)
-* **medrobust** - Sensitivity analysis (bounds, falsification)
-* **medsim** - Simulation infrastructure
+* **medfit** — infrastructure (S7 classes, model fitting, extraction, bootstrap).
+* **probmed** — probabilistic effect size (P_med).
+* **RMediation** — confidence intervals (Distribution of Product, MBCO).
+* **medrobust** — sensitivity analysis (bounds, falsification).
+* **medsim** — simulation infrastructure.
 
-### Documentation
+## Infrastructure
 
-* pkgdown website with standardized ecosystem theme
-* README with installation and usage instructions
-* Function documentation for all exports
-
-### Infrastructure
-
-* GitHub Actions for R CMD check
-* GitHub Actions for pkgdown deployment
-* Standardized package structure following tidyverse patterns
+* pkgdown website with standardized ecosystem theme.
+* README with installation and usage instructions.
+* Function documentation for all exports.
+* GitHub Actions for R CMD check and pkgdown deployment.
+* Standardized package structure following tidyverse patterns.

@@ -23,12 +23,13 @@ test_that("mediationverse_sitrep() source column is 'CRAN' or 'GitHub' only", {
   expect_true(all(result$source %in% c("CRAN", "GitHub")))
 })
 
-test_that("mediationverse_sitrep() medfit and RMediation are CRAN; others are GitHub", {
+test_that("mediationverse_sitrep() only RMediation is CRAN; medfit + others are GitHub", {
+  # medfit 0.3.x is GitHub-only; CRAN has 0.2.1 which is too old for the ecosystem
   result <- mediationverse_sitrep()
   cran_pkgs   <- result$package[result$source == "CRAN"]
   github_pkgs <- result$package[result$source == "GitHub"]
-  expect_setequal(cran_pkgs, c("medfit", "RMediation"))
-  expect_setequal(github_pkgs, c("probmed", "medrobust", "medsim"))
+  expect_setequal(cran_pkgs, "RMediation")
+  expect_setequal(github_pkgs, c("medfit", "probmed", "medrobust", "medsim"))
 })
 
 test_that("mediationverse_sitrep() returns invisibly and prints without error", {
