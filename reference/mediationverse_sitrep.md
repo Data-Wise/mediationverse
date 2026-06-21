@@ -22,12 +22,12 @@ mediationverse_sitrep()
 #> 
 #> ── mediationverse situation report ─────────────────────────────────────────────
 #> R 4.6.0 | Platform x86_64-pc-linux-gnu
-#> mediationverse 0.0.0.9000
+#> mediationverse 0.1.0
 #> ────────────────────────────────────────────────────────────────────────────────
 #> 
 #> ── Core packages ──
 #> 
-#> ✔ medfit 0.3.0 [CRAN]
+#> ✔ medfit 0.3.0 [GitHub]
 #> ✔ probmed 0.2.0 [GitHub]
 #> ✔ RMediation 1.5.0 [CRAN]
 #> ✔ medrobust 0.4.0 [GitHub]
@@ -36,7 +36,8 @@ mediationverse_sitrep()
 #> 
 #> ── CRAN status ──
 #> 
-#> • medfit 0.2.0+ - <https://cran.r-project.org/package=medfit>
 #> • RMediation 1.5.0 - <https://cran.r-project.org/package=RMediation>
+#> ℹ medfit - install 0.3.x from GitHub; CRAN has 0.2.1, but the ecosystem needs
+#>   >= 0.3.0
 #> ℹ probmed, medrobust, medsim - GitHub only (pre-CRAN)
 ```

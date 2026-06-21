@@ -31,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mediationverse</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,7 @@
 <li><h6 class="dropdown-header" data-toc-skip>Core Packages</h6></li>
     <li><a class="external-link dropdown-item" href="https://Data-Wise.github.io/medfit/">medfit (Foundation)</a></li>
     <li><a class="external-link dropdown-item" href="https://Data-Wise.github.io/probmed/">probmed (P_med Effect Size)</a></li>
-    <li><a class="external-link dropdown-item" href="https://Data-Wise.github.io/rmediation/">RMediation (Confidence Intervals)</a></li>
+    <li><a class="external-link dropdown-item" href="https://Data-Wise.github.io/RMediation/">RMediation (Confidence Intervals)</a></li>
     <li><a class="external-link dropdown-item" href="https://Data-Wise.github.io/medrobust/">medrobust (Sensitivity Analysis)</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Support Packages</h6></li>
@@ -119,7 +119,12 @@
 <span><span class="co"># Or with remotes</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"data-wise/mediationverse"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<p>This will install all core packages:</p>
+<p>This will install <code>medfit</code> and <code>RMediation</code> (both on CRAN/r-universe). <code>probmed</code>, <code>medrobust</code>, and <code>medsim</code> are not on CRAN yet — install them individually as needed:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Data-Wise/probmed"</span>, <span class="st">"Data-Wise/medrobust"</span>, <span class="st">"Data-Wise/medsim"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<p>Core packages in the ecosystem:</p>
 <ul>
 <li>
 <strong>medfit</strong> - Infrastructure (S7 classes, model fitting, extraction, bootstrap)</li>
@@ -135,9 +140,13 @@
 </h2>
 <p>The mediationverse uses <strong>selective loading</strong>: only the foundation package (<code>medfit</code>) is loaded by default. This keeps your namespace clean and lets you load only what you need.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://Data-Wise.github.io/mediationverse/">mediationverse</a></span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://Data-Wise.github.io/mediationverse/">mediationverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Check what's installed and available</span></span>
+<span><span class="fu"><a href="../reference/mediationverse_sitrep.html">mediationverse_sitrep</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
+<p><code><a href="../reference/mediationverse_sitrep.html">mediationverse_sitrep()</a></code> prints a situation report of all ecosystem packages, their versions, and installation sources — useful for diagnosing missing or outdated packages.</p>
 <p>This attaches medfit and displays helpful information:</p>
 <pre><code>── Attaching mediationverse 0.0.0.9000 ──
 ✔ medfit 0.1.0 (foundation package)
@@ -148,7 +157,7 @@
 ──────────────────────────────────────────</code></pre>
 <p>Load additional packages as needed for your analysis:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load packages you need</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/probmed/" class="external-link">probmed</a></span><span class="op">)</span>      <span class="co"># For probabilistic effect sizes</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/rmediation/" class="external-link">RMediation</a></span><span class="op">)</span>   <span class="co"># For confidence intervals</span></span>
@@ -169,21 +178,21 @@
 <section class="level3"><h3 id="check-installed-versions">Check Installed Versions<a class="anchor" aria-label="anchor" href="#check-installed-versions"></a>
 </h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># List all mediationverse packages with versions and status</span></span>
 <span><span class="fu"><a href="../reference/mediationverse_packages.html">mediationverse_packages</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level3"><h3 id="update-packages">Update Packages<a class="anchor" aria-label="anchor" href="#update-packages"></a>
 </h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Update all packages from GitHub/CRAN</span></span>
 <span><span class="fu"><a href="../reference/mediationverse_update.html">mediationverse_update</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level3"><h3 id="check-for-conflicts">Check for Conflicts<a class="anchor" aria-label="anchor" href="#check-for-conflicts"></a>
 </h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Show function name conflicts between packages</span></span>
 <span><span class="fu"><a href="../reference/mediationverse_conflicts.html">mediationverse_conflicts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -192,7 +201,7 @@
 <p>The mediationverse follows a consistent workflow for mediation analysis.</p>
 <p>First, load the packages you need (medfit is already loaded via mediationverse):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/probmed/" class="external-link">probmed</a></span><span class="op">)</span>      <span class="co"># For this example</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/rmediation/" class="external-link">RMediation</a></span><span class="op">)</span>   <span class="co"># For this example</span></span></code></pre></div>
 </div>
@@ -200,7 +209,7 @@
 </h3>
 <p>Using <code>medfit</code> (already loaded), fit your mediator and outcome models:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Fit models</span></span>
 <span><span class="va">fit_m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">M</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">C</span>, data <span class="op">=</span> <span class="va">mydata</span><span class="op">)</span></span>
 <span><span class="va">fit_y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Y</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">M</span> <span class="op">+</span> <span class="va">C</span>, data <span class="op">=</span> <span class="va">mydata</span><span class="op">)</span></span></code></pre></div>
@@ -209,7 +218,7 @@
 </h3>
 <p>Extract path coefficients and covariance matrix:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">med_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/medfit/reference/extract_mediation.html" class="external-link">extract_mediation</a></span><span class="op">(</span></span>
 <span>  <span class="va">fit_m</span>,</span>
 <span>  model_y <span class="op">=</span> <span class="va">fit_y</span>,</span>
@@ -226,7 +235,7 @@
 <section class="level4"><h4 id="confidence-intervals-rmediation">Confidence Intervals (RMediation)<a class="anchor" aria-label="anchor" href="#confidence-intervals-rmediation"></a>
 </h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Distribution of Product method</span></span>
 <span><span class="va">ci_dop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/rmediation/reference/ci.html" class="external-link">ci</a></span><span class="op">(</span><span class="va">med_data</span>, type <span class="op">=</span> <span class="st">"dop"</span><span class="op">)</span></span>
 <span></span>
@@ -236,14 +245,14 @@
 </section><section class="level4"><h4 id="probabilistic-effect-size-probmed">Probabilistic Effect Size (probmed)<a class="anchor" aria-label="anchor" href="#probabilistic-effect-size-probmed"></a>
 </h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Compute P_med</span></span>
 <span><span class="va">pmed_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/probmed/reference/pmed.html" class="external-link">pmed</a></span><span class="op">(</span><span class="va">med_data</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level4"><h4 id="sensitivity-analysis-medrobust">Sensitivity Analysis (medrobust)<a class="anchor" aria-label="anchor" href="#sensitivity-analysis-medrobust"></a>
 </h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Partial identification bounds under misclassification</span></span>
 <span><span class="co"># (medrobust works from the raw data; returns a medrobust_bounds object)</span></span>
 <span><span class="va">bounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/medrobust/reference/bound_ne.html" class="external-link">bound_ne</a></span><span class="op">(</span></span>
@@ -264,7 +273,7 @@
 </section><section class="level4"><h4 id="bootstrap-inference-medfit">Bootstrap Inference (medfit)<a class="anchor" aria-label="anchor" href="#bootstrap-inference-medfit"></a>
 </h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Nonparametric bootstrap</span></span>
 <span><span class="va">boot_result</span> <span class="op">&lt;-</span> <span class="fu">bootstrap_mediation</span><span class="op">(</span><span class="va">med_data</span>, n_boot <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -316,7 +325,7 @@
 </h3>
 <p>All packages use S7 classes for type safety and validation:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># MediationData validates input</span></span>
 <span><span class="va">med_data</span> <span class="op">&lt;-</span> <span class="fu">MediationData</span><span class="op">(</span></span>
 <span>  a_path <span class="op">=</span> <span class="fl">0.5</span>,</span>
@@ -342,7 +351,7 @@
 </ul></section><section class="level2"><h2 id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R version 4.6.0 (2026-04-24)

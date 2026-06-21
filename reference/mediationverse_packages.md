@@ -33,7 +33,7 @@ A data frame with columns:
 mediationverse_packages()
 #> 
 #> ── mediationverse packages ─────────────────────────────────────────────────────
-#> ✔ mediationverse 0.0.0.9000 (attached)
+#> ✔ mediationverse 0.1.0 (attached)
 #> ✔ medfit 0.3.0 (attached)
 #> ✔ probmed 0.2.0
 #> ✔ RMediation 1.5.0

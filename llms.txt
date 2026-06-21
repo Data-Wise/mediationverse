@@ -42,6 +42,15 @@ sensitivity <- bound_ne(
 )
 ```
 
+### Verify your installation
+
+``` r
+
+# Prints a situation report of all ecosystem packages, their versions,
+# and installation sources
+mediationverse_sitrep()
+```
+
 ## Ecosystem Status Dashboard
 
 > **📊 [View Full
@@ -56,20 +65,18 @@ sensitivity <- bound_ne(
 | [**medfit**](https://Data-Wise.github.io/medfit/) | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/Data-Wise/medfit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medfit/actions) | [![Docs](https://github.com/Data-Wise/medfit/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medfit/) | **Foundation** |
 | [**probmed**](https://Data-Wise.github.io/probmed/) | ![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg) | [![Build](https://github.com/Data-Wise/probmed/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/probmed/actions) | [![Docs](https://github.com/Data-Wise/probmed/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/probmed/) | Effect Size |
 | [**RMediation**](https://cran.r-project.org/package=RMediation) | ![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg) | [![Build](https://github.com/Data-Wise/rmediation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/rmediation/actions) | [![Docs](https://github.com/Data-Wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/rmediation/) | Confidence Intervals |
-| [**medrobust**](https://Data-Wise.github.io/medrobust/) | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | — | [![Docs](https://github.com/Data-Wise/medrobust/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medrobust/) | Sensitivity Analysis |
+| [**medrobust**](https://Data-Wise.github.io/medrobust/) | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/Data-Wise/medrobust/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medrobust/actions/workflows/R-CMD-check.yaml) | [![Docs](https://github.com/Data-Wise/medrobust/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medrobust/) | Sensitivity Analysis |
 | [**medsim**](https://Data-Wise.github.io/medsim/) | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/Data-Wise/medsim/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medsim/actions) | [![Docs](https://github.com/Data-Wise/medsim/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medsim/) | Simulation Infrastructure |
 
-### Development Progress
+### Development Status
 
-Detailed milestones and current status are maintained in the [planning
-hub](https://github.com/data-wise/mediation-planning) — kept in one
-place to stay current rather than duplicated (and drifting) here:
-
-- [🗺️ Master
-  Roadmap](https://github.com/data-wise/mediation-planning/blob/main/docs/ROADMAP.md)
-- [📊
-  PROJECT-HUB](https://github.com/data-wise/mediation-planning/blob/main/PROJECT-HUB.md)
-  — dashboard & current focus
+| Package    | Status       | Next Milestone             |
+|------------|--------------|----------------------------|
+| medfit     | Stable/CRAN  | Phase 5 — serial mediation |
+| probmed    | Stable       | CRAN submission            |
+| RMediation | Stable/CRAN  | Maintenance only           |
+| medrobust  | Experimental | Complete partial ID bounds |
+| medsim     | Experimental | HPC integration            |
 
 ## Package Ecosystem
 
@@ -234,6 +241,14 @@ install.packages(
 # Install via pak (handles CRAN + GitHub deps automatically)
 pak::pak("Data-Wise/mediationverse")
 ```
+
+> **Note:** `probmed`, `medrobust`, and `medsim` are not on CRAN yet.
+> Install them individually as needed:
+>
+> ``` r
+>
+> pak::pak(c("Data-Wise/probmed", "Data-Wise/medrobust", "Data-Wise/medsim"))
+> ```
 
 ### From CRAN (future)
 

@@ -2,161 +2,115 @@
 
 ## mediationverse (development version)
 
-### Bug Fixes (2026-06-19)
+## mediationverse 0.1.0
 
-- [`mediationverse_update()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_update.md):
-  moved `medfit` from `github_pkgs` to `cran_pkgs` — medfit 0.2.0+ is on
-  CRAN; fetching it from GitHub was incorrect (#fix-update-sources).
-- [`mediationverse_update()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_update.md):
-  `RMediation` was already in `cran_pkgs`; now both CRAN packages
-  (`RMediation`, `medfit`) are correctly sourced from CRAN.
-- Updated `@details` roxygen bullet for `medfit` from “GitHub
-  (data-wise/medfit)” to “CRAN”.
-- README: unified `pak::pak("Data-Wise/mediationverse")` casing in Quick
-  Start block to match the Installation section.
-- README: removed `pak::pak("Data-Wise/medfit")` from the “GitHub
-  (Development)” install block; added `install.packages("medfit")` to
-  the CRAN block.
+### Bug fixes
 
-### Major Changes (2025-12-15)
-
-#### Selective Loading Strategy (v0.1.0 preparation)
-
-**Breaking Change**: mediationverse now uses **selective loading** -
-only `medfit` (foundation package) is loaded by default. Other packages
-must be loaded explicitly.
-
-**Why this change?** - Clean namespace with minimal function conflicts -
-Users load only packages they need - Explicit \> implicit (better code
-clarity) - Coordinated with medfit ecosystem integration
-
-**Migration**:
-
-``` r
-
-# OLD behavior (v0.0.x)
-library(mediationverse)  # Loaded all 5 packages
-
-# NEW behavior (v0.1.0+)
-library(mediationverse)  # Loads only medfit
-library(probmed)         # Load explicitly as needed
-library(RMediation)      # Load explicitly as needed
-```
-
-**New startup message**:
-
-    ── Attaching mediationverse 0.0.0.9000 ──
-    ✔ medfit 0.1.0 (foundation package)
-    ℹ Use library(probmed) for P_med effect size
-    ℹ Use library(RMediation) for DOP/MBCO inference
-    ℹ Use library(medrobust) for sensitivity analysis
-    ℹ Use library(medsim) for simulation utilities
-
-#### Documentation Improvements
-
-- **Architecture diagrams**: Added comprehensive ecosystem architecture
-  and data flow diagrams to README
-- **Vignettes updated**: All vignettes now demonstrate selective loading
-  pattern
-  - `getting-started.qmd`: Updated with selective loading explanation
-    and examples
-  - `mediationverse-workflow.qmd`: Complete workflow showing explicit
-    package loading
-- **Testing documentation**: Added `SELECTIVE-LOADING-TEST.md` with
-  comprehensive test results
-
-#### Implementation
-
-- `R/attach.R`: Refactored to load only medfit by default
-- `R/zzz.R`: Updated `.onAttach()` with informative startup message
-- All utility functions
-  ([`mediationverse_packages()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_packages.md),
-  [`mediationverse_conflicts()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_conflicts.md))
-  tested and verified
-
-#### Coordination
-
-- Aligned with medfit COORDINATION-BRAINSTORM.md (Option 2 strategy)
-- Ready for medfit v0.1.0 integration (ETA Dec 21, 2025)
-- Progress: 85% complete (waiting on medfit stabilization)
-
-### Bug Fixes
-
+- [`mediationverse_update()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_update.md)
+  /
+  [`mediationverse_sitrep()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_sitrep.md):
+  keep `medfit` sourced from **GitHub** (`data-wise/medfit`), reverting
+  the 2026-06-19 reclassification to `cran_pkgs`. CRAN serves only
+  medfit 0.2.1, but the ecosystem requires medfit \>= 0.3.0 (probmed,
+  missingmed) — sourcing it from CRAN resolves a version too old for
+  those packages. `RMediation` remains the only CRAN-sourced core
+  package.
+- `DESCRIPTION`: added `Data-Wise/medfit` to `Remotes:` so GitHub
+  installs resolve medfit 0.3.x rather than CRAN 0.2.1.
+- README + vignettes: corrected example calls to use real sibling
+  exports
+  ([`pmed()`](https://data-wise.github.io/probmed/reference/pmed.html),
+  [`bound_ne()`](https://data-wise.github.io/medrobust/reference/bound_ne.html),
+  [`falsification_summary()`](https://data-wise.github.io/medrobust/reference/falsification_summary.html),
+  [`medsim_run()`](https://rdrr.io/pkg/medsim/man/medsim_run.html)) in
+  place of functions that do not exist in those packages.
+- README: unified `pak::pak("Data-Wise/mediationverse")` casing in the
+  Quick Start block to match the Installation section.
 - Fixed badge URLs in README.md to use correct GitHub organization case
   (`Data-Wise` instead of `data-wise`). Updated workflow badges and
-  ecosystem package table for consistency
+  ecosystem package table for consistency.
 - Fixed pkgdown workflow failure caused by version constraint on
   RMediation in DESCRIPTION. Removed `(>= 1.4.0)` constraint as it
-  conflicted with pak dependency resolution in CI environments
+  conflicted with pak dependency resolution in CI environments.
 - Fixed documentation typo in
   [`mediationverse_packages()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_packages.md)
   where the `@return` section had a missing closing parenthesis in the
-  `version` field description (R/packages.R:13)
+  `version` field description (R/packages.R:13).
 
-### Workflow Optimization & Standardization (2025-12-05)
+### Breaking changes
 
-#### Performance Improvements
+- **Selective loading**: mediationverse now loads only `medfit`
+  (foundation package) by default. Other packages must be loaded
+  explicitly with [`library()`](https://rdrr.io/r/base/library.html).
 
-- **Optimized R-CMD-check workflow**: Reduced from 5 to 3 platforms
-  (macOS, Windows, Ubuntu release)
-- **Removed problematic platforms**: Dropped `ubuntu-latest (devel)` and
-  `ubuntu-latest (oldrel-1)`
-- **Runtime improvement**: Check workflows now complete in ~3 minutes
-  (down from 6 minutes, **50% faster**)
-- **Build optimization**: Added `--ignore-vignettes` flag to skip
-  vignette validation during CI checks
-- **Removed Quarto installation**: Not needed for CI checks, saves ~30
-  seconds per run
+  ``` r
 
-#### Infrastructure Updates
+  # OLD behavior (v0.0.x)
+  library(mediationverse)  # Loaded all 5 packages
 
-- **Updated favicons**: Regenerated all favicon assets to match updated
-  logo
-- **Added Gemini AI workflows**: Code review, triage, and automated
-  issue management
-- **.Rbuildignore**: Added `^CLAUDE\.md$` and `^STATUS\.md$` for
-  documentation files
-- **.gitignore**: Added `CLAUDE.local.md`, `*.Rcheck/`, `*.tar.gz` for
-  better local development
+  # NEW behavior
+  library(mediationverse)  # Loads only medfit
+  library(probmed)         # Load explicitly as needed
+  library(RMediation)      # Load explicitly as needed
+  ```
 
-#### Standardization
+  New startup message shows which packages are available but not yet
+  loaded.
 
-- All workflows passing on main branch
-- Consistent with ecosystem badge standards
-- Website configuration aligned with mediationverse theme
+### Documentation
 
-### mediationverse 0.0.0.9000
+- Added comprehensive ecosystem architecture and data flow diagrams to
+  README.
+- Updated all vignettes to demonstrate selective loading pattern:
+  - `getting-started.qmd`: selective loading explanation and examples.
+  - `mediationverse-workflow.qmd`: complete workflow showing explicit
+    package loading.
+- Added `SELECTIVE-LOADING-TEST.md` with comprehensive test results.
 
-#### New Features
+### Infrastructure
 
-- Initial package skeleton with core functionality
-- [`mediationverse_packages()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_packages.md) -
-  List installed ecosystem packages with versions
-- [`mediationverse_update()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_update.md) -
-  Update all ecosystem packages from GitHub/CRAN
-- [`mediationverse_conflicts()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_conflicts.md) -
-  Detect and display function name conflicts
-- Startup message displays attached packages when loading mediationverse
+- `R/attach.R`: refactored to load only medfit by default.
+- `R/zzz.R`: updated `.onAttach()` with informative startup message.
+- Optimized R-CMD-check workflow: reduced from 5 to 3 platforms (macOS,
+  Windows, Ubuntu release). Check workflows now complete in ~3 minutes
+  (~50% faster).
+- Added `--ignore-vignettes` flag to skip vignette validation during CI
+  checks.
+- Updated favicons; added Gemini AI workflows for code review and issue
+  triage.
+- `.Rbuildignore`: added `^CLAUDE\.md$` and `^STATUS\.md$`.
+- `.gitignore`: added `CLAUDE.local.md`, `*.Rcheck/`, `*.tar.gz`.
+- Aligned with medfit COORDINATION-BRAINSTORM.md (Option 2 selective
+  loading strategy).
 
-#### Ecosystem
+## mediationverse 0.0.0.9000
+
+### New features
+
+- [`mediationverse_packages()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_packages.md)
+  — list installed ecosystem packages with versions.
+- [`mediationverse_update()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_update.md)
+  — update all ecosystem packages from GitHub/CRAN.
+- [`mediationverse_conflicts()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_conflicts.md)
+  — detect and display function name conflicts.
+- Startup message displays attached packages when loading
+  mediationverse.
+
+### Ecosystem
 
 The mediationverse meta-package provides unified access to:
 
-- **medfit** - Infrastructure (S7 classes, model fitting, extraction,
-  bootstrap)
-- **probmed** - Probabilistic effect size (P_med)
-- **RMediation** - Confidence intervals (Distribution of Product, MBCO)
-- **medrobust** - Sensitivity analysis (bounds, falsification)
-- **medsim** - Simulation infrastructure
+- **medfit** — infrastructure (S7 classes, model fitting, extraction,
+  bootstrap).
+- **probmed** — probabilistic effect size (P_med).
+- **RMediation** — confidence intervals (Distribution of Product, MBCO).
+- **medrobust** — sensitivity analysis (bounds, falsification).
+- **medsim** — simulation infrastructure.
 
-#### Documentation
+### Infrastructure
 
-- pkgdown website with standardized ecosystem theme
-- README with installation and usage instructions
-- Function documentation for all exports
-
-#### Infrastructure
-
-- GitHub Actions for R CMD check
-- GitHub Actions for pkgdown deployment
-- Standardized package structure following tidyverse patterns
+- pkgdown website with standardized ecosystem theme.
+- README with installation and usage instructions.
+- Function documentation for all exports.
+- GitHub Actions for R CMD check and pkgdown deployment.
+- Standardized package structure following tidyverse patterns.

@@ -23,7 +23,16 @@ pak::pak("data-wise/mediationverse")
 remotes::install_github("data-wise/mediationverse")
 ```
 
-This will install all core packages:
+This will install `medfit` and `RMediation` (both on CRAN/r-universe).
+`probmed`, `medrobust`, and `medsim` are not on CRAN yet — install them
+individually as needed:
+
+``` r
+
+pak::pak(c("Data-Wise/probmed", "Data-Wise/medrobust", "Data-Wise/medsim"))
+```
+
+Core packages in the ecosystem:
 
 - **medfit** - Infrastructure (S7 classes, model fitting, extraction,
   bootstrap)
@@ -41,7 +50,15 @@ and lets you load only what you need.
 ``` r
 
 library(mediationverse)
+
+# Check what's installed and available
+mediationverse_sitrep()
 ```
+
+[`mediationverse_sitrep()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_sitrep.md)
+prints a situation report of all ecosystem packages, their versions, and
+installation sources — useful for diagnosing missing or outdated
+packages.
 
 This attaches medfit and displays helpful information:
 
