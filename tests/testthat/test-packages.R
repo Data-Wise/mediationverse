@@ -42,6 +42,48 @@ test_that("print.mediationverse_packages() runs without error", {
   expect_invisible(print(result))
 })
 
+test_that("print.mediationverse_packages() shows attached + not-installed rows (cli)", {
+  # Hand-built object exercises all three cli branches: installed+attached,
+  # installed-not-attached, and not-installed.
+  fake <- data.frame(
+    package   = c("medfit", "probmed", "medsim"),
+    installed = c(TRUE, TRUE, FALSE),
+    version   = c("0.3.1", "0.1.0", NA_character_),
+    attached  = c(TRUE, FALSE, FALSE),
+    stringsAsFactors = FALSE
+  )
+  class(fake) <- c("mediationverse_packages", "data.frame")
+
+  expect_no_error(print(fake))
+  expect_invisible(print(fake))
+})
+
+test_that("print.mediationverse_packages() falls back to plain cat without cli", {
+  skip_if_not_installed("cli")  # mock only meaningful when cli is normally present
+  fake <- data.frame(
+    package   = c("medfit", "medsim"),
+    installed = c(TRUE, FALSE),
+    version   = c("0.3.1", NA_character_),
+    attached  = c(TRUE, FALSE),
+    stringsAsFactors = FALSE
+  )
+  class(fake) <- c("mediationverse_packages", "data.frame")
+
+  real_require <- base::requireNamespace  # capture before mocking to avoid recursion
+  testthat::local_mocked_bindings(
+    requireNamespace = function(package, ...) {
+      if (identical(package, "cli")) FALSE else real_require(package, ...)
+    },
+    .package = "base"
+  )
+
+  out <- capture.output(print(fake))
+  expect_true(any(grepl("mediationverse packages", out)))
+  expect_true(any(grepl("\\[x\\] medfit", out)))            # installed branch
+  expect_true(any(grepl("\\(attached\\)", out)))            # attached suffix
+  expect_true(any(grepl("\\[ \\] medsim", out)))            # not-installed branch
+})
+
 ## ---- internal version helper (attach.R) ------------------------------------
 
 test_that("package_version_string() reports versions and flags uninstalled pkgs", {
