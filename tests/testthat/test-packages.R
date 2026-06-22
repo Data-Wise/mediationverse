@@ -41,3 +41,17 @@ test_that("print.mediationverse_packages() runs without error", {
   expect_no_error(print(result))
   expect_invisible(print(result))
 })
+
+## ---- internal version helper (attach.R) ------------------------------------
+
+test_that("package_version_string() reports versions and flags uninstalled pkgs", {
+  res <- mediationverse:::package_version_string(c("stats", "__no_such_pkg__"))
+  expect_length(res, 2L)
+  expect_match(res[["stats"]], "^[0-9]")              # a real version string
+  expect_identical(res[["__no_such_pkg__"]], "(not installed)")
+})
+
+test_that("is_attached() detects search-path membership", {
+  expect_true(mediationverse:::is_attached("stats"))  # always attached
+  expect_false(mediationverse:::is_attached("__not_attached_pkg__"))
+})
