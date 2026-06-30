@@ -27,6 +27,15 @@ Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 
 ---
 
+## Active worktrees
+
+- `~/.git-worktrees/mediationverse/feature-ecosystem-page` — branch
+  `feature/ecosystem-page` (from `dev`). Building the canonical Ecosystem page
+  (data-wise/mediationverse#14) so member-package pkgdown navbars can link out
+  to one page instead of duplicating the package list. Created 2026-06-30.
+
+---
+
 ## Completed (2026-06-19)
 
 - medfit on CRAN — dropped from `Remotes`; pinned `Imports >= 0.2.0` ✓
