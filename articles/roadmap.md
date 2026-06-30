@@ -10,18 +10,9 @@
 
 ### What the ecosystem is
 
-The mediationverse builds outward from a shared foundation — **medfit**
-(S7 data classes, model extraction, fitting, and bootstrap inference) —
-that the analysis packages build on:
-
-- **probmed** — P_med effect size
-- **RMediation** — confidence intervals (DOP / MBCO / Monte Carlo)
-- **medrobust** — sensitivity analysis
-- **medsim** — simulation infrastructure
-- **missingmed** — missing-data mediation (multiple imputation + IPW)
-
-The **mediationverse** meta-package ties them together with selective
-loading.
+See the
+[Ecosystem](https://Data-Wise.github.io/mediationverse/articles/ecosystem.md)
+article for the package map, roles, and status — not duplicated here.
 
 ### Direction (high level)
 
@@ -54,14 +45,8 @@ vignette):
 
 ### See also
 
-- [medfit](https://data-wise.github.io/medfit/) — foundation
-- [probmed](https://data-wise.github.io/probmed/) — P_med effect size
-- [RMediation](https://data-wise.github.io/rmediation/) — confidence
-  intervals (CRAN)
-- [medrobust](https://data-wise.github.io/medrobust/) — sensitivity
-  analysis
-- [medsim](https://data-wise.github.io/medsim/) — simulation
-  infrastructure
+- [Ecosystem](https://Data-Wise.github.io/mediationverse/articles/ecosystem.md)
+  — package map, roles, websites
 
 ### Feedback
 
