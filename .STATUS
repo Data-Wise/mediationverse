@@ -42,9 +42,13 @@ Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
   planned-but-unbuilt package (referenced in `NEWS.md`/`roadmap.Rmd`, absent
   from `STATUS.md`/navbar). `pkgdown.yaml` deploys on push to `dev` too, so
   the live site updates without a `dev` → `main` release.
-- Follow-up (separate, not done): simplify each member package's own pkgdown
-  Ecosystem navbar dropdown (RMediation, medfit, probmed, medrobust, medsim)
-  to link out to this page instead of duplicating the package list.
+- Follow-up done (same day): each member package's own pkgdown Ecosystem
+  navbar dropdown (RMediation, medfit, probmed, medrobust, medsim) now links
+  out to this page instead of duplicating the package list — fixes drift
+  found along the way (medfit had 3 stale "work in progress"-commented
+  entries for already-live packages; medrobust used inconsistent
+  `Data-Wise.github.io` casing). medsim previously had no Ecosystem nav
+  entry at all; one was added. Committed directly to each repo's `dev`.
 
 ## Completed (2026-06-19)
 
