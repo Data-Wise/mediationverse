@@ -51,6 +51,8 @@ navbar:
       menu:
       - text: "Getting Started"
         href: articles/getting-started.html
+      - text: "Ecosystem"
+        href: articles/ecosystem.html
       - text: "---------"
       - text: "Ecosystem Overview"
       - text: "mediationverse Workflow"
@@ -58,6 +60,9 @@ navbar:
     ecosystem:
       text: Ecosystem
       menu:
+      - text: "📖 Ecosystem Overview (full page)"
+        href: articles/ecosystem.html
+      - text: "---------"
       - text: "Core Packages"
       - text: "medfit (Foundation)"
         href: https://Data-Wise.github.io/medfit/
