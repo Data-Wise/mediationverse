@@ -21,7 +21,7 @@ effect of printing the situation report.
 mediationverse_sitrep()
 #> 
 #> ── mediationverse situation report ─────────────────────────────────────────────
-#> R 4.6.0 | Platform x86_64-pc-linux-gnu
+#> R 4.6.1 | Platform x86_64-pc-linux-gnu
 #> mediationverse 0.1.0
 #> ────────────────────────────────────────────────────────────────────────────────
 #> 
