@@ -38,7 +38,8 @@ Package sources:
 
 - **mediationverse**: GitHub (data-wise/mediationverse)
 
-- **medfit**: CRAN
+- **medfit**: GitHub (data-wise/medfit) — CRAN 0.2.1 is behind; the
+  ecosystem needs \>= 0.3.0
 
 - **probmed**: GitHub (data-wise/probmed)
 
