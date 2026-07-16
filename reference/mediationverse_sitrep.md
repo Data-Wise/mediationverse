@@ -31,7 +31,7 @@ mediationverse_sitrep()
 #> ✔ probmed 0.3.0 [GitHub]
 #> ✔ RMediation 1.5.0 [CRAN]
 #> ✔ medrobust 0.4.0 [GitHub]
-#> ✔ medsim 0.3.1 [GitHub]
+#> ✔ medsim 0.4.0 [GitHub]
 #> ────────────────────────────────────────────────────────────────────────────────
 #> 
 #> ── CRAN status ──

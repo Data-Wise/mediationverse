@@ -38,5 +38,5 @@ mediationverse_packages()
 #> ✔ probmed 0.3.0
 #> ✔ RMediation 1.5.0
 #> ✔ medrobust 0.4.0
-#> ✔ medsim 0.3.1
+#> ✔ medsim 0.4.0
 ```
