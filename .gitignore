@@ -11,6 +11,8 @@ gha-creds-*.json
 
 # Claude Code local configuration (don't commit personal settings)
 CLAUDE.local.md
+.claude/allow-dev-edit
+.claude/guard-session-counts
 *.Rcheck/
 *.tar.gz
 altdoc/freeze.rds
