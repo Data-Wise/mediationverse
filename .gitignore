@@ -13,6 +13,7 @@ gha-creds-*.json
 CLAUDE.local.md
 .claude/allow-dev-edit
 .claude/guard-session-counts
+.claude/settings.local.json
 *.Rcheck/
 *.tar.gz
 altdoc/freeze.rds
