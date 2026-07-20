@@ -6,6 +6,7 @@
 ^\.github$
 ^GITHUB-SETUP\.md$
 ^\.claude$
+^\.remember$
 ^vignettes/\.quarto$
 ^CLAUDE\.md$
 ^STATUS\.md$
