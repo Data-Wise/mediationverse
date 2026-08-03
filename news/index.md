@@ -22,8 +22,8 @@
   ([`pmed()`](https://data-wise.github.io/probmed/reference/pmed.html),
   [`bound_ne()`](https://data-wise.github.io/medrobust/reference/bound_ne.html),
   [`falsification_summary()`](https://data-wise.github.io/medrobust/reference/falsification_summary.html),
-  [`medsim_run()`](https://rdrr.io/pkg/medsim/man/medsim_run.html)) in
-  place of functions that do not exist in those packages.
+  [`medsim_run()`](https://data-wise.github.io/medsim/reference/medsim_run.html))
+  in place of functions that do not exist in those packages.
 - README: unified `pak::pak("Data-Wise/mediationverse")` casing in the
   Quick Start block to match the Installation section.
 - Fixed badge URLs in README.md to use correct GitHub organization case

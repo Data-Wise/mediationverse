@@ -67,7 +67,7 @@
 <blockquote>
 <p><strong>The live CI/CD badge wall</strong> for the ecosystem. This page is intentionally a badge dashboard — per-package status, blockers, dependency order, and CRAN sequence are <strong>not</strong> hand-maintained here (they drift).</p>
 </blockquote>
-<p><strong>Last Updated</strong>: 2026-06-19</p>
+<p><strong>Last Updated</strong>: 2026-07-23 — CRAN column now uses <code>img.shields.io/cran/v/&lt;pkg&gt;</code> for all 6 packages (was a mix of live <code>r-pkg.org</code> badges for CRAN-published packages and hand-typed “Not on CRAN” text for the rest; <code>r-pkg.org</code> also 404s with broken HTML, not a valid image, for not-yet-published packages)</p>
 <blockquote>
 <p>🩺 <strong>Live health:</strong> <code>cd ~/projects/r-packages &amp;&amp; /rforge:status</code> (or <code>:thorough</code>). Per-package status lives in each repo’s <code>.STATUS</code> file.</p>
 <p>🗺️ <strong>Planning &amp; roadmap:</strong> the ecosystem hub — <a href="https://github.com/Data-Wise/mediation-planning" class="external-link"><code>mediation-planning</code></a> (<code>PROJECT-HUB.md</code>, <code>ECOSYSTEM-MANIFEST.yaml</code>, <code>docs/ROADMAP.md</code>).</p>
@@ -89,7 +89,7 @@
 <td><a href="https://github.com/data-wise/medfit/actions/workflows/pkgdown.yaml" class="external-link"><img src="https://github.com/data-wise/medfit/actions/workflows/pkgdown.yaml/badge.svg" alt="Website Status"></a></td>
 <td><a href="https://github.com/data-wise/medfit/actions/workflows/rhub.yaml" class="external-link"><img src="https://github.com/data-wise/medfit/actions/workflows/rhub.yaml/badge.svg" alt="R-hub"></a></td>
 <td><a href="https://codecov.io/gh/data-wise/medfit" class="external-link"><img src="https://codecov.io/gh/data-wise/medfit/graph/badge.svg" alt="Codecov"></a></td>
-<td><a href="https://CRAN.R-project.org/package=medfit" class="external-link"><img src="https://www.r-pkg.org/badges/version/medfit" alt="CRAN"></a></td>
+<td><a href="https://CRAN.R-project.org/package=medfit" class="external-link"><img src="https://img.shields.io/cran/v/medfit" alt="CRAN"></a></td>
 </tr><tr><td><a href="https://github.com/data-wise/probmed" class="external-link">probmed</a></td>
 <td><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle"></a></td>
 <td><a href="https://www.repostatus.org/#active" class="external-link"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Repo Status"></a></td>
@@ -97,7 +97,7 @@
 <td><a href="https://github.com/data-wise/probmed/actions/workflows/pkgdown.yaml" class="external-link"><img src="https://github.com/data-wise/probmed/actions/workflows/pkgdown.yaml/badge.svg" alt="Website Status"></a></td>
 <td><a href="https://github.com/data-wise/probmed/actions/workflows/rhub.yaml" class="external-link"><img src="https://github.com/data-wise/probmed/actions/workflows/rhub.yaml/badge.svg" alt="R-hub"></a></td>
 <td><a href="https://codecov.io/gh/data-wise/probmed" class="external-link"><img src="https://codecov.io/gh/data-wise/probmed/graph/badge.svg" alt="Codecov"></a></td>
-<td>Not on CRAN</td>
+<td><a href="https://CRAN.R-project.org/package=probmed" class="external-link"><img src="https://img.shields.io/cran/v/probmed" alt="CRAN"></a></td>
 </tr><tr><td><a href="https://github.com/data-wise/rmediation" class="external-link">RMediation</a></td>
 <td><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle"></a></td>
 <td><a href="https://www.repostatus.org/#active" class="external-link"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Repo Status"></a></td>
@@ -105,7 +105,7 @@
 <td><a href="https://github.com/data-wise/rmediation/actions/workflows/pkgdown.yaml" class="external-link"><img src="https://github.com/data-wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg" alt="Website Status"></a></td>
 <td><a href="https://github.com/data-wise/rmediation/actions/workflows/rhub.yaml" class="external-link"><img src="https://github.com/data-wise/rmediation/actions/workflows/rhub.yaml/badge.svg" alt="R-hub"></a></td>
 <td><a href="https://codecov.io/gh/data-wise/rmediation" class="external-link"><img src="https://codecov.io/gh/data-wise/rmediation/graph/badge.svg" alt="Codecov"></a></td>
-<td><a href="https://CRAN.R-project.org/package=RMediation" class="external-link"><img src="https://www.r-pkg.org/badges/version/RMediation" alt="CRAN"></a></td>
+<td><a href="https://CRAN.R-project.org/package=RMediation" class="external-link"><img src="https://img.shields.io/cran/v/RMediation" alt="CRAN"></a></td>
 </tr><tr><td><a href="https://github.com/data-wise/medrobust" class="external-link">medrobust</a></td>
 <td><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle"></a></td>
 <td><a href="https://www.repostatus.org/#wip" class="external-link"><img src="https://www.repostatus.org/badges/latest/wip.svg" alt="Repo Status"></a></td>
@@ -113,7 +113,7 @@
 <td><a href="https://github.com/data-wise/medrobust/actions/workflows/pkgdown.yaml" class="external-link"><img src="https://github.com/data-wise/medrobust/actions/workflows/pkgdown.yaml/badge.svg" alt="Website Status"></a></td>
 <td><a href="https://github.com/data-wise/medrobust/actions/workflows/rhub.yaml" class="external-link"><img src="https://github.com/data-wise/medrobust/actions/workflows/rhub.yaml/badge.svg" alt="R-hub"></a></td>
 <td><a href="https://codecov.io/gh/data-wise/medrobust" class="external-link"><img src="https://codecov.io/gh/data-wise/medrobust/graph/badge.svg" alt="Codecov"></a></td>
-<td>Not on CRAN</td>
+<td><a href="https://CRAN.R-project.org/package=medrobust" class="external-link"><img src="https://img.shields.io/cran/v/medrobust" alt="CRAN"></a></td>
 </tr><tr><td><a href="https://github.com/data-wise/medsim" class="external-link">medsim</a></td>
 <td><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle"></a></td>
 <td><a href="https://www.repostatus.org/#wip" class="external-link"><img src="https://www.repostatus.org/badges/latest/wip.svg" alt="Repo Status"></a></td>
@@ -121,7 +121,7 @@
 <td><a href="https://github.com/data-wise/medsim/actions/workflows/pkgdown.yaml" class="external-link"><img src="https://github.com/data-wise/medsim/actions/workflows/pkgdown.yaml/badge.svg" alt="Website Status"></a></td>
 <td><a href="https://github.com/data-wise/medsim/actions/workflows/rhub.yaml" class="external-link"><img src="https://github.com/data-wise/medsim/actions/workflows/rhub.yaml/badge.svg" alt="R-hub"></a></td>
 <td><a href="https://codecov.io/gh/data-wise/medsim" class="external-link"><img src="https://codecov.io/gh/data-wise/medsim/graph/badge.svg" alt="Codecov"></a></td>
-<td>Not on CRAN</td>
+<td><a href="https://CRAN.R-project.org/package=medsim" class="external-link"><img src="https://img.shields.io/cran/v/medsim" alt="CRAN"></a></td>
 </tr><tr><td><a href="https://github.com/data-wise/mediationverse" class="external-link">mediationverse</a></td>
 <td><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle"></a></td>
 <td><a href="https://www.repostatus.org/#wip" class="external-link"><img src="https://www.repostatus.org/badges/latest/wip.svg" alt="Repo Status"></a></td>
@@ -129,7 +129,7 @@
 <td><a href="https://github.com/data-wise/mediationverse/actions/workflows/pkgdown.yaml" class="external-link"><img src="https://github.com/data-wise/mediationverse/actions/workflows/pkgdown.yaml/badge.svg" alt="Website Status"></a></td>
 <td><a href="https://github.com/data-wise/mediationverse/actions/workflows/rhub.yaml" class="external-link"><img src="https://github.com/data-wise/mediationverse/actions/workflows/rhub.yaml/badge.svg" alt="R-hub"></a></td>
 <td>-</td>
-<td>Not on CRAN</td>
+<td><a href="https://CRAN.R-project.org/package=mediationverse" class="external-link"><img src="https://img.shields.io/cran/v/mediationverse" alt="CRAN"></a></td>
 </tr></tbody></table><hr></div>
 <div class="section level2">
 <h2 id="quick-links">Quick Links<a class="anchor" aria-label="anchor" href="#quick-links"></a></h2>
@@ -163,7 +163,7 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">&lt;!-- badges: start --&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">[</span><span class="al">![Lifecycle: {status}](https://img.shields.io/badge/lifecycle-{status}-{color}.svg)</span><span class="co">](https://lifecycle.r-lib.org/articles/stages.html#{status})</span></span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">[</span><span class="al">![Repo Status](https://www.repostatus.org/badges/latest/{status}.svg)</span><span class="co">](https://www.repostatus.org/#{status})</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">[</span><span class="al">![CRAN status](https://www.r-pkg.org/badges/version/{package})</span><span class="co">](https://CRAN.R-project.org/package={package})</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">[</span><span class="al">![CRAN status](https://img.shields.io/cran/v/{package})</span><span class="co">](https://CRAN.R-project.org/package={package})</span></span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co">[</span><span class="al">![R-CMD-check](https://github.com/data-wise/{package}/actions/workflows/R-CMD-check.yaml/badge.svg)</span><span class="co">](https://github.com/data-wise/{package}/actions/workflows/R-CMD-check.yaml)</span></span>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co">[</span><span class="al">![pkgdown](https://github.com/data-wise/{package}/actions/workflows/pkgdown.yaml/badge.svg)</span><span class="co">](https://github.com/data-wise/{package}/actions/workflows/pkgdown.yaml)</span></span>
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co">[</span><span class="al">![Codecov](https://codecov.io/gh/data-wise/{package}/graph/badge.svg)</span><span class="co">](https://codecov.io/gh/data-wise/{package})</span></span>

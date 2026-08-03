@@ -233,7 +233,7 @@ Each package focuses on one methodological contribution:
 | probmed | Effect sizes | [`pmed()`](https://data-wise.github.io/probmed/reference/pmed.html) |
 | RMediation | Confidence intervals | [`ci()`](https://data-wise.github.io/rmediation/reference/ci.html), [`medci()`](https://data-wise.github.io/rmediation/reference/medci.html), [`mbco()`](https://data-wise.github.io/rmediation/reference/mbco.html) |
 | medrobust | Sensitivity | [`bound_ne()`](https://data-wise.github.io/medrobust/reference/bound_ne.html) |
-| medsim | Simulation | [`medsim_run()`](https://rdrr.io/pkg/medsim/man/medsim_run.html) |
+| medsim | Simulation | [`medsim_run()`](https://data-wise.github.io/medsim/reference/medsim_run.html) |
 
 ### Type Safety
 
