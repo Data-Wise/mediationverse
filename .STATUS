@@ -3,10 +3,10 @@ priority: P2
 progress: 92
 kind: package
 cran_state: dev
-next: ⛔ BLOCKED — cascade Phase 4 (last). Blocked on: medrobust (pending CRAN review), medsim (blocked on medrobust), probmed (blocked on medfit>=0.3.x on CRAN), RMediation (CRAN-submitted 2026-06-20, awaiting acceptance). Once all Suggests packages on CRAN: drop Remotes entries, CRAN-check, submit.
+next: ⛔ BLOCKED — cascade Phase 4 (last), still waiting on 3 of 4 deps as of 2026-07-23. Status: RMediation ✅ ACCEPTED+PUBLISHED on CRAN (1.6.1, 2026-07-21 — corrected from stale "submitted 06-20, awaiting acceptance"); medfit ✅ ACCEPTED+PUBLISHED on CRAN (0.3.2, 2026-07-23) — this just unblocked probmed's `Imports` gate, but probmed itself hasn't submitted yet (still needs Remotes drop + version bump + submit, see probmed `.STATUS`); medrobust ⏸ ON HOLD (CRAN-ready 0E/0W/1N, but submission deliberately paused pending its associated manuscript being submitted to a journal — not a technical blocker); medsim ⛔ blocked purely on medrobust's hold (medrobust itself, not CRAN review — medrobust hasn't submitted). Once probmed + medrobust + medsim are all on CRAN: drop Remotes entries here, CRAN-check, submit.
 done: 2026-06-22 — test coverage 83.1%→93.9% (sitrep.R + packages.R now 100%; cli-fallback + not-installed branches covered) via PR #12; suite is 103 tests / 0 fail (NOT the "thin 1 test_that" the old note claimed — that was stale). Removed the non-functional Gemini review bot (5 gemini-*.yml failing every PR on missing GEMINI_API_KEY) via PR #13.
 type: r
-last_updated: 2026-06-30
+last_updated: 2026-07-23
 
 ## mediationverse — Ecosystem Meta-Package
 
@@ -31,7 +31,10 @@ Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 
 ## Active worktrees
 
-(none)
+- `feature/adhd-friendly-status-dashboard` — `~/.git-worktrees/mediationverse/feature-adhd-friendly-status-dashboard`
+  (paired with atlas repo worktree at the same branch name, `~/.git-worktrees/atlas/feature-adhd-friendly-status-dashboard`).
+  ORCHESTRATE-adhd-friendly-status-dashboard.md in the mediationverse worktree root. Not started
+  (created 2026-07-23, no phases begun).
 
 ---
 

@@ -63,23 +63,32 @@ mediationverse_sitrep()
 
 ### Package Overview
 
-| Package                                                         | Status                                                                       | Build                                                                                                                                             | Website                                                                                                                              | Role                      |
-| --------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------- |
-| [**medfit**](https://Data-Wise.github.io/medfit/)               | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/Data-Wise/medfit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medfit/actions)         | [![Docs](https://github.com/Data-Wise/medfit/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medfit/)         | **Foundation**            |
-| [**probmed**](https://Data-Wise.github.io/probmed/)             | ![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)  | [![Build](https://github.com/Data-Wise/probmed/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/probmed/actions)       | [![Docs](https://github.com/Data-Wise/probmed/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/probmed/)       | Effect Size               |
-| [**RMediation**](https://cran.r-project.org/package=RMediation) | ![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)  | [![Build](https://github.com/Data-Wise/rmediation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/rmediation/actions) | [![Docs](https://github.com/Data-Wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/rmediation/) | Confidence Intervals      |
-| [**medrobust**](https://Data-Wise.github.io/medrobust/)         | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/Data-Wise/medrobust/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medrobust/actions/workflows/R-CMD-check.yaml) | [![Docs](https://github.com/Data-Wise/medrobust/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medrobust/)   | Sensitivity Analysis      |
-| [**medsim**](https://Data-Wise.github.io/medsim/)               | ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg) | [![Build](https://github.com/Data-Wise/medsim/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medsim/actions)         | [![Docs](https://github.com/Data-Wise/medsim/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medsim/)         | Simulation Infrastructure |
+> **CRAN** and **Build** columns are live badges (shields.io / GitHub Actions) — they reflect
+> real-time status and update automatically as packages are submitted, accepted, or re-checked.
+> No manual edits needed here when a package's CRAN state changes. (Deliberately using
+> `img.shields.io/cran/v/<pkg>`, not `r-pkg.org/badges/version/<pkg>` — the latter 404s with a
+> broken HTML error page, not a valid SVG, for packages not yet on CRAN.)
 
-### Development Status
+| Package                                                         | CRAN                                                                                                            | Build                                                                                                                                                       | Website                                                                                                                              | Role                      |
+| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------- |
+| [**medfit**](https://cran.r-project.org/package=medfit)         | [![CRAN](https://img.shields.io/cran/v/medfit)](https://CRAN.R-project.org/package=medfit)               | [![Build](https://github.com/Data-Wise/medfit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medfit/actions)         | [![Docs](https://github.com/Data-Wise/medfit/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medfit/)         | **Foundation**            |
+| [**probmed**](https://cran.r-project.org/package=probmed)       | [![CRAN](https://img.shields.io/cran/v/probmed)](https://CRAN.R-project.org/package=probmed)             | [![Build](https://github.com/Data-Wise/probmed/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/probmed/actions)       | [![Docs](https://github.com/Data-Wise/probmed/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/probmed/)       | Effect Size               |
+| [**RMediation**](https://cran.r-project.org/package=RMediation) | [![CRAN](https://img.shields.io/cran/v/RMediation)](https://CRAN.R-project.org/package=RMediation)       | [![Build](https://github.com/Data-Wise/rmediation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/rmediation/actions) | [![Docs](https://github.com/Data-Wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/rmediation/) | Confidence Intervals      |
+| [**medrobust**](https://cran.r-project.org/package=medrobust)   | [![CRAN](https://img.shields.io/cran/v/medrobust)](https://CRAN.R-project.org/package=medrobust)         | [![Build](https://github.com/Data-Wise/medrobust/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medrobust/actions/workflows/R-CMD-check.yaml) | [![Docs](https://github.com/Data-Wise/medrobust/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medrobust/)   | Sensitivity Analysis      |
+| [**medsim**](https://cran.r-project.org/package=medsim)         | [![CRAN](https://img.shields.io/cran/v/medsim)](https://CRAN.R-project.org/package=medsim)               | [![Build](https://github.com/Data-Wise/medsim/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medsim/actions)         | [![Docs](https://github.com/Data-Wise/medsim/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medsim/)         | Simulation Infrastructure |
 
-| Package    | Status       | Next Milestone                          |
-| ---------- | ------------ | --------------------------------------- |
-| medfit     | Stable/CRAN  | Phase 5 — serial mediation              |
-| probmed    | Stable       | CRAN submission                         |
-| RMediation | Stable/CRAN  | Maintenance only                        |
-| medrobust  | Experimental | Complete partial ID bounds              |
-| medsim     | Experimental | HPC integration                         |
+### Roadmap
+
+> Next-milestone text below is curated roadmap intent (not derivable from a badge) — package
+> maturity/CRAN state now lives entirely in the live badges above, not duplicated here.
+
+| Package    | Next Milestone                          |
+| ---------- | ---------------------------------------- |
+| medfit     | Phase 5 — serial mediation                |
+| probmed    | Drop `Remotes` pin, submit to CRAN        |
+| RMediation | Maintenance only                          |
+| medrobust  | On hold — pending associated manuscript submission, then CRAN |
+| medsim     | Blocked on medrobust CRAN acceptance, then CRAN |
 
 ## Package Ecosystem
 
