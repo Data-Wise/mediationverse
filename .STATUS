@@ -73,6 +73,7 @@ Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 - DESCRIPTION's `Description:` field trimmed to match (Suggests/Remotes untouched — real dependency declarations, not public discussion) ✓
 - PR #19 (dev → main) merged, all 9 CI checks green ✓
 - Filed Data-Wise/rmediation#26 asking its README/pkgdown to link to the mediation-apps Shiny front end ✓
+- SPEC-shiny-apps-location-2026-08-03.md marked done, pointed to shipped state (mediation-apps now fully built out) ✓
 
 ## Next
 
