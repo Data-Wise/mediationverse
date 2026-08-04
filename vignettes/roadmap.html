@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -39,10 +42,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1e273511d09b17b40736144097ac5380.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-5c523d0c34c0ff0a560572695705ff8b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -138,6 +141,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../vignettes/contributing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Contributing to mediationverse</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vignettes/ecosystem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The mediationverse Ecosystem</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -250,15 +259,7 @@ ul.task-list li input[type="checkbox"] {
 </blockquote>
 <section id="what-the-ecosystem-is" class="level2">
 <h2 class="anchored" data-anchor-id="what-the-ecosystem-is">What the ecosystem is</h2>
-<p>The mediationverse builds outward from a shared foundation — <strong>medfit</strong> (S7 data classes, model extraction, fitting, and bootstrap inference) — that the analysis packages build on:</p>
-<ul>
-<li><strong>probmed</strong> — P_med effect size</li>
-<li><strong>RMediation</strong> — confidence intervals (DOP / MBCO / Monte Carlo)</li>
-<li><strong>medrobust</strong> — sensitivity analysis</li>
-<li><strong>medsim</strong> — simulation infrastructure</li>
-<li><strong>missingmed</strong> — missing-data mediation (multiple imputation + IPW)</li>
-</ul>
-<p>The <strong>mediationverse</strong> meta-package ties them together with selective loading.</p>
+<p>See the <a href="ecosystem.html">Ecosystem</a> article for the package map, roles, and status — not duplicated here.</p>
 </section>
 <section id="direction-high-level" class="level2">
 <h2 class="anchored" data-anchor-id="direction-high-level">Direction (high level)</h2>
@@ -282,11 +283,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="see-also" class="level2">
 <h2 class="anchored" data-anchor-id="see-also">See also</h2>
 <ul>
-<li><a href="https://data-wise.github.io/medfit/">medfit</a> — foundation</li>
-<li><a href="https://data-wise.github.io/probmed/">probmed</a> — P_med effect size</li>
-<li><a href="https://data-wise.github.io/rmediation/">RMediation</a> — confidence intervals (CRAN)</li>
-<li><a href="https://data-wise.github.io/medrobust/">medrobust</a> — sensitivity analysis</li>
-<li><a href="https://data-wise.github.io/medsim/">medsim</a> — simulation infrastructure</li>
+<li><a href="ecosystem.html">Ecosystem</a> — package map, roles, websites</li>
 </ul>
 </section>
 <section id="feedback" class="level2">
