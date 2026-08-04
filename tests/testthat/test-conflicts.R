@@ -43,3 +43,86 @@ test_that("mediationverse_conflicts(only_loaded = FALSE) returns correct structu
     }
   }
 })
+
+## ---- detection + print branches (mocked exports; deterministic) -------------
+## The real conflict-detection loop only fires when >= 2 ecosystem packages share
+## an exported name. Rather than depend on which packages happen to be installed,
+## mock `getNamespaceExports` so two core packages share a function name.
+
+test_that("conflict detection finds a shared export and builds the data frame", {
+  local_mocked_bindings(
+    requireNamespace = function(package, ...) TRUE,  # all core pkgs "installed"
+    getNamespaceExports = function(ns) {
+      switch(ns,
+        medfit  = c("extract_mediation", "fit_only_medfit"),
+        probmed = c("extract_mediation", "pmed"),
+        character(0)
+      )
+    },
+    .package = "base"
+  )
+  res <- mediationverse_conflicts(only_loaded = FALSE)
+  expect_s3_class(res, "mediationverse_conflicts")
+  expect_true("extract_mediation" %in% res$function_name)
+  row <- res[res$function_name == "extract_mediation", ]
+  expect_match(row$packages, "medfit", fixed = TRUE)
+  expect_match(row$packages, "probmed", fixed = TRUE)
+  # winner is one of the conflicting packages
+  expect_true(row$winner %in% strsplit(row$packages, ", ")[[1]])
+})
+
+test_that("no conflicts among >= 2 packages reports success and returns empty frame", {
+  local_mocked_bindings(
+    requireNamespace = function(package, ...) TRUE,
+    getNamespaceExports = function(ns) {
+      switch(ns,
+        medfit  = "fit_only_medfit",
+        probmed = "pmed_only",
+        character(0)
+      )
+    },
+    .package = "base"
+  )
+  res <- mediationverse_conflicts(only_loaded = FALSE)
+  expect_s3_class(res, "data.frame")
+  expect_equal(nrow(res), 0L)
+})
+
+test_that("<2 packages path falls back to message() when cli is unavailable", {
+  local_mocked_bindings(
+    requireNamespace = function(package, ...) FALSE,  # cli "missing"; core not installed
+    .package = "base"
+  )
+  expect_message(
+    mediationverse_conflicts(only_loaded = FALSE),
+    "fewer than 2"
+  )
+})
+
+test_that("print.mediationverse_conflicts() renders a non-empty conflict table", {
+  # cli writes outside capture.output()'s stdout sink, so assert behaviour here
+  # (the cli branch still executes); the non-cli test below asserts the text.
+  df <- data.frame(
+    function_name = "extract_mediation",
+    packages = "medfit, probmed",
+    winner = "probmed",
+    stringsAsFactors = FALSE
+  )
+  class(df) <- c("mediationverse_conflicts", "data.frame")
+  expect_no_error(print(df))
+  expect_invisible(print(df))
+})
+
+test_that("print.mediationverse_conflicts() non-empty branch works without cli", {
+  df <- data.frame(
+    function_name = "extract_mediation",
+    packages = "medfit, probmed",
+    winner = "probmed",
+    stringsAsFactors = FALSE
+  )
+  class(df) <- c("mediationverse_conflicts", "data.frame")
+  local_mocked_bindings(requireNamespace = function(package, ...) FALSE, .package = "base")
+  out <- capture.output(print(df))
+  expect_true(any(grepl("extract_mediation", out)))
+  expect_true(any(grepl("conflict", out)))
+})

@@ -36,3 +36,39 @@ test_that("mediationverse_sitrep() returns invisibly and prints without error", 
   expect_invisible(mediationverse_sitrep())
   expect_no_error(mediationverse_sitrep())
 })
+
+test_that("mediationverse_sitrep() falls back to plain cat without cli", {
+  skip_if_not_installed("cli")
+  real_require <- base::requireNamespace  # capture before mocking to avoid recursion
+  testthat::local_mocked_bindings(
+    requireNamespace = function(package, ...) {
+      if (identical(package, "cli")) FALSE else real_require(package, ...)
+    },
+    .package = "base"
+  )
+
+  out <- capture.output(result <- mediationverse_sitrep())
+  expect_true(any(grepl("mediationverse situation report", out)))
+  expect_true(any(grepl("Core packages:", out)))
+  expect_true(any(grepl("CRAN status:", out)))
+  # Structure of the returned data frame is unchanged in the fallback path.
+  expect_s3_class(result, "data.frame")
+  expect_named(result, c("package", "installed", "version", "source"))
+})
+
+test_that("mediationverse_sitrep() prints an install hint for a missing core package", {
+  skip_if_not_installed("cli")
+  # Keep cli so the cli branch runs, but force every core package to look
+  # uninstalled so the per-package "not installed" + install-hint branch fires.
+  real_require <- base::requireNamespace  # capture before mocking to avoid recursion
+  testthat::local_mocked_bindings(
+    requireNamespace = function(package, ...) {
+      if (identical(package, "cli")) real_require(package, ...) else FALSE
+    },
+    .package = "base"
+  )
+
+  expect_no_error(result <- mediationverse_sitrep())
+  expect_true(all(!result$installed))
+  expect_true(all(is.na(result$version)))
+})

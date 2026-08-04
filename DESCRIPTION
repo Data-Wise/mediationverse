@@ -8,9 +8,8 @@ Authors@R: person("Davood", "Tofighi",
     comment = c(ORCID = "0000-0001-8523-7776"))
 Maintainer: Davood Tofighi <dtofighi@gmail.com>
 Description: A meta-package that loads the core packages in the mediation
-    analysis ecosystem: 'medfit' (infrastructure), 'probmed' (probabilistic
-    effect sizes), 'RMediation' (confidence intervals), and 'medrobust'
-    (sensitivity analysis). This package simplifies installation and provides
+    analysis ecosystem: 'medfit' (infrastructure) and 'RMediation'
+    (confidence intervals). This package simplifies installation and provides
     a unified entry point for mediation analysis in R. Inspired by the
     'tidyverse' and 'easystats' ecosystems.
 License: GPL (>= 3)
@@ -22,7 +21,6 @@ Imports:
     cli,
     medfit (>= 0.2.0)
 Remotes:
-    Data-Wise/medfit,
     Data-Wise/medsim,
     Data-Wise/medrobust,
     Data-Wise/probmed

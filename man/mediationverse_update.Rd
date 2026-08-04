@@ -27,7 +27,7 @@ falls back to \code{remotes::install_github()} for GitHub packages and
 Package sources:
 \itemize{
 \item \strong{mediationverse}: GitHub (data-wise/mediationverse)
-\item \strong{medfit}: CRAN
+\item \strong{medfit}: GitHub (data-wise/medfit) — CRAN 0.2.1 is behind; the ecosystem needs >= 0.3.0
 \item \strong{probmed}: GitHub (data-wise/probmed)
 \item \strong{RMediation}: CRAN
 \item \strong{medrobust}: GitHub (data-wise/medrobust)
