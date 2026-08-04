@@ -72,3 +72,21 @@ Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 1. **CRAN path for medsim / medrobust / probmed** — unblocks dropping their `Remotes:` entries and submitting mediationverse itself to CRAN.
 2. **Test coverage** — currently 1 `test_that`; expand before CRAN.
 3. **mediationverse_sitrep()** — add situation report function (see BRAINSTORM-tidyverse-functions-2026-06-19.md).
+
+## Ecosystem roadmap (moved out of public README.md, 2026-08-04)
+
+README.md now documents only CRAN-published packages (medfit, RMediation).
+Full ecosystem roadmap, preserved here for internal tracking:
+
+| Package    | CRAN status | Next milestone |
+| ---------- | ----------- | --------------- |
+| medfit     | Published   | Phase 5 — serial mediation |
+| RMediation | Published   | Maintenance only |
+| probmed    | Not on CRAN | Drop `Remotes` pin, submit to CRAN |
+| medrobust  | Not on CRAN | On hold — pending associated manuscript submission, then CRAN |
+| medsim     | Not on CRAN | Blocked on medrobust CRAN acceptance, then CRAN |
+
+Architecture (full 4-package layer diagram, data-flow diagram, and
+per-package cards for probmed/medrobust/medsim) removed from README.md —
+see git history (`git log -p -- README.md` around 2026-08-04) to recover
+verbatim if needed.
