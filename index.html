@@ -110,10 +110,7 @@
 <p>The <strong>mediationverse</strong> is a collection of R packages for mediation analysis, providing a unified ecosystem for:</p>
 <ul>
 <li>🔧 Model fitting and extraction</li>
-<li>📊 Effect size computation</li>
 <li>📈 Confidence interval estimation</li>
-<li>🛡️ Sensitivity analysis</li>
-<li>🔬 Simulation studies</li>
 </ul>
 </div>
 <div class="section level2">
@@ -125,9 +122,7 @@
 <span></span>
 <span><span class="co"># Load foundation package + packages you need</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://Data-Wise.github.io/mediationverse/">mediationverse</a></span><span class="op">)</span>  <span class="co"># Loads medfit (foundation)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/probmed/" class="external-link">probmed</a></span><span class="op">)</span>         <span class="co"># For P_med effect size</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/rmediation/" class="external-link">RMediation</a></span><span class="op">)</span>      <span class="co"># For confidence intervals</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/data-wise/medrobust" class="external-link">medrobust</a></span><span class="op">)</span>       <span class="co"># For sensitivity analysis</span></span>
 <span></span>
 <span><span class="co"># Fit mediation models</span></span>
 <span><span class="va">fit_m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">M</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">C</span>, data <span class="op">=</span> <span class="va">mydata</span><span class="op">)</span></span>
@@ -135,14 +130,8 @@
 <span><span class="va">med_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/medfit/reference/extract_mediation.html" class="external-link">extract_mediation</a></span><span class="op">(</span><span class="va">fit_m</span>, model_y <span class="op">=</span> <span class="va">fit_y</span>,</span>
 <span>                               treatment <span class="op">=</span> <span class="st">"X"</span>, mediator <span class="op">=</span> <span class="st">"M"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Get P_med effect size, confidence intervals, and sensitivity analysis</span></span>
-<span><span class="va">pmed_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/probmed/reference/pmed.html" class="external-link">pmed</a></span><span class="op">(</span><span class="va">med_data</span><span class="op">)</span></span>
-<span><span class="va">ci_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/rmediation/reference/ci.html" class="external-link">ci</a></span><span class="op">(</span><span class="va">med_data</span>, type <span class="op">=</span> <span class="st">"dop"</span><span class="op">)</span></span>
-<span><span class="co"># medrobust takes the raw data frame + a misclassification sensitivity region</span></span>
-<span><span class="va">sensitivity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/medrobust/reference/bound_ne.html" class="external-link">bound_ne</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">mydata</span>, exposure <span class="op">=</span> <span class="st">"X"</span>, mediator <span class="op">=</span> <span class="st">"M"</span>, outcome <span class="op">=</span> <span class="st">"Y"</span>,</span>
-<span>  sensitivity_region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sn0_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.80</span>, <span class="fl">0.90</span><span class="op">)</span>, sp0_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.80</span>, <span class="fl">0.90</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Get confidence intervals</span></span>
+<span><span class="va">ci_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/rmediation/reference/ci.html" class="external-link">ci</a></span><span class="op">(</span><span class="va">med_data</span>, type <span class="op">=</span> <span class="st">"dop"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="verify-your-installation">Verify your installation<a class="anchor" aria-label="anchor" href="#verify-your-installation"></a>
 </h3>
@@ -188,71 +177,11 @@
 <td><strong>Foundation</strong></td>
 </tr>
 <tr>
-<td><a href="https://cran.r-project.org/package=probmed" class="external-link"><strong>probmed</strong></a></td>
-<td><a href="https://CRAN.R-project.org/package=probmed" class="external-link"><img src="https://img.shields.io/cran/v/probmed" alt="CRAN"></a></td>
-<td><a href="https://github.com/Data-Wise/probmed/actions" class="external-link"><img src="https://github.com/Data-Wise/probmed/actions/workflows/R-CMD-check.yaml/badge.svg" alt="Build"></a></td>
-<td><a href="https://Data-Wise.github.io/probmed/" class="external-link"><img src="https://github.com/Data-Wise/probmed/actions/workflows/pkgdown.yaml/badge.svg" alt="Docs"></a></td>
-<td>Effect Size</td>
-</tr>
-<tr>
 <td><a href="https://cran.r-project.org/package=RMediation" class="external-link"><strong>RMediation</strong></a></td>
 <td><a href="https://CRAN.R-project.org/package=RMediation" class="external-link"><img src="https://img.shields.io/cran/v/RMediation" alt="CRAN"></a></td>
 <td><a href="https://github.com/Data-Wise/rmediation/actions" class="external-link"><img src="https://github.com/Data-Wise/rmediation/actions/workflows/R-CMD-check.yaml/badge.svg" alt="Build"></a></td>
 <td><a href="https://Data-Wise.github.io/rmediation/" class="external-link"><img src="https://github.com/Data-Wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg" alt="Docs"></a></td>
 <td>Confidence Intervals</td>
-</tr>
-<tr>
-<td><a href="https://cran.r-project.org/package=medrobust" class="external-link"><strong>medrobust</strong></a></td>
-<td><a href="https://CRAN.R-project.org/package=medrobust" class="external-link"><img src="https://img.shields.io/cran/v/medrobust" alt="CRAN"></a></td>
-<td><a href="https://github.com/Data-Wise/medrobust/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/Data-Wise/medrobust/actions/workflows/R-CMD-check.yaml/badge.svg" alt="Build"></a></td>
-<td><a href="https://Data-Wise.github.io/medrobust/" class="external-link"><img src="https://github.com/Data-Wise/medrobust/actions/workflows/pkgdown.yaml/badge.svg" alt="Docs"></a></td>
-<td>Sensitivity Analysis</td>
-</tr>
-<tr>
-<td><a href="https://cran.r-project.org/package=medsim" class="external-link"><strong>medsim</strong></a></td>
-<td><a href="https://CRAN.R-project.org/package=medsim" class="external-link"><img src="https://img.shields.io/cran/v/medsim" alt="CRAN"></a></td>
-<td><a href="https://github.com/Data-Wise/medsim/actions" class="external-link"><img src="https://github.com/Data-Wise/medsim/actions/workflows/R-CMD-check.yaml/badge.svg" alt="Build"></a></td>
-<td><a href="https://Data-Wise.github.io/medsim/" class="external-link"><img src="https://github.com/Data-Wise/medsim/actions/workflows/pkgdown.yaml/badge.svg" alt="Docs"></a></td>
-<td>Simulation Infrastructure</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section level3">
-<h3 id="roadmap">Roadmap<a class="anchor" aria-label="anchor" href="#roadmap"></a>
-</h3>
-<blockquote>
-<p>Next-milestone text below is curated roadmap intent (not derivable from a badge) — package maturity/CRAN state now lives entirely in the live badges above, not duplicated here.</p>
-</blockquote>
-<table class="table">
-<colgroup>
-<col width="20%">
-<col width="80%">
-</colgroup>
-<thead><tr>
-<th>Package</th>
-<th>Next Milestone</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>medfit</td>
-<td>Phase 5 — serial mediation</td>
-</tr>
-<tr>
-<td>probmed</td>
-<td>Drop <code>Remotes</code> pin, submit to CRAN</td>
-</tr>
-<tr>
-<td>RMediation</td>
-<td>Maintenance only</td>
-</tr>
-<tr>
-<td>medrobust</td>
-<td>On hold — pending associated manuscript submission, then CRAN</td>
-</tr>
-<tr>
-<td>medsim</td>
-<td>Blocked on medrobust CRAN acceptance, then CRAN</td>
 </tr>
 </tbody>
 </table>
@@ -262,58 +191,6 @@
 <h2 id="package-ecosystem">Package Ecosystem<a class="anchor" aria-label="anchor" href="#package-ecosystem"></a>
 </h2>
 <p>The mediationverse follows a <strong>modular architecture</strong> with <strong>selective loading</strong> inspired by <a href="https://www.tidyverse.org/" class="external-link">tidyverse</a> and <a href="https://easystats.github.io/easystats/" class="external-link">easystats</a>:</p>
-<div class="section level3">
-<h3 id="architecture-diagram">Architecture Diagram<a class="anchor" aria-label="anchor" href="#architecture-diagram"></a>
-</h3>
-<pre><code>┌──────────────────────────────────────────────────────────────────────┐
-│                        mediationverse                                │
-│                      (Meta-Package Loader)                           │
-│                                                                      │
-│  library(mediationverse)  →  Loads only medfit (foundation)         │
-│  library(probmed)         →  Explicit loading for effect sizes       │
-│  library(RMediation)      →  Explicit loading for CIs                │
-│  library(medrobust)       →  Explicit loading for sensitivity        │
-│  library(medsim)          →  Explicit loading for simulation         │
-└──────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    │ Always loads
-                                    ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│                            FOUNDATION LAYER                          │
-│  ┌────────────────────────────────────────────────────────────┐     │
-│  │                         medfit                             │     │
-│  │  • S7 classes (MediationData, SerialMediationData)         │     │
-│  │  • extract_mediation() - Extract from lm/glm/lavaan        │     │
-│  │  • fit_mediation() - Formula interface                     │     │
-│  │  • bootstrap_mediation() - Bootstrap inference             │     │
-│  └────────────────────────────────────────────────────────────┘     │
-└──────────────────────────────────────────────────────────────────────┘
-                                    │
-                    ┌───────────────┼───────────────┐
-                    │               │               │
-                    ▼               ▼               ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│                      SPECIALIZED PACKAGES LAYER                      │
-├────────────────┬─────────────────┬────────────────┬─────────────────┤
-│   probmed      │  RMediation     │  medrobust     │    medsim       │
-│ ┌────────────┐ │ ┌─────────────┐ │ ┌────────────┐ │ ┌─────────────┐ │
-│ │ Effect     │ │ │ Confidence  │ │ │Sensitivity │ │ │ Simulation  │ │
-│ │ Sizes      │ │ │ Intervals   │ │ │ Analysis   │ │ │Infrastructure│ │
-│ ├────────────┤ │ ├─────────────┤ │ ├────────────┤ │ ├─────────────┤ │
-│ │• P_med     │ │ │• DOP        │ │ │• Bounds    │ │ │• Data gen   │ │
-│ │• Scale-free│ │ │• Monte Carlo│ │ │• Falsify   │ │ │• Parallel   │ │
-│ │• Continuous│ │ │• MBCO       │ │ │• Partial ID│ │ │• Caching    │ │
-│ │• Binary    │ │ │• Asymmetric │ │ │• Plots     │ │ │• Tables     │ │
-│ └────────────┘ │ └─────────────┘ │ └────────────┘ │ └─────────────┘ │
-└────────────────┴─────────────────┴────────────────┴─────────────────┘
-                                    │
-                                    │ All packages use
-                                    ▼
-                        ┌─────────────────────┐
-                        │  MediationData (S7) │
-                        │  Unified Interface  │
-                        └─────────────────────┘</code></pre>
-</div>
 <div class="section level3">
 <h3 id="data-flow">Data Flow<a class="anchor" aria-label="anchor" href="#data-flow"></a>
 </h3>
@@ -325,18 +202,16 @@ fit_mediation() or lm()/glm()/lavaan::sem()
    ▼
 extract_mediation()  ──────►  MediationData object
    │                                  │
-   │                                  │
-   ├──────────────┬──────────────┬────┴────────────┐
-   │              │              │                 │
-   ▼              ▼              ▼                 ▼
-probmed::     RMediation::   medrobust::      medfit::
-pmed()        medci()        bound_ne()       bootstrap_mediation()
-   │              │              │                 │
-   │              │              │                 │
-   └──────────────┴──────────────┴─────────────────┘
-                        │
-                        ▼
-                Results &amp; Inference</code></pre>
+   ├──────────────┬───────────────────┘
+   │              │
+   ▼              ▼
+RMediation::   medfit::
+medci()        bootstrap_mediation()
+   │              │
+   └──────────────┘
+          │
+          ▼
+  Results &amp; Inference</code></pre>
 </div>
 <div class="section level3">
 <h3 id="core-packages">Core Packages<a class="anchor" aria-label="anchor" href="#core-packages"></a>
@@ -348,28 +223,10 @@ pmed()        medci()        bound_ne()       bootstrap_mediation()
 <p><strong>Links</strong>: <a href="https://data-wise.github.io/medfit/" class="external-link">Website</a> | <a href="https://github.com/data-wise/medfit" class="external-link">GitHub</a> | <a href="https://github.com/data-wise/medfit/issues" class="external-link">Issues</a></p>
 </div>
 <div class="section level4">
-<h4 id="probmed-probabilistic-effect-sizes">probmed: Probabilistic Effect Sizes<a class="anchor" aria-label="anchor" href="#probmed-probabilistic-effect-sizes"></a>
-</h4>
-<p><strong>Purpose</strong>: Compute P_med, a scale-free probabilistic effect size <strong>Status</strong>: Stable, ready for integration <strong>Provides</strong>: - P_med computation for continuous and binary outcomes - GLM support (logistic, Poisson) - Integration with lavaan and mediation packages - Bootstrap confidence intervals</p>
-<p><strong>Links</strong>: <a href="https://data-wise.github.io/probmed/" class="external-link">Website</a> | <a href="https://github.com/data-wise/probmed" class="external-link">GitHub</a> | <a href="https://github.com/data-wise/probmed/issues" class="external-link">Issues</a></p>
-</div>
-<div class="section level4">
 <h4 id="rmediation-confidence-intervals">RMediation: Confidence Intervals<a class="anchor" aria-label="anchor" href="#rmediation-confidence-intervals"></a>
 </h4>
 <p><strong>Purpose</strong>: Asymmetric confidence intervals via Distribution of Product <strong>Status</strong>: Stable on CRAN <strong>Provides</strong>: - Distribution of Product (DOP) method - Monte Carlo (MC) confidence intervals - MBCO bootstrap method - Integration with standard R models</p>
 <p><strong>Links</strong>: <a href="https://cran.r-project.org/package=RMediation" class="external-link">CRAN</a> | <a href="https://data-wise.github.io/rmediation/" class="external-link">Website</a> | <a href="https://github.com/data-wise/rmediation" class="external-link">GitHub</a></p>
-</div>
-<div class="section level4">
-<h4 id="medrobust-sensitivity-analysis">medrobust: Sensitivity Analysis<a class="anchor" aria-label="anchor" href="#medrobust-sensitivity-analysis"></a>
-</h4>
-<p><strong>Purpose</strong>: Partial identification under differential misclassification <strong>Status</strong>: In development <strong>Provides</strong>: - Partial identification bounds for NDE/NIE - Data-driven falsification tests - Synthetic data generation - Publication-ready visualizations</p>
-<p><strong>Links</strong>: <a href="https://data-wise.github.io/medrobust/" class="external-link">Website</a> | <a href="https://github.com/data-wise/medrobust" class="external-link">GitHub</a> | <a href="https://github.com/data-wise/medrobust/issues" class="external-link">Issues</a></p>
-</div>
-<div class="section level4">
-<h4 id="medsim-simulation-infrastructure">medsim: Simulation Infrastructure<a class="anchor" aria-label="anchor" href="#medsim-simulation-infrastructure"></a>
-</h4>
-<p><strong>Purpose</strong>: Standardized infrastructure for Monte Carlo studies <strong>Status</strong>: Core implementation complete <strong>Provides</strong>: - Environment-aware execution (local/HPC) - Parallel processing with progress bars - Ground truth caching - Publication-ready figures and LaTeX tables</p>
-<p><strong>Links</strong>: <a href="https://data-wise.github.io/medsim/" class="external-link">Website</a> | <a href="https://github.com/data-wise/medsim" class="external-link">GitHub</a> | <a href="https://github.com/data-wise/medsim/issues" class="external-link">Issues</a></p>
 </div>
 </div>
 </div>
@@ -380,7 +237,7 @@ pmed()        medci()        bound_ne()       bootstrap_mediation()
 <h3 id="from-r-universe-recommended">From r-universe (recommended)<a class="anchor" aria-label="anchor" href="#from-r-universe-recommended"></a>
 </h3>
 <p>The whole ecosystem is available as pre-built binaries at the <a href="https://data-wise.r-universe.dev/mediationverse" class="external-link">Data-Wise r-universe</a> — no compiler needed, and GitHub-only packages resolve automatically:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span></span>
 <span>  <span class="st">"mediationverse"</span>,</span>
 <span>  repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://data-wise.r-universe.dev"</span>, <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span></span>
@@ -389,19 +246,14 @@ pmed()        medci()        bound_ne()       bootstrap_mediation()
 <div class="section level3">
 <h3 id="from-github-development">From GitHub (development)<a class="anchor" aria-label="anchor" href="#from-github-development"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install via pak (handles CRAN + GitHub deps automatically)</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"Data-Wise/mediationverse"</span><span class="op">)</span></span></code></pre></div>
-<blockquote>
-<p><strong>Note:</strong> <code>probmed</code>, <code>medrobust</code>, and <code>medsim</code> are not on CRAN yet. Install them individually as needed:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Data-Wise/probmed"</span>, <span class="st">"Data-Wise/medrobust"</span>, <span class="st">"Data-Wise/medsim"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-</blockquote>
 </div>
 <div class="section level3">
 <h3 id="from-cran-future">From CRAN (future)<a class="anchor" aria-label="anchor" href="#from-cran-future"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Planned — once mediationverse itself is submitted to CRAN</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"mediationverse"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -413,27 +265,21 @@ pmed()        medci()        bound_ne()       bootstrap_mediation()
 <h3 id="loading-packages">Loading Packages<a class="anchor" aria-label="anchor" href="#loading-packages"></a>
 </h3>
 <p>The mediationverse uses <strong>selective loading</strong>: only the foundation package (<code>medfit</code>) is loaded by default. Load other packages as needed for your analysis.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://Data-Wise.github.io/mediationverse/">mediationverse</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; ── Attaching mediationverse 0.0.0.9000 ──</span></span>
 <span><span class="co">#&gt; ✔ medfit 0.2.1 (foundation package)</span></span>
-<span><span class="co">#&gt; ℹ Use library(probmed) for P_med effect size</span></span>
 <span><span class="co">#&gt; ℹ Use library(RMediation) for DOP/MBCO inference</span></span>
-<span><span class="co">#&gt; ℹ Use library(medrobust) for sensitivity analysis</span></span>
-<span><span class="co">#&gt; ℹ Use library(medsim) for simulation utilities</span></span>
 <span><span class="co">#&gt; ──────────────────────────────────────────────────────</span></span>
 <span></span>
 <span><span class="co"># Load additional packages as needed</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/probmed/" class="external-link">probmed</a></span><span class="op">)</span>      <span class="co"># For probabilistic effect sizes</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/rmediation/" class="external-link">RMediation</a></span><span class="op">)</span>   <span class="co"># For confidence intervals</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/data-wise/medrobust" class="external-link">medrobust</a></span><span class="op">)</span>    <span class="co"># For sensitivity analysis</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/medsim/" class="external-link">medsim</a></span><span class="op">)</span>       <span class="co"># For simulation studies</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/rmediation/" class="external-link">RMediation</a></span><span class="op">)</span>   <span class="co"># For confidence intervals</span></span></code></pre></div>
 <p><strong>Why selective loading?</strong> - Clean namespace (avoids function conflicts) - Only load what you need for your analysis - <code>medfit</code> is always available (foundation for all packages)</p>
 </div>
 <div class="section level3">
 <h3 id="package-management">Package Management<a class="anchor" aria-label="anchor" href="#package-management"></a>
 </h3>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># List installed packages and versions</span></span>
 <span><span class="fu"><a href="reference/mediationverse_packages.html">mediationverse_packages</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -446,12 +292,10 @@ pmed()        medci()        bound_ne()       bootstrap_mediation()
 <div class="section level3">
 <h3 id="complete-analysis-workflow">Complete Analysis Workflow<a class="anchor" aria-label="anchor" href="#complete-analysis-workflow"></a>
 </h3>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load foundation and packages you need</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://Data-Wise.github.io/mediationverse/">mediationverse</a></span><span class="op">)</span>  <span class="co"># Loads medfit (foundation)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/probmed/" class="external-link">probmed</a></span><span class="op">)</span>         <span class="co"># For P_med effect size</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/rmediation/" class="external-link">RMediation</a></span><span class="op">)</span>      <span class="co"># For confidence intervals</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/data-wise/medrobust" class="external-link">medrobust</a></span><span class="op">)</span>       <span class="co"># For sensitivity analysis</span></span>
 <span></span>
 <span><span class="co"># 1. Fit mediation models (medfit - already loaded)</span></span>
 <span><span class="va">fit_m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">M</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">C</span>, data <span class="op">=</span> <span class="va">mydata</span><span class="op">)</span></span>
@@ -464,26 +308,8 @@ pmed()        medci()        bound_ne()       bootstrap_mediation()
 <span><span class="co"># 3. Bootstrap inference (medfit)</span></span>
 <span><span class="va">boot_result</span> <span class="op">&lt;-</span> <span class="fu">bootstrap_mediation</span><span class="op">(</span><span class="va">med_data</span>, n_boot <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># 4. Compute probabilistic effect size (probmed)</span></span>
-<span><span class="va">pmed_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/probmed/reference/pmed.html" class="external-link">pmed</a></span><span class="op">(</span><span class="va">med_data</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># 5. Get confidence intervals (RMediation)</span></span>
-<span><span class="va">ci_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/rmediation/reference/ci.html" class="external-link">ci</a></span><span class="op">(</span><span class="va">med_data</span>, type <span class="op">=</span> <span class="st">"dop"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># 6. Sensitivity analysis (medrobust)</span></span>
-<span><span class="co"># medrobust operates on the raw data frame + a misclassification sensitivity region</span></span>
-<span><span class="va">robust_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/medrobust/reference/bound_ne.html" class="external-link">bound_ne</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">mydata</span>, exposure <span class="op">=</span> <span class="st">"X"</span>, mediator <span class="op">=</span> <span class="st">"M"</span>, outcome <span class="op">=</span> <span class="st">"Y"</span>,</span>
-<span>  sensitivity_region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sn0_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.80</span>, <span class="fl">0.90</span><span class="op">)</span>, sp0_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.80</span>, <span class="fl">0.90</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># 7. Run simulation study (medsim - load if needed)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/medsim/" class="external-link">medsim</a></span><span class="op">)</span></span>
-<span><span class="va">sim_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/medsim/reference/medsim_run.html" class="external-link">medsim_run</a></span><span class="op">(</span></span>
-<span>  method <span class="op">=</span> <span class="va">my_method</span>,</span>
-<span>  scenarios <span class="op">=</span> <span class="fu"><a href="https://data-wise.github.io/medsim/reference/medsim_scenarios_mediation.html" class="external-link">medsim_scenarios_mediation</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  config <span class="op">=</span> <span class="fu"><a href="https://data-wise.github.io/medsim/reference/medsim_config.html" class="external-link">medsim_config</a></span><span class="op">(</span><span class="st">"local"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># 4. Get confidence intervals (RMediation)</span></span>
+<span><span class="va">ci_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://data-wise.github.io/rmediation/reference/ci.html" class="external-link">ci</a></span><span class="op">(</span><span class="va">med_data</span>, type <span class="op">=</span> <span class="st">"dop"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -533,10 +359,7 @@ pmed()        medci()        bound_ne()       bootstrap_mediation()
 </h3>
 <ul>
 <li><a href="https://data-wise.github.io/medfit/" class="external-link">medfit Documentation</a></li>
-<li><a href="https://data-wise.github.io/probmed/" class="external-link">probmed Documentation</a></li>
 <li><a href="https://data-wise.github.io/rmediation/" class="external-link">RMediation Documentation</a></li>
-<li><a href="https://data-wise.github.io/medrobust/" class="external-link">medrobust Documentation</a></li>
-<li><a href="https://data-wise.github.io/medsim/" class="external-link">medsim Documentation</a></li>
 </ul>
 </div>
 </div>
@@ -563,8 +386,9 @@ pmed()        medci()        bound_ne()       bootstrap_mediation()
 <pre><code>Tofighi, D. (2025). medfit: Infrastructure for mediation analysis in R.
 R package version 0.2.1. https://CRAN.R-project.org/package=medfit
 
-Tofighi, D. (2025). probmed: Probabilistic effect sizes for mediation analysis.
-R package version 0.0.0.9000. https://github.com/data-wise/probmed</code></pre>
+Tofighi, D., &amp; MacKinnon, D. P. (2011). RMediation: An R package for
+mediation analysis confidence intervals. Behavior Research Methods, 43,
+692-700. https://CRAN.R-project.org/package=RMediation</code></pre>
 <p>Full citations available via <code>citation("packagename")</code>.</p>
 </div>
 <div class="section level2">
