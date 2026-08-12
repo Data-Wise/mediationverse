@@ -67,6 +67,14 @@ Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 - r-universe: binary install recommended in README; sidebar link added ✓
 - Install section reordered: r-universe → GitHub → CRAN (future) ✓
 
+## Completed (2026-08-12)
+
+- Fixed stale `0.0.0.9000` version references in README.md (example console
+  output) and here in `.STATUS` — DESCRIPTION was bumped to 0.1.0 on
+  2026-06-21 but these two never caught up ✓
+- PR #20 (dev → main, docs-only, merge commit `6dc7f21`) merged — closes the
+  4-commit gap that had accumulated since PR #19 ✓
+
 ## Completed (2026-08-04)
 
 - README.md scrubbed to CRAN-published packages only (medfit, RMediation) — quick start, architecture diagram, package cards, roadmap table, doc links, citation for probmed/medrobust/medsim removed from public view; full detail preserved below ✓
