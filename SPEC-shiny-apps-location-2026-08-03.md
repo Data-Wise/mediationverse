@@ -1,7 +1,11 @@
 # SPEC: Shiny Apps Location & Deploy Structure
 
 **Date**: 2026-08-03
-**Status**: repo created and scaffolded — `main` + `dev` live, protected
+**Status**: done — `mediation-apps` fully built out. Both apps (medci,
+medmc) live on Connect Cloud; GitHub Pages front door
+(data-wise.github.io/mediation-apps) live with per-app container pages
+and real screenshots (2026-08-04). See `mediation-apps/.STATUS` for
+ongoing state; this SPEC is historical record of the location decision.
 **Repo name**: `mediation-apps` (confirmed) — https://github.com/Data-Wise/mediation-apps
 **Chain**: [BRAINSTORM-shiny-apps-location-2026-08-03.md](BRAINSTORM-shiny-apps-location-2026-08-03.md) → [GRILL-shiny-apps-location-2026-08-03.md](GRILL-shiny-apps-location-2026-08-03.md) → [REVIEW-shiny-apps-location-2026-08-03.md](REVIEW-shiny-apps-location-2026-08-03.md) → this SPEC
 

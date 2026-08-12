@@ -6,11 +6,11 @@ cran_state: dev
 next: ⛔ BLOCKED — cascade Phase 4 (last), still waiting on 3 of 4 deps as of 2026-07-23. Status: RMediation ✅ ACCEPTED+PUBLISHED on CRAN (1.6.1, 2026-07-21 — corrected from stale "submitted 06-20, awaiting acceptance"); medfit ✅ ACCEPTED+PUBLISHED on CRAN (0.3.2, 2026-07-23) — this just unblocked probmed's `Imports` gate, but probmed itself hasn't submitted yet (still needs Remotes drop + version bump + submit, see probmed `.STATUS`); medrobust ⏸ ON HOLD (CRAN-ready 0E/0W/1N, but submission deliberately paused pending its associated manuscript being submitted to a journal — not a technical blocker); medsim ⛔ blocked purely on medrobust's hold (medrobust itself, not CRAN review — medrobust hasn't submitted). Once probmed + medrobust + medsim are all on CRAN: drop Remotes entries here, CRAN-check, submit.
 done: 2026-06-22 — test coverage 83.1%→93.9% (sitrep.R + packages.R now 100%; cli-fallback + not-installed branches covered) via PR #12; suite is 103 tests / 0 fail (NOT the "thin 1 test_that" the old note claimed — that was stale). Removed the non-functional Gemini review bot (5 gemini-*.yml failing every PR on missing GEMINI_API_KEY) via PR #13.
 type: r
-last_updated: 2026-07-23
+last_updated: 2026-08-12
 
 ## mediationverse — Ecosystem Meta-Package
 
-**Version**: 0.0.0.9000 (dev; not yet on CRAN)
+**Version**: 0.1.0 (dev; not yet on CRAN)
 
 Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 `RMediation`, `medrobust`, `medsim`.
@@ -66,6 +66,14 @@ Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 - GitHub branch protection on main ✓
 - r-universe: binary install recommended in README; sidebar link added ✓
 - Install section reordered: r-universe → GitHub → CRAN (future) ✓
+
+## Completed (2026-08-04)
+
+- README.md scrubbed to CRAN-published packages only (medfit, RMediation) — quick start, architecture diagram, package cards, roadmap table, doc links, citation for probmed/medrobust/medsim removed from public view; full detail preserved below ✓
+- DESCRIPTION's `Description:` field trimmed to match (Suggests/Remotes untouched — real dependency declarations, not public discussion) ✓
+- PR #19 (dev → main) merged, all 9 CI checks green ✓
+- Filed Data-Wise/rmediation#26 asking its README/pkgdown to link to the mediation-apps Shiny front end ✓
+- SPEC-shiny-apps-location-2026-08-03.md marked done, pointed to shipped state (mediation-apps now fully built out) ✓
 
 ## Next
 
