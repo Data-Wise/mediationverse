@@ -29,15 +29,6 @@ makes the others available without forcing every dependency into memory.
 | [**medsim**](https://data-wise.github.io/medsim/) | Support | Simulation infrastructure for data-generating scenarios | [site](https://data-wise.github.io/medsim/) | Not yet |
 | [**missingmed**](https://data-wise.github.io/missingmed/) | Application | Mediation analysis with multiple imputation and IPW for missing data | [site](https://data-wise.github.io/missingmed/) | Not yet |
 
-### Planned
-
-| Package | Role | Purpose |
-|---|---|---|
-| **missingmed** | Application | Missing-data mediation (multiple imputation + IPW) — requires `medfit >= 0.3.0` |
-
-`missingmed` doesn't have a repository or website yet; it's tracked here so the
-ecosystem map stays accurate as it lands.
-
 ## Live status
 
 Per-package CI/coverage/CRAN badges are maintained as a dashboard, not

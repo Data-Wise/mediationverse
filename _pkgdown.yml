@@ -69,7 +69,7 @@ navbar:
       - text: "probmed (P_med Effect Size)"
         href: https://Data-Wise.github.io/probmed/
       - text: "RMediation (Confidence Intervals)"
-        href: https://Data-Wise.github.io/RMediation/
+        href: https://Data-Wise.github.io/rmediation/
       - text: "medrobust (Sensitivity Analysis)"
         href: https://Data-Wise.github.io/medrobust/
       - text: "missingmed (Missing Data)"

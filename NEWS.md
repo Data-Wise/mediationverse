@@ -19,6 +19,10 @@
 * The 0.1.0 entry below claimed `Data-Wise/medfit` was added to `Remotes:`; it never
   was (medfit is in `Imports:`). Corrected there.
 * `pkgdown` no longer publishes internal planning documents or `CLAUDE.md`.
+* Docs: removed a stale "Planned" entry that listed missingmed as having no repository; fixed
+  the RMediation site link (`/rmediation/`, the URL is case-sensitive); replaced dead
+  GitHub Discussions links with Issues; refreshed example output and the medfit citation
+  (CRAN 0.3.2).
 * Removed tracked junk: a vim swap file (`._pkgdown.yml.swp`) and four `gemini-*.toml`
   command files left over from the removed Gemini review bot.
 
