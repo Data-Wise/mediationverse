@@ -36,9 +36,8 @@ sessionInfo()
 
 #### 💡 Suggest Features
 
-Have an idea? [Start a
-discussion](https://github.com/data-wise/mediationverse/discussions/new)
-or open a feature request with:
+Have an idea? [Open a feature
+request](https://github.com/data-wise/mediationverse/issues/new) with:
 
 - **Use case**: What problem does this solve?
 - **Proposed solution**: How might it work?
@@ -282,7 +281,7 @@ test_that("extract_mediation validates inputs", {
 
 - Keep P_med computation separate from infrastructure
 - Maintain formula interface
-- Ensure backward compatibility with v0.1.0
+- Ensure backward compatibility with the current release
 
 #### RMediation
 
@@ -395,6 +394,6 @@ valued and appreciated.
 
 ------------------------------------------------------------------------
 
-**Questions?** Open a
-[discussion](https://github.com/data-wise/mediationverse/discussions) or
-email <dtofighi@gmail.com>
+**Questions?** Open an
+[issue](https://github.com/data-wise/mediationverse/issues) or email
+<dtofighi@gmail.com>

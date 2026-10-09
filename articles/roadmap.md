@@ -51,6 +51,5 @@ vignette):
 ### Feedback
 
 **Project Lead:** Davood Tofighi (<dtofighi@gmail.com>) · [GitHub
-Discussions](https://github.com/data-wise/mediationverse/discussions) ·
-[Feature
+Issues](https://github.com/data-wise/mediationverse/issues) · [Feature
 Requests](https://github.com/data-wise/mediationverse/issues/new)
