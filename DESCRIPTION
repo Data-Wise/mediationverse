@@ -23,6 +23,7 @@ Imports:
 Remotes:
     Data-Wise/medsim,
     Data-Wise/medrobust,
+    Data-Wise/missingmed,
     Data-Wise/probmed
 Suggests:
     altdoc,
@@ -30,6 +31,7 @@ Suggests:
     lavaan,
     medrobust,
     medsim,
+    missingmed,
     pak,
     probmed,
     quarto,
@@ -42,6 +44,6 @@ Config/Needs/website:
     pkgdown
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 VignetteBuilder: quarto
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.1.0

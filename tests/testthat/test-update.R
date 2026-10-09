@@ -22,7 +22,7 @@ test_that("mediationverse_update() error message lists all valid packages", {
     mediationverse_update("notreal"),
     error = function(e) conditionMessage(e)
   )
-  valid <- c("mediationverse", "probmed", "medrobust", "medsim", "RMediation", "medfit")
+  valid <- c("mediationverse", "probmed", "medrobust", "medsim", "missingmed", "RMediation", "medfit")
   for (pkg in valid) {
     expect_match(err, pkg, fixed = TRUE)
   }
@@ -35,7 +35,7 @@ test_that("mediationverse_update() knows all expected package names (validation 
     mediationverse_update("__invalid__"),
     error = function(e) conditionMessage(e)
   )
-  expected <- c("mediationverse", "medfit", "probmed", "RMediation", "medrobust", "medsim")
+  expected <- c("mediationverse", "medfit", "probmed", "RMediation", "medrobust", "medsim", "missingmed")
   for (pkg in expected) {
     expect_match(err, pkg, fixed = TRUE,
       label = paste("valid package listed in error:", pkg))
@@ -82,12 +82,12 @@ test_that("pak path defaults to all six packages when `packages` is NULL", {
   out <- mediationverse_update()
   expect_setequal(
     out,
-    c("mediationverse", "medfit", "probmed", "medrobust", "medsim", "RMediation")
+    c("mediationverse", "medfit", "probmed", "medrobust", "medsim", "missingmed", "RMediation")
   )
-  # five GitHub slugs + the one CRAN package
+  # six GitHub slugs + the one CRAN package
   expect_true(all(c("data-wise/mediationverse", "data-wise/medfit",
                     "data-wise/probmed", "data-wise/medrobust",
-                    "data-wise/medsim", "RMediation") %in% rec$specs))
+                    "data-wise/medsim", "data-wise/missingmed", "RMediation") %in% rec$specs))
 })
 
 test_that("pak path falls back to message() when cli is unavailable", {

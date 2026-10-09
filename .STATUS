@@ -13,7 +13,7 @@ last_updated: 2026-08-12
 **Version**: 0.1.0 (dev; not yet on CRAN)
 
 Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
-`RMediation`, `medrobust`, `medsim`.
+`RMediation`, `medrobust`, `medsim`, `missingmed`.
 
 ---
 
@@ -21,11 +21,12 @@ Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 
 | Package | CRAN | Notes |
 |---------|------|-------|
-| medfit | ✅ 0.2.0+ | Dropped from `Remotes`; pinned in `Imports (>= 0.2.0)` |
-| RMediation | ✅ 1.5.0 | Released 2026-06-18 |
+| medfit | ✅ 0.3.2 | `Imports (>= 0.2.0)`; installed from GitHub by `mediationverse_update()` because CRAN 0.3.2 predates two result-changing fixes in 0.5.0 (GitHub/r-universe) |
+| RMediation | ✅ 1.6.1 | Released 2026-07-21 |
 | probmed | ❌ | Still GitHub-only |
 | medsim | ❌ | Still in `Remotes: Data-Wise/medsim` |
 | medrobust | ❌ | Still in `Remotes: Data-Wise/medrobust` |
+| missingmed | ❌ | Core member since the dev version; in `Remotes` and `Suggests` (0.6.0 on r-universe) |
 
 ---
 
