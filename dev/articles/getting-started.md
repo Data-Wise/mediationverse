@@ -1,0 +1,303 @@
+# Getting Started with mediationverse
+
+## Introduction
+
+The **mediationverse** is a collection of R packages for mediation
+analysis. It provides a unified ecosystem for model fitting, effect size
+computation, confidence interval estimation, sensitivity analysis, and
+simulation studies.
+
+This vignette introduces the core concepts and shows how to get started
+with the mediationverse ecosystem.
+
+## Installation
+
+Install the mediationverse meta-package from GitHub:
+
+``` r
+
+# Install with pak (recommended)
+pak::pak("data-wise/mediationverse")
+
+# Or with remotes
+remotes::install_github("data-wise/mediationverse")
+```
+
+This will install `medfit` and `RMediation` (both on CRAN/r-universe).
+`probmed`, `medrobust`, `medsim`, and `missingmed` are not on CRAN yet —
+install them individually as needed:
+
+``` r
+
+pak::pak(c("Data-Wise/probmed", "Data-Wise/medrobust", "Data-Wise/medsim"))
+# missingmed in a separate call: probmed pins medfit@v0.3.0, which conflicts
+# with missingmed's medfit (>= 0.3.1) when both are resolved together
+pak::pak("Data-Wise/missingmed")
+```
+
+Core packages in the ecosystem:
+
+- **medfit** - Infrastructure (S7 classes, model fitting, extraction,
+  bootstrap)
+- **probmed** - Probabilistic effect size (P_med)
+- **RMediation** - Confidence intervals (Distribution of Product, MBCO)
+- **medrobust** - Sensitivity analysis (bounds, falsification)
+- **medsim** - Simulation infrastructure
+- **missingmed** - Mediation with multiple imputation and IPW for
+  missing data
+
+## Loading the Ecosystem
+
+The mediationverse uses **selective loading**: only the foundation
+package (`medfit`) is loaded by default. This keeps your namespace clean
+and lets you load only what you need.
+
+``` r
+
+library(mediationverse)
+
+# Check what's installed and available
+mediationverse_sitrep()
+```
+
+[`mediationverse_sitrep()`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse_sitrep.md)
+prints a situation report of all ecosystem packages, their versions, and
+installation sources — useful for diagnosing missing or outdated
+packages.
+
+This attaches medfit and displays helpful information:
+
+    ── Attaching mediationverse 0.1.0 ──
+    ✔ medfit 0.3.2 (foundation package)
+    ℹ Use library(probmed) for P_med effect size
+    ℹ Use library(RMediation) for DOP/MBCO inference
+    ℹ Use library(medrobust) for sensitivity analysis
+    ℹ Use library(medsim) for simulation utilities
+    ──────────────────────────────────────────
+
+Load additional packages as needed for your analysis:
+
+``` r
+
+# Load packages you need
+library(probmed)      # For probabilistic effect sizes
+library(RMediation)   # For confidence intervals
+library(medrobust)    # For sensitivity analysis
+library(medsim)       # For simulation studies (if needed)
+```
+
+**Why selective loading?**
+
+- **Clean namespace**: Avoids function name conflicts
+- **Explicit**: You control which packages are loaded
+- **Foundation always available**: `medfit` is loaded automatically
+  since all other packages depend on it
+
+## Package Management
+
+The mediationverse provides utility functions to manage the ecosystem:
+
+### Check Installed Versions
+
+``` r
+
+# List all mediationverse packages with versions and status
+mediationverse_packages()
+```
+
+### Update Packages
+
+``` r
+
+# Update all packages from GitHub/CRAN
+mediationverse_update()
+```
+
+### Check for Conflicts
+
+``` r
+
+# Show function name conflicts between packages
+mediationverse_conflicts()
+```
+
+## Core Workflow
+
+The mediationverse follows a consistent workflow for mediation analysis.
+
+First, load the packages you need (medfit is already loaded via
+mediationverse):
+
+``` r
+
+library(probmed)      # For this example
+library(RMediation)   # For this example
+```
+
+### 1. Fit Models
+
+Using `medfit` (already loaded), fit your mediator and outcome models:
+
+``` r
+
+# Fit models
+fit_m <- lm(M ~ X + C, data = mydata)
+fit_y <- lm(Y ~ X + M + C, data = mydata)
+```
+
+### 2. Extract Mediation Structure
+
+Extract path coefficients and covariance matrix:
+
+``` r
+
+med_data <- extract_mediation(
+  fit_m,
+  model_y = fit_y,
+  treatment = "X",
+  mediator = "M"
+)
+
+# View the extracted structure
+print(med_data)
+```
+
+### 3. Choose Your Analysis
+
+Once you have a `MediationData` object, you can use any of the ecosystem
+packages:
+
+#### Confidence Intervals (RMediation)
+
+``` r
+
+# Distribution of Product method
+ci_dop <- ci(med_data, type = "dop")
+
+# Monte Carlo method
+ci_mc <- ci(med_data, type = "MC", n.mc = 10000)
+```
+
+#### Probabilistic Effect Size (probmed)
+
+``` r
+
+# Compute P_med
+pmed_result <- pmed(med_data)
+```
+
+#### Sensitivity Analysis (medrobust)
+
+``` r
+
+# Partial identification bounds under misclassification
+# (medrobust works from the raw data; returns a medrobust_bounds object)
+bounds <- bound_ne(
+  data = mydata,
+  exposure = "X",
+  mediator = "M",
+  outcome = "Y",
+  confounders = "C",
+  misclassified_variable = "exposure",
+  sensitivity_region = list(
+    sn0_range    = c(0.80, 0.90),
+    sp0_range    = c(0.80, 0.90),
+    psi_sn_range = c(1.0, 2.0),
+    psi_sp_range = c(1.0, 1.0)
+  )
+)
+```
+
+#### Bootstrap Inference (medfit)
+
+``` r
+
+# Nonparametric bootstrap
+boot_result <- bootstrap_mediation(med_data, n_boot = 2000)
+```
+
+## Ecosystem Design
+
+The mediationverse follows several design principles:
+
+### Foundation Package
+
+**medfit** serves as the foundation, providing:
+
+- S7 classes (`MediationData`, `SerialMediationData`, `BootstrapResult`)
+- Model extraction methods
+- Bootstrap infrastructure
+- Common utilities
+
+### Specialized Packages
+
+Each package focuses on one methodological contribution:
+
+| Package | Focus | Key Functions |
+|----|----|----|
+| probmed | Effect sizes | [`pmed()`](https://data-wise.github.io/probmed/reference/pmed.html) |
+| RMediation | Confidence intervals | [`ci()`](https://data-wise.github.io/rmediation/reference/ci.html), [`medci()`](https://data-wise.github.io/rmediation/reference/medci.html), [`mbco()`](https://data-wise.github.io/rmediation/reference/mbco.html) |
+| medrobust | Sensitivity | [`bound_ne()`](https://data-wise.github.io/medrobust/reference/bound_ne.html) |
+| medsim | Simulation | [`medsim_run()`](https://data-wise.github.io/medsim/reference/medsim_run.html) |
+
+### Type Safety
+
+All packages use S7 classes for type safety and validation:
+
+``` r
+
+# MediationData validates input
+med_data <- MediationData(
+  a_path = 0.5,
+  b_path = 0.4,
+  c_prime = 0.1,
+  estimates = c(a = 0.5, b = 0.4, c_prime = 0.1),
+  vcov = matrix(c(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01), 3, 3)
+)
+```
+
+## Next Steps
+
+- Read the [mediationverse
+  Workflow](https://Data-Wise.github.io/mediationverse/dev/articles/mediationverse-workflow.md)
+  article for a complete analysis example
+- Explore individual package documentation:
+  - [medfit](https://data-wise.github.io/medfit/)
+  - [probmed](https://data-wise.github.io/probmed/)
+  - [RMediation](https://data-wise.github.io/rmediation/)
+  - [medrobust](https://data-wise.github.io/medrobust/)
+  - [medsim](https://data-wise.github.io/medsim/)
+  - [missingmed](https://data-wise.github.io/missingmed/)
+
+## Session Info
+
+``` r
+
+sessionInfo()
+```
+
+    R version 4.6.1 (2026-06-24)
+    Platform: x86_64-pc-linux-gnu
+    Running under: Ubuntu 24.04.5 LTS
+
+    Matrix products: default
+    BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
+    LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
+
+    locale:
+     [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8
+     [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8
+     [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C
+    [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C
+
+    time zone: UTC
+    tzcode source: system (glibc)
+
+    attached base packages:
+    [1] stats     graphics  grDevices utils     datasets  methods   base
+
+    loaded via a namespace (and not attached):
+     [1] compiler_4.6.1  fastmap_1.2.0   cli_3.6.6       tools_4.6.1
+     [5] htmltools_0.5.9 otel_0.2.0      yaml_2.3.12     rmarkdown_2.32
+     [9] knitr_1.52      jsonlite_2.0.0  xfun_0.61       digest_0.6.39
+    [13] rlang_1.3.0     evaluate_1.0.5 

@@ -1,0 +1,353 @@
+# mediationverse
+
+> Unified ecosystem for mediation analysis in R
+
+## Overview
+
+The **mediationverse** is a collection of R packages for mediation
+analysis, providing a unified ecosystem for:
+
+- 🔧 Model fitting and extraction
+- 📈 Confidence interval estimation
+
+## Quick Start
+
+``` r
+
+# Install mediationverse
+pak::pak("Data-Wise/mediationverse")
+
+# Load foundation package + packages you need
+library(mediationverse)  # Loads medfit (foundation)
+library(RMediation)      # For confidence intervals
+
+# Fit mediation models
+fit_m <- lm(M ~ X + C, data = mydata)
+fit_y <- lm(Y ~ X + M + C, data = mydata)
+med_data <- extract_mediation(fit_m, model_y = fit_y,
+                               treatment = "X", mediator = "M")
+
+# Get confidence intervals
+ci_result <- ci(med_data, type = "dop")
+```
+
+### Verify your installation
+
+``` r
+
+# Prints a situation report of all ecosystem packages, their versions,
+# and installation sources
+mediationverse_sitrep()
+```
+
+## Ecosystem Status Dashboard
+
+> **📊 [View Full
+> Dashboard](https://github.com/data-wise/mediationverse/blob/main/STATUS.md)**
+> \| **🗺️ [Development
+> Roadmap](https://data-wise.github.io/mediationverse/articles/roadmap.html)**
+
+### Package Overview
+
+> **CRAN** and **Build** columns are live badges (shields.io / GitHub
+> Actions) — they reflect real-time status and update automatically as
+> packages are submitted, accepted, or re-checked. No manual edits
+> needed here when a package’s CRAN state changes. (Deliberately using
+> `img.shields.io/cran/v/<pkg>`, not `r-pkg.org/badges/version/<pkg>` —
+> the latter 404s with a broken HTML error page, not a valid SVG, for
+> packages not yet on CRAN.)
+
+| Package | CRAN | Build | Website | Role |
+|----|----|----|----|----|
+| [**medfit**](https://cran.r-project.org/package=medfit) | [![CRAN](https://img.shields.io/cran/v/medfit)](https://CRAN.R-project.org/package=medfit) | [![Build](https://github.com/Data-Wise/medfit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medfit/actions) | [![Docs](https://github.com/Data-Wise/medfit/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medfit/) | **Foundation** |
+| [**RMediation**](https://cran.r-project.org/package=RMediation) | [![CRAN](https://img.shields.io/cran/v/RMediation)](https://CRAN.R-project.org/package=RMediation) | [![Build](https://github.com/Data-Wise/rmediation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/rmediation/actions) | [![Docs](https://github.com/Data-Wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/rmediation/) | Confidence Intervals |
+
+## Package Ecosystem
+
+The mediationverse follows a **modular architecture** with **selective
+loading** inspired by [tidyverse](https://www.tidyverse.org/) and
+[easystats](https://easystats.github.io/easystats/):
+
+### Data Flow
+
+    User Data
+       │
+       ▼
+    fit_mediation() or lm()/glm()/lavaan::sem()
+       │
+       ▼
+    extract_mediation()  ──────►  MediationData object
+       │                                  │
+       ├──────────────┬───────────────────┘
+       │              │
+       ▼              ▼
+    RMediation::   medfit::
+    medci()        bootstrap_mediation()
+       │              │
+       └──────────────┘
+              │
+              ▼
+      Results & Inference
+
+### Core Packages
+
+#### medfit: Foundation Infrastructure
+
+**Purpose**: Unified S7-based infrastructure for mediation analysis
+**Status**: Phase 4 in progress **Provides**: - S7 classes
+(`MediationData`, `SerialMediationData`, `BootstrapResult`) - Model
+extraction from lm/glm/lavaan - Bootstrap inference (parametric,
+nonparametric, plugin) - Type-safe data structures
+
+**Links**: [Website](https://data-wise.github.io/medfit/) \|
+[GitHub](https://github.com/data-wise/medfit) \|
+[Issues](https://github.com/data-wise/medfit/issues)
+
+#### RMediation: Confidence Intervals
+
+**Purpose**: Asymmetric confidence intervals via Distribution of Product
+**Status**: Stable on CRAN **Provides**: - Distribution of Product (DOP)
+method - Monte Carlo (MC) confidence intervals - MBCO bootstrap method -
+Integration with standard R models
+
+**Links**: [CRAN](https://cran.r-project.org/package=RMediation) \|
+[Website](https://data-wise.github.io/rmediation/) \|
+[GitHub](https://github.com/data-wise/rmediation)
+
+## Installation
+
+### From r-universe (recommended)
+
+The whole ecosystem is available as pre-built binaries at the [Data-Wise
+r-universe](https://data-wise.r-universe.dev/mediationverse) — no
+compiler needed, and GitHub-only packages resolve automatically:
+
+``` r
+
+install.packages(
+  "mediationverse",
+  repos = c("https://data-wise.r-universe.dev", "https://cloud.r-project.org")
+)
+```
+
+### From GitHub (development)
+
+``` r
+
+# Install via pak (handles CRAN + GitHub deps automatically)
+pak::pak("Data-Wise/mediationverse")
+```
+
+### From CRAN (future)
+
+``` r
+
+# Planned — once mediationverse itself is submitted to CRAN
+install.packages("mediationverse")
+```
+
+## Usage
+
+### Loading Packages
+
+The mediationverse uses **selective loading**: only the foundation
+package (`medfit`) is loaded by default. Load other packages as needed
+for your analysis.
+
+``` r
+
+library(mediationverse)
+#> ── Attaching mediationverse 0.1.0 ──
+#> ✔ medfit 0.3.2 (foundation package)
+#> ℹ Use library(RMediation) for DOP/MBCO inference
+#> ──────────────────────────────────────────────────────
+
+# Load additional packages as needed
+library(RMediation)   # For confidence intervals
+```
+
+**Why selective loading?** - Clean namespace (avoids function
+conflicts) - Only load what you need for your analysis - `medfit` is
+always available (foundation for all packages)
+
+### Package Management
+
+``` r
+
+# List installed packages and versions
+mediationverse_packages()
+
+# Update all packages
+mediationverse_update()
+
+# Check for function conflicts
+mediationverse_conflicts()
+```
+
+### Complete Analysis Workflow
+
+``` r
+
+# Load foundation and packages you need
+library(mediationverse)  # Loads medfit (foundation)
+library(RMediation)      # For confidence intervals
+
+# 1. Fit mediation models (medfit - already loaded)
+fit_m <- lm(M ~ X + C, data = mydata)
+fit_y <- lm(Y ~ X + M + C, data = mydata)
+
+# 2. Extract mediation structure (medfit)
+med_data <- extract_mediation(fit_m, model_y = fit_y,
+                               treatment = "X", mediator = "M")
+
+# 3. Bootstrap inference (medfit)
+boot_result <- bootstrap_mediation(med_data, n_boot = 2000)
+
+# 4. Get confidence intervals (RMediation)
+ci_result <- ci(med_data, type = "dop")
+```
+
+## Design Philosophy
+
+Following principles from [tidyverse](https://design.tidyverse.org/) and
+[easystats](https://easystats.github.io/easystats/):
+
+1.  **Foundation Package**: medfit provides shared S7 infrastructure
+2.  **Specialized Packages**: Each package focuses on one methodological
+    contribution
+3.  **Consistent API**: Unified interfaces across all packages
+4.  **Type Safety**: S7 classes ensure data integrity
+5.  **Low Dependencies**: Minimal external dependencies for stability
+6.  **Comprehensive Testing**: \>90% code coverage across packages
+
+## Documentation
+
+### Getting Started
+
+- [Quick Start
+  Guide](https://data-wise.github.io/mediationverse/articles/getting-started.html)
+- [Complete
+  Workflow](https://data-wise.github.io/mediationverse/articles/mediationverse-workflow.html)
+
+### Status & Planning
+
+- [📊 Package Status
+  Dashboard](https://github.com/data-wise/mediationverse/blob/main/STATUS.md)
+- [🗺️ Development
+  Roadmap](https://data-wise.github.io/mediationverse/articles/roadmap.html)
+- [🤝 Contributing
+  Guide](https://data-wise.github.io/mediationverse/articles/contributing.html)
+- [🧭 Planning
+  Hub](https://github.com/data-wise/mediation-planning/blob/main/PROJECT-HUB.md)
+  — roadmap, specs, coordination
+- [📋 Ecosystem
+  Coordination](https://github.com/data-wise/mediation-planning/blob/main/docs/ECOSYSTEM-COORDINATION.md)
+
+### Package Documentation
+
+- [medfit Documentation](https://data-wise.github.io/medfit/)
+- [RMediation Documentation](https://data-wise.github.io/rmediation/)
+
+## Contributing
+
+The mediationverse is in active development. Contributions are welcome!
+
+- 🐛 **Report bugs**: [GitHub
+  Issues](https://github.com/data-wise/mediationverse/issues)
+- 💡 **Suggest features**: [GitHub
+  Issues](https://github.com/data-wise/mediationverse/issues/new)
+- 🔧 **Contribute code**: See our [Contributing
+  Guide](https://data-wise.github.io/mediationverse/articles/contributing.html)
+- 📖 **Improve docs**: Submit pull requests
+
+**Development Workflow**: 1. Fork the repository 2. Create a feature
+branch from `dev` 3. Make your changes with tests 4. Submit a pull
+request to `dev`
+
+See
+[CONTRIBUTING.md](https://Data-Wise.github.io/mediationverse/dev/CONTRIBUTING.md)
+for detailed guidelines.
+
+## Citation
+
+If you use packages from the mediationverse in your research, please
+cite the individual packages:
+
+    Tofighi, D. (2026). medfit: Infrastructure for Mediation Model Fitting and
+    Extraction. R package version 0.3.2. https://CRAN.R-project.org/package=medfit
+
+    Tofighi, D., & MacKinnon, D. P. (2011). RMediation: An R package for
+    mediation analysis confidence intervals. Behavior Research Methods, 43,
+    692-700. https://CRAN.R-project.org/package=RMediation
+
+Full citations available via `citation("packagename")`.
+
+## Related Ecosystems
+
+The mediationverse draws inspiration from:
+
+- [**tidyverse**](https://www.tidyverse.org/) - Cohesive data science
+  packages
+- [**easystats**](https://easystats.github.io/easystats/) - Statistical
+  modeling ecosystem
+- [**mlr3**](https://mlr3.mlr-org.com/) - Machine learning framework
+
+## Code of Conduct
+
+Please note that the mediationverse project is released with a
+[Contributor Code of
+Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
+## License
+
+GPL (\>= 3)
+
+## Contact
+
+**Maintainer**: Davood Tofighi (<dtofighi@gmail.com>) **ORCID**:
+[0000-0001-8523-7776](https://orcid.org/0000-0001-8523-7776)
+
+------------------------------------------------------------------------
+
+**Sources:** - [tidyverse meta-package
+structure](https://github.com/tidyverse/tidyverse) - [easystats
+ecosystem documentation](https://easystats.github.io/easystats/)
+
+# Package index
+
+## Package Management
+
+Functions for managing the mediationverse ecosystem
+
+- [`mediationverse_sitrep()`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse_sitrep.md)
+  : Situation Report for the mediationverse Ecosystem
+- [`mediationverse_packages()`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse_packages.md)
+  : List mediationverse Packages
+- [`mediationverse_update()`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse_update.md)
+  : Update mediationverse Packages
+- [`mediationverse_conflicts()`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse_conflicts.md)
+  : Show mediationverse Conflicts
+
+## Package Documentation
+
+Package-level documentation
+
+- [`mediationverse`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse-package.md)
+  [`mediationverse-package`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse-package.md)
+  : mediationverse: Ecosystem for Mediation Analysis in R
+
+# Articles
+
+### All vignettes
+
+- [Contributing to
+  mediationverse](https://Data-Wise.github.io/mediationverse/dev/articles/contributing.md):
+- [The mediationverse
+  Ecosystem](https://Data-Wise.github.io/mediationverse/dev/articles/ecosystem.md):
+- [Getting Started with
+  mediationverse](https://Data-Wise.github.io/mediationverse/dev/articles/getting-started.md):
+- [Complete Mediation Analysis
+  Workflow](https://Data-Wise.github.io/mediationverse/dev/articles/mediationverse-workflow.md):
+- [Development
+  Roadmap](https://Data-Wise.github.io/mediationverse/dev/articles/roadmap.md):
