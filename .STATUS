@@ -10,7 +10,7 @@ last_updated: 2026-10-08
 
 ## mediationverse — Ecosystem Meta-Package
 
-**Version**: 0.1.1 (not yet on CRAN)
+**Version**: 0.1.1 released 2026-10-08 (tag `v0.1.1`); dev is 0.1.1.9000; not yet on CRAN
 
 Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 `RMediation`, `medrobust`, `medsim`, `missingmed`.
@@ -75,7 +75,7 @@ Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 - **Site deployment changed** (grill `GRILL-mediationverse-site-2026-10-08.md` in the
   missingmed repo): the 2026-08-12 note below that `pkgdown.yaml` "deploys on push to `dev`
   too, so the live site updates without a `dev` → `main` release" no longer holds. `dev`
-  now carries a `.9000` version, so pkgdown auto mode deploys it to `/dev/`; only `main`
+  now carries a `.9000` version, so pkgdown auto mode deploys it to `/dev/` (verified: `/dev/` serves 200); only `main`
   updates the site root. `gh-pages` still holds altdoc leftovers (`freeze.rds`,
   `_quarto.yml`, `custom.scss`, `quarto_website.yml`, `vignettes/`), untouched.
 
