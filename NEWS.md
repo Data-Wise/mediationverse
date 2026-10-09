@@ -23,6 +23,13 @@
   the RMediation site link (`/rmediation/`, the URL is case-sensitive); replaced dead
   GitHub Discussions links with Issues; refreshed example output and the medfit citation
   (CRAN 0.3.2).
+* The pkgdown site no longer publishes `dev` over the release site. `dev` carried the
+  release version (`0.1.0`), so pkgdown's auto mode treated every `dev` push as a
+  release and deployed it to the site root. `dev` now carries a `.9000` version, so
+  development builds go to `/dev/` and only `main` updates the root.
+* Retired the altdoc site generator (workflow, `altdoc/` folder, `Suggests: altdoc`).
+  It deployed to the same `gh-pages` branch as pkgdown on every `main` push, so the
+  last workflow to finish decided which site was live.
 * Removed tracked junk: a vim swap file (`._pkgdown.yml.swp`) and four `gemini-*.toml`
   command files left over from the removed Gemini review bot.
 

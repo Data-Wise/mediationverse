@@ -16,6 +16,5 @@ CLAUDE.local.md
 .claude/settings.local.json
 *.Rcheck/
 *.tar.gz
-altdoc/freeze.rds
 _quarto/*
 !_quarto/_freeze/
