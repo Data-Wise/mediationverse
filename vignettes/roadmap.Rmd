@@ -55,5 +55,5 @@ Maintained in the hub so it stays current (rather than drifting in this vignette
 ## Feedback
 
 **Project Lead:** Davood Tofighi (dtofighi@gmail.com) ·
-[GitHub Discussions](https://github.com/data-wise/mediationverse/discussions) ·
+[GitHub Issues](https://github.com/data-wise/mediationverse/issues) ·
 [Feature Requests](https://github.com/data-wise/mediationverse/issues/new)
