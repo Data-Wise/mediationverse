@@ -37,7 +37,10 @@ individually as needed:
 
 ```{r}
 #| label: install-siblings
-pak::pak(c("Data-Wise/probmed", "Data-Wise/medrobust", "Data-Wise/medsim", "Data-Wise/missingmed"))
+pak::pak(c("Data-Wise/probmed", "Data-Wise/medrobust", "Data-Wise/medsim"))
+# missingmed in a separate call: probmed pins medfit@v0.3.0, which conflicts
+# with missingmed's medfit (>= 0.3.1) when both are resolved together
+pak::pak("Data-Wise/missingmed")
 ```
 
 Core packages in the ecosystem:

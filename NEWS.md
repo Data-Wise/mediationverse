@@ -5,9 +5,10 @@
 * `missingmed` (mediation analysis with multiple imputation and IPW for missing
   data) joins the core ecosystem: `mediationverse_packages()`,
   `mediationverse_sitrep()`, `mediationverse_conflicts()` and
-  `mediationverse_update()` now include it, with `Data-Wise/missingmed` in
-  `Remotes:` and `missingmed` in `Suggests:`. It is not attached by `library()`
-  (selective loading is unchanged).
+  `mediationverse_update()` now include it. It is not attached by `library()`
+  (selective loading is unchanged). It is deliberately not in `Remotes:` or
+  `Suggests:`: probmed pins `medfit@v0.3.0`, which conflicts with missingmed's
+  `medfit (>= 0.3.1)` and makes dependency resolution fail.
 
 ## Bug fixes
 

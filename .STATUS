@@ -26,7 +26,7 @@ Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 | probmed | ❌ | Still GitHub-only |
 | medsim | ❌ | Still in `Remotes: Data-Wise/medsim` |
 | medrobust | ❌ | Still in `Remotes: Data-Wise/medrobust` |
-| missingmed | ❌ | Core member since the dev version; in `Remotes` and `Suggests` (0.6.0 on r-universe) |
+| missingmed | ❌ | Core member since the dev version; not in `Remotes`/`Suggests` (probmed's `medfit@v0.3.0` pin conflicts with missingmed's medfit >= 0.3.1); 0.6.0 on r-universe |
 
 ---
 

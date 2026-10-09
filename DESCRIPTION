@@ -23,7 +23,6 @@ Imports:
 Remotes:
     Data-Wise/medsim,
     Data-Wise/medrobust,
-    Data-Wise/missingmed,
     Data-Wise/probmed
 Suggests:
     altdoc,
@@ -31,7 +30,6 @@ Suggests:
     lavaan,
     medrobust,
     medsim,
-    missingmed,
     pak,
     probmed,
     quarto,
