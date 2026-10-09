@@ -157,7 +157,7 @@ for your analysis.
 ``` r
 
 library(mediationverse)
-#> ── Attaching mediationverse 0.1.0 ──
+#> ── Attaching mediationverse 0.1.1 ──
 #> ✔ medfit 0.3.2 (foundation package)
 #> ℹ Use library(RMediation) for DOP/MBCO inference
 #> ──────────────────────────────────────────────────────

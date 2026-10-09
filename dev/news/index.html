@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mediationverse</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9000</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.1.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,13 +65,17 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="mediationverse-development-version">mediationverse (development version)<a class="anchor" aria-label="anchor" href="#mediationverse-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.1.1" id="mediationverse-011">mediationverse 0.1.1<a class="anchor" aria-label="anchor" href="#mediationverse-011"></a></h2>
+<p>Maintenance release: <code>missingmed</code> joins the core ecosystem, stale CRAN claims and dead links are corrected, and the pkgdown site no longer publishes <code>dev</code> over the release site.</p>
 <div class="section level3">
-<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-0-1-1">New features<a class="anchor" aria-label="anchor" href="#new-features-0-1-1"></a></h3>
 <ul><li>
 <code>missingmed</code> (mediation analysis with multiple imputation and IPW for missing data) joins the core ecosystem: <code><a href="../reference/mediationverse_packages.html">mediationverse_packages()</a></code>, <code><a href="../reference/mediationverse_sitrep.html">mediationverse_sitrep()</a></code>, <code><a href="../reference/mediationverse_conflicts.html">mediationverse_conflicts()</a></code> and <code><a href="../reference/mediationverse_update.html">mediationverse_update()</a></code> now include it. It is not attached by <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> (selective loading is unchanged). It is deliberately not in <code>Remotes:</code> or <code>Suggests:</code>: probmed pins <code>medfit@v0.3.0</code>, which conflicts with missingmed’s <code>medfit (&gt;= 0.3.1)</code> and makes dependency resolution fail.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-0-1-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-1"></a></h3>
 <ul><li>
 <code><a href="../reference/mediationverse_sitrep.html">mediationverse_sitrep()</a></code> and <code><a href="../reference/mediationverse_update.html">mediationverse_update()</a></code> no longer say CRAN has medfit 0.2.1 (CRAN has 0.3.2) or RMediation 1.5.0 (CRAN has 1.6.1). medfit stays sourced from GitHub because CRAN 0.3.2 predates two result-changing fixes in medfit 0.5.0 (serial <code>te()</code>/<code>pm()</code> and <code>confint(parm = "paths")</code>).</li>
 <li>The 0.1.0 entry below claimed <code>Data-Wise/medfit</code> was added to <code>Remotes:</code>; it never was (medfit is in <code>Imports:</code>). Corrected there.</li>
