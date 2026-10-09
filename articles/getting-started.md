@@ -67,7 +67,7 @@ packages.
 
 This attaches medfit and displays helpful information:
 
-    ── Attaching mediationverse 0.1.0 ──
+    ── Attaching mediationverse 0.1.1 ──
     ✔ medfit 0.3.2 (foundation package)
     ℹ Use library(probmed) for P_med effect size
     ℹ Use library(RMediation) for DOP/MBCO inference
