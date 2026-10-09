@@ -27,11 +27,13 @@ falls back to \code{remotes::install_github()} for GitHub packages and
 Package sources:
 \itemize{
 \item \strong{mediationverse}: GitHub (data-wise/mediationverse)
-\item \strong{medfit}: GitHub (data-wise/medfit) — CRAN 0.2.1 is behind; the ecosystem needs >= 0.3.0
+\item \strong{medfit}: GitHub (data-wise/medfit) — CRAN has 0.3.2, which predates two
+result-changing fixes in 0.5.0 (serial \code{te()}/\code{pm()} and \code{confint(parm = "paths")})
 \item \strong{probmed}: GitHub (data-wise/probmed)
 \item \strong{RMediation}: CRAN
 \item \strong{medrobust}: GitHub (data-wise/medrobust)
 \item \strong{medsim}: GitHub (data-wise/medsim)
+\item \strong{missingmed}: GitHub (data-wise/missingmed)
 }
 }
 \examples{

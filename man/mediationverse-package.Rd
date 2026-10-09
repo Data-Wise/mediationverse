@@ -19,6 +19,7 @@ The mediationverse includes the following packages:
 \item \strong{RMediation}: Confidence intervals (DOP, MBCO, MC methods)
 \item \strong{medrobust}: Sensitivity analysis for unmeasured confounding
 \item \strong{medsim}: Simulation infrastructure for mediation research
+\item \strong{missingmed}: Mediation analysis with multiple imputation and IPW for missing data
 }
 }
 
@@ -60,6 +61,7 @@ Update all packages:
 \item RMediation: \url{https://cran.r-project.org/package=RMediation}
 \item medrobust: \url{https://data-wise.github.io/medrobust/}
 \item medsim: \url{https://data-wise.github.io/medsim/}
+\item missingmed: \url{https://data-wise.github.io/missingmed/}
 }
 }
 }
@@ -74,6 +76,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Davood Tofighi \email{dtofighi@gmail.com} (\href{https://orcid.org/0000-0001-8523-7776}{ORCID})
+
+Authors:
+\itemize{
+  \item Davood Tofighi \email{dtofighi@gmail.com} (\href{https://orcid.org/0000-0001-8523-7776}{ORCID})
+}
 
 }
 \keyword{internal}

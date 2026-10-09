@@ -36,6 +36,21 @@ jobs:
           needs: website
           install-quarto: true
 
+      - name: Hide agent-instruction docs from pkgdown
+        run: |
+          # pkgdown renders every root-level *.md into a site page (HTML, plus
+          # an llms.txt-era markdown twin, a sitemap.xml entry, and a
+          # full-text search.json entry — see pkgdown:::package_mds(), which
+          # hardcodes README/LICENSE/NEWS/cran-comments as the only skipped
+          # root .md files). CLAUDE.md must stay at the repo root for Claude
+          # Code discovery, so it can't be moved like the other internal docs
+          # (BRAINSTORM/GRILL/REVIEW/SPEC/GITHUB-SETUP/SELECTIVE-LOADING-TEST,
+          # now under planning/). This checkout is a disposable CI copy, so
+          # just remove it here before the build ever sees it; the tracked
+          # file is untouched. STATUS.md is intentionally NOT removed — it's
+          # the public CI/CD badge dashboard, not an internal doc.
+          rm -f CLAUDE.md
+
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}

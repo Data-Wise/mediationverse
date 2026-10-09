@@ -1,4 +1,41 @@
-# mediationverse (development version)
+# mediationverse 0.1.1
+
+Maintenance release: `missingmed` joins the core ecosystem, stale CRAN claims and dead
+links are corrected, and the pkgdown site no longer publishes `dev` over the release
+site.
+
+## New features
+
+* `missingmed` (mediation analysis with multiple imputation and IPW for missing
+  data) joins the core ecosystem: `mediationverse_packages()`,
+  `mediationverse_sitrep()`, `mediationverse_conflicts()` and
+  `mediationverse_update()` now include it. It is not attached by `library()`
+  (selective loading is unchanged). It is deliberately not in `Remotes:` or
+  `Suggests:`: probmed pins `medfit@v0.3.0`, which conflicts with missingmed's
+  `medfit (>= 0.3.1)` and makes dependency resolution fail.
+
+## Bug fixes
+
+* `mediationverse_sitrep()` and `mediationverse_update()` no longer say CRAN has
+  medfit 0.2.1 (CRAN has 0.3.2) or RMediation 1.5.0 (CRAN has 1.6.1). medfit stays
+  sourced from GitHub because CRAN 0.3.2 predates two result-changing fixes in
+  medfit 0.5.0 (serial `te()`/`pm()` and `confint(parm = "paths")`).
+* The 0.1.0 entry below claimed `Data-Wise/medfit` was added to `Remotes:`; it never
+  was (medfit is in `Imports:`). Corrected there.
+* `pkgdown` no longer publishes internal planning documents or `CLAUDE.md`.
+* Docs: removed a stale "Planned" entry that listed missingmed as having no repository; fixed
+  the RMediation site link (`/rmediation/`, the URL is case-sensitive); replaced dead
+  GitHub Discussions links with Issues; refreshed example output and the medfit citation
+  (CRAN 0.3.2).
+* The pkgdown site no longer publishes `dev` over the release site. `dev` carried the
+  release version (`0.1.0`), so pkgdown's auto mode treated every `dev` push as a
+  release and deployed it to the site root. `dev` now carries a `.9000` version, so
+  development builds go to `/dev/` and only `main` updates the root.
+* Retired the altdoc site generator (workflow, `altdoc/` folder, `Suggests: altdoc`).
+  It deployed to the same `gh-pages` branch as pkgdown on every `main` push, so the
+  last workflow to finish decided which site was live.
+* Removed tracked junk: a vim swap file (`._pkgdown.yml.swp`) and four `gemini-*.toml`
+  command files left over from the removed Gemini review bot.
 
 # mediationverse 0.1.0
 
@@ -9,8 +46,8 @@
   `cran_pkgs`. CRAN serves only medfit 0.2.1, but the ecosystem requires
   medfit >= 0.3.0 (probmed, missingmed) — sourcing it from CRAN resolves a version too
   old for those packages. `RMediation` remains the only CRAN-sourced core package.
-* `DESCRIPTION`: added `Data-Wise/medfit` to `Remotes:` so GitHub installs resolve
-  medfit 0.3.x rather than CRAN 0.2.1.
+* `mediationverse_update()` installs medfit from GitHub so installs resolve a medfit
+  that carries the ecosystem's fixes (`DESCRIPTION` lists it in `Imports:` only).
 * README + vignettes: corrected example calls to use real sibling exports
   (`pmed()`, `bound_ne()`, `falsification_summary()`, `medsim_run()`) in place of
   functions that do not exist in those packages.

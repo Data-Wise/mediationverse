@@ -27,15 +27,7 @@ makes the others available without forcing every dependency into memory.
 | [**RMediation**](https://data-wise.github.io/rmediation/) | Application | Confidence intervals (DOP, MBCO, Monte Carlo) | [site](https://data-wise.github.io/rmediation/) | ✅ |
 | [**medrobust**](https://data-wise.github.io/medrobust/) | Application | Sensitivity analysis for unmeasured confounding | [site](https://data-wise.github.io/medrobust/) | Not yet |
 | [**medsim**](https://data-wise.github.io/medsim/) | Support | Simulation infrastructure for data-generating scenarios | [site](https://data-wise.github.io/medsim/) | Not yet |
-
-### Planned
-
-| Package | Role | Purpose |
-|---|---|---|
-| **missingmed** | Application | Missing-data mediation (multiple imputation + IPW) — requires `medfit >= 0.3.0` |
-
-`missingmed` doesn't have a repository or website yet; it's tracked here so the
-ecosystem map stays accurate as it lands.
+| [**missingmed**](https://data-wise.github.io/missingmed/) | Application | Mediation analysis with multiple imputation and IPW for missing data | [site](https://data-wise.github.io/missingmed/) | Not yet |
 
 ## Live status
 

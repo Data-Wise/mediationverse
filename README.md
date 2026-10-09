@@ -151,8 +151,8 @@ The mediationverse uses **selective loading**: only the foundation package (`med
 
 ```r
 library(mediationverse)
-#> ── Attaching mediationverse 0.1.0 ──
-#> ✔ medfit 0.2.1 (foundation package)
+#> ── Attaching mediationverse 0.1.1 ──
+#> ✔ medfit 0.3.2 (foundation package)
 #> ℹ Use library(RMediation) for DOP/MBCO inference
 #> ──────────────────────────────────────────────────────
 
@@ -233,7 +233,7 @@ Following principles from [tidyverse](https://design.tidyverse.org/) and [easyst
 The mediationverse is in active development. Contributions are welcome!
 
 - 🐛 **Report bugs**: [GitHub Issues](https://github.com/data-wise/mediationverse/issues)
-- 💡 **Suggest features**: [Discussions](https://github.com/data-wise/mediationverse/discussions)
+- 💡 **Suggest features**: [GitHub Issues](https://github.com/data-wise/mediationverse/issues/new)
 - 🔧 **Contribute code**: See our [Contributing Guide](https://data-wise.github.io/mediationverse/articles/contributing.html)
 - 📖 **Improve docs**: Submit pull requests
 
@@ -250,8 +250,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 If you use packages from the mediationverse in your research, please cite the individual packages:
 
 ```
-Tofighi, D. (2025). medfit: Infrastructure for mediation analysis in R.
-R package version 0.2.1. https://CRAN.R-project.org/package=medfit
+Tofighi, D. (2026). medfit: Infrastructure for Mediation Model Fitting and
+Extraction. R package version 0.3.2. https://CRAN.R-project.org/package=medfit
 
 Tofighi, D., & MacKinnon, D. P. (2011). RMediation: An R package for
 mediation analysis confidence intervals. Behavior Research Methods, 43,

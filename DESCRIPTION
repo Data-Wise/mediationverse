@@ -1,7 +1,7 @@
 Package: mediationverse
 Type: Package
 Title: Ecosystem for Mediation Analysis in R
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("Davood", "Tofighi",
     email = "dtofighi@gmail.com",
     role = c("aut", "cre"),
@@ -25,7 +25,6 @@ Remotes:
     Data-Wise/medrobust,
     Data-Wise/probmed
 Suggests:
-    altdoc,
     knitr,
     lavaan,
     medrobust,
@@ -42,6 +41,6 @@ Config/Needs/website:
     pkgdown
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 VignetteBuilder: quarto
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.1.0

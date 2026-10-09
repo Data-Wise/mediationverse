@@ -4,13 +4,11 @@
 ^pkgdown$
 ^mediationverse\.code-workspace$
 ^\.github$
-^GITHUB-SETUP\.md$
 ^\.claude$
 ^\.remember$
 ^vignettes/\.quarto$
 ^CLAUDE\.md$
 ^STATUS\.md$
 ^\.STATUS$
-^BRAINSTORM-
-^altdoc$
 ^_quarto$
+^planning$

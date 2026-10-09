@@ -32,12 +32,15 @@ remotes::install_github("data-wise/mediationverse")
 ```
 
 This will install `medfit` and `RMediation` (both on CRAN/r-universe).
-`probmed`, `medrobust`, and `medsim` are not on CRAN yet — install them
+`probmed`, `medrobust`, `medsim`, and `missingmed` are not on CRAN yet — install them
 individually as needed:
 
 ```{r}
 #| label: install-siblings
 pak::pak(c("Data-Wise/probmed", "Data-Wise/medrobust", "Data-Wise/medsim"))
+# missingmed in a separate call: probmed pins medfit@v0.3.0, which conflicts
+# with missingmed's medfit (>= 0.3.1) when both are resolved together
+pak::pak("Data-Wise/missingmed")
 ```
 
 Core packages in the ecosystem:
@@ -47,6 +50,7 @@ Core packages in the ecosystem:
 - **RMediation** - Confidence intervals (Distribution of Product, MBCO)
 - **medrobust** - Sensitivity analysis (bounds, falsification)
 - **medsim** - Simulation infrastructure
+- **missingmed** - Mediation with multiple imputation and IPW for missing data
 
 ## Loading the Ecosystem
 
@@ -67,8 +71,8 @@ outdated packages.
 This attaches medfit and displays helpful information:
 
 ```
-── Attaching mediationverse 0.0.0.9000 ──
-✔ medfit 0.1.0 (foundation package)
+── Attaching mediationverse 0.1.1 ──
+✔ medfit 0.3.2 (foundation package)
 ℹ Use library(probmed) for P_med effect size
 ℹ Use library(RMediation) for DOP/MBCO inference
 ℹ Use library(medrobust) for sensitivity analysis
@@ -264,6 +268,7 @@ med_data <- MediationData(
   - [RMediation](https://data-wise.github.io/rmediation/)
   - [medrobust](https://data-wise.github.io/medrobust/)
   - [medsim](https://data-wise.github.io/medsim/)
+  - [missingmed](https://data-wise.github.io/missingmed/)
 
 ## Session Info
 

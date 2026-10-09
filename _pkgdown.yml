@@ -19,7 +19,7 @@ home:
   description: >
     Meta-package that loads all core packages in the mediation analysis
     ecosystem with a single library() call. Provides unified access to
-    medfit, probmed, RMediation, medrobust, and medsim.
+    medfit, probmed, RMediation, medrobust, medsim, and missingmed.
   sidebar:
     structure: [links, license, citation, authors, dev]
   links:
@@ -69,9 +69,11 @@ navbar:
       - text: "probmed (P_med Effect Size)"
         href: https://Data-Wise.github.io/probmed/
       - text: "RMediation (Confidence Intervals)"
-        href: https://Data-Wise.github.io/RMediation/
+        href: https://Data-Wise.github.io/rmediation/
       - text: "medrobust (Sensitivity Analysis)"
         href: https://Data-Wise.github.io/medrobust/
+      - text: "missingmed (Missing Data)"
+        href: https://Data-Wise.github.io/missingmed/
       - text: "---------"
       - text: "Support Packages"
       - text: "medsim (Simulation Infrastructure)"
