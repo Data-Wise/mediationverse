@@ -2,6 +2,38 @@
 
 ## mediationverse (development version)
 
+### New features
+
+- `missingmed` (mediation analysis with multiple imputation and IPW for
+  missing data) joins the core ecosystem:
+  [`mediationverse_packages()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_packages.md),
+  [`mediationverse_sitrep()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_sitrep.md),
+  [`mediationverse_conflicts()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_conflicts.md)
+  and
+  [`mediationverse_update()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_update.md)
+  now include it. It is not attached by
+  [`library()`](https://rdrr.io/r/base/library.html) (selective loading
+  is unchanged). It is deliberately not in `Remotes:` or `Suggests:`:
+  probmed pins `medfit@v0.3.0`, which conflicts with missingmed’s
+  `medfit (>= 0.3.1)` and makes dependency resolution fail.
+
+### Bug fixes
+
+- [`mediationverse_sitrep()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_sitrep.md)
+  and
+  [`mediationverse_update()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_update.md)
+  no longer say CRAN has medfit 0.2.1 (CRAN has 0.3.2) or RMediation
+  1.5.0 (CRAN has 1.6.1). medfit stays sourced from GitHub because CRAN
+  0.3.2 predates two result-changing fixes in medfit 0.5.0 (serial
+  `te()`/`pm()` and `confint(parm = "paths")`).
+- The 0.1.0 entry below claimed `Data-Wise/medfit` was added to
+  `Remotes:`; it never was (medfit is in `Imports:`). Corrected there.
+- `pkgdown` no longer publishes internal planning documents or
+  `CLAUDE.md`.
+- Removed tracked junk: a vim swap file (`._pkgdown.yml.swp`) and four
+  `gemini-*.toml` command files left over from the removed Gemini review
+  bot.
+
 ## mediationverse 0.1.0
 
 ### Bug fixes
@@ -15,8 +47,9 @@
   missingmed) — sourcing it from CRAN resolves a version too old for
   those packages. `RMediation` remains the only CRAN-sourced core
   package.
-- `DESCRIPTION`: added `Data-Wise/medfit` to `Remotes:` so GitHub
-  installs resolve medfit 0.3.x rather than CRAN 0.2.1.
+- [`mediationverse_update()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_update.md)
+  installs medfit from GitHub so installs resolve a medfit that carries
+  the ecosystem’s fixes (`DESCRIPTION` lists it in `Imports:` only).
 - README + vignettes: corrected example calls to use real sibling
   exports
   ([`pmed()`](https://data-wise.github.io/probmed/reference/pmed.html),

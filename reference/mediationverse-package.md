@@ -21,6 +21,9 @@ The mediationverse includes the following packages:
 
 - **medsim**: Simulation infrastructure for mediation research
 
+- **missingmed**: Mediation analysis with multiple imputation and IPW
+  for missing data
+
 ### Installation
 
 Install all packages at once:
@@ -57,6 +60,8 @@ Update all packages:
 
 - medsim: <https://data-wise.github.io/medsim/>
 
+- missingmed: <https://data-wise.github.io/missingmed/>
+
 ## See also
 
 Useful links:
@@ -71,3 +76,8 @@ Useful links:
 
 **Maintainer**: Davood Tofighi <dtofighi@gmail.com>
 ([ORCID](https://orcid.org/0000-0001-8523-7776))
+
+Authors:
+
+- Davood Tofighi <dtofighi@gmail.com>
+  ([ORCID](https://orcid.org/0000-0001-8523-7776))

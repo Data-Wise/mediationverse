@@ -30,14 +30,16 @@ mediationverse_sitrep()
 #> ✔ medfit 0.3.0 [GitHub]
 #> ✔ probmed 0.3.0 [GitHub]
 #> ✔ RMediation 1.6.1 [CRAN]
-#> ✔ medrobust 0.4.0 [GitHub]
+#> ✔ medrobust 0.4.4 [GitHub]
 #> ✔ medsim 0.5.1 [GitHub]
+#> ✖ missingmed (not installed) [GitHub]
+#> Install: `pak::pak("Data-Wise/missingmed")`
 #> ────────────────────────────────────────────────────────────────────────────────
 #> 
 #> ── CRAN status ──
 #> 
-#> • RMediation 1.5.0 - <https://cran.r-project.org/package=RMediation>
-#> ℹ medfit - install 0.3.x from GitHub; CRAN has 0.2.1, but the ecosystem needs
-#>   >= 0.3.0
-#> ℹ probmed, medrobust, medsim - GitHub only (pre-CRAN)
+#> • RMediation 1.6.1 - <https://cran.r-project.org/package=RMediation>
+#> ℹ medfit - install from GitHub; CRAN has 0.3.2, which predates two
+#>   result-changing fixes in 0.5.0
+#> ℹ probmed, medrobust, medsim, missingmed - GitHub only (pre-CRAN)
 ```

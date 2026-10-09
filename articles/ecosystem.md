@@ -20,6 +20,7 @@ makes the others available without forcing every dependency into memory.
 | [**RMediation**](https://data-wise.github.io/rmediation/) | Application | Confidence intervals (DOP, MBCO, Monte Carlo) | [site](https://data-wise.github.io/rmediation/) | ✅ |
 | [**medrobust**](https://data-wise.github.io/medrobust/) | Application | Sensitivity analysis for unmeasured confounding | [site](https://data-wise.github.io/medrobust/) | Not yet |
 | [**medsim**](https://data-wise.github.io/medsim/) | Support | Simulation infrastructure for data-generating scenarios | [site](https://data-wise.github.io/medsim/) | Not yet |
+| [**missingmed**](https://data-wise.github.io/missingmed/) | Application | Mediation analysis with multiple imputation and IPW for missing data | [site](https://data-wise.github.io/missingmed/) | Not yet |
 
 ### Planned
 

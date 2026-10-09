@@ -62,6 +62,7 @@
     <li><a class="external-link dropdown-item" href="https://Data-Wise.github.io/probmed/">probmed (P_med Effect Size)</a></li>
     <li><a class="external-link dropdown-item" href="https://Data-Wise.github.io/RMediation/">RMediation (Confidence Intervals)</a></li>
     <li><a class="external-link dropdown-item" href="https://Data-Wise.github.io/medrobust/">medrobust (Sensitivity Analysis)</a></li>
+    <li><a class="external-link dropdown-item" href="https://Data-Wise.github.io/missingmed/">missingmed (Missing Data)</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Support Packages</h6></li>
     <li><a class="external-link dropdown-item" href="https://Data-Wise.github.io/medsim/">medsim (Simulation Infrastructure)</a></li>
@@ -122,10 +123,13 @@
 <span><span class="co"># Or with remotes</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"data-wise/mediationverse"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<p>This will install <code>medfit</code> and <code>RMediation</code> (both on CRAN/r-universe). <code>probmed</code>, <code>medrobust</code>, and <code>medsim</code> are not on CRAN yet — install them individually as needed:</p>
+<p>This will install <code>medfit</code> and <code>RMediation</code> (both on CRAN/r-universe). <code>probmed</code>, <code>medrobust</code>, <code>medsim</code>, and <code>missingmed</code> are not on CRAN yet — install them individually as needed:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Data-Wise/probmed"</span>, <span class="st">"Data-Wise/medrobust"</span>, <span class="st">"Data-Wise/medsim"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Data-Wise/probmed"</span>, <span class="st">"Data-Wise/medrobust"</span>, <span class="st">"Data-Wise/medsim"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># missingmed in a separate call: probmed pins medfit@v0.3.0, which conflicts</span></span>
+<span><span class="co"># with missingmed's medfit (&gt;= 0.3.1) when both are resolved together</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"Data-Wise/missingmed"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <p>Core packages in the ecosystem:</p>
 <ul>
@@ -139,6 +143,8 @@
 <strong>medrobust</strong> - Sensitivity analysis (bounds, falsification)</li>
 <li>
 <strong>medsim</strong> - Simulation infrastructure</li>
+<li>
+<strong>missingmed</strong> - Mediation with multiple imputation and IPW for missing data</li>
 </ul></section><section class="level2"><h2 id="loading-the-ecosystem">Loading the Ecosystem<a class="anchor" aria-label="anchor" href="#loading-the-ecosystem"></a>
 </h2>
 <p>The mediationverse uses <strong>selective loading</strong>: only the foundation package (<code>medfit</code>) is loaded by default. This keeps your namespace clean and lets you load only what you need.</p>
@@ -349,6 +355,7 @@
 <li><a href="https://data-wise.github.io/rmediation/" class="external-link">RMediation</a></li>
 <li><a href="https://data-wise.github.io/medrobust/" class="external-link">medrobust</a></li>
 <li><a href="https://data-wise.github.io/medsim/" class="external-link">medsim</a></li>
+<li><a href="https://data-wise.github.io/missingmed/" class="external-link">missingmed</a></li>
 </ul>
 </li>
 </ul></section><section class="level2"><h2 id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
@@ -359,7 +366,7 @@
 <div class="cell-output cell-output-stdout">
 <pre><code>R version 4.6.1 (2026-06-24)
 Platform: x86_64-pc-linux-gnu
-Running under: Ubuntu 24.04.4 LTS
+Running under: Ubuntu 24.04.5 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
@@ -379,8 +386,8 @@ attached base packages:
 
 loaded via a namespace (and not attached):
  [1] compiler_4.6.1  fastmap_1.2.0   cli_3.6.6       tools_4.6.1
- [5] htmltools_0.5.9 otel_0.2.0      yaml_2.3.12     rmarkdown_2.31
- [9] knitr_1.51      jsonlite_2.0.0  xfun_0.60       digest_0.6.39
+ [5] htmltools_0.5.9 otel_0.2.0      yaml_2.3.12     rmarkdown_2.32
+ [9] knitr_1.52      jsonlite_2.0.0  xfun_0.61       digest_0.6.39
 [13] rlang_1.3.0     evaluate_1.0.5 </code></pre>
 </div>
 </div>

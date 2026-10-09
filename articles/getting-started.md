@@ -24,12 +24,15 @@ remotes::install_github("data-wise/mediationverse")
 ```
 
 This will install `medfit` and `RMediation` (both on CRAN/r-universe).
-`probmed`, `medrobust`, and `medsim` are not on CRAN yet — install them
-individually as needed:
+`probmed`, `medrobust`, `medsim`, and `missingmed` are not on CRAN yet —
+install them individually as needed:
 
 ``` r
 
 pak::pak(c("Data-Wise/probmed", "Data-Wise/medrobust", "Data-Wise/medsim"))
+# missingmed in a separate call: probmed pins medfit@v0.3.0, which conflicts
+# with missingmed's medfit (>= 0.3.1) when both are resolved together
+pak::pak("Data-Wise/missingmed")
 ```
 
 Core packages in the ecosystem:
@@ -40,6 +43,8 @@ Core packages in the ecosystem:
 - **RMediation** - Confidence intervals (Distribution of Product, MBCO)
 - **medrobust** - Sensitivity analysis (bounds, falsification)
 - **medsim** - Simulation infrastructure
+- **missingmed** - Mediation with multiple imputation and IPW for
+  missing data
 
 ## Loading the Ecosystem
 
@@ -262,6 +267,7 @@ med_data <- MediationData(
   - [RMediation](https://data-wise.github.io/rmediation/)
   - [medrobust](https://data-wise.github.io/medrobust/)
   - [medsim](https://data-wise.github.io/medsim/)
+  - [missingmed](https://data-wise.github.io/missingmed/)
 
 ## Session Info
 
@@ -272,7 +278,7 @@ sessionInfo()
 
     R version 4.6.1 (2026-06-24)
     Platform: x86_64-pc-linux-gnu
-    Running under: Ubuntu 24.04.4 LTS
+    Running under: Ubuntu 24.04.5 LTS
 
     Matrix products: default
     BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
@@ -292,6 +298,6 @@ sessionInfo()
 
     loaded via a namespace (and not attached):
      [1] compiler_4.6.1  fastmap_1.2.0   cli_3.6.6       tools_4.6.1
-     [5] htmltools_0.5.9 otel_0.2.0      yaml_2.3.12     rmarkdown_2.31
-     [9] knitr_1.51      jsonlite_2.0.0  xfun_0.60       digest_0.6.39
+     [5] htmltools_0.5.9 otel_0.2.0      yaml_2.3.12     rmarkdown_2.32
+     [9] knitr_1.52      jsonlite_2.0.0  xfun_0.61       digest_0.6.39
     [13] rlang_1.3.0     evaluate_1.0.5 
