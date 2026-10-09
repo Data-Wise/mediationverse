@@ -14,16 +14,17 @@
 mediationverse_sitrep <- function() {
   # Known package sources (CRAN vs GitHub-only)
   cran_pkgs <- c("RMediation")
-  github_only <- c("medfit", "probmed", "medrobust", "medsim", "mediationverse")
+  github_only <- c("medfit", "probmed", "medrobust", "medsim", "missingmed", "mediationverse")
 
-  core <- c("medfit", "probmed", "RMediation", "medrobust", "medsim")
+  core <- c("medfit", "probmed", "RMediation", "medrobust", "medsim", "missingmed")
   github_repos <- c(
     mediationverse = "Data-Wise/mediationverse",
     medfit         = "Data-Wise/medfit",
     probmed        = "Data-Wise/probmed",
     RMediation     = "Data-Wise/rmediation",
     medrobust      = "Data-Wise/medrobust",
-    medsim         = "Data-Wise/medsim"
+    medsim         = "Data-Wise/medsim",
+    missingmed     = "Data-Wise/missingmed"
   )
 
   use_cli <- requireNamespace("cli", quietly = TRUE)
@@ -90,16 +91,16 @@ mediationverse_sitrep <- function() {
     cli::cli_rule()
     cli::cli_h2("CRAN status")
     cli::cli_bullets(c(
-      "*" = "{.pkg RMediation} {.field 1.5.0} - {.url https://cran.r-project.org/package=RMediation}",
-      "i" = "{.pkg medfit} - install {.field 0.3.x} from GitHub; CRAN has {.field 0.2.1}, but the ecosystem needs >= 0.3.0",
-      "i" = "{.pkg probmed}, {.pkg medrobust}, {.pkg medsim} - GitHub only (pre-CRAN)"
+      "*" = "{.pkg RMediation} {.field 1.6.1} - {.url https://cran.r-project.org/package=RMediation}",
+      "i" = "{.pkg medfit} - install from GitHub; CRAN has {.field 0.3.2}, which predates two result-changing fixes in {.field 0.5.0}",
+      "i" = "{.pkg probmed}, {.pkg medrobust}, {.pkg medsim}, {.pkg missingmed} - GitHub only (pre-CRAN)"
     ))
   } else {
     cat(strrep("-", 50), "\n")
     cat("CRAN status:\n")
-    cat("  [CRAN] RMediation 1.5.0\n")
-    cat("  [GitHub] medfit 0.3.x (CRAN has 0.2.1; ecosystem needs >= 0.3.0)\n")
-    cat("  [GitHub only] probmed, medrobust, medsim\n")
+    cat("  [CRAN] RMediation 1.6.1\n")
+    cat("  [GitHub] medfit (CRAN has 0.3.2, which predates two result-changing fixes in 0.5.0)\n")
+    cat("  [GitHub only] probmed, medrobust, medsim, missingmed\n")
   }
 
   out <- as.data.frame(

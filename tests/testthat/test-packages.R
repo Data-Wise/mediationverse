@@ -14,14 +14,14 @@ test_that("mediationverse_packages() includes core ecosystem packages", {
   result <- mediationverse_packages(include_self = FALSE)
   expect_setequal(
     result$package,
-    c("medfit", "probmed", "RMediation", "medrobust", "medsim")
+    c("medfit", "probmed", "RMediation", "medrobust", "medsim", "missingmed")
   )
 })
 
 test_that("mediationverse_packages(include_self = TRUE) includes mediationverse itself", {
   result <- mediationverse_packages(include_self = TRUE)
   expect_true("mediationverse" %in% result$package)
-  expect_equal(nrow(result), 6L)
+  expect_equal(nrow(result), 7L)
 })
 
 test_that("mediationverse_packages() version is NA for uninstalled packages", {

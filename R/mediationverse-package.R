@@ -14,6 +14,7 @@
 #' - **RMediation**: Confidence intervals (DOP, MBCO, MC methods)
 #' - **medrobust**: Sensitivity analysis for unmeasured confounding
 #' - **medsim**: Simulation infrastructure for mediation research
+#' - **missingmed**: Mediation analysis with multiple imputation and IPW for missing data
 #'
 #' ## Installation
 #'
@@ -51,6 +52,7 @@
 #' - RMediation: \url{https://cran.r-project.org/package=RMediation}
 #' - medrobust: \url{https://data-wise.github.io/medrobust/}
 #' - medsim: \url{https://data-wise.github.io/medsim/}
+#' - missingmed: \url{https://data-wise.github.io/missingmed/}
 #'
 #' @keywords internal
 "_PACKAGE"

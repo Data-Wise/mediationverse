@@ -16,11 +16,13 @@
 #'
 #' Package sources:
 #' - **mediationverse**: GitHub (data-wise/mediationverse)
-#' - **medfit**: GitHub (data-wise/medfit) — CRAN 0.2.1 is behind; the ecosystem needs >= 0.3.0
+#' - **medfit**: GitHub (data-wise/medfit) — CRAN has 0.3.2, which predates two
+#'   result-changing fixes in 0.5.0 (serial `te()`/`pm()` and `confint(parm = "paths")`)
 #' - **probmed**: GitHub (data-wise/probmed)
 #' - **RMediation**: CRAN
 #' - **medrobust**: GitHub (data-wise/medrobust)
 #' - **medsim**: GitHub (data-wise/medsim)
+#' - **missingmed**: GitHub (data-wise/missingmed)
 #'
 #' @return Invisibly returns a character vector of updated package names.
 #'
@@ -41,7 +43,8 @@ mediationverse_update <- function(packages = NULL, ...) {
     medfit         = "data-wise/medfit",
     probmed        = "data-wise/probmed",
     medrobust      = "data-wise/medrobust",
-    medsim         = "data-wise/medsim"
+    medsim         = "data-wise/medsim",
+    missingmed     = "data-wise/missingmed"
   )
 
   cran_pkgs <- c("RMediation")
