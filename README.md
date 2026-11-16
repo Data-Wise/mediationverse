@@ -21,8 +21,9 @@ The **mediationverse** is a collection of R packages for mediation analysis, pro
 ## Quick Start
 
 ```r
-# Install mediationverse
-pak::pak("Data-Wise/mediationverse")
+# Install mediationverse, plus RMediation (opt-in: it is not installed
+# automatically with mediationverse)
+pak::pak(c("Data-Wise/mediationverse", "RMediation"))
 
 # Load foundation package + packages you need
 library(mediationverse)  # Loads medfit (foundation)

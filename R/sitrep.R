@@ -4,8 +4,13 @@
 #' Prints a summary of the installed mediationverse packages, their versions,
 #' and installation sources. Inspired by `tidyverse::tidyverse_sitrep()`.
 #'
-#' @return Invisibly returns a data frame with package status. Called for its
-#'   side effect of printing the situation report.
+#' @return Invisibly returns a data frame with columns `package`, `installed`,
+#'   `version` and `source`. `source` is the *recommended* install source
+#'   (`"CRAN"` or `"GitHub"`) from the ecosystem registry; it is not detected
+#'   from the installed copy, so a package installed from elsewhere (for
+#'   example a CRAN `medfit` that predates the GitHub fixes) still shows its
+#'   recommended source. Called mainly for its side effect of printing the
+#'   situation report.
 #'
 #' @examples
 #' mediationverse_sitrep()
@@ -55,12 +60,12 @@ mediationverse_sitrep <- function() {
       if (pd$installed) {
         tick <- cli::col_green(cli::symbol$tick)
         cli::cli_text(
-          "  {tick} {.pkg {pd$package}} {.field {pd$version}} [{src_label}]"
+          "  {tick} {.pkg {pd$package}} {.field {pd$version}} [recommended: {src_label}]"
         )
       } else {
         cross <- cli::col_red(cli::symbol$cross)
         cli::cli_text(
-          "  {cross} {.pkg {pd$package}} {.emph (not installed)} [{src_label}]"
+          "  {cross} {.pkg {pd$package}} {.emph (not installed)} [recommended: {src_label}]"
         )
         repo <- github_repos[pd$package]
         if (!is.na(repo)) {
@@ -72,7 +77,7 @@ mediationverse_sitrep <- function() {
     } else {
       status <- if (pd$installed) "[x]" else "[ ]"
       ver_str <- if (pd$installed) pd$version else "not installed"
-      cat(sprintf("  %s %s %s [%s]\n", status, pd$package, ver_str, pd$source))
+      cat(sprintf("  %s %s %s [recommended: %s]\n", status, pd$package, ver_str, pd$source))
     }
   }
 

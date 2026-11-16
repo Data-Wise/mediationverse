@@ -7,8 +7,13 @@
 mediationverse_sitrep()
 }
 \value{
-Invisibly returns a data frame with package status. Called for its
-side effect of printing the situation report.
+Invisibly returns a data frame with columns \code{package}, \code{installed},
+\code{version} and \code{source}. \code{source} is the \emph{recommended} install source
+(\code{"CRAN"} or \code{"GitHub"}) from the ecosystem registry; it is not detected
+from the installed copy, so a package installed from elsewhere (for
+example a CRAN \code{medfit} that predates the GitHub fixes) still shows its
+recommended source. Called mainly for its side effect of printing the
+situation report.
 }
 \description{
 Prints a summary of the installed mediationverse packages, their versions,
