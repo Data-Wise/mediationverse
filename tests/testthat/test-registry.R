@@ -88,3 +88,13 @@ test_that("public functions use the registry's member list", {
     mediationverse:::mv_core_packages()
   )
 })
+
+test_that("optional dependency table declares OpenMx with a valid minimum", {
+  deps <- mediationverse:::mv_optional_deps()
+  expect_named(deps, c("package", "owner", "feature", "min_version"))
+  expect_identical(deps$package, "OpenMx")
+  expect_identical(deps$owner, "RMediation")
+  expect_no_error(package_version(deps$min_version))
+  # Optional deps are not ecosystem members.
+  expect_false("OpenMx" %in% mediationverse:::mv_all_packages())
+})

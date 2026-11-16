@@ -10,7 +10,7 @@
   installed members against the minimum versions the ecosystem expects (a
   compatible but older medfit, such as CRAN's 0.3.2, warns because it predates
   result-changing fixes in 0.5.0), the optional OpenMx dependency (reported as
-  available only when RMediation is installed and exports `mbco()`), and
+  available only when OpenMx meets RMediation's declared minimum, 2.13, and RMediation is installed and exports `mbco()`), and
   function conflicts among installed members. The results are attached to the returned
   data frame as the `"checks"` attribute. The default report is unchanged apart
   from a one-line hint.

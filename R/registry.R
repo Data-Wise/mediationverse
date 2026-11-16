@@ -89,3 +89,17 @@ mv_source <- function(package) {
   reg <- mv_registry()
   reg$source[match(package, reg$package)]
 }
+
+# Optional (Suggests-level) dependencies that gate a feature of a member.
+# `min_version` is the minimum the owner declares in its DESCRIPTION
+# (RMediation: OpenMx (>= 2.13), verified 2026-11-16).
+#' @noRd
+mv_optional_deps <- function() {
+  data.frame(
+    package = "OpenMx",
+    owner = "RMediation",
+    feature = "mbco()",
+    min_version = "2.13",
+    stringsAsFactors = FALSE
+  )
+}

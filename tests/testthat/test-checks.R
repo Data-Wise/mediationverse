@@ -1,12 +1,19 @@
 mock_env <- function(versions, installed = names(versions), openmx = TRUE,
-                     mbco = TRUE, env = parent.frame()) {
+                     mbco = TRUE, openmx_version = "2.22.11",
+                     env = parent.frame()) {
   testthat::local_mocked_bindings(
     pkg_installed = function(pkg) {
       if (identical(pkg, "OpenMx")) openmx else pkg %in% installed
     },
     pkg_has_export = function(pkg, name) mbco,
     pkg_version = function(pkg) {
-      if (pkg %in% names(versions)) versions[[pkg]] else NA_character_
+      if (identical(pkg, "OpenMx")) {
+        openmx_version
+      } else if (pkg %in% names(versions)) {
+        versions[[pkg]]
+      } else {
+        NA_character_
+      }
     },
     find_conflicts = function(pkgs) {
       data.frame(
@@ -96,6 +103,25 @@ test_that("missing OpenMx warns with an install fix", {
 
 test_that("OpenMx plus RMediation exporting mbco() passes", {
   mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"), openmx = TRUE, mbco = TRUE)
+  expect_identical(mediationverse:::check_optional_deps()$status, "pass")
+})
+
+test_that("OpenMx below RMediation's declared minimum warns; at the minimum passes", {
+  mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"), openmx_version = "2.12")
+  old <- mediationverse:::check_optional_deps()
+  expect_identical(old$status, "warn")
+  expect_match(old$message, "OpenMx 2.12 is older than the 2.13")
+  expect_match(old$fix, "OpenMx")
+
+  mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"), openmx_version = "2.13")
+  expect_identical(mediationverse:::check_optional_deps()$status, "pass")
+
+  mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"), openmx_version = "2.22.11")
+  expect_identical(mediationverse:::check_optional_deps()$status, "pass")
+})
+
+test_that("an unreadable OpenMx version does not fail the check by itself", {
+  mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"), openmx_version = NA_character_)
   expect_identical(mediationverse:::check_optional_deps()$status, "pass")
 })
 

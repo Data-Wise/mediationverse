@@ -94,10 +94,26 @@ pkg_has_export <- function(pkg, name) {
 # actually exports mbco().
 #' @noRd
 check_optional_deps <- function() {
+  dep <- mv_optional_deps()
+  openmx_min <- dep$min_version[dep$package == "OpenMx"]
+
   if (!pkg_installed("OpenMx")) {
     return(check_row(
       "optional:OpenMx", "warn",
       "OpenMx is not installed; RMediation::mbco() will not work",
+      "install.packages(\"OpenMx\")"
+    ))
+  }
+
+  openmx_ver <- pkg_version("OpenMx")
+  if (!is.na(openmx_ver) &&
+    package_version(openmx_ver) < package_version(openmx_min)) {
+    return(check_row(
+      "optional:OpenMx", "warn",
+      sprintf(
+        "OpenMx %s is older than the %s RMediation requires; mbco() may not work",
+        openmx_ver, openmx_min
+      ),
       "install.packages(\"OpenMx\")"
     ))
   }
