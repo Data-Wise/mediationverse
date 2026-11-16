@@ -7,9 +7,11 @@
   reported instead of aborting, and `include_self = FALSE` by default because
   the installed meta-package copy can be stale.
 * `mediationverse_sitrep(checks = TRUE)` adds opt-in environment checks:
-  installed members against the minimum versions the ecosystem expects, the
-  optional OpenMx dependency (needed for `RMediation::mbco()`), and function
-  conflicts among installed members. The results are attached to the returned
+  installed members against the minimum versions the ecosystem expects (a
+  compatible but older medfit, such as CRAN's 0.3.2, warns because it predates
+  result-changing fixes in 0.5.0), the optional OpenMx dependency (reported as
+  available only when RMediation is installed and exports `mbco()`), and
+  function conflicts among installed members. The results are attached to the returned
   data frame as the `"checks"` attribute. The default report is unchanged apart
   from a one-line hint.
 

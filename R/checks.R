@@ -52,10 +52,21 @@ check_min_versions <- function() {
       ))
     }
 
+    rec_ver <- reg$recommended_version[i]
+
     if (package_version(ver) < package_version(min_ver)) {
       check_row(
         check, "fail",
         sprintf("%s %s is older than the required %s", pkg, ver, min_ver),
+        sprintf("pak::pak(\"%s\")", reg$repo[i])
+      )
+    } else if (!is.na(rec_ver) && package_version(ver) < package_version(rec_ver)) {
+      check_row(
+        check, "warn",
+        sprintf(
+          "%s %s meets the minimum %s but predates %s, which has result-changing fixes",
+          pkg, ver, min_ver, rec_ver
+        ),
         sprintf("pak::pak(\"%s\")", reg$repo[i])
       )
     } else {
@@ -69,18 +80,48 @@ check_min_versions <- function() {
   do.call(rbind, rows)
 }
 
-# Optional dependencies that gate a feature of a member package.
+# Does an installed package export a given name? Isolated so tests can mock it.
+#' @noRd
+pkg_has_export <- function(pkg, name) {
+  tryCatch(
+    name %in% getNamespaceExports(pkg),
+    error = function(e) FALSE
+  )
+}
+
+# Optional dependencies that gate a feature of a member package. The OpenMx
+# row only reports the feature as available when RMediation is installed and
+# actually exports mbco().
 #' @noRd
 check_optional_deps <- function() {
-  if (pkg_installed("OpenMx")) {
-    check_row("optional:OpenMx", "pass", "OpenMx is installed (RMediation::mbco() available)")
-  } else {
-    check_row(
+  if (!pkg_installed("OpenMx")) {
+    return(check_row(
       "optional:OpenMx", "warn",
       "OpenMx is not installed; RMediation::mbco() will not work",
       "install.packages(\"OpenMx\")"
-    )
+    ))
   }
+
+  if (!pkg_installed("RMediation")) {
+    return(check_row(
+      "optional:OpenMx", "warn",
+      "OpenMx is installed, but RMediation is not, so mbco() is unavailable",
+      "install.packages(\"RMediation\")"
+    ))
+  }
+
+  if (!pkg_has_export("RMediation", "mbco")) {
+    return(check_row(
+      "optional:OpenMx", "warn",
+      "OpenMx is installed, but the installed RMediation does not export mbco()",
+      "install.packages(\"RMediation\")"
+    ))
+  }
+
+  check_row(
+    "optional:OpenMx", "pass",
+    "OpenMx is installed (RMediation::mbco() available)"
+  )
 }
 
 # Functions exported by more than one installed member.

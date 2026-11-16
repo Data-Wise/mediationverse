@@ -6,8 +6,10 @@
 #'
 #' @param checks Logical. If `TRUE`, also run environment checks and print
 #'   them after the report: installed members against the minimum versions the
-#'   ecosystem expects, optional dependencies (OpenMx, needed for
-#'   `RMediation::mbco()`), and function conflicts among installed members.
+#'   ecosystem expects (failing below it, and warning when a compatible version
+#'   predates the recommended one, e.g. medfit before 0.5.0), optional
+#'   dependencies (OpenMx, needed for `RMediation::mbco()`), and function
+#'   conflicts among installed members.
 #'   Default `FALSE` leaves the report unchanged apart from a one-line hint.
 #'
 #' @return Invisibly returns a data frame with columns `package`, `installed`,

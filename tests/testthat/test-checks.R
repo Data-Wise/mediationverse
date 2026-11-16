@@ -1,9 +1,10 @@
 mock_env <- function(versions, installed = names(versions), openmx = TRUE,
-                     env = parent.frame()) {
+                     mbco = TRUE, env = parent.frame()) {
   testthat::local_mocked_bindings(
     pkg_installed = function(pkg) {
       if (identical(pkg, "OpenMx")) openmx else pkg %in% installed
     },
+    pkg_has_export = function(pkg, name) mbco,
     pkg_version = function(pkg) {
       if (pkg %in% names(versions)) versions[[pkg]] else NA_character_
     },
@@ -28,17 +29,41 @@ test_that("mv_checks() returns the documented columns and valid statuses", {
   expect_false(anyDuplicated(res$check) > 0)
 })
 
-test_that("a member meeting its minimum passes; an old one fails with a fix", {
-  mock_env(c(medfit = "0.3.1", RMediation = "1.6.1"))
+test_that("a member at or above the recommended version passes", {
+  mock_env(c(medfit = "0.5.0", RMediation = "1.6.1"))
   ok <- mediationverse:::check_min_versions()
   expect_identical(ok$status[ok$check == "version:medfit"], "pass")
 
+  mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"))
+  ok <- mediationverse:::check_min_versions()
+  expect_identical(ok$status[ok$check == "version:medfit"], "pass")
+})
+
+test_that("a member below the minimum fails with a fix", {
   mock_env(c(medfit = "0.2.0", RMediation = "1.6.1"))
   old <- mediationverse:::check_min_versions()
   row <- old[old$check == "version:medfit", ]
   expect_identical(row$status, "fail")
   expect_match(row$message, "older than the required 0.3.1")
   expect_match(row$fix, "Data-Wise/medfit", fixed = TRUE)
+})
+
+test_that("medfit 0.3.1 and CRAN's 0.3.2 only warn: they predate the recommended fixes", {
+  for (ver in c("0.3.1", "0.3.2", "0.4.0")) {
+    mock_env(c(medfit = ver, RMediation = "1.6.1"))
+    res <- mediationverse:::check_min_versions()
+    row <- res[res$check == "version:medfit", ]
+    expect_identical(row$status, "warn", info = ver)
+    expect_match(row$message, "predates 0.5.0", info = ver)
+    expect_match(row$message, "result-changing", info = ver)
+    expect_match(row$fix, "Data-Wise/medfit", fixed = TRUE)
+  }
+})
+
+test_that("a member without a recommended version passes once it meets the minimum", {
+  mock_env(c(medfit = "0.7.0", RMediation = "1.5.0"))
+  res <- mediationverse:::check_min_versions()
+  expect_identical(res$status[res$check == "version:RMediation"], "pass")
 })
 
 test_that("a not-installed member with a minimum is a warning, not a failure", {
@@ -61,15 +86,40 @@ test_that("an unreadable version is a warning", {
   expect_true(all(res$status == "warn"))
 })
 
-test_that("missing OpenMx warns with an install fix; present passes", {
-  mock_env(c(medfit = "0.7.0"), openmx = FALSE)
+test_that("missing OpenMx warns with an install fix", {
+  mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"), openmx = FALSE)
   warn <- mediationverse:::check_optional_deps()
   expect_identical(warn$status, "warn")
   expect_match(warn$message, "mbco")
   expect_match(warn$fix, "OpenMx")
+})
 
-  mock_env(c(medfit = "0.7.0"), openmx = TRUE)
+test_that("OpenMx plus RMediation exporting mbco() passes", {
+  mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"), openmx = TRUE, mbco = TRUE)
   expect_identical(mediationverse:::check_optional_deps()$status, "pass")
+})
+
+test_that("OpenMx present but RMediation absent does not claim mbco() is available", {
+  mock_env(c(medfit = "0.7.0"), installed = "medfit", openmx = TRUE)
+  res <- mediationverse:::check_optional_deps()
+  expect_identical(res$status, "warn")
+  expect_match(res$message, "RMediation is not")
+  expect_match(res$fix, "RMediation")
+  expect_match(res$message, "unavailable")
+  expect_false(grepl("(?<!un)available", res$message, perl = TRUE))
+})
+
+test_that("OpenMx present but RMediation without mbco() warns", {
+  mock_env(c(medfit = "0.7.0", RMediation = "1.0.0"), openmx = TRUE, mbco = FALSE)
+  res <- mediationverse:::check_optional_deps()
+  expect_identical(res$status, "warn")
+  expect_match(res$message, "does not export mbco")
+})
+
+test_that("pkg_has_export() reflects real exports and is FALSE for missing packages", {
+  expect_true(mediationverse:::pkg_has_export("stats", "sd"))
+  expect_false(mediationverse:::pkg_has_export("stats", "not_a_function"))
+  expect_false(mediationverse:::pkg_has_export("__no_such_pkg__", "x"))
 })
 
 test_that("conflicts check warns and names the functions", {

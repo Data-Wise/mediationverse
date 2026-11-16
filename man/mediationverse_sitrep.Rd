@@ -9,8 +9,10 @@ mediationverse_sitrep(checks = FALSE)
 \arguments{
 \item{checks}{Logical. If \code{TRUE}, also run environment checks and print
 them after the report: installed members against the minimum versions the
-ecosystem expects, optional dependencies (OpenMx, needed for
-\code{RMediation::mbco()}), and function conflicts among installed members.
+ecosystem expects (failing below it, and warning when a compatible version
+predates the recommended one, e.g. medfit before 0.5.0), optional
+dependencies (OpenMx, needed for \code{RMediation::mbco()}), and function
+conflicts among installed members.
 Default \code{FALSE} leaves the report unchanged apart from a one-line hint.}
 }
 \value{
