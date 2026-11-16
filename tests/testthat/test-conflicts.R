@@ -126,3 +126,41 @@ test_that("print.mediationverse_conflicts() non-empty branch works without cli",
   expect_true(any(grepl("extract_mediation", out)))
   expect_true(any(grepl("conflict", out)))
 })
+
+test_that("find_conflicts() is quiet and returns an empty frame for < 2 packages", {
+  expect_silent(res <- mediationverse:::find_conflicts("medfit"))
+  expect_s3_class(res, "data.frame")
+  expect_false(inherits(res, "mediationverse_conflicts"))
+  expect_named(res, c("function_name", "packages", "winner"))
+  expect_equal(nrow(res), 0L)
+  expect_silent(mediationverse:::find_conflicts(character(0)))
+})
+
+test_that("find_conflicts() reports a shared export without printing anything", {
+  testthat::local_mocked_bindings(
+    getNamespaceExports = function(ns) {
+      switch(ns,
+        medfit  = c("extract_mediation", "only_in_medfit"),
+        probmed = c("extract_mediation", "pmed")
+      )
+    },
+    .package = "base"
+  )
+
+  expect_silent(res <- mediationverse:::find_conflicts(c("medfit", "probmed")))
+  expect_equal(res$function_name, "extract_mediation")
+  expect_equal(res$packages, "medfit, probmed")
+  expect_true(res$winner %in% c("medfit", "probmed"))
+})
+
+test_that("find_conflicts() returns an empty frame when exports do not overlap", {
+  testthat::local_mocked_bindings(
+    getNamespaceExports = function(ns) {
+      switch(ns, medfit = "a", probmed = "b")
+    },
+    .package = "base"
+  )
+
+  res <- mediationverse:::find_conflicts(c("medfit", "probmed"))
+  expect_equal(nrow(res), 0L)
+})

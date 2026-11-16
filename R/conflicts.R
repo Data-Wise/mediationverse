@@ -54,15 +54,46 @@ mediationverse_conflicts <- function(only_loaded = TRUE) {
     )))
   }
 
+  conflicts <- find_conflicts(core)
+
+  if (nrow(conflicts) == 0) {
+    if (requireNamespace("cli", quietly = TRUE)) {
+      cli::cli_alert_success("No conflicts found among mediationverse packages!")
+    } else {
+      message("No conflicts found among mediationverse packages!")
+    }
+    return(invisible(conflicts))
+  }
+
+  class(conflicts) <- c("mediationverse_conflicts", "data.frame")
+  conflicts
+}
+
+# Quiet conflict finder: no messages, no classing. Returns a data frame with
+# columns `function_name`, `packages` and `winner`; zero rows when fewer than
+# two packages are given or nothing conflicts. Used by
+# mediationverse_conflicts() and by the sitrep checks.
+#' @noRd
+find_conflicts <- function(pkgs) {
+  empty <- data.frame(
+    function_name = character(0),
+    packages = character(0),
+    winner = character(0),
+    stringsAsFactors = FALSE
+  )
+
+  if (length(pkgs) < 2) {
+    return(empty)
+  }
+
   # Get exports from each package
-  pkg_exports <- lapply(core, function(pkg) {
-    ns <- tryCatch(
+  pkg_exports <- lapply(pkgs, function(pkg) {
+    tryCatch(
       getNamespaceExports(pkg),
       error = function(e) character(0)
     )
-    ns
   })
-  names(pkg_exports) <- core
+  names(pkg_exports) <- pkgs
 
   # Find all unique function names
   all_funs <- unique(unlist(pkg_exports))
@@ -70,7 +101,7 @@ mediationverse_conflicts <- function(only_loaded = TRUE) {
   # Find functions exported by multiple packages
   conflicts <- list()
   for (fun in all_funs) {
-    pkgs_with_fun <- core[vapply(pkg_exports, function(exports) {
+    pkgs_with_fun <- pkgs[vapply(pkg_exports, function(exports) {
       fun %in% exports
     }, logical(1))]
 
@@ -80,38 +111,25 @@ mediationverse_conflicts <- function(only_loaded = TRUE) {
   }
 
   if (length(conflicts) == 0) {
-    if (requireNamespace("cli", quietly = TRUE)) {
-      cli::cli_alert_success("No conflicts found among mediationverse packages!")
-    } else {
-      message("No conflicts found among mediationverse packages!")
-    }
-    return(invisible(data.frame(
-      function_name = character(0),
-      packages = character(0),
-      winner = character(0),
-      stringsAsFactors = FALSE
-    )))
+    return(empty)
   }
 
   # Determine which package "wins" (last in search path)
   search_order <- rev(search())
 
-  df <- data.frame(
+  data.frame(
     function_name = names(conflicts),
     packages = vapply(conflicts, paste, character(1), collapse = ", "),
-    winner = vapply(conflicts, function(pkgs) {
-      pkg_positions <- vapply(pkgs, function(p) {
-        pos <- which(search_order == paste0("package:", p))
+    winner = vapply(conflicts, function(p) {
+      pkg_positions <- vapply(p, function(x) {
+        pos <- which(search_order == paste0("package:", x))
         if (length(pos) == 0) Inf else pos
       }, numeric(1))
-      pkgs[which.min(pkg_positions)]
+      p[which.min(pkg_positions)]
     }, character(1)),
     row.names = NULL,
     stringsAsFactors = FALSE
   )
-
-  class(df) <- c("mediationverse_conflicts", "data.frame")
-  df
 }
 
 #' @export
