@@ -98,7 +98,7 @@ Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 ## Next
 
 1. **CRAN path for medsim / medrobust / probmed** — unblocks dropping their `Remotes:` entries and submitting mediationverse itself to CRAN.
-2. **Test coverage** — done: 36 `test_that` blocks across 5 test files; 93.9% coverage as of 2026-06-22 (PR #12), not re-measured since.
+2. **Test coverage** — done: 36 `test_that` blocks across 5 test files; 93.88% coverage, re-measured 2026-11-16 (was 93.9% after PR #12); weakest file is `R/zzz.R` at 64.29%.
 3. **mediationverse_sitrep()** — done (shipped; covered in `test-sitrep.R`).
 
 ## Ecosystem roadmap (moved out of public README.md, 2026-08-04)
