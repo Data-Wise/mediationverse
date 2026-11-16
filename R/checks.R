@@ -106,8 +106,18 @@ check_optional_deps <- function() {
   }
 
   openmx_ver <- pkg_version("OpenMx")
-  if (!is.na(openmx_ver) &&
-    package_version(openmx_ver) < package_version(openmx_min)) {
+  if (is.na(openmx_ver)) {
+    return(check_row(
+      "optional:OpenMx", "warn",
+      sprintf(
+        "OpenMx is installed but its version could not be read, so it cannot be confirmed as >= %s",
+        openmx_min
+      ),
+      "install.packages(\"OpenMx\")"
+    ))
+  }
+
+  if (package_version(openmx_ver) < package_version(openmx_min)) {
     return(check_row(
       "optional:OpenMx", "warn",
       sprintf(
@@ -148,17 +158,34 @@ check_conflicts <- function() {
 
   conflicts <- find_conflicts(installed)
   n <- nrow(conflicts)
+  failed <- attr(conflicts, "failed_lookup")
+
+  found <- if (n == 0) {
+    "No export conflicts among inspected members"
+  } else {
+    sprintf(
+      "%d function%s exported by more than one member: %s",
+      n, if (n == 1) "" else "s",
+      paste(conflicts$function_name, collapse = ", ")
+    )
+  }
+
+  if (length(failed) > 0) {
+    return(check_row(
+      "conflicts", "warn",
+      sprintf(
+        "%s; exports of %s could not be read, so the check is incomplete",
+        found, paste(failed, collapse = ", ")
+      ),
+      "Reinstall the package(s) whose exports could not be read"
+    ))
+  }
 
   if (n == 0) {
     check_row("conflicts", "pass", "No export conflicts among installed members")
   } else {
     check_row(
-      "conflicts", "warn",
-      sprintf(
-        "%d function%s exported by more than one member: %s",
-        n, if (n == 1) "" else "s",
-        paste(conflicts$function_name, collapse = ", ")
-      ),
+      "conflicts", "warn", found,
       "Call the version you want with package::function()"
     )
   }

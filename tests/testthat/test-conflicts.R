@@ -180,3 +180,48 @@ test_that("find_conflicts() ignores S4 method-table internals", {
 
   expect_equal(nrow(res), 0L)
 })
+
+test_that("find_conflicts() records packages whose export lookup failed", {
+  testthat::local_mocked_bindings(
+    getNamespaceExports = function(ns) {
+      if (identical(ns, "probmed")) stop("no such namespace")
+      "extract_mediation"
+    },
+    .package = "base"
+  )
+
+  res <- mediationverse:::find_conflicts(c("medfit", "probmed", "medsim"))
+
+  expect_identical(attr(res, "failed_lookup"), "probmed")
+  # medfit and medsim still conflict on the shared export.
+  expect_equal(res$function_name, "extract_mediation")
+})
+
+test_that("find_conflicts() reports no failed lookups on a clean run", {
+  testthat::local_mocked_bindings(
+    getNamespaceExports = function(ns) switch(ns, medfit = "a", probmed = "b"),
+    .package = "base"
+  )
+
+  res <- mediationverse:::find_conflicts(c("medfit", "probmed"))
+
+  expect_identical(attr(res, "failed_lookup"), character(0))
+})
+
+test_that("mediationverse_conflicts() does not expose failed_lookup", {
+  testthat::local_mocked_bindings(
+    getNamespaceExports = function(ns) {
+      if (identical(ns, "probmed")) stop("boom")
+      "extract_mediation"
+    },
+    .package = "base"
+  )
+  testthat::local_mocked_bindings(
+    requireNamespace = function(package, ...) TRUE,
+    .package = "base"
+  )
+
+  res <- suppressMessages(mediationverse_conflicts(only_loaded = FALSE))
+
+  expect_null(attr(res, "failed_lookup"))
+})

@@ -120,9 +120,13 @@ test_that("OpenMx below RMediation's declared minimum warns; at the minimum pass
   expect_identical(mediationverse:::check_optional_deps()$status, "pass")
 })
 
-test_that("an unreadable OpenMx version does not fail the check by itself", {
+test_that("an unreadable OpenMx version warns instead of passing", {
   mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"), openmx_version = NA_character_)
-  expect_identical(mediationverse:::check_optional_deps()$status, "pass")
+  res <- mediationverse:::check_optional_deps()
+  expect_identical(res$status, "warn")
+  expect_match(res$message, "version could not be read")
+  expect_match(res$message, "2.13", fixed = TRUE)
+  expect_match(res$fix, "OpenMx")
 })
 
 test_that("OpenMx present but RMediation absent does not claim mbco() is available", {
@@ -164,6 +168,49 @@ test_that("conflicts check warns and names the functions", {
   expect_identical(res$status, "warn")
   expect_match(res$message, "2 functions")
   expect_match(res$message, "ci, te", fixed = TRUE)
+})
+
+test_that("conflicts check warns when some exports could not be read", {
+  testthat::local_mocked_bindings(
+    pkg_installed = function(pkg) TRUE,
+    find_conflicts = function(pkgs) {
+      structure(
+        data.frame(
+          function_name = character(0), packages = character(0),
+          winner = character(0), stringsAsFactors = FALSE
+        ),
+        failed_lookup = "probmed"
+      )
+    }
+  )
+
+  res <- mediationverse:::check_conflicts()
+
+  expect_identical(res$status, "warn")
+  expect_match(res$message, "probmed")
+  expect_match(res$message, "incomplete")
+  expect_false(grepl("No export conflicts among installed", res$message))
+})
+
+test_that("conflicts check still reports found conflicts alongside a failed lookup", {
+  testthat::local_mocked_bindings(
+    pkg_installed = function(pkg) TRUE,
+    find_conflicts = function(pkgs) {
+      structure(
+        data.frame(
+          function_name = "ci", packages = "a, b", winner = "a",
+          stringsAsFactors = FALSE
+        ),
+        failed_lookup = "medsim"
+      )
+    }
+  )
+
+  res <- mediationverse:::check_conflicts()
+
+  expect_identical(res$status, "warn")
+  expect_match(res$message, "1 function exported")
+  expect_match(res$message, "medsim")
 })
 
 test_that("conflicts check passes when nothing conflicts", {

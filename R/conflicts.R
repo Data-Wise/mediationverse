@@ -55,6 +55,8 @@ mediationverse_conflicts <- function(only_loaded = TRUE) {
   }
 
   conflicts <- find_conflicts(core)
+  # Lookup failures are only for internal callers such as the sitrep checks.
+  attr(conflicts, "failed_lookup") <- NULL
 
   if (nrow(conflicts) == 0) {
     if (requireNamespace("cli", quietly = TRUE)) {
@@ -71,10 +73,19 @@ mediationverse_conflicts <- function(only_loaded = TRUE) {
 
 # Quiet conflict finder: no messages, no classing. Returns a data frame with
 # columns `function_name`, `packages` and `winner`; zero rows when fewer than
-# two packages are given or nothing conflicts. Used by
+# two packages are given or nothing conflicts. The "failed_lookup" attribute
+# lists packages whose exports could not be read (an incomplete inspection,
+# not "no conflict"). Used by
 # mediationverse_conflicts() and by the sitrep checks.
 #' @noRd
 find_conflicts <- function(pkgs) {
+  failed <- character(0)
+
+  finish <- function(df) {
+    attr(df, "failed_lookup") <- failed
+    df
+  }
+
   empty <- data.frame(
     function_name = character(0),
     packages = character(0),
@@ -83,14 +94,17 @@ find_conflicts <- function(pkgs) {
   )
 
   if (length(pkgs) < 2) {
-    return(empty)
+    return(finish(empty))
   }
 
-  # Get exports from each package
+  # Get exports from each package, remembering lookups that failed
   pkg_exports <- lapply(pkgs, function(pkg) {
     tryCatch(
       getNamespaceExports(pkg),
-      error = function(e) character(0)
+      error = function(e) {
+        failed <<- c(failed, pkg)
+        character(0)
+      }
     )
   })
   names(pkg_exports) <- pkgs
@@ -117,13 +131,13 @@ find_conflicts <- function(pkgs) {
   }
 
   if (length(conflicts) == 0) {
-    return(empty)
+    return(finish(empty))
   }
 
   # Determine which package "wins" (last in search path)
   search_order <- rev(search())
 
-  data.frame(
+  finish(data.frame(
     function_name = names(conflicts),
     packages = vapply(conflicts, paste, character(1), collapse = ", "),
     winner = vapply(conflicts, function(p) {
@@ -135,7 +149,7 @@ find_conflicts <- function(pkgs) {
     }, character(1)),
     row.names = NULL,
     stringsAsFactors = FALSE
-  )
+  ))
 }
 
 #' @export
