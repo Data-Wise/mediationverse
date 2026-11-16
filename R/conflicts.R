@@ -26,7 +26,7 @@
 #'
 #' @export
 mediationverse_conflicts <- function(only_loaded = TRUE) {
-  core <- c("medfit", "probmed", "RMediation", "medrobust", "medsim", "missingmed")
+  core <- mv_core_packages()
 
   if (only_loaded) {
     # Only check packages that are attached

@@ -12,20 +12,9 @@
 #'
 #' @export
 mediationverse_sitrep <- function() {
-  # Known package sources (CRAN vs GitHub-only)
-  cran_pkgs <- c("RMediation")
-  github_only <- c("medfit", "probmed", "medrobust", "medsim", "missingmed", "mediationverse")
-
-  core <- c("medfit", "probmed", "RMediation", "medrobust", "medsim", "missingmed")
-  github_repos <- c(
-    mediationverse = "Data-Wise/mediationverse",
-    medfit         = "Data-Wise/medfit",
-    probmed        = "Data-Wise/probmed",
-    RMediation     = "Data-Wise/rmediation",
-    medrobust      = "Data-Wise/medrobust",
-    medsim         = "Data-Wise/medsim",
-    missingmed     = "Data-Wise/missingmed"
-  )
+  # Members, install sources and repositories come from the internal registry.
+  core <- mv_core_packages()
+  github_repos <- mv_repos()
 
   use_cli <- requireNamespace("cli", quietly = TRUE)
 
@@ -51,7 +40,7 @@ mediationverse_sitrep <- function() {
   pkg_data <- lapply(core, function(pkg) {
     inst <- requireNamespace(pkg, quietly = TRUE)
     ver <- if (inst) as.character(utils::packageVersion(pkg)) else NA_character_
-    source <- if (pkg %in% cran_pkgs) "CRAN" else "GitHub"
+    source <- mv_source(pkg)
     list(package = pkg, installed = inst, version = ver, source = source)
   })
 

@@ -37,17 +37,11 @@
 #'
 #' @export
 mediationverse_update <- function(packages = NULL, ...) {
-  # Package sources
-  github_pkgs <- c(
-    mediationverse = "data-wise/mediationverse",
-    medfit         = "data-wise/medfit",
-    probmed        = "data-wise/probmed",
-    medrobust      = "data-wise/medrobust",
-    medsim         = "data-wise/medsim",
-    missingmed     = "data-wise/missingmed"
-  )
+  # Package sources come from the internal registry (repos lowercased, as
+  # this function has always passed them to pak/remotes).
+  github_pkgs <- tolower(mv_repos()[mv_github_packages()])
 
-  cran_pkgs <- c("RMediation")
+  cran_pkgs <- mv_cran_packages()
 
   # Default to all packages
   if (is.null(packages)) {

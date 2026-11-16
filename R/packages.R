@@ -18,8 +18,7 @@
 #'
 #' @export
 mediationverse_packages <- function(include_self = TRUE) {
-  core <- c("medfit", "probmed", "RMediation", "medrobust", "medsim", "missingmed")
-
+  core <- mv_core_packages()
 
   if (include_self) {
     core <- c("mediationverse", core)
