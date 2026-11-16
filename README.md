@@ -43,8 +43,11 @@ ci_result <- ci(med_data, type = "dop")
 
 ```r
 # Prints a situation report of all ecosystem packages, their versions,
-# and installation sources
+# and recommended install sources
 mediationverse_sitrep()
+
+# Also check minimum versions, optional dependencies and function conflicts
+mediationverse_sitrep(checks = TRUE)
 ```
 
 ## Ecosystem Status Dashboard
@@ -177,6 +180,9 @@ mediationverse_update()
 
 # Check for function conflicts
 mediationverse_conflicts()
+
+# Collect the citations of the installed packages (text or BibTeX)
+mediationverse_citations()
 ```
 
 ### Complete Analysis Workflow

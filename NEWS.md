@@ -1,5 +1,33 @@
 # mediationverse (development version)
 
+## New features
+
+* `mediationverse_citations()` collects the citation of each installed
+  ecosystem package, as `"text"` or `"bibtex"`. Empty or failing citations are
+  reported instead of aborting, and `include_self = FALSE` by default because
+  the installed meta-package copy can be stale.
+* `mediationverse_sitrep(checks = TRUE)` adds opt-in environment checks:
+  installed members against the minimum versions the ecosystem expects, the
+  optional OpenMx dependency (needed for `RMediation::mbco()`), and function
+  conflicts among installed members. The results are attached to the returned
+  data frame as the `"checks"` attribute. The default report is unchanged apart
+  from a one-line hint.
+
+## Bug fixes
+
+* The README Quick Start now installs RMediation explicitly; it is only in
+  `Suggests`, so `library(RMediation)` failed on a fresh install.
+* `mediationverse_sitrep()` now labels the install source as *recommended* and
+  documents it as such; it was never detected from the installed copy.
+* `mediationverse_conflicts()` no longer reports S4 method-table internals
+  (`.__T__*`) as conflicting functions.
+
+## Internal
+
+* A single internal registry now defines the ecosystem members, repositories,
+  recommended sources and minimum versions; `mediationverse_packages()`,
+  `_conflicts()`, `_sitrep()` and `_update()` all read it.
+
 # mediationverse 0.1.1
 
 Maintenance release: `missingmed` joins the core ecosystem, stale CRAN claims and dead
