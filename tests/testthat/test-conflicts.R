@@ -164,3 +164,19 @@ test_that("find_conflicts() returns an empty frame when exports do not overlap",
   res <- mediationverse:::find_conflicts(c("medfit", "probmed"))
   expect_equal(nrow(res), 0L)
 })
+
+test_that("find_conflicts() ignores S4 method-table internals", {
+  testthat::local_mocked_bindings(
+    getNamespaceExports = function(ns) {
+      switch(ns,
+        medfit  = c(".__T__[:base", ".__C__Foo", "only_medfit"),
+        probmed = c(".__T__[:base", ".__C__Foo", "only_probmed")
+      )
+    },
+    .package = "base"
+  )
+
+  res <- mediationverse:::find_conflicts(c("medfit", "probmed"))
+
+  expect_equal(nrow(res), 0L)
+})

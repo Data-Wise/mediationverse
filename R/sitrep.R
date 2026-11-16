@@ -4,19 +4,28 @@
 #' Prints a summary of the installed mediationverse packages, their versions,
 #' and installation sources. Inspired by `tidyverse::tidyverse_sitrep()`.
 #'
+#' @param checks Logical. If `TRUE`, also run environment checks and print
+#'   them after the report: installed members against the minimum versions the
+#'   ecosystem expects, optional dependencies (OpenMx, needed for
+#'   `RMediation::mbco()`), and function conflicts among installed members.
+#'   Default `FALSE` leaves the report unchanged apart from a one-line hint.
+#'
 #' @return Invisibly returns a data frame with columns `package`, `installed`,
 #'   `version` and `source`. `source` is the *recommended* install source
 #'   (`"CRAN"` or `"GitHub"`) from the ecosystem registry; it is not detected
 #'   from the installed copy, so a package installed from elsewhere (for
 #'   example a CRAN `medfit` that predates the GitHub fixes) still shows its
-#'   recommended source. Called mainly for its side effect of printing the
-#'   situation report.
+#'   recommended source. With `checks = TRUE` the checks are attached as the
+#'   `"checks"` attribute: a data frame with columns `check`, `status`
+#'   (`"pass"`, `"warn"` or `"fail"`), `message` and `fix`. Called mainly for
+#'   its side effect of printing the situation report.
 #'
 #' @examples
 #' mediationverse_sitrep()
+#' mediationverse_sitrep(checks = TRUE)
 #'
 #' @export
-mediationverse_sitrep <- function() {
+mediationverse_sitrep <- function(checks = FALSE) {
   # Members, install sources and repositories come from the internal registry.
   core <- mv_core_packages()
   github_repos <- mv_repos()
@@ -97,6 +106,18 @@ mediationverse_sitrep <- function() {
     cat("  [GitHub only] probmed, medrobust, medsim, missingmed\n")
   }
 
+  checks_df <- NULL
+  if (isTRUE(checks)) {
+    checks_df <- mv_checks()
+    if (use_cli) print_checks(checks_df) else print_checks_plain(checks_df)
+  } else if (use_cli) {
+    cli::cli_text(
+      "Run {.code mediationverse_sitrep(checks = TRUE)} for dependency checks."
+    )
+  } else {
+    cat("Run mediationverse_sitrep(checks = TRUE) for dependency checks.\n")
+  }
+
   out <- as.data.frame(
     do.call(rbind, lapply(pkg_data, function(pd) {
       data.frame(
@@ -109,6 +130,10 @@ mediationverse_sitrep <- function() {
     })),
     stringsAsFactors = FALSE
   )
+
+  if (!is.null(checks_df)) {
+    attr(out, "checks") <- checks_df
+  }
 
   invisible(out)
 }

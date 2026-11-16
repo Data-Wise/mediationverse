@@ -95,6 +95,12 @@ find_conflicts <- function(pkgs) {
   })
   names(pkg_exports) <- pkgs
 
+  # Drop S4/S7 method-table internals (".__T__...", ".__C__..."); they are
+  # not user-facing functions and always look like conflicts.
+  pkg_exports <- lapply(pkg_exports, function(exports) {
+    exports[!startsWith(exports, ".__")]
+  })
+
   # Find all unique function names
   all_funs <- unique(unlist(pkg_exports))
 
