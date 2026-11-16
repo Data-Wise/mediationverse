@@ -1,95 +1,101 @@
-# SPEC: mediationverse 0.2.0 (utility functions)
+# SPEC: mediationverse 0.2.0 (citations + sitrep checks)
 
-**Date**: 2026-11-16
+**Date**: 2026-11-16 (revised after grill and adversarial review)
 **Status**: draft
-**Chain**: [BRAINSTORM-tidyverse-functions-2026-06-19.md](BRAINSTORM-tidyverse-functions-2026-06-19.md) → [BRAINSTORM-release-0.2.0-2026-11-16.md](BRAINSTORM-release-0.2.0-2026-11-16.md) → this SPEC
+**Chain**: [BRAINSTORM-tidyverse-functions-2026-06-19.md](BRAINSTORM-tidyverse-functions-2026-06-19.md) → [BRAINSTORM-release-0.2.0-2026-11-16.md](BRAINSTORM-release-0.2.0-2026-11-16.md) → [GRILL-release-0.2.0-2026-11-16.md](GRILL-release-0.2.0-2026-11-16.md) → [REVIEW-release-0.2.0-2026-11-16.md](REVIEW-release-0.2.0-2026-11-16.md) → this SPEC
 
 ## Problem
 
-0.1.1 shipped 2026-10-08 and `dev` (0.1.1.9000) has no user-visible changes. The CRAN
-submission is blocked on probmed, medrobust and medsim (`.STATUS`), so the next release
-ships via GitHub and r-universe. The most useful unbuilt items from the June function
-brainstorm are three small, offline utilities that do not depend on the blockers.
+0.1.1 shipped 2026-10-08; `dev` (0.1.1.9000) has no user-visible changes. CRAN submission is
+blocked on probmed, medrobust and medsim (`.STATUS`), so the next release ships via GitHub and
+r-universe. The member list is hardcoded in four files and there are no per-member minimum
+versions, which blocks any dependency diagnostics.
 
 ## Decision
 
-Release **0.2.0** with three new exported functions. Channel: GitHub tag + release and
-r-universe (as for 0.1.0 and 0.1.1). No CRAN submission, no `Remotes:` change.
+Release **0.2.0**: an internal registry refactor, one new exported function
+(`mediationverse_citations()`), and an opt-in `checks` argument on `mediationverse_sitrep()`.
+Channel: GitHub tag + release and r-universe. No CRAN submission, no `Remotes:` change.
 
-**Cut:** `mv_options()` / `mv_get_option()`. Verified 2026-11-16 (grep of the local `R/`
-sources of medfit, rmediation, probmed, medsim, medrobust, missingmed): no member reads any
-`mediationverse.*` option; medfit uses its own `medfit.*` namespace. The function would set
-values nothing consumes. Revisit only if a member adopts the options.
+**Cut:** `mv_options()` (no member reads `mediationverse.*` options; verified 2026-11-16).
+**Folded:** `mediationverse_doctor()` into `sitrep(checks = TRUE)`.
+**Deferred:** `mediationverse_news()` (per-bullet `utils::news()` rows make `n` ambiguous;
+needs a versions-based design), `mediation_pipeline()`/`mediate()`, `mediationverse_attach_all()`.
 
-**Deferred:** `mediation_pipeline()` / `mediate()` (couple this package to medfit's API;
-need their own design), `mediationverse_attach_all()` (conflicts with selective loading).
+## Work items (in order)
 
-## Functions
+### 1. Internal registry (behavior-neutral refactor, own PR)
 
-All three operate over `mediationverse_packages()` and treat not-installed members as a
-reported state, never an error. None touches the network. Output uses `cli` with a
-plain-text fallback, matching `sitrep()`.
+`R/registry.R` holds one table: member name, GitHub repo, CRAN status, minimum version,
+optional dependencies. Migrate `packages.R`, `conflicts.R`, `sitrep.R`, `update.R` to read it.
+Existing tests must pass unchanged (`test-sitrep.R` pins 6 members). Seed minimums from each
+sibling's declared constraints; the medfit minimum is set by the strictest dependent
+(missingmed `>= 0.3.1`); verify against sibling DESCRIPTIONs while building.
 
-### `mediationverse_citations(style = c("apa", "bibtex"), include_self = TRUE)`
+### 2. `mediationverse_sitrep(checks = FALSE)`
 
-- One `utils::citation()` per installed member; `apa` prints formatted text, `bibtex` prints
-  `toBibtex()` entries.
-- Not-installed members are listed in a trailing note, not omitted silently.
-- Returns invisibly a named list of `citation` objects (class `mediationverse_citations`
-  with a print method).
+- Default output unchanged, plus a one-line hint pointing at `checks = TRUE`.
+- `checks = TRUE` appends: member installed version vs registry minimum; optional
+  dependencies per the table below; conflicts across all members.
+- Conflicts via an internal quiet finder called with `only_loaded = FALSE` (the exported
+  function prints and defaults to loaded packages only, so it is not reused directly).
+- Read-only and offline. Each check yields pass/warn/fail with a one-line fix hint. Returns
+  invisibly the existing report object with an added `checks` data frame
+  (`check`, `status`, `message`, `fix`).
 
-### `mediationverse_news(n = 5, packages = NULL)`
+| Dependency | Owner | Gated feature | Severity if missing |
+|---|---|---|---|
+| OpenMx | RMediation (Suggests) | `mbco()` | warn |
+| lavaan | RMediation (Imports), medfit (Suggests) | lavaan extraction in medfit | warn if absent (hard dependency of RMediation, so rare) |
 
-- Per installed member, the newest `n` entries from `utils::news(package = )`, newest first.
-- A member with no NEWS (or unparseable NEWS) shows "no NEWS available" and does not abort.
-- Returns invisibly a data frame (`package`, `version`, `text`) with a print method.
+### 3. `mediationverse_citations(style = c("text", "bibtex"), include_self = FALSE)`
 
-### `mediationverse_doctor()`
-
-- Checks: R version vs. `DESCRIPTION` requirement; each member's installed version vs. the
-  minimum the ecosystem expects; optional dependencies (OpenMx, lavaan) and the feature each
-  gates (e.g. `mbco()` needs OpenMx); known conflicts from `mediationverse_conflicts()`.
-- Each check yields pass / warn / fail with a one-line fix hint. Reuse `sitrep` internals
-  and its install-source map; do not duplicate that logic.
-- Read-only and offline; returns invisibly a `mediationverse_doctor` object so callers can
-  test `all_ok`.
+- One entry per installed member via an internal `pkg_citation()` helper wrapping
+  `utils::citation()` in `tryCatch`.
+- `text` uses `format(ct, style = "text")`; `bibtex` uses `toBibtex()`. No APA.
+- Empty citation (RMediation returns length 0) or an error: print "no citation available"
+  for that member; never abort. Not-installed members are listed in a trailing note.
+- Auto-generated source-install citations embed a commit SHA: note this in the output.
+- Returns invisibly a named list of citations (class `mediationverse_citations`, print method).
+- `include_self = FALSE` by default: the installed meta-package copy may be stale.
 
 ## Requirements
 
-1. Each function is exported, roxygen-documented (title, description, params, return,
-   example in `\dontrun{}` where it needs optional installs), and listed in `_pkgdown.yml`.
-2. No `library()`/`require()`; external calls use `::`; new Suggests/Imports only if
-   unavoidable (none expected: `utils` and `cli` are already available).
-3. Selective-loading behavior is unchanged (verify with
-   `pkgload::load_all("."); search()` per project note).
-4. Coverage stays at or above 80% (currently 93.88%); new files target 100%.
-5. NEWS entries under the development heading; `DESCRIPTION` bumped to 0.2.0 at release.
+1. Roxygen docs (title, description, params, return, example); roxygen2 pinned at 8.1.0, so
+   regenerate with that version and commit `NAMESPACE` and `man/`.
+2. `_pkgdown.yml` reference index gets an entry for the new function (else
+   `pkgdown::check_pkgdown()` fails); README function list updated (currently lists 4).
+3. No `library()`/`require()`; `::` for external calls; no new Imports/Suggests.
+4. Selective loading unchanged (`pkgload::load_all("."); search()`).
+5. Coverage at or above 80% (currently 93.88%); new files target 100%.
+6. NEWS entries under the development heading; `DESCRIPTION` to 0.2.0 at release.
 
-## Test plan (tier: code, so full suite plus `R CMD check`)
+## Test plan (tier: code, full suite + `R CMD check`)
 
-- Each function with all, some and no members installed (mock `requireNamespace`/
-  `packageVersion` as the existing sitrep tests do).
-- Member with no NEWS; member with no citation; non-interactive session.
-- Snapshot tests for printed output, both `cli` and fallback paths.
-- Doctor: simulated old member version, missing OpenMx, missing lavaan.
-- Run `scripts/check-local.sh`; the `.git` hidden-file NOTE is a worktree artifact only.
+- Style match: **no snapshot tests**. Add small internal helpers (`pkg_citation()`,
+  `pkg_version()`, `pkg_installed()`) that tests mock (`.package = "utils"` for `utils::`
+  calls); assert on content, as existing tests do.
+- Registry: all four migrated functions return the same results as before; one test that the
+  member list is identical everywhere.
+- Citations: all/some/none installed; empty citation; erroring citation; both styles;
+  `include_self`.
+- Sitrep checks: simulated old member version, missing OpenMx, `checks = FALSE` output
+  unchanged.
+- Run `scripts/check-local.sh` (the `.git` hidden-file NOTE is a worktree artifact).
+- `getting-started.qmd` is not built by `check-local.sh`; confirm any added text in CI.
 
-## Documentation
+## Release checklist
 
-Roxygen reference pages; a short "Utilities" section in `vignettes/getting-started.qmd`;
-README function list; NEWS; `.STATUS` and `STATUS.md` sync at release.
-
-## Implementation order
-
-1. `mediationverse_citations()` (lowest risk).
-2. `mediationverse_news()`.
-3. `mediationverse_doctor()` (largest; depends on sitrep internals).
-4. Release PR: version bump, NEWS, docs sync, `dev` to `main`, tag `v0.2.0`, GitHub release,
-   confirm r-universe build and the pkgdown root site, then bump `dev` to 0.2.0.9000.
+1. Registry PR, then citations PR, then sitrep-checks PR (each off `dev`).
+2. Version bump, NEWS, README/`.STATUS`/`STATUS.md` sync.
+3. `dev` → `main` release PR, tag `v0.2.0`, GitHub release, confirm r-universe build and the
+   pkgdown root site, then bump `dev` to 0.2.0.9000.
 
 ## Out of scope / risks
 
-- Not a CRAN release; do not touch `Remotes:` (probmed pins `medfit@v0.3.0`, conflicting
-  with missingmed's `medfit (>= 0.3.1)`).
-- `news()`/`citation()` cost with many members installed: acceptable; no caching in 0.2.0.
-- Dependency status in `.STATUS` can drift; re-verify before any CRAN step.
+- Not a CRAN release; do not touch `Remotes:` (probmed pins `medfit@v0.3.0`, conflicting with
+  missingmed `medfit (>= 0.3.1)`).
+- Registry minimums are only as accurate as the sibling DESCRIPTIONs at build time; re-verify
+  before release.
+- Value of citations is aggregation over `citation("pkg")`; the June claim that analysts
+  "consistently miss citing all packages" is unverified.
