@@ -1,3 +1,5 @@
+# mediationverse (development version)
+
 # mediationverse 0.2.0
 
 Feature release: `mediationverse_citations()` collects the citations of the ecosystem
