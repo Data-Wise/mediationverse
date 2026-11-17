@@ -24,14 +24,16 @@ Install the mediationverse meta-package from GitHub:
 
 ```{r}
 #| label: install
-# Install with pak (recommended)
-pak::pak("data-wise/mediationverse")
+# Install with pak (recommended). medfit comes from GitHub because CRAN's
+# 0.3.2 predates result-changing fixes in 0.5.0.
+pak::pak(c("data-wise/mediationverse", "data-wise/medfit"))
 
 # Or with remotes
-remotes::install_github("data-wise/mediationverse")
+remotes::install_github(c("data-wise/medfit", "data-wise/mediationverse"))
 ```
 
-This will install `medfit` and `RMediation` (both on CRAN/r-universe).
+This installs `medfit` from GitHub (CRAN's 0.3.2 predates result-changing fixes in 0.5.0).
+`RMediation` is optional and not installed automatically: `install.packages("RMediation")`.
 `probmed`, `medrobust`, `medsim`, and `missingmed` are not on CRAN yet — install them
 individually as needed:
 

@@ -25,7 +25,10 @@ not a CRAN release.
 ## Bug fixes
 
 * The README Quick Start now installs RMediation explicitly; it is only in
-  `Suggests`, so `library(RMediation)` failed on a fresh install.
+  `Suggests`, so `library(RMediation)` failed on a fresh install. The install
+  commands in the README and the getting-started article also name
+  `Data-Wise/medfit`, because a plain install resolves medfit from CRAN, whose
+  0.3.2 predates result-changing fixes in 0.5.0.
 * `mediationverse_sitrep()` now labels the install source as *recommended* and
   documents it as such; it was never detected from the installed copy.
 * `mediationverse_conflicts()` no longer reports S4 method-table internals
