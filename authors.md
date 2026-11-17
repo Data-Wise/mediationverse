@@ -10,16 +10,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/Data-Wise/mediationverse/blob/v0.1.1/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/Data-Wise/mediationverse/blob/dev/DESCRIPTION)
 
 Tofighi D (2026). *mediationverse: Ecosystem for Mediation Analysis in
-R*. R package version 0.1.1,
+R*. R package version 0.2.0,
 <https://Data-Wise.github.io/mediationverse/>.
 
     @Manual{,
       title = {mediationverse: Ecosystem for Mediation Analysis in R},
       author = {Davood Tofighi},
       year = {2026},
-      note = {R package version 0.1.1},
+      note = {R package version 0.2.0},
       url = {https://Data-Wise.github.io/mediationverse/},
     }

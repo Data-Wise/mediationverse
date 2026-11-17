@@ -14,8 +14,10 @@ analysis, providing a unified ecosystem for:
 
 ``` r
 
-# Install mediationverse
-pak::pak("Data-Wise/mediationverse")
+# Install mediationverse (it requires medfit >= 0.5.0, installed from GitHub via
+# Remotes: CRAN's 0.3.2 predates result-changing fixes), plus RMediation (opt-in: it
+# is not installed automatically with mediationverse)
+pak::pak(c("Data-Wise/mediationverse", "RMediation"))
 
 # Load foundation package + packages you need
 library(mediationverse)  # Loads medfit (foundation)
@@ -36,8 +38,11 @@ ci_result <- ci(med_data, type = "dop")
 ``` r
 
 # Prints a situation report of all ecosystem packages, their versions,
-# and installation sources
+# and recommended install sources
 mediationverse_sitrep()
+
+# Also check minimum versions, optional dependencies and function conflicts
+mediationverse_sitrep(checks = TRUE)
 ```
 
 ## Ecosystem Status Dashboard
@@ -134,7 +139,8 @@ install.packages(
 
 ``` r
 
-# Install via pak (handles CRAN + GitHub deps automatically)
+# Install via pak. medfit is installed from GitHub (listed in Remotes) because
+# CRAN's 0.3.2 predates result-changing fixes in 0.5.0.
 pak::pak("Data-Wise/mediationverse")
 ```
 
@@ -157,7 +163,7 @@ for your analysis.
 ``` r
 
 library(mediationverse)
-#> ── Attaching mediationverse 0.1.1 ──
+#> ── Attaching mediationverse 0.2.0 ──
 #> ✔ medfit 0.3.2 (foundation package)
 #> ℹ Use library(RMediation) for DOP/MBCO inference
 #> ──────────────────────────────────────────────────────
@@ -182,6 +188,9 @@ mediationverse_update()
 
 # Check for function conflicts
 mediationverse_conflicts()
+
+# Collect the citations of the installed packages (text or BibTeX)
+mediationverse_citations()
 ```
 
 ### Complete Analysis Workflow

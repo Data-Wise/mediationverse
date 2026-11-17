@@ -12,6 +12,8 @@ Functions for managing the mediationverse ecosystem
   : Update mediationverse Packages
 - [`mediationverse_conflicts()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_conflicts.md)
   : Show mediationverse Conflicts
+- [`mediationverse_citations()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_citations.md)
+  : Cite the mediationverse Packages
 
 ## Package Documentation
 
