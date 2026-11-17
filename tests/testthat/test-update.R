@@ -135,3 +135,120 @@ test_that("remotes fallback errors when remotes itself is unavailable", {
     "remotes"
   )
 })
+
+## ---- only_outdated and dry_run (mocked; no network, no installs) -------------
+
+mock_update_env <- function(installed, latest, env = parent.frame()) {
+  # installed: named character (package -> version; absent names are not installed)
+  # latest: named character (package -> latest, NA when unknown)
+  testthat::local_mocked_bindings(
+    pkg_state = function(pkg) if (pkg %in% names(installed)) "ok" else "absent",
+    pkg_version = function(pkg) installed[[pkg]],
+    pkg_latest = function(pkg, source) {
+      if (pkg %in% names(latest)) latest[[pkg]] else NA_character_
+    },
+    .env = env
+  )
+}
+
+test_that("dry_run prints the plan and installs nothing", {
+  skip_if_not_installed("pak")
+  local_mocked_bindings(
+    pak = function(...) stop("dry_run must not install"),
+    .package = "pak"
+  )
+  msgs <- character()
+  out <- withCallingHandlers(
+    mediationverse_update(c("medfit", "RMediation"), dry_run = TRUE),
+    message = function(m) {
+      msgs <<- c(msgs, conditionMessage(m))
+      invokeRestart("muffleMessage")
+    }
+  )
+  expect_equal(out, c("medfit", "RMediation"))
+  txt <- paste(msgs, collapse = "\n")
+  expect_match(txt, "medfit")
+  expect_match(txt, "RMediation")
+  expect_match(txt, "dry run", ignore.case = TRUE)
+})
+
+test_that("dry_run does not call the remotes fallback either", {
+  real_require <- base::requireNamespace
+  local_mocked_bindings(
+    requireNamespace = function(package, ...) {
+      if (identical(package, "pak")) FALSE else real_require(package, ...)
+    },
+    .package = "base"
+  )
+  local_mocked_bindings(
+    install_github = function(...) stop("dry_run must not install"),
+    .package = "remotes"
+  )
+  local_mocked_bindings(
+    install.packages = function(...) stop("dry_run must not install"),
+    .package = "utils"
+  )
+  expect_equal(
+    suppressMessages(mediationverse_update("medfit", dry_run = TRUE)),
+    "medfit"
+  )
+})
+
+test_that("only_outdated keeps outdated and not-installed members, drops current ones", {
+  skip_if_not_installed("pak")
+  mock_update_env(
+    installed = c(medfit = "0.7.0", probmed = "0.4.1", RMediation = "1.6.1"),
+    latest = c(medfit = "0.18.0", probmed = "0.4.1", RMediation = "1.6.1",
+               medsim = "0.6.0")
+  )
+  out <- suppressMessages(
+    mediationverse_update(c("medfit", "probmed", "RMediation", "medsim"),
+                          only_outdated = TRUE, dry_run = TRUE)
+  )
+  expect_equal(out, c("medfit", "medsim"))
+})
+
+test_that("only_outdated keeps members whose latest version is unknown", {
+  mock_update_env(
+    installed = c(medfit = "0.7.0"),
+    latest = character()
+  )
+  out <- suppressMessages(
+    mediationverse_update("medfit", only_outdated = TRUE, dry_run = TRUE)
+  )
+  expect_equal(out, "medfit")
+})
+
+test_that("only_outdated with everything current installs nothing", {
+  skip_if_not_installed("pak")
+  mock_update_env(
+    installed = c(medfit = "0.18.0"),
+    latest = c(medfit = "0.18.0")
+  )
+  local_mocked_bindings(
+    pak = function(...) stop("nothing should be installed"),
+    .package = "pak"
+  )
+  msgs <- character()
+  out <- withCallingHandlers(
+    mediationverse_update("medfit", only_outdated = TRUE),
+    message = function(m) {
+      msgs <<- c(msgs, conditionMessage(m))
+      invokeRestart("muffleMessage")
+    }
+  )
+  expect_equal(out, character(0))
+  expect_match(paste(msgs, collapse = "\n"), "up to date")
+})
+
+test_that("only_outdated and dry_run still validate package names first", {
+  expect_error(
+    mediationverse_update("notapackage", only_outdated = TRUE, dry_run = TRUE),
+    "Unknown packages"
+  )
+})
+
+test_that("only_outdated and dry_run must be TRUE or FALSE", {
+  expect_error(mediationverse_update("medfit", dry_run = NA), "TRUE or FALSE")
+  expect_error(mediationverse_update("medfit", only_outdated = "yes"), "TRUE or FALSE")
+})

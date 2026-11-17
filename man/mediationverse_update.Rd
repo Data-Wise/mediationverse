@@ -4,16 +4,31 @@
 \alias{mediationverse_update}
 \title{Update mediationverse Packages}
 \usage{
-mediationverse_update(packages = NULL, ...)
+mediationverse_update(
+  packages = NULL,
+  ...,
+  only_outdated = FALSE,
+  dry_run = FALSE
+)
 }
 \arguments{
 \item{packages}{Character vector of package names to update. Default is
 all core packages.}
 
 \item{...}{Additional arguments passed to the installation function.}
+
+\item{only_outdated}{Logical. If \code{TRUE}, update only members whose installed
+version is older than the newest on their recommended source, plus members
+that are not installed. A member whose newest version cannot be determined
+(for example offline) is kept. This makes network requests to look up the
+newest versions. Default \code{FALSE}.}
+
+\item{dry_run}{Logical. If \code{TRUE}, print what would be installed and return
+it without installing anything. Default \code{FALSE}.}
 }
 \value{
-Invisibly returns a character vector of updated package names.
+Invisibly returns a character vector of updated package names (with
+\code{dry_run = TRUE}, the names that would be updated).
 }
 \description{
 Updates all mediationverse packages to their latest versions from GitHub
@@ -43,6 +58,9 @@ mediationverse_update()
 
 # Update specific packages
 mediationverse_update(c("medfit", "probmed"))
+
+# Only what is outdated, and preview first
+mediationverse_update(only_outdated = TRUE, dry_run = TRUE)
 }
 
 }
