@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mediationverse</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.0</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -98,7 +98,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/Data-Wise/mediationverse/blob/v0.3.0/vignettes/getting-started.qmd" class="external-link"><code>vignettes/getting-started.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Data-Wise/mediationverse/blob/dev/vignettes/getting-started.qmd" class="external-link"><code>vignettes/getting-started.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -154,7 +154,7 @@
 <span><span class="co"># Check what's installed and available</span></span>
 <span><span class="fu"><a href="../reference/mediationverse_sitrep.html">mediationverse_sitrep</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
-<p><code><a href="../reference/mediationverse_sitrep.html">mediationverse_sitrep()</a></code> prints a situation report of all ecosystem packages, their versions, and installation sources — useful for diagnosing missing or outdated packages.</p>
+<p><code><a href="../reference/mediationverse_sitrep.html">mediationverse_sitrep()</a></code> prints a situation report of all ecosystem packages, their versions, and installation sources — useful for diagnosing missing or outdated packages. Add <code>updates = TRUE</code> to look up the newest version of each installed package (this contacts CRAN and r-universe), and use <code>mediationverse_update(only_outdated = TRUE)</code> to update only what is behind (<code>dry_run = TRUE</code> previews it).</p>
 <p>Three more helpers cover everyday sessions:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/mediationverse_news.html">mediationverse_news</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>       <span class="co"># latest NEWS of every installed member</span></span>

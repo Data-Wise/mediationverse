@@ -65,7 +65,10 @@ mediationverse_sitrep()
 [`mediationverse_sitrep()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_sitrep.md)
 prints a situation report of all ecosystem packages, their versions, and
 installation sources — useful for diagnosing missing or outdated
-packages.
+packages. Add `updates = TRUE` to look up the newest version of each
+installed package (this contacts CRAN and r-universe), and use
+`mediationverse_update(only_outdated = TRUE)` to update only what is
+behind (`dry_run = TRUE` previews it).
 
 Three more helpers cover everyday sessions:
 

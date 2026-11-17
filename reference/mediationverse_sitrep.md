@@ -7,7 +7,7 @@ versions, and installation sources. Inspired by
 ## Usage
 
 ``` r
-mediationverse_sitrep(checks = FALSE)
+mediationverse_sitrep(checks = FALSE, updates = FALSE)
 ```
 
 ## Arguments
@@ -19,8 +19,19 @@ mediationverse_sitrep(checks = FALSE)
   ecosystem requires (failing below it, e.g. medfit before 0.5.0),
   optional dependencies (OpenMx, needed for
   [`RMediation::mbco()`](https://data-wise.github.io/rmediation/reference/mbco.html)),
-  and function conflicts among installed members. Default `FALSE` leaves
-  the report unchanged apart from a one-line hint.
+  and function conflicts among installed members. With `updates = TRUE`
+  an `updates` check is added (a warning, never a failure, when a member
+  is outdated). Default `FALSE` leaves the report unchanged apart from a
+  one-line hint.
+
+- updates:
+
+  Logical. If `TRUE`, look up the newest version of each installed
+  member on its recommended source (CRAN for CRAN-recommended members,
+  the Data-Wise r-universe for GitHub-recommended ones) and report which
+  are outdated. This makes network requests (a few seconds at most); a
+  failed lookup is reported as "Could not check", never an error.
+  Default `FALSE` makes no requests.
 
 ## Value
 
@@ -31,10 +42,14 @@ from the installed copy's `DESCRIPTION`: `"CRAN"`, `"GitHub"`,
 `"other"`, or `NA` (not installed or unreadable). `source` is the
 *recommended* install source (`"CRAN"` or `"GitHub"`) from the ecosystem
 registry; compare it with `installed_from` to see whether an install
-matches. With `checks = TRUE` the checks are attached as the `"checks"`
-attribute: a data frame with columns `check`, `status` (`"pass"`,
-`"warn"` or `"fail"`), `message` and `fix`. Called mainly for its side
-effect of printing the situation report.
+matches. With `updates = TRUE` two more columns are added: `latest`
+(newest version on the recommended source, `NA` when unknown or not
+installed) and `outdated` (`TRUE` when the installed version is older
+than `latest`, `NA` when either is unknown). With `checks = TRUE` the
+checks are attached as the `"checks"` attribute: a data frame with
+columns `check`, `status` (`"pass"`, `"warn"` or `"fail"`), `message`
+and `fix`. Called mainly for its side effect of printing the situation
+report.
 
 ## Examples
 
@@ -43,7 +58,7 @@ mediationverse_sitrep()
 #> 
 #> ── mediationverse situation report ─────────────────────────────────────────────
 #> R 4.6.2 | Platform x86_64-pc-linux-gnu
-#> mediationverse 0.3.0
+#> mediationverse 0.4.0
 #> ────────────────────────────────────────────────────────────────────────────────
 #> 
 #> ── Core packages ──
@@ -61,11 +76,12 @@ mediationverse_sitrep()
 #> 
 #> Installed members come from their recommended source.
 #> Run `mediationverse_sitrep(checks = TRUE)` for dependency checks.
+#> Use `mediationverse_sitrep(updates = TRUE)` to check for newer versions.
 mediationverse_sitrep(checks = TRUE)
 #> 
 #> ── mediationverse situation report ─────────────────────────────────────────────
 #> R 4.6.2 | Platform x86_64-pc-linux-gnu
-#> mediationverse 0.3.0
+#> mediationverse 0.4.0
 #> ────────────────────────────────────────────────────────────────────────────────
 #> 
 #> ── Core packages ──
@@ -94,4 +110,8 @@ mediationverse_sitrep(checks = TRUE)
 #> Fix: install.packages("OpenMx")
 #> ! 1 function exported by more than one member: extract_mediation
 #> Fix: Call the version you want with package::function()
+#> Use `mediationverse_sitrep(updates = TRUE)` to check for newer versions.
+if (FALSE) { # \dontrun{
+mediationverse_sitrep(updates = TRUE)  # contacts CRAN and r-universe
+} # }
 ```
