@@ -97,7 +97,9 @@ sibling's declared constraints; the medfit minimum is set by the strictest depen
   to load was previously skipped by the conflict check. `pkg_state()` now separates absent, ok
   and broken; broken members fail the `load` check and mark the conflict check incomplete.
 
-- Not a CRAN release; do not touch `Remotes:` (probmed pins `medfit@v0.3.0`, conflicting with
+- Not a CRAN release. Update 2026-11-16: `Data-Wise/medfit` was added to `Remotes:` (the
+  `medfit@v0.3.0` pin below no longer exists upstream; verified with `pak::pkg_deps()`).
+  Original note: do not touch `Remotes:` (probmed pins `medfit@v0.3.0`, conflicting with
   missingmed `medfit (>= 0.3.1)`).
 - Registry minimums are only as accurate as the sibling DESCRIPTIONs at build time; re-verify
   before release.

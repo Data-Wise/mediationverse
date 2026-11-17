@@ -27,10 +27,14 @@ not a CRAN release.
 ## Bug fixes
 
 * The README Quick Start now installs RMediation explicitly; it is only in
-  `Suggests`, so `library(RMediation)` failed on a fresh install. The install
-  commands in the README and the getting-started article also name
-  `Data-Wise/medfit`, because a plain install resolves medfit from CRAN, whose
-  0.3.2 predates result-changing fixes in 0.5.0.
+  `Suggests`, so `library(RMediation)` failed on a fresh install.
+* `Data-Wise/medfit` is now listed in `Remotes:`. Without it a plain install
+  resolved medfit from CRAN, whose 0.3.2 predates result-changing fixes in
+  0.5.0; with it `pak` resolves medfit from GitHub (checked with
+  `pak::pkg_deps()`). The old note that probmed pins `medfit@v0.3.0` no longer
+  holds: probmed 0.4.1 and missingmed 0.10.0 resolve together, so the
+  getting-started article installs the sibling packages in one call. Like the
+  other `Remotes:` entries, this one must be dropped before a CRAN submission.
 * `mediationverse_sitrep()` now labels the install source as *recommended* and
   documents it as such; it was never detected from the installed copy.
 * `mediationverse_conflicts()` no longer reports S4 method-table internals
