@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mediationverse</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.0.9000</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.4.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,8 +65,12 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="mediationverse-development-version">mediationverse (development version)<a class="anchor" aria-label="anchor" href="#mediationverse-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.4.0" id="mediationverse-040">mediationverse 0.4.0<a class="anchor" aria-label="anchor" href="#mediationverse-040"></a></h2>
+<p>Feature release: <code>sitrep()</code> and <code><a href="../reference/mediationverse_update.html">mediationverse_update()</a></code> can now tell which installed members are behind the newest version on their recommended source. The lookups are opt-in; nothing contacts the network by default. Distributed through GitHub and r-universe; not a CRAN release.</p>
 <div class="section level3">
-<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-0-4-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-4-0"></a></h3>
 <ul><li>
 <code>mediationverse_sitrep(updates = TRUE)</code> looks up the newest version of each installed member on its recommended source (CRAN for CRAN-recommended members, the Data-Wise r-universe for GitHub-recommended ones) and adds <code>latest</code> and <code>outdated</code> columns, an “Updates” section and a <code>-&gt; x available</code> note on each outdated line. It is opt-in: the default makes no network requests, and a failed lookup is reported as “Could not check”, never an error. With <code>checks = TRUE</code> it also adds an <code>updates</code> check (a warning, never a failure).</li>
 <li>

@@ -2,6 +2,15 @@
 
 ## mediationverse (development version)
 
+## mediationverse 0.4.0
+
+Feature release: `sitrep()` and
+[`mediationverse_update()`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse_update.md)
+can now tell which installed members are behind the newest version on
+their recommended source. The lookups are opt-in; nothing contacts the
+network by default. Distributed through GitHub and r-universe; not a
+CRAN release.
+
 ### New features
 
 - `mediationverse_sitrep(updates = TRUE)` looks up the newest version of
