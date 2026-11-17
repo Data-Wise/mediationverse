@@ -1,5 +1,18 @@
 # mediationverse (development version)
 
+## New features
+
+* `mediationverse_sitrep()` now detects where each installed member actually
+  came from (`CRAN`, `GitHub`, `r-universe`, `local`, `base` or `other`, read
+  from the installed `DESCRIPTION`) and returns it as a new `installed_from`
+  column. The `source` column is unchanged: it is still the recommended source
+  from the registry. The report prints both, and `sitrep(checks = TRUE)` gains a
+  `source` check that warns when a member was installed from somewhere other
+  than its recommended source (a `local` or `load_all()` install is not flagged).
+* The sitrep "CRAN status" section, which hard-coded package versions and claims
+  about CRAN, is replaced by an "Install sources" section built from the
+  detected provenance, so it no longer goes stale.
+
 # mediationverse 0.2.0
 
 Feature release: `mediationverse_citations()` collects the citations of the ecosystem
