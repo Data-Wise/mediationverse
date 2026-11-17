@@ -16,6 +16,22 @@
 - The sitrep “CRAN status” section, which hard-coded package versions
   and claims about CRAN, is replaced by an “Install sources” section
   built from the detected provenance, so it no longer goes stale.
+- [`mediationverse_news()`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse_news.md)
+  collects the latest NEWS of each installed member, by released version
+  rather than by bullet (`n = 3` versions by default). Versions are
+  ordered numerically, headings that are not versions are ignored, and a
+  package with no NEWS is listed instead of aborting.
+- [`mediationverse_attach_all()`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse_attach_all.md)
+  attaches every installed core member in one call and reports a status
+  per package (attached, already attached, not installed, failed to
+  load).
+  [`library(mediationverse)`](https://Data-Wise.github.io/mediationverse/)
+  still attaches only medfit.
+- The new `mediationverse.quiet` option
+  (`options(mediationverse.quiet = TRUE)`) suppresses the banner printed
+  by
+  [`library(mediationverse)`](https://Data-Wise.github.io/mediationverse/).
+  A failure to load medfit is still reported.
 
 ## mediationverse 0.2.0
 

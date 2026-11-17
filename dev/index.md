@@ -38,11 +38,25 @@ ci_result <- ci(med_data, type = "dop")
 ``` r
 
 # Prints a situation report of all ecosystem packages, their versions,
-# and recommended install sources
+# the recommended install source, and where each copy was actually installed from
 mediationverse_sitrep()
 
 # Also check minimum versions, optional dependencies and function conflicts
 mediationverse_sitrep(checks = TRUE)
+```
+
+### Session helpers
+
+``` r
+
+# Latest released versions' NEWS for every installed member (default: 3 versions)
+mediationverse_news(n = 2)
+
+# Attach every installed member at once (library(mediationverse) attaches medfit only)
+mediationverse_attach_all()
+
+# In ~/.Rprofile: silence the banner printed by library(mediationverse)
+options(mediationverse.quiet = TRUE)
 ```
 
 ## Ecosystem Status Dashboard

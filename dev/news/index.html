@@ -70,6 +70,11 @@
 <ul><li>
 <code><a href="../reference/mediationverse_sitrep.html">mediationverse_sitrep()</a></code> now detects where each installed member actually came from (<code>CRAN</code>, <code>GitHub</code>, <code>r-universe</code>, <code>local</code>, <code>base</code> or <code>other</code>, read from the installed <code>DESCRIPTION</code>) and returns it as a new <code>installed_from</code> column. The <code>source</code> column is unchanged: it is still the recommended source from the registry. The report prints both, and <code>sitrep(checks = TRUE)</code> gains a <code>source</code> check that warns when a member was installed from somewhere other than its recommended source (a <code>local</code> or <code>load_all()</code> install is not flagged).</li>
 <li>The sitrep “CRAN status” section, which hard-coded package versions and claims about CRAN, is replaced by an “Install sources” section built from the detected provenance, so it no longer goes stale.</li>
+<li>
+<code><a href="../reference/mediationverse_news.html">mediationverse_news()</a></code> collects the latest NEWS of each installed member, by released version rather than by bullet (<code>n = 3</code> versions by default). Versions are ordered numerically, headings that are not versions are ignored, and a package with no NEWS is listed instead of aborting.</li>
+<li>
+<code><a href="../reference/mediationverse_attach_all.html">mediationverse_attach_all()</a></code> attaches every installed core member in one call and reports a status per package (attached, already attached, not installed, failed to load). <code><a href="https://Data-Wise.github.io/mediationverse/">library(mediationverse)</a></code> still attaches only medfit.</li>
+<li>The new <code>mediationverse.quiet</code> option (<code>options(mediationverse.quiet = TRUE)</code>) suppresses the banner printed by <code><a href="https://Data-Wise.github.io/mediationverse/">library(mediationverse)</a></code>. A failure to load medfit is still reported.</li>
 </ul></div>
 </div>
     <div class="section level2">
