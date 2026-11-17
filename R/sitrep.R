@@ -8,7 +8,8 @@
 #'   them after the report: installed members against the minimum versions the
 #'   ecosystem requires (failing below it, e.g. medfit before 0.5.0), optional
 #'   dependencies (OpenMx, needed for `RMediation::mbco()`), and function
-#'   conflicts among installed members.
+#'   conflicts among installed members. With `updates = TRUE` an `updates`
+#'   check is added (a warning, never a failure, when a member is outdated).
 #'   Default `FALSE` leaves the report unchanged apart from a one-line hint.
 #'
 #' @param updates Logical. If `TRUE`, look up the newest version of each
@@ -168,7 +169,7 @@ mediationverse_sitrep <- function(checks = FALSE, updates = FALSE) {
 
   checks_df <- NULL
   if (isTRUE(checks)) {
-    checks_df <- mv_checks()
+    checks_df <- mv_checks(updates = updates)
     if (use_cli) print_checks(checks_df) else print_checks_plain(checks_df)
   } else if (use_cli) {
     cli::cli_text(

@@ -11,7 +11,8 @@ mediationverse_sitrep(checks = FALSE, updates = FALSE)
 them after the report: installed members against the minimum versions the
 ecosystem requires (failing below it, e.g. medfit before 0.5.0), optional
 dependencies (OpenMx, needed for \code{RMediation::mbco()}), and function
-conflicts among installed members.
+conflicts among installed members. With \code{updates = TRUE} an \code{updates}
+check is added (a warning, never a failure, when a member is outdated).
 Default \code{FALSE} leaves the report unchanged apart from a one-line hint.}
 
 \item{updates}{Logical. If \code{TRUE}, look up the newest version of each
