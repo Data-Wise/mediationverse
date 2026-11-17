@@ -2,9 +2,12 @@
 
 S3method(print,mediationverse_citations)
 S3method(print,mediationverse_conflicts)
+S3method(print,mediationverse_news)
 S3method(print,mediationverse_packages)
+export(mediationverse_attach_all)
 export(mediationverse_citations)
 export(mediationverse_conflicts)
+export(mediationverse_news)
 export(mediationverse_packages)
 export(mediationverse_sitrep)
 export(mediationverse_update)

@@ -70,6 +70,14 @@ mediationverse_sitrep()
 their versions, and installation sources — useful for diagnosing missing or
 outdated packages.
 
+Three more helpers cover everyday sessions:
+
+```r
+mediationverse_news(n = 2)       # latest NEWS of every installed member
+mediationverse_attach_all()      # attach every installed member at once
+options(mediationverse.quiet = TRUE)  # silence the banner (e.g. in ~/.Rprofile)
+```
+
 This attaches medfit and displays helpful information:
 
 ```

@@ -54,6 +54,14 @@ Update all packages:
 }\if{html}{\out{</div>}}
 }
 
+\subsection{Options}{
+\itemize{
+\item \code{mediationverse.quiet}: logical, default \code{FALSE}. Set to \code{TRUE} (for
+example in \verb{~/.Rprofile}) to suppress the banner printed by
+\code{library(mediationverse)}. A failure to load medfit is still reported.
+}
+}
+
 \subsection{Learn More}{
 \itemize{
 \item medfit: \url{https://data-wise.github.io/medfit/}

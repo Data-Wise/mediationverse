@@ -4,7 +4,7 @@
 > badge dashboard — per-package status, blockers, dependency order, and CRAN
 > sequence are **not** hand-maintained here (they drift).
 
-**Last Updated**: 2026-07-23 — CRAN column now uses `img.shields.io/cran/v/<pkg>` for all 6 packages (was a mix of live `r-pkg.org` badges for CRAN-published packages and hand-typed "Not on CRAN" text for the rest; `r-pkg.org` also 404s with broken HTML, not a valid image, for not-yet-published packages)
+**Last Updated**: 2026-11-17 — added the missingmed row (a core member since 0.1.1)
 
 > 🩺 **Live health:** `cd ~/projects/r-packages && /rforge:status` (or `:thorough`).
 > Per-package status lives in each repo's `.STATUS` file.
@@ -24,6 +24,7 @@
 | [RMediation](https://github.com/data-wise/rmediation) | [![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) | [![Repo Status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![R-CMD-check](https://github.com/data-wise/rmediation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/rmediation/actions/workflows/R-CMD-check.yaml) | [![Website Status](https://github.com/data-wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/data-wise/rmediation/actions/workflows/pkgdown.yaml) | [![R-hub](https://github.com/data-wise/rmediation/actions/workflows/rhub.yaml/badge.svg)](https://github.com/data-wise/rmediation/actions/workflows/rhub.yaml) | [![Codecov](https://codecov.io/gh/data-wise/rmediation/graph/badge.svg)](https://codecov.io/gh/data-wise/rmediation) | [![CRAN](https://img.shields.io/cran/v/RMediation)](https://CRAN.R-project.org/package=RMediation) |
 | [medrobust](https://github.com/data-wise/medrobust) | [![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) | [![Repo Status](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip) | [![R-CMD-check](https://github.com/data-wise/medrobust/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/medrobust/actions/workflows/R-CMD-check.yaml) | [![Website Status](https://github.com/data-wise/medrobust/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/data-wise/medrobust/actions/workflows/pkgdown.yaml) | [![R-hub](https://github.com/data-wise/medrobust/actions/workflows/rhub.yaml/badge.svg)](https://github.com/data-wise/medrobust/actions/workflows/rhub.yaml) | [![Codecov](https://codecov.io/gh/data-wise/medrobust/graph/badge.svg)](https://codecov.io/gh/data-wise/medrobust) | [![CRAN](https://img.shields.io/cran/v/medrobust)](https://CRAN.R-project.org/package=medrobust) |
 | [medsim](https://github.com/data-wise/medsim) | [![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) | [![Repo Status](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip) | [![R-CMD-check](https://github.com/data-wise/medsim/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/medsim/actions/workflows/R-CMD-check.yaml) | [![Website Status](https://github.com/data-wise/medsim/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/data-wise/medsim/actions/workflows/pkgdown.yaml) | [![R-hub](https://github.com/data-wise/medsim/actions/workflows/rhub.yaml/badge.svg)](https://github.com/data-wise/medsim/actions/workflows/rhub.yaml) | [![Codecov](https://codecov.io/gh/data-wise/medsim/graph/badge.svg)](https://codecov.io/gh/data-wise/medsim) | [![CRAN](https://img.shields.io/cran/v/medsim)](https://CRAN.R-project.org/package=medsim) |
+| [missingmed](https://github.com/data-wise/missingmed) | [![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) | [![Repo Status](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip) | [![R-CMD-check](https://github.com/data-wise/missingmed/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/missingmed/actions/workflows/R-CMD-check.yaml) | [![Website Status](https://github.com/data-wise/missingmed/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/data-wise/missingmed/actions/workflows/pkgdown.yaml) | [![R-hub](https://github.com/data-wise/missingmed/actions/workflows/rhub.yaml/badge.svg)](https://github.com/data-wise/missingmed/actions/workflows/rhub.yaml) | [![Codecov](https://codecov.io/gh/data-wise/missingmed/graph/badge.svg)](https://codecov.io/gh/data-wise/missingmed) | [![CRAN](https://img.shields.io/cran/v/missingmed)](https://CRAN.R-project.org/package=missingmed) |
 | [mediationverse](https://github.com/data-wise/mediationverse) | [![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) | [![Repo Status](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip) | [![R-CMD-check](https://github.com/data-wise/mediationverse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/data-wise/mediationverse/actions/workflows/R-CMD-check.yaml) | [![Website Status](https://github.com/data-wise/mediationverse/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/data-wise/mediationverse/actions/workflows/pkgdown.yaml) | [![R-hub](https://github.com/data-wise/mediationverse/actions/workflows/rhub.yaml/badge.svg)](https://github.com/data-wise/mediationverse/actions/workflows/rhub.yaml) | - | [![CRAN](https://img.shields.io/cran/v/mediationverse)](https://CRAN.R-project.org/package=mediationverse) |
 
 ---
@@ -36,6 +37,7 @@
 - [RMediation](https://data-wise.github.io/rmediation/)
 - [medrobust](https://data-wise.github.io/medrobust/)
 - [medsim](https://data-wise.github.io/medsim/)
+- [missingmed](https://data-wise.github.io/missingmed/)
 - [mediationverse](https://data-wise.github.io/mediationverse/)
 
 ### GitHub Actions
@@ -44,6 +46,7 @@
 - [RMediation workflows](https://github.com/data-wise/rmediation/actions)
 - [medrobust workflows](https://github.com/data-wise/medrobust/actions)
 - [medsim workflows](https://github.com/data-wise/medsim/actions)
+- [missingmed workflows](https://github.com/data-wise/missingmed/actions)
 - [mediationverse workflows](https://github.com/data-wise/mediationverse/actions)
 
 ### Code Coverage

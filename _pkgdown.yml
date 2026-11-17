@@ -110,6 +110,8 @@ reference:
       - mediationverse_update
       - mediationverse_conflicts
       - mediationverse_citations
+      - mediationverse_news
+      - mediationverse_attach_all
 
   - title: "Package Documentation"
     desc: "Package-level documentation"
