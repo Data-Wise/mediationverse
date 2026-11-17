@@ -73,7 +73,7 @@ and installation sources. Inspired by <code>tidyverse::tidyverse_sitrep()</code>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mediationverse_sitrep</span><span class="op">(</span>checks <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mediationverse_sitrep</span><span class="op">(</span>checks <span class="op">=</span> <span class="cn">FALSE</span>, updates <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -85,8 +85,18 @@ and installation sources. Inspired by <code>tidyverse::tidyverse_sitrep()</code>
 them after the report: installed members against the minimum versions the
 ecosystem requires (failing below it, e.g. medfit before 0.5.0), optional
 dependencies (OpenMx, needed for <code><a href="https://data-wise.github.io/rmediation/reference/mbco.html" class="external-link">RMediation::mbco()</a></code>), and function
-conflicts among installed members.
+conflicts among installed members. With <code>updates = TRUE</code> an <code>updates</code>
+check is added (a warning, never a failure, when a member is outdated).
 Default <code>FALSE</code> leaves the report unchanged apart from a one-line hint.</p></dd>
+
+
+<dt id="arg-updates">updates<a class="anchor" aria-label="anchor" href="#arg-updates"></a></dt>
+<dd><p>Logical. If <code>TRUE</code>, look up the newest version of each
+installed member on its recommended source (CRAN for CRAN-recommended
+members, the Data-Wise r-universe for GitHub-recommended ones) and report
+which are outdated. This makes network requests (a few seconds at most);
+a failed lookup is reported as "Could not check", never an error. Default
+<code>FALSE</code> makes no requests.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -97,7 +107,11 @@ the installed copy's <code>DESCRIPTION</code>: <code>"CRAN"</code>, <code>"GitHu
 <code>"base"</code>, <code>"local"</code> (source or <code>load_all()</code> installs), <code>"other"</code>, or <code>NA</code>
 (not installed or unreadable). <code>source</code> is the <em>recommended</em> install source
 (<code>"CRAN"</code> or <code>"GitHub"</code>) from the ecosystem registry; compare it with
-<code>installed_from</code> to see whether an install matches. With <code>checks = TRUE</code> the checks are attached as the
+<code>installed_from</code> to see whether an install matches. With <code>updates = TRUE</code>
+two more columns are added: <code>latest</code> (newest version on the recommended
+source, <code>NA</code> when unknown or not installed) and <code>outdated</code> (<code>TRUE</code> when the
+installed version is older than <code>latest</code>, <code>NA</code> when either is unknown).
+With <code>checks = TRUE</code> the checks are attached as the
 <code>"checks"</code> attribute: a data frame with columns <code>check</code>, <code>status</code>
 (<code>"pass"</code>, <code>"warn"</code> or <code>"fail"</code>), <code>message</code> and <code>fix</code>. Called mainly for
 its side effect of printing the situation report.</p>
@@ -127,6 +141,7 @@ its side effect of printing the situation report.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Installed members come from their recommended source.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Run `mediationverse_sitrep(checks = TRUE)` for dependency checks.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Use `mediationverse_sitrep(updates = TRUE)` to check for newer versions.</span>
 <span class="r-in"><span><span class="fu">mediationverse_sitrep</span><span class="op">(</span>checks <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">mediationverse situation report</span> <span style="color: #00BBBB;">─────────────────────────────────────────────</span></span>
@@ -160,6 +175,10 @@ its side effect of printing the situation report.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Fix: install.packages("OpenMx")</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> 1 function exported by more than one member: extract_mediation</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Fix: Call the version you want with package::function()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Use `mediationverse_sitrep(updates = TRUE)` to check for newer versions.</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="fu">mediationverse_sitrep</span><span class="op">(</span>updates <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  <span class="co"># contacts CRAN and r-universe</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -6,7 +6,12 @@ or CRAN.
 ## Usage
 
 ``` r
-mediationverse_update(packages = NULL, ...)
+mediationverse_update(
+  packages = NULL,
+  ...,
+  only_outdated = FALSE,
+  dry_run = FALSE
+)
 ```
 
 ## Arguments
@@ -20,9 +25,23 @@ mediationverse_update(packages = NULL, ...)
 
   Additional arguments passed to the installation function.
 
+- only_outdated:
+
+  Logical. If `TRUE`, update only members whose installed version is
+  older than the newest on their recommended source, plus members that
+  are not installed. A member whose newest version cannot be determined
+  (for example offline) is kept. This makes network requests to look up
+  the newest versions. Default `FALSE`.
+
+- dry_run:
+
+  Logical. If `TRUE`, print what would be installed and return it
+  without installing anything. Default `FALSE`.
+
 ## Value
 
-Invisibly returns a character vector of updated package names.
+Invisibly returns a character vector of updated package names (with
+`dry_run = TRUE`, the names that would be updated).
 
 ## Details
 
@@ -61,5 +80,8 @@ mediationverse_update()
 
 # Update specific packages
 mediationverse_update(c("medfit", "probmed"))
+
+# Only what is outdated, and preview first
+mediationverse_update(only_outdated = TRUE, dry_run = TRUE)
 } # }
 ```

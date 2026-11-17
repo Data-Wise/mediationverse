@@ -144,7 +144,12 @@
 <span><span class="fu"><a href="reference/mediationverse_sitrep.html">mediationverse_sitrep</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Also check minimum versions, optional dependencies and function conflicts</span></span>
-<span><span class="fu"><a href="reference/mediationverse_sitrep.html">mediationverse_sitrep</a></span><span class="op">(</span>checks <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/mediationverse_sitrep.html">mediationverse_sitrep</a></span><span class="op">(</span>checks <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Look up newer versions (contacts CRAN and r-universe), then update only what is behind</span></span>
+<span><span class="fu"><a href="reference/mediationverse_sitrep.html">mediationverse_sitrep</a></span><span class="op">(</span>updates <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/mediationverse_update.html">mediationverse_update</a></span><span class="op">(</span>only_outdated <span class="op">=</span> <span class="cn">TRUE</span>, dry_run <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  <span class="co"># preview</span></span>
+<span><span class="fu"><a href="reference/mediationverse_update.html">mediationverse_update</a></span><span class="op">(</span>only_outdated <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="session-helpers">Session helpers<a class="anchor" aria-label="anchor" href="#session-helpers"></a>
