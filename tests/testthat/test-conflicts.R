@@ -255,7 +255,7 @@ test_that("mediationverse_conflicts() warns instead of claiming success when a l
 
   expect_equal(nrow(r$res), 0L)
   expect_null(attr(r$res, "failed_lookup"))
-  expect_true(any(grepl("Could not read the exports of probmed", r$msgs)))
+  expect_true(any(grepl("Could not inspect probmed", r$msgs)))
   expect_false(any(grepl("No conflicts found among", r$msgs)))
 })
 
@@ -272,7 +272,7 @@ test_that("mediationverse_conflicts() warns about failed lookups even when confl
   r <- run_conflicts(only_loaded = FALSE)
 
   expect_s3_class(r$res, "mediationverse_conflicts")
-  expect_true(any(grepl("Could not read the exports of probmed", r$msgs)))
+  expect_true(any(grepl("Could not inspect probmed", r$msgs)))
 })
 
 test_that("mediationverse_conflicts() still reports a clean run as clean", {
@@ -287,4 +287,50 @@ test_that("mediationverse_conflicts() still reports a clean run as clean", {
   expect_equal(nrow(r$res), 0L)
   expect_true(any(grepl("No conflicts found among", r$msgs)))
   expect_false(any(grepl("Could not read", r$msgs)))
+})
+
+test_that("mediationverse_conflicts() warns when an installed member cannot be loaded", {
+  # medfit is on disk but fails to load; the other two load and do not conflict.
+  testthat::local_mocked_bindings(
+    pkg_installed = function(pkg) pkg %in% c("probmed", "medsim"),
+    pkg_on_disk = function(pkg) pkg %in% c("medfit", "probmed", "medsim")
+  )
+  testthat::local_mocked_bindings(
+    getNamespaceExports = function(ns) paste0("only_", ns),
+    .package = "base"
+  )
+
+  r <- run_conflicts(only_loaded = FALSE)
+
+  expect_equal(nrow(r$res), 0L)
+  expect_true(any(grepl("Could not inspect medfit", r$msgs)))
+  expect_false(any(grepl("No conflicts found among", r$msgs)))
+})
+
+test_that("mediationverse_conflicts() warns about an unloadable member even with < 2 loadable", {
+  testthat::local_mocked_bindings(
+    pkg_installed = function(pkg) identical(pkg, "probmed"),
+    pkg_on_disk = function(pkg) pkg %in% c("medfit", "probmed")
+  )
+
+  r <- run_conflicts(only_loaded = FALSE)
+
+  expect_equal(nrow(r$res), 0L)
+  expect_true(any(grepl("Could not inspect medfit", r$msgs)))
+})
+
+test_that("an absent member is not reported as uninspected by mediationverse_conflicts()", {
+  testthat::local_mocked_bindings(
+    pkg_installed = function(pkg) pkg %in% c("probmed", "medsim"),
+    pkg_on_disk = function(pkg) pkg %in% c("probmed", "medsim")
+  )
+  testthat::local_mocked_bindings(
+    getNamespaceExports = function(ns) paste0("only_", ns),
+    .package = "base"
+  )
+
+  r <- run_conflicts(only_loaded = FALSE)
+
+  expect_false(any(grepl("Could not inspect", r$msgs)))
+  expect_true(any(grepl("No conflicts found among", r$msgs)))
 })

@@ -19,7 +19,7 @@ Depends:
     R (>= 4.1.0)
 Imports:
     cli,
-    medfit (>= 0.2.0)
+    medfit (>= 0.5.0)
 Remotes:
     Data-Wise/medfit,
     Data-Wise/medsim,

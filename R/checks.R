@@ -87,21 +87,10 @@ check_min_versions <- function() {
       ))
     }
 
-    rec_ver <- reg$recommended_version[i]
-
     if (package_version(ver) < package_version(min_ver)) {
       check_row(
         check, "fail",
         sprintf("%s %s is older than the required %s", pkg, ver, min_ver),
-        sprintf("pak::pak(\"%s\")", reg$repo[i])
-      )
-    } else if (!is.na(rec_ver) && package_version(ver) < package_version(rec_ver)) {
-      check_row(
-        check, "warn",
-        sprintf(
-          "%s %s meets the minimum %s but predates %s, which has result-changing fixes",
-          pkg, ver, min_ver, rec_ver
-        ),
         sprintf("pak::pak(\"%s\")", reg$repo[i])
       )
     } else {

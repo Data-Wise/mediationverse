@@ -21,8 +21,8 @@ The **mediationverse** is a collection of R packages for mediation analysis, pro
 ## Quick Start
 
 ```r
-# Install mediationverse (medfit is installed from GitHub via Remotes: CRAN's
-# 0.3.2 predates result-changing fixes in 0.5.0), plus RMediation (opt-in: it
+# Install mediationverse (it requires medfit >= 0.5.0, installed from GitHub via
+# Remotes: CRAN's 0.3.2 predates result-changing fixes), plus RMediation (opt-in: it
 # is not installed automatically with mediationverse)
 pak::pak(c("Data-Wise/mediationverse", "RMediation"))
 

@@ -12,9 +12,9 @@ not a CRAN release.
   reported instead of aborting, and `include_self = FALSE` by default because
   the installed meta-package copy can be stale.
 * `mediationverse_sitrep(checks = TRUE)` adds opt-in environment checks:
-  installed members against the minimum versions the ecosystem expects (a
-  compatible but older medfit, such as CRAN's 0.3.2, warns because it predates
-  result-changing fixes in 0.5.0), the optional OpenMx dependency (reported as
+  installed members against the minimum versions the ecosystem requires (medfit
+  older than 0.5.0, such as CRAN's 0.3.2, fails because it predates
+  result-changing fixes), the optional OpenMx dependency (reported as
   available only when OpenMx meets RMediation's declared minimum, 2.13, and RMediation meets its own minimum and exports `mbco()`), and
   function conflicts among installed members (a package whose exports cannot
   be read, or an OpenMx whose version cannot be read, makes its check warn
@@ -28,19 +28,24 @@ not a CRAN release.
 
 * The README Quick Start now installs RMediation explicitly; it is only in
   `Suggests`, so `library(RMediation)` failed on a fresh install.
-* `Data-Wise/medfit` is now listed in `Remotes:`. Without it a plain install
-  resolved medfit from CRAN, whose 0.3.2 predates result-changing fixes in
-  0.5.0; with it `pak` resolves medfit from GitHub (checked with
-  `pak::pkg_deps()`). The old note that probmed pins `medfit@v0.3.0` no longer
-  holds: probmed 0.4.1 and missingmed 0.10.0 resolve together, so the
-  getting-started article installs the sibling packages in one call. Like the
-  other `Remotes:` entries, this one must be dropped before a CRAN submission.
+* mediationverse now requires `medfit (>= 0.5.0)` and lists `Data-Wise/medfit`
+  in `Remotes:`. Before, `medfit (>= 0.2.0)` was satisfied by CRAN's 0.3.2, which
+  predates two result-changing fixes in 0.5.0, so a plain install (or an
+  existing medfit 0.3.2) kept the affected version. The higher floor makes every
+  install path upgrade medfit, and `pak` resolves it from GitHub through
+  `Remotes:` (checked with `pak::pkg_deps()`: CRAN 0.3.2 before, GitHub after).
+  Because CRAN's medfit is below 0.5.0, a CRAN release of mediationverse needs
+  medfit >= 0.5.0 on CRAN first, and, like the other `Remotes:` entries, the
+  medfit entry must be dropped before a CRAN submission. The old note that
+  probmed pins `medfit@v0.3.0` no longer holds: probmed 0.4.1 and missingmed
+  0.10.0 resolve together, so the getting-started article installs the sibling
+  packages in one call.
 * `mediationverse_sitrep()` now labels the install source as *recommended* and
   documents it as such; it was never detected from the installed copy.
 * `mediationverse_conflicts()` no longer reports S4 method-table internals
   (`.__T__*`) as conflicting functions. It also warns that the result is
-  incomplete when a package's exports cannot be read, instead of reporting "No
-  conflicts found".
+  incomplete when a package's exports cannot be read or an installed member
+  fails to load, instead of reporting "No conflicts found".
 * `mediationverse_sitrep()` and `mediationverse_packages()` no longer abort when
   an installed package's version cannot be read; the version shows as unknown
   and `sitrep(checks = TRUE)` flags it.

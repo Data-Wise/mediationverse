@@ -27,6 +27,9 @@
 #' @export
 mediationverse_conflicts <- function(only_loaded = TRUE) {
   core <- mv_core_packages()
+  # Installed members that cannot be loaded are never inspected; remember them
+  # so a clean-looking result is not reported as complete.
+  broken <- character(0)
 
   if (only_loaded) {
     # Only check packages that are attached
@@ -35,12 +38,13 @@ mediationverse_conflicts <- function(only_loaded = TRUE) {
     }, logical(1))]
   } else {
     # Check all installed packages
-    core <- core[vapply(core, function(pkg) {
-      requireNamespace(pkg, quietly = TRUE)
-    }, logical(1))]
+    states <- vapply(core, pkg_state, character(1))
+    broken <- core[states == "broken"]
+    core <- core[states == "ok"]
   }
 
   if (length(core) < 2) {
+    warn_incomplete_conflicts(broken)
     if (requireNamespace("cli", quietly = TRUE)) {
       cli::cli_alert_info("No conflicts possible with fewer than 2 packages loaded.")
     } else {
@@ -55,22 +59,12 @@ mediationverse_conflicts <- function(only_loaded = TRUE) {
   }
 
   conflicts <- find_conflicts(core)
-  failed <- attr(conflicts, "failed_lookup")
+  failed <- union(attr(conflicts, "failed_lookup"), broken)
   # The attribute is internal; the returned object keeps its documented shape.
   attr(conflicts, "failed_lookup") <- NULL
 
   # An incomplete inspection must not read as a clean result.
-  if (length(failed) > 0) {
-    incomplete <- sprintf(
-      "Could not read the exports of %s; results below are incomplete.",
-      paste(failed, collapse = ", ")
-    )
-    if (requireNamespace("cli", quietly = TRUE)) {
-      cli::cli_alert_warning(incomplete)
-    } else {
-      message(incomplete)
-    }
-  }
+  warn_incomplete_conflicts(failed)
 
   if (nrow(conflicts) == 0 && length(failed) > 0) {
     return(invisible(conflicts))
@@ -87,6 +81,25 @@ mediationverse_conflicts <- function(only_loaded = TRUE) {
 
   class(conflicts) <- c("mediationverse_conflicts", "data.frame")
   conflicts
+}
+
+# Warn that the conflict inspection skipped packages (exports unreadable or the
+# package fails to load), so "no conflicts" cannot be read as complete.
+#' @noRd
+warn_incomplete_conflicts <- function(failed) {
+  if (length(failed) == 0) {
+    return(invisible(NULL))
+  }
+  incomplete <- sprintf(
+    "Could not inspect %s (exports unreadable or package fails to load); results are incomplete.",
+    paste(failed, collapse = ", ")
+  )
+  if (requireNamespace("cli", quietly = TRUE)) {
+    cli::cli_alert_warning(incomplete)
+  } else {
+    message(incomplete)
+  }
+  invisible(NULL)
 }
 
 # Quiet conflict finder: no messages, no classing. Returns a data frame with

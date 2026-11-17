@@ -2,7 +2,7 @@ test_that("registry has the expected shape and one row per package", {
   reg <- mediationverse:::mv_registry()
 
   expect_s3_class(reg, "data.frame")
-  expect_named(reg, c("package", "repo", "source", "core", "min_version", "recommended_version"))
+  expect_named(reg, c("package", "repo", "source", "core", "min_version"))
   expect_false(anyDuplicated(reg$package) > 0)
   expect_type(reg$core, "logical")
   expect_true(all(reg$source %in% c("CRAN", "GitHub")))
@@ -45,21 +45,11 @@ test_that("minimum versions are valid version strings or NA", {
   declared <- reg$min_version[!is.na(reg$min_version)]
   expect_true(length(declared) > 0)
   expect_no_error(lapply(declared, package_version))
-  expect_identical(reg$min_version[reg$package == "medfit"], "0.3.1")
+  expect_identical(reg$min_version[reg$package == "medfit"], "0.5.0")
   expect_identical(reg$min_version[reg$package == "RMediation"], "1.5.0")
 })
 
-test_that("medfit's recommended version is at or above its minimum", {
-  reg <- mediationverse:::mv_registry()
-  row <- reg[reg$package == "medfit", ]
-  expect_identical(row$recommended_version, "0.5.0")
-  expect_true(package_version(row$recommended_version) >= package_version(row$min_version))
-  # Only members with a minimum may have a recommended version.
-  with_rec <- reg[!is.na(reg$recommended_version), ]
-  expect_false(any(is.na(with_rec$min_version)))
-})
-
-test_that("DESCRIPTION's medfit constraint does not exceed the registry minimum", {
+test_that("DESCRIPTION's medfit constraint matches the registry minimum", {
   desc <- tryCatch(
     utils::packageDescription("mediationverse", fields = "Imports"),
     error = function(e) NA
@@ -71,7 +61,7 @@ test_that("DESCRIPTION's medfit constraint does not exceed the registry minimum"
   reg_min <- mediationverse:::mv_registry()$min_version[
     mediationverse:::mv_registry()$package == "medfit"
   ]
-  expect_true(package_version(declared) <= package_version(reg_min))
+  expect_identical(declared, reg_min)
 })
 
 test_that("public functions use the registry's member list", {

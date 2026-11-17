@@ -38,7 +38,7 @@ test_that("mv_checks() returns the documented columns and valid statuses", {
   expect_false(anyDuplicated(res$check) > 0)
 })
 
-test_that("a member at or above the recommended version passes", {
+test_that("a member at or above the minimum passes", {
   mock_env(c(medfit = "0.5.0", RMediation = "1.6.1"))
   ok <- mediationverse:::check_min_versions()
   expect_identical(ok$status[ok$check == "version:medfit"], "pass")
@@ -48,28 +48,18 @@ test_that("a member at or above the recommended version passes", {
   expect_identical(ok$status[ok$check == "version:medfit"], "pass")
 })
 
-test_that("a member below the minimum fails with a fix", {
-  mock_env(c(medfit = "0.2.0", RMediation = "1.6.1"))
-  old <- mediationverse:::check_min_versions()
-  row <- old[old$check == "version:medfit", ]
-  expect_identical(row$status, "fail")
-  expect_match(row$message, "older than the required 0.3.1")
-  expect_match(row$fix, "Data-Wise/medfit", fixed = TRUE)
-})
-
-test_that("medfit 0.3.1 and CRAN's 0.3.2 only warn: they predate the recommended fixes", {
-  for (ver in c("0.3.1", "0.3.2", "0.4.0")) {
+test_that("medfit below 0.5.0, including CRAN's 0.3.2, fails with a fix", {
+  for (ver in c("0.2.0", "0.3.1", "0.3.2", "0.4.0")) {
     mock_env(c(medfit = ver, RMediation = "1.6.1"))
     res <- mediationverse:::check_min_versions()
     row <- res[res$check == "version:medfit", ]
-    expect_identical(row$status, "warn", info = ver)
-    expect_match(row$message, "predates 0.5.0", info = ver)
-    expect_match(row$message, "result-changing", info = ver)
+    expect_identical(row$status, "fail", info = ver)
+    expect_match(row$message, "older than the required 0.5.0", info = ver)
     expect_match(row$fix, "Data-Wise/medfit", fixed = TRUE)
   }
 })
 
-test_that("a member without a recommended version passes once it meets the minimum", {
+test_that("RMediation passes once it meets its minimum", {
   mock_env(c(medfit = "0.7.0", RMediation = "1.5.0"))
   res <- mediationverse:::check_min_versions()
   expect_identical(res$status[res$check == "version:RMediation"], "pass")

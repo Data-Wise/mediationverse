@@ -10,16 +10,13 @@
 #               as an install hint.
 #   source      Where the recommended install comes from: "CRAN" or "GitHub".
 #   core        TRUE for ecosystem members, FALSE for mediationverse itself.
-#   min_version Minimum version required by the strictest dependent in the
-#               ecosystem (NA when no dependent declares one). Seeded from the
-#               sibling DESCRIPTION files on 2026-11-16: missingmed requires
-#               medfit (>= 0.3.1) and RMediation (>= 1.5.0). Below this the
-#               ecosystem does not work, so checks fail.
-#   recommended_version
-#               Version at or above which results are reliable (NA when none).
-#               Compatible-but-older installs only warn. medfit 0.5.0 carries
-#               two result-changing fixes (serial te()/pm() and
-#               confint(parm = "paths")) that CRAN's 0.3.2 predates.
+#   min_version Minimum version the ecosystem requires (NA when none is
+#               declared). Below this the checks fail. For medfit it is 0.5.0,
+#               the first version with two result-changing fixes (serial
+#               te()/pm() and confint(parm = "paths")) that CRAN's 0.3.2
+#               predates; mediationverse's DESCRIPTION requires the same.
+#               RMediation's 1.5.0 comes from missingmed's declared
+#               constraint (checked against sibling DESCRIPTIONs 2026-11-16).
 #
 # Row order is the order members are listed to users: mediationverse first,
 # then the core members.
@@ -41,8 +38,7 @@ mv_registry <- function() {
       "GitHub", "GitHub", "GitHub"
     ),
     core = c(FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE),
-    min_version = c(NA, "0.3.1", NA, "1.5.0", NA, NA, NA),
-    recommended_version = c(NA, "0.5.0", NA, NA, NA, NA, NA),
+    min_version = c(NA, "0.5.0", NA, "1.5.0", NA, NA, NA),
     stringsAsFactors = FALSE
   )
 }
