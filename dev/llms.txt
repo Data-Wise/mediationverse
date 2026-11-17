@@ -254,6 +254,8 @@ Following principles from [tidyverse](https://design.tidyverse.org/) and
 
 - [Quick Start
   Guide](https://data-wise.github.io/mediationverse/articles/getting-started.html)
+- [A First Analysis in Four
+  Calls](https://data-wise.github.io/mediationverse/articles/first-analysis.html)
 - [Complete
   Workflow](https://data-wise.github.io/mediationverse/articles/mediationverse-workflow.html)
 
@@ -379,6 +381,8 @@ Package-level documentation
   mediationverse](https://Data-Wise.github.io/mediationverse/dev/articles/contributing.md):
 - [The mediationverse
   Ecosystem](https://Data-Wise.github.io/mediationverse/dev/articles/ecosystem.md):
+- [A First Analysis in Four
+  Calls](https://Data-Wise.github.io/mediationverse/dev/articles/first-analysis.md):
 - [Getting Started with
   mediationverse](https://Data-Wise.github.io/mediationverse/dev/articles/getting-started.md):
 - [Complete Mediation Analysis

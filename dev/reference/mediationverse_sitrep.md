@@ -63,7 +63,7 @@ mediationverse_sitrep()
 #> 
 #> ── Core packages ──
 #> 
-#> ✔ medfit 0.18.0 (from GitHub) [recommended: GitHub]
+#> ✔ medfit 0.19.0 (from GitHub) [recommended: GitHub]
 #> ✔ probmed 0.4.1 (from GitHub) [recommended: GitHub]
 #> ✔ RMediation 1.6.1 (from CRAN) [recommended: CRAN]
 #> ✔ medrobust 0.4.4 (from GitHub) [recommended: GitHub]
@@ -86,7 +86,7 @@ mediationverse_sitrep(checks = TRUE)
 #> 
 #> ── Core packages ──
 #> 
-#> ✔ medfit 0.18.0 (from GitHub) [recommended: GitHub]
+#> ✔ medfit 0.19.0 (from GitHub) [recommended: GitHub]
 #> ✔ probmed 0.4.1 (from GitHub) [recommended: GitHub]
 #> ✔ RMediation 1.6.1 (from CRAN) [recommended: CRAN]
 #> ✔ medrobust 0.4.4 (from GitHub) [recommended: GitHub]
@@ -103,7 +103,7 @@ mediationverse_sitrep(checks = TRUE)
 #> ── Checks ──
 #> 
 #> ✔ All installed members can be loaded
-#> ✔ medfit 0.18.0 meets the minimum 0.5.0
+#> ✔ medfit 0.19.0 meets the minimum 0.5.0
 #> ✔ RMediation 1.6.1 meets the minimum 1.5.0
 #> ✔ Installed members come from their recommended source
 #> ! OpenMx is not installed; RMediation::mbco() will not work

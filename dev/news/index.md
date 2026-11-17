@@ -2,6 +2,14 @@
 
 ## mediationverse (development version)
 
+- New article “A First Analysis in Four Calls”: simulate,
+  [`medfit::med()`](https://data-wise.github.io/medfit/reference/med.html),
+  an `RMediation` interval and a `probmed` effect size on one fitted
+  object. Documentation only; mediationverse adds no `mediate()`
+  function because
+  [`medfit::med()`](https://data-wise.github.io/medfit/reference/med.html)
+  already is that entry point.
+
 ## mediationverse 0.4.0
 
 Feature release: `sitrep()` and
