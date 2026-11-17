@@ -155,7 +155,7 @@ The mediationverse uses **selective loading**: only the foundation package (`med
 
 ```r
 library(mediationverse)
-#> ── Attaching mediationverse 0.1.1 ──
+#> ── Attaching mediationverse 0.2.0 ──
 #> ✔ medfit 0.3.2 (foundation package)
 #> ℹ Use library(RMediation) for DOP/MBCO inference
 #> ──────────────────────────────────────────────────────

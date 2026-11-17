@@ -1,4 +1,9 @@
-# mediationverse (development version)
+# mediationverse 0.2.0
+
+Feature release: `mediationverse_citations()` collects the citations of the ecosystem
+packages, `mediationverse_sitrep()` gains opt-in environment checks, and the member
+list now lives in one internal registry. Distributed through GitHub and r-universe;
+not a CRAN release.
 
 ## New features
 

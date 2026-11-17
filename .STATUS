@@ -10,7 +10,7 @@ last_updated: 2026-11-16
 
 ## mediationverse — Ecosystem Meta-Package
 
-**Version**: 0.1.1 released 2026-10-08 (tag `v0.1.1`); dev is 0.1.1.9000; not yet on CRAN
+**Version**: 0.2.0 prepared 2026-11-16 (not yet merged, tagged or released); last release 0.1.1 on 2026-10-08 (tag `v0.1.1`); not yet on CRAN
 
 Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 `RMediation`, `medrobust`, `medsim`, `missingmed`.
