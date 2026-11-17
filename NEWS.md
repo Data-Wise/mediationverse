@@ -1,4 +1,8 @@
-# mediationverse (development version)
+# mediationverse 0.4.0
+
+Feature release: `sitrep()` and `mediationverse_update()` can now tell which installed members are
+behind the newest version on their recommended source. The lookups are opt-in; nothing contacts the
+network by default. Distributed through GitHub and r-universe; not a CRAN release.
 
 ## New features
 
