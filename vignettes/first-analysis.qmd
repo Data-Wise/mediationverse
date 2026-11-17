@@ -7,13 +7,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r}
-#| label: setup
-#| include: false
-have_rmed <- requireNamespace("RMediation", quietly = TRUE)
-have_probmed <- requireNamespace("probmed", quietly = TRUE)
-```
-
 ## Overview
 
 mediationverse does not define its own `mediate()` function. The entry point
@@ -28,13 +21,10 @@ This article runs one complete analysis in four calls:
 3. Get a confidence interval for the indirect effect with `RMediation`.
 4. Get the effect size P~med~ with `probmed`.
 
-`medfit` is attached with mediationverse. `RMediation` and `probmed` are
-optional, so the chunks that need them run only when they are installed.
-
-```{r}
-#| label: attach
-library(mediationverse)
-```
+`medfit` is attached with `library(mediationverse)`; the code below calls it
+with `medfit::` so it runs the same either way. `RMediation` and `probmed` are
+optional, so each of their calls is guarded and is skipped when the package is
+not installed.
 
 ## Call 1: data
 
@@ -78,8 +68,9 @@ the distribution of the product by default.
 
 ```{r}
 #| label: ci
-#| eval: !expr have_rmed
-RMediation::ci_mediation_data(fit, level = 0.95)
+if (requireNamespace("RMediation", quietly = TRUE)) {
+  RMediation::ci_mediation_data(fit, level = 0.95)
+}
 ```
 
 ## Call 4: effect size
@@ -89,9 +80,10 @@ that the mediator shift leaves a random individual better off.
 
 ```{r}
 #| label: pmed
-#| eval: !expr have_probmed
-set.seed(2)
-probmed::pmed(fit)
+if (requireNamespace("probmed", quietly = TRUE)) {
+  set.seed(2)
+  probmed::pmed(fit)
+}
 ```
 
 ## Where to go next
