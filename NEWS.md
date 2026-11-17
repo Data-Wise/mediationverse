@@ -1,5 +1,9 @@
 # mediationverse (development version)
 
+* New article "A First Analysis in Four Calls": simulate, `medfit::med()`, an `RMediation` interval and a
+  `probmed` effect size on one fitted object. Documentation only; mediationverse adds no `mediate()`
+  function because `medfit::med()` already is that entry point.
+
 # mediationverse 0.4.0
 
 Feature release: `sitrep()` and `mediationverse_update()` can now tell which installed members are
