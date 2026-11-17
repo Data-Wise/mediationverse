@@ -2,6 +2,15 @@
 
 ## mediationverse (development version)
 
+## mediationverse 0.3.0
+
+Feature release: `sitrep()` detects where each member was actually
+installed from, and three session helpers arrive:
+[`mediationverse_news()`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse_news.md),
+[`mediationverse_attach_all()`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse_attach_all.md)
+and the `mediationverse.quiet` option. Distributed through GitHub and
+r-universe; not a CRAN release.
+
 ### New features
 
 - [`mediationverse_sitrep()`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse_sitrep.md)
