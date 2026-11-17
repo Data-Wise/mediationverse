@@ -290,13 +290,53 @@ check_sources <- function() {
   )
 }
 
-# Run every check and bind the rows.
+# Installed members that are older than the newest version on their recommended
+# source. A warning, never a failure: an old version is not a broken one (the
+# minimum-version check owns failures). Makes network requests, so it only runs
+# with updates = TRUE.
 #' @noRd
-mv_checks <- function() {
+check_updates <- function() {
+  reg <- mv_registry()
+  reg <- reg[reg$core, , drop = FALSE]
+
+  old <- character(0)
+  checked <- 0L
+  for (i in seq_len(nrow(reg))) {
+    pkg <- reg$package[i]
+    if (!identical(pkg_state(pkg), "ok")) next
+    ver <- pkg_version(pkg)
+    latest <- pkg_latest(pkg, reg$source[i])
+    outdated <- is_outdated(ver, latest)
+    if (is.na(outdated)) next
+    checked <- checked + 1L
+    if (outdated) old <- c(old, sprintf("%s %s -> %s", pkg, ver, latest))
+  }
+
+  if (length(old) > 0) {
+    return(check_row(
+      "updates", "warn",
+      sprintf("Newer versions available: %s", paste(old, collapse = ", ")),
+      "Run mediationverse_update()"
+    ))
+  }
+  if (checked == 0L) {
+    return(check_row(
+      "updates", "warn", "Could not check for updates (offline or no installed members)",
+      "Retry with a network connection"
+    ))
+  }
+  check_row("updates", "pass", "Installed members are up to date")
+}
+
+# Run every check and bind the rows. The updates check needs the network, so it
+# is opt-in.
+#' @noRd
+mv_checks <- function(updates = FALSE) {
   out <- rbind(
     check_loadable(),
     check_min_versions(),
     check_sources(),
+    if (updates) check_updates(),
     check_optional_deps(),
     check_conflicts()
   )

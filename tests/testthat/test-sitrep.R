@@ -134,3 +134,109 @@ test_that("from_text() and source_matches() cover the provenance labels", {
   expect_false(mediationverse:::source_matches("CRAN", "GitHub"))
   expect_false(mediationverse:::source_matches("other", "GitHub"))
 })
+
+# Plain-text path with a fixed set of "installed" members, so output is checkable.
+# `members`: named list(package = list(version, source, latest)).
+mock_updates_env <- function(members, env = parent.frame()) {
+  real_require <- base::requireNamespace
+  testthat::local_mocked_bindings(
+    requireNamespace = function(package, ...) {
+      if (identical(package, "cli")) FALSE else real_require(package, ...)
+    },
+    .package = "base",
+    .env = env
+  )
+  testthat::local_mocked_bindings(
+    mv_core_packages = function() names(members),
+    mv_source = function(pkg) members[[pkg]]$source,
+    pkg_version = function(pkg) members[[pkg]]$version,
+    pkg_provenance = function(pkg) "GitHub",
+    pkg_latest = function(pkg, source) members[[pkg]]$latest,
+    .env = env
+  )
+}
+
+test_that("sitrep() has no latest/outdated columns by default", {
+  mock_updates_env(list(stats = list(version = "1.0.0", source = "GitHub", latest = "9.0.0")))
+  out <- capture.output(result <- mediationverse_sitrep())
+  expect_false(any(c("latest", "outdated") %in% names(result)))
+  expect_true(any(grepl("updates = TRUE", out, fixed = TRUE)))
+})
+
+test_that("sitrep(updates = TRUE) adds latest and outdated columns", {
+  mock_updates_env(list(
+    stats = list(version = "0.9.0", source = "GitHub", latest = "0.10.0"),
+    utils = list(version = "1.0.0", source = "CRAN", latest = "1.0.0"),
+    tools = list(version = "1.0.0", source = "GitHub", latest = NA_character_)
+  ))
+  out <- capture.output(result <- mediationverse_sitrep(updates = TRUE))
+  expect_named(result, c("package", "installed", "version", "source", "installed_from",
+                         "latest", "outdated"))
+  expect_equal(result$latest, c("0.10.0", "1.0.0", NA))
+  # 0.9.0 < 0.10.0 numerically (a string comparison would say the opposite).
+  expect_equal(result$outdated, c(TRUE, FALSE, NA))
+  txt <- paste(out, collapse = "\n")
+  expect_match(txt, "0.9.0 -> 0.10.0", fixed = TRUE)
+  expect_match(txt, "Could not check: tools", fixed = TRUE)
+  expect_match(txt, "mediationverse_update()", fixed = TRUE)
+})
+
+test_that("sitrep(updates = TRUE) says everything is current when nothing is outdated", {
+  mock_updates_env(list(stats = list(version = "2.0.0", source = "GitHub", latest = "1.0.0")))
+  out <- capture.output(result <- mediationverse_sitrep(updates = TRUE))
+  expect_false(result$outdated)
+  expect_match(paste(out, collapse = "\n"), "up to date")
+})
+
+test_that("sitrep(updates = TRUE) leaves latest NA for members that are not installed", {
+  real_require <- base::requireNamespace
+  testthat::local_mocked_bindings(
+    requireNamespace = function(package, ...) {
+      if (identical(package, "cli")) FALSE else FALSE
+    },
+    .package = "base"
+  )
+  testthat::local_mocked_bindings(
+    pkg_latest = function(pkg, source) stop("must not look up a missing member")
+  )
+  out <- capture.output(result <- mediationverse_sitrep(updates = TRUE))
+  expect_true(all(is.na(result$latest)))
+  expect_true(all(is.na(result$outdated)))
+})
+
+test_that("sitrep() validates updates", {
+  for (bad in list(NA, "yes", c(TRUE, FALSE), NULL, 1)) {
+    expect_error(mediationverse_sitrep(updates = bad), "TRUE or FALSE")
+  }
+})
+
+test_that("sitrep(updates = TRUE) prints the cli report too", {
+  skip_if_not_installed("cli")
+  testthat::local_mocked_bindings(
+    mv_core_packages = function() "stats",
+    mv_source = function(pkg) "GitHub",
+    pkg_version = function(pkg) "0.1.0",
+    pkg_provenance = function(pkg) "GitHub",
+    pkg_latest = function(pkg, source) "0.2.0"
+  )
+  msgs <- character()
+  result <- withCallingHandlers(
+    mediationverse_sitrep(updates = TRUE),
+    message = function(m) {
+      msgs <<- c(msgs, conditionMessage(m))
+      invokeRestart("muffleMessage")
+    }
+  )
+  expect_true(result$outdated)
+  expect_match(paste(msgs, collapse = "\n"), "0.1.0 -> 0.2.0", fixed = TRUE)
+})
+
+test_that("is_outdated() compares numerically and tolerates unknowns", {
+  expect_true(is_outdated("0.9.0", "0.10.0"))
+  expect_false(is_outdated("0.10.0", "0.9.0"))
+  expect_false(is_outdated("1.0.0", "1.0.0"))
+  expect_false(is_outdated("1.0.0.9000", "1.0.0"))
+  expect_true(is.na(is_outdated(NA_character_, "1.0.0")))
+  expect_true(is.na(is_outdated("1.0.0", NA_character_)))
+  expect_true(is.na(is_outdated("not a version", "1.0.0")))
+})

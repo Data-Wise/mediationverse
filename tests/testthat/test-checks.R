@@ -522,3 +522,63 @@ test_that("mv_checks() includes the source check", {
   mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"))
   expect_true("source" %in% mediationverse:::mv_checks()$check)
 })
+
+test_that("mv_checks() has no updates check unless asked", {
+  mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"))
+  expect_false("updates" %in% mediationverse:::mv_checks()$check)
+  testthat::local_mocked_bindings(pkg_latest = function(pkg, source) NA_character_)
+  res <- mediationverse:::mv_checks(updates = TRUE)
+  expect_true("updates" %in% res$check)
+  expect_equal(which(res$check == "updates"), which(res$check == "source") + 1L)
+})
+
+test_that("check_updates() passes when nothing is outdated", {
+  mock_env(c(medfit = "0.18.0", RMediation = "1.6.1"))
+  testthat::local_mocked_bindings(
+    pkg_latest = function(pkg, source) if (pkg == "medfit") "0.18.0" else "1.6.1"
+  )
+  res <- mediationverse:::check_updates()
+  expect_identical(res$check, "updates")
+  expect_identical(res$status, "pass")
+})
+
+test_that("check_updates() warns and names outdated members with the fix", {
+  mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"))
+  testthat::local_mocked_bindings(
+    pkg_latest = function(pkg, source) if (pkg == "medfit") "0.18.0" else "1.6.1"
+  )
+  res <- mediationverse:::check_updates()
+  expect_identical(res$status, "warn")
+  expect_match(res$message, "medfit 0.7.0 -> 0.18.0", fixed = TRUE)
+  expect_false(grepl("RMediation", res$message))
+  expect_match(res$fix, "mediationverse_update", fixed = TRUE)
+})
+
+test_that("check_updates() warns when no lookup succeeds, and ignores uninstalled members", {
+  mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"))
+  testthat::local_mocked_bindings(pkg_latest = function(pkg, source) NA_character_)
+  res <- mediationverse:::check_updates()
+  expect_identical(res$status, "warn")
+  expect_match(res$message, "Could not check")
+
+  mock_env(c(medfit = "0.7.0"), installed = "medfit")
+  testthat::local_mocked_bindings(
+    pkg_latest = function(pkg, source) {
+      if (pkg == "medfit") "0.7.0" else stop("must not look up an absent member")
+    }
+  )
+  expect_identical(mediationverse:::check_updates()$status, "pass")
+})
+
+test_that("sitrep(checks = TRUE, updates = TRUE) reports the updates check", {
+  mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"))
+  testthat::local_mocked_bindings(
+    pkg_latest = function(pkg, source) if (pkg == "medfit") "0.18.0" else "1.6.1"
+  )
+  out <- capture.output(result <- suppressMessages(
+    mediationverse_sitrep(checks = TRUE, updates = TRUE)
+  ))
+  checks <- attr(result, "checks")
+  expect_true("updates" %in% checks$check)
+  expect_identical(checks$status[checks$check == "updates"], "warn")
+})

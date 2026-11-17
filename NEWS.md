@@ -1,3 +1,22 @@
+# mediationverse 0.4.0
+
+Feature release: `sitrep()` and `mediationverse_update()` can now tell which installed members are
+behind the newest version on their recommended source. The lookups are opt-in; nothing contacts the
+network by default. Distributed through GitHub and r-universe; not a CRAN release.
+
+## New features
+
+* `mediationverse_sitrep(updates = TRUE)` looks up the newest version of each
+  installed member on its recommended source (CRAN for CRAN-recommended members,
+  the Data-Wise r-universe for GitHub-recommended ones) and adds `latest` and
+  `outdated` columns, an "Updates" section and a `-> x available` note on each
+  outdated line. It is opt-in: the default makes no network requests, and a
+  failed lookup is reported as "Could not check", never an error. With
+  `checks = TRUE` it also adds an `updates` check (a warning, never a failure).
+* `mediationverse_update()` gains `only_outdated` (update only members that are
+  outdated or not installed) and `dry_run` (print what would be installed and
+  stop). Default behavior is unchanged.
+
 # mediationverse 0.3.0
 
 Feature release: `sitrep()` detects where each member was actually installed from, and
