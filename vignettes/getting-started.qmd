@@ -31,16 +31,18 @@ pak::pak("data-wise/mediationverse")
 remotes::install_github("data-wise/mediationverse")
 ```
 
-This will install `medfit` and `RMediation` (both on CRAN/r-universe).
+This installs `medfit` from GitHub (it is listed in `Remotes:`, because CRAN's 0.3.2 predates
+result-changing fixes in 0.5.0).
+`RMediation` is optional and not installed automatically: `install.packages("RMediation")`.
 `probmed`, `medrobust`, `medsim`, and `missingmed` are not on CRAN yet — install them
 individually as needed:
 
 ```{r}
 #| label: install-siblings
-pak::pak(c("Data-Wise/probmed", "Data-Wise/medrobust", "Data-Wise/medsim"))
-# missingmed in a separate call: probmed pins medfit@v0.3.0, which conflicts
-# with missingmed's medfit (>= 0.3.1) when both are resolved together
-pak::pak("Data-Wise/missingmed")
+pak::pak(c(
+  "Data-Wise/probmed", "Data-Wise/medrobust", "Data-Wise/medsim",
+  "Data-Wise/missingmed"
+))
 ```
 
 Core packages in the ecosystem:
@@ -71,7 +73,7 @@ outdated packages.
 This attaches medfit and displays helpful information:
 
 ```
-── Attaching mediationverse 0.1.1 ──
+── Attaching mediationverse 0.2.0 ──
 ✔ medfit 0.3.2 (foundation package)
 ℹ Use library(probmed) for P_med effect size
 ℹ Use library(RMediation) for DOP/MBCO inference

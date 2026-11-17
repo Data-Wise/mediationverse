@@ -72,3 +72,18 @@ test_that("mediationverse_sitrep() prints an install hint for a missing core pac
   expect_true(all(!result$installed))
   expect_true(all(is.na(result$version)))
 })
+
+test_that("mediationverse_sitrep() labels the source as recommended, not detected", {
+  skip_if_not_installed("cli")
+  real_require <- base::requireNamespace
+  testthat::local_mocked_bindings(
+    requireNamespace = function(package, ...) {
+      if (identical(package, "cli")) FALSE else real_require(package, ...)
+    },
+    .package = "base"
+  )
+
+  out <- capture.output(mediationverse_sitrep())
+  expect_true(any(grepl("[recommended: CRAN]", out, fixed = TRUE)))
+  expect_true(any(grepl("[recommended: GitHub]", out, fixed = TRUE)))
+})
