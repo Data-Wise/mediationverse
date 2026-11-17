@@ -293,3 +293,41 @@ test_that("pkg_version() reads installed versions and returns NA otherwise", {
   expect_match(mediationverse:::pkg_version("stats"), "^[0-9]+\\.")
   expect_true(is.na(mediationverse:::pkg_version("__no_such_pkg__")))
 })
+
+test_that("sitrep() does not abort when a member's version cannot be read", {
+  testthat::local_mocked_bindings(pkg_version = function(pkg) NA_character_)
+
+  r <- NULL
+  expect_no_error(r <- run_sitrep(checks = TRUE))
+
+  expect_true(any(grepl("unknown", r$text)))
+  checks <- attr(r$res, "checks")
+  expect_s3_class(checks, "data.frame")
+  med <- checks[checks$check == "version:medfit", ]
+  expect_identical(med$status, "warn")
+  expect_match(med$message, "could not be read")
+})
+
+test_that("sitrep() plain-text path survives an unreadable member version", {
+  skip_if_not_installed("cli")
+  real_require <- base::requireNamespace
+  testthat::local_mocked_bindings(
+    requireNamespace = function(package, ...) {
+      if (identical(package, "cli")) FALSE else real_require(package, ...)
+    },
+    .package = "base"
+  )
+  testthat::local_mocked_bindings(pkg_version = function(pkg) NA_character_)
+
+  out <- character()
+  expect_no_error(out <- utils::capture.output(mediationverse_sitrep()))
+  expect_true(any(grepl("unknown", out)))
+})
+
+test_that("mediationverse_packages() tolerates an unreadable version", {
+  testthat::local_mocked_bindings(pkg_version = function(pkg) NA_character_)
+
+  res <- NULL
+  expect_no_error(res <- mediationverse_packages())
+  expect_true(all(is.na(res$version[res$installed])))
+})

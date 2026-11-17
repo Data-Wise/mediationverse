@@ -225,3 +225,66 @@ test_that("mediationverse_conflicts() does not expose failed_lookup", {
 
   expect_null(attr(res, "failed_lookup"))
 })
+
+# Run mediationverse_conflicts(), capturing cli/plain messages.
+run_conflicts <- function(...) {
+  msgs <- character()
+  res <- withCallingHandlers(
+    mediationverse_conflicts(...),
+    message = function(m) {
+      msgs <<- c(msgs, conditionMessage(m))
+      invokeRestart("muffleMessage")
+    }
+  )
+  list(res = res, msgs = msgs)
+}
+
+test_that("mediationverse_conflicts() warns instead of claiming success when a lookup failed", {
+  # Every package but probmed exports a distinct name, and probmed's lookup
+  # errors: no conflicts remain, but the inspection was incomplete.
+  testthat::local_mocked_bindings(
+    getNamespaceExports = function(ns) {
+      if (identical(ns, "probmed")) stop("boom")
+      paste0("only_", ns)
+    },
+    requireNamespace = function(package, ...) TRUE,
+    .package = "base"
+  )
+
+  r <- run_conflicts(only_loaded = FALSE)
+
+  expect_equal(nrow(r$res), 0L)
+  expect_null(attr(r$res, "failed_lookup"))
+  expect_true(any(grepl("Could not read the exports of probmed", r$msgs)))
+  expect_false(any(grepl("No conflicts found among", r$msgs)))
+})
+
+test_that("mediationverse_conflicts() warns about failed lookups even when conflicts exist", {
+  testthat::local_mocked_bindings(
+    getNamespaceExports = function(ns) {
+      if (identical(ns, "probmed")) stop("boom")
+      "extract_mediation"
+    },
+    requireNamespace = function(package, ...) TRUE,
+    .package = "base"
+  )
+
+  r <- run_conflicts(only_loaded = FALSE)
+
+  expect_s3_class(r$res, "mediationverse_conflicts")
+  expect_true(any(grepl("Could not read the exports of probmed", r$msgs)))
+})
+
+test_that("mediationverse_conflicts() still reports a clean run as clean", {
+  testthat::local_mocked_bindings(
+    getNamespaceExports = function(ns) paste0("only_", ns),
+    requireNamespace = function(package, ...) TRUE,
+    .package = "base"
+  )
+
+  r <- run_conflicts(only_loaded = FALSE)
+
+  expect_equal(nrow(r$res), 0L)
+  expect_true(any(grepl("No conflicts found among", r$msgs)))
+  expect_false(any(grepl("Could not read", r$msgs)))
+})

@@ -55,8 +55,26 @@ mediationverse_conflicts <- function(only_loaded = TRUE) {
   }
 
   conflicts <- find_conflicts(core)
-  # Lookup failures are only for internal callers such as the sitrep checks.
+  failed <- attr(conflicts, "failed_lookup")
+  # The attribute is internal; the returned object keeps its documented shape.
   attr(conflicts, "failed_lookup") <- NULL
+
+  # An incomplete inspection must not read as a clean result.
+  if (length(failed) > 0) {
+    incomplete <- sprintf(
+      "Could not read the exports of %s; results below are incomplete.",
+      paste(failed, collapse = ", ")
+    )
+    if (requireNamespace("cli", quietly = TRUE)) {
+      cli::cli_alert_warning(incomplete)
+    } else {
+      message(incomplete)
+    }
+  }
+
+  if (nrow(conflicts) == 0 && length(failed) > 0) {
+    return(invisible(conflicts))
+  }
 
   if (nrow(conflicts) == 0) {
     if (requireNamespace("cli", quietly = TRUE)) {

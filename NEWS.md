@@ -24,7 +24,12 @@
 * `mediationverse_sitrep()` now labels the install source as *recommended* and
   documents it as such; it was never detected from the installed copy.
 * `mediationverse_conflicts()` no longer reports S4 method-table internals
-  (`.__T__*`) as conflicting functions.
+  (`.__T__*`) as conflicting functions. It also warns that the result is
+  incomplete when a package's exports cannot be read, instead of reporting "No
+  conflicts found".
+* `mediationverse_sitrep()` and `mediationverse_packages()` no longer abort when
+  an installed package's version cannot be read; the version shows as unknown
+  and `sitrep(checks = TRUE)` flags it.
 
 ## Internal
 

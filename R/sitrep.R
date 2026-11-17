@@ -55,7 +55,9 @@ mediationverse_sitrep <- function(checks = FALSE) {
 
   pkg_data <- lapply(core, function(pkg) {
     inst <- requireNamespace(pkg, quietly = TRUE)
-    ver <- if (inst) as.character(utils::packageVersion(pkg)) else NA_character_
+    # pkg_version() never errors: an unreadable version is NA, reported as
+    # "unknown" below and flagged by the checks, instead of aborting the report.
+    ver <- if (inst) pkg_version(pkg) else NA_character_
     source <- mv_source(pkg)
     list(package = pkg, installed = inst, version = ver, source = source)
   })
@@ -70,8 +72,9 @@ mediationverse_sitrep <- function(checks = FALSE) {
 
       if (pd$installed) {
         tick <- cli::col_green(cli::symbol$tick)
+        ver_label <- if (is.na(pd$version)) "unknown" else pd$version
         cli::cli_text(
-          "  {tick} {.pkg {pd$package}} {.field {pd$version}} [recommended: {src_label}]"
+          "  {tick} {.pkg {pd$package}} {.field {ver_label}} [recommended: {src_label}]"
         )
       } else {
         cross <- cli::col_red(cli::symbol$cross)
@@ -87,7 +90,13 @@ mediationverse_sitrep <- function(checks = FALSE) {
       }
     } else {
       status <- if (pd$installed) "[x]" else "[ ]"
-      ver_str <- if (pd$installed) pd$version else "not installed"
+      ver_str <- if (!pd$installed) {
+        "not installed"
+      } else if (is.na(pd$version)) {
+        "unknown"
+      } else {
+        pd$version
+      }
       cat(sprintf("  %s %s %s [recommended: %s]\n", status, pd$package, ver_str, pd$source))
     }
   }

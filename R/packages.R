@@ -30,7 +30,7 @@ mediationverse_packages <- function(include_self = TRUE) {
 
   versions <- vapply(core, function(pkg) {
     if (requireNamespace(pkg, quietly = TRUE)) {
-      as.character(utils::packageVersion(pkg))
+      pkg_version(pkg)
     } else {
       NA_character_
     }
