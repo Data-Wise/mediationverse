@@ -1,7 +1,17 @@
 mock_env <- function(versions, installed = names(versions), openmx = TRUE,
                      mbco = TRUE, openmx_version = "2.22.11",
-                     env = parent.frame()) {
+                     provenance = NULL, env = parent.frame()) {
   testthat::local_mocked_bindings(
+    # By default every member comes from its recommended source.
+    pkg_provenance = function(pkg) {
+      if (!is.null(provenance) && pkg %in% names(provenance)) {
+        provenance[[pkg]]
+      } else if (identical(pkg, "RMediation")) {
+        "CRAN"
+      } else {
+        "GitHub"
+      }
+    },
     pkg_installed = function(pkg) {
       if (identical(pkg, "OpenMx")) openmx else pkg %in% installed
     },
@@ -248,7 +258,7 @@ run_sitrep <- function(...) {
 test_that("sitrep() default output is unchanged apart from the hint", {
   r <- run_sitrep()
 
-  expect_named(r$res, c("package", "installed", "version", "source"))
+  expect_named(r$res, c("package", "installed", "version", "source", "installed_from"))
   expect_null(attr(r$res, "checks"))
   expect_true(any(grepl("checks = TRUE", r$text, fixed = TRUE)))
   expect_false(any(grepl("Checks", r$text)))
@@ -259,7 +269,7 @@ test_that("sitrep(checks = TRUE) prints checks and attaches them", {
 
   r <- run_sitrep(checks = TRUE)
 
-  expect_named(r$res, c("package", "installed", "version", "source"))
+  expect_named(r$res, c("package", "installed", "version", "source", "installed_from"))
   checks <- attr(r$res, "checks")
   expect_s3_class(checks, "data.frame")
   expect_named(checks, c("check", "status", "message", "fix"))
@@ -478,4 +488,37 @@ test_that("mv_checks() includes the load check and sitrep(checks = TRUE) reports
 
   r <- run_sitrep(checks = TRUE)
   expect_true(any(grepl("installed but cannot be loaded", r$text)))
+})
+
+test_that("source check passes when members come from their recommended source", {
+  mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"))
+  res <- mediationverse:::check_sources()
+  expect_identical(res$check, "source")
+  expect_identical(res$status, "pass")
+})
+
+test_that("source check warns when a member comes from another source", {
+  mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"),
+           provenance = c(RMediation = "GitHub"))
+  res <- mediationverse:::check_sources()
+  expect_identical(res$status, "warn")
+  expect_match(res$message, "RMediation (GitHub, recommended CRAN)", fixed = TRUE)
+  expect_match(res$fix, "pak::pak")
+})
+
+test_that("source check accepts r-universe for GitHub members and ignores local installs", {
+  mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"),
+           provenance = c(medfit = "r-universe", probmed = "local"))
+  expect_identical(mediationverse:::check_sources()$status, "pass")
+})
+
+test_that("source check skips absent members and unreadable provenance", {
+  mock_env(c(RMediation = "1.6.1"), installed = "RMediation",
+           provenance = c(RMediation = NA_character_))
+  expect_identical(mediationverse:::check_sources()$status, "pass")
+})
+
+test_that("mv_checks() includes the source check", {
+  mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"))
+  expect_true("source" %in% mediationverse:::mv_checks()$check)
 })

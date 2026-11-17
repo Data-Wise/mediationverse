@@ -12,11 +12,12 @@
 #'   Default `FALSE` leaves the report unchanged apart from a one-line hint.
 #'
 #' @return Invisibly returns a data frame with columns `package`, `installed`,
-#'   `version` and `source`. `source` is the *recommended* install source
-#'   (`"CRAN"` or `"GitHub"`) from the ecosystem registry; it is not detected
-#'   from the installed copy, so a package installed from elsewhere (for
-#'   example a CRAN `medfit` that predates the GitHub fixes) still shows its
-#'   recommended source. With `checks = TRUE` the checks are attached as the
+#'   `version`, `source` and `installed_from`. `installed_from` is detected from
+#'   the installed copy's `DESCRIPTION`: `"CRAN"`, `"GitHub"`, `"r-universe"`,
+#'   `"base"`, `"local"` (source or `load_all()` installs), `"other"`, or `NA`
+#'   (not installed or unreadable). `source` is the *recommended* install source
+#'   (`"CRAN"` or `"GitHub"`) from the ecosystem registry; compare it with
+#'   `installed_from` to see whether an install matches. With `checks = TRUE` the checks are attached as the
 #'   `"checks"` attribute: a data frame with columns `check`, `status`
 #'   (`"pass"`, `"warn"` or `"fail"`), `message` and `fix`. Called mainly for
 #'   its side effect of printing the situation report.
@@ -58,7 +59,10 @@ mediationverse_sitrep <- function(checks = FALSE) {
     # "unknown" below and flagged by the checks, instead of aborting the report.
     ver <- if (inst) pkg_version(pkg) else NA_character_
     source <- mv_source(pkg)
-    list(package = pkg, installed = inst, version = ver, source = source)
+    # Where the installed copy actually came from (NA when not installed).
+    from <- if (inst) pkg_provenance(pkg) else NA_character_
+    list(package = pkg, installed = inst, version = ver, source = source,
+         installed_from = from)
   })
 
   for (pd in pkg_data) {
@@ -72,8 +76,9 @@ mediationverse_sitrep <- function(checks = FALSE) {
       if (pd$installed) {
         tick <- cli::col_green(cli::symbol$tick)
         ver_label <- if (is.na(pd$version)) "unknown" else pd$version
+        from_label <- from_text(pd$installed_from)
         cli::cli_text(
-          "  {tick} {.pkg {pd$package}} {.field {ver_label}} [recommended: {src_label}]"
+          "  {tick} {.pkg {pd$package}} {.field {ver_label}} ({from_label}) [recommended: {src_label}]"
         )
       } else {
         cross <- cli::col_red(cli::symbol$cross)
@@ -96,24 +101,43 @@ mediationverse_sitrep <- function(checks = FALSE) {
       } else {
         pd$version
       }
-      cat(sprintf("  %s %s %s [recommended: %s]\n", status, pd$package, ver_str, pd$source))
+      from_str <- if (pd$installed) sprintf(" (%s)", from_text(pd$installed_from)) else ""
+      cat(sprintf("  %s %s %s%s [recommended: %s]\n", status, pd$package, ver_str, from_str, pd$source))
     }
   }
 
+  # Install sources: only members installed from somewhere other than their
+  # recommended source are listed, so the section never carries stale version
+  # numbers or claims about what CRAN currently has.
+  mismatched <- Filter(function(pd) {
+    isTRUE(pd$installed) && !is.na(pd$installed_from) &&
+      !source_matches(pd$installed_from, pd$source)
+  }, pkg_data)
+
   if (use_cli) {
     cli::cli_rule()
-    cli::cli_h2("CRAN status")
-    cli::cli_bullets(c(
-      "*" = "{.pkg RMediation} {.field 1.6.1} - {.url https://cran.r-project.org/package=RMediation}",
-      "i" = "{.pkg medfit} - install from GitHub; CRAN has {.field 0.3.2}, which predates two result-changing fixes in {.field 0.5.0}",
-      "i" = "{.pkg probmed}, {.pkg medrobust}, {.pkg medsim}, {.pkg missingmed} - GitHub only (pre-CRAN)"
-    ))
+    cli::cli_h2("Install sources")
+    if (length(mismatched) == 0L) {
+      cli::cli_text("Installed members come from their recommended source.")
+    } else {
+      bullets <- vapply(mismatched, function(pd) {
+        sprintf("{.pkg %s} installed from %s; recommended: %s",
+                pd$package, pd$installed_from, pd$source)
+      }, character(1))
+      names(bullets) <- rep("!", length(bullets))
+      cli::cli_bullets(bullets)
+    }
   } else {
     cat(strrep("-", 50), "\n")
-    cat("CRAN status:\n")
-    cat("  [CRAN] RMediation 1.6.1\n")
-    cat("  [GitHub] medfit (CRAN has 0.3.2, which predates two result-changing fixes in 0.5.0)\n")
-    cat("  [GitHub only] probmed, medrobust, medsim, missingmed\n")
+    cat("Install sources:\n")
+    if (length(mismatched) == 0L) {
+      cat("  Installed members come from their recommended source.\n")
+    } else {
+      for (pd in mismatched) {
+        cat(sprintf("  [!] %s installed from %s; recommended: %s\n",
+                    pd$package, pd$installed_from, pd$source))
+      }
+    }
   }
 
   checks_df <- NULL
@@ -135,6 +159,7 @@ mediationverse_sitrep <- function(checks = FALSE) {
         installed = pd$installed,
         version   = if (is.na(pd$version)) NA_character_ else pd$version,
         source    = pd$source,
+        installed_from = pd$installed_from,
         stringsAsFactors = FALSE
       )
     })),
@@ -146,4 +171,27 @@ mediationverse_sitrep <- function(checks = FALSE) {
   }
 
   invisible(out)
+}
+
+# Short label for where an installed copy came from; "unknown origin" when the
+# provenance could not be read.
+#' @noRd
+from_text <- function(from) {
+  if (is.na(from)) "unknown origin" else paste("from", from)
+}
+
+# Whether an installed copy's provenance satisfies the recommended source.
+# Recommended "GitHub" is satisfied by GitHub and r-universe (the same Data-Wise
+# builds); a development install ("local") is never flagged. "CRAN" is
+# satisfied only by CRAN.
+#' @noRd
+source_matches <- function(from, recommended) {
+  if (from %in% c("local", "base")) {
+    return(TRUE)
+  }
+  if (identical(recommended, "CRAN")) {
+    identical(from, "CRAN")
+  } else {
+    from %in% c("GitHub", "r-universe")
+  }
 }

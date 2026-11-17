@@ -16,11 +16,12 @@ Default \code{FALSE} leaves the report unchanged apart from a one-line hint.}
 }
 \value{
 Invisibly returns a data frame with columns \code{package}, \code{installed},
-\code{version} and \code{source}. \code{source} is the \emph{recommended} install source
-(\code{"CRAN"} or \code{"GitHub"}) from the ecosystem registry; it is not detected
-from the installed copy, so a package installed from elsewhere (for
-example a CRAN \code{medfit} that predates the GitHub fixes) still shows its
-recommended source. With \code{checks = TRUE} the checks are attached as the
+\code{version}, \code{source} and \code{installed_from}. \code{installed_from} is detected from
+the installed copy's \code{DESCRIPTION}: \code{"CRAN"}, \code{"GitHub"}, \code{"r-universe"},
+\code{"base"}, \code{"local"} (source or \code{load_all()} installs), \code{"other"}, or \code{NA}
+(not installed or unreadable). \code{source} is the \emph{recommended} install source
+(\code{"CRAN"} or \code{"GitHub"}) from the ecosystem registry; compare it with
+\code{installed_from} to see whether an install matches. With \code{checks = TRUE} the checks are attached as the
 \code{"checks"} attribute: a data frame with columns \code{check}, \code{status}
 (\code{"pass"}, \code{"warn"} or \code{"fail"}), \code{message} and \code{fix}. Called mainly for
 its side effect of printing the situation report.

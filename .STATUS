@@ -4,13 +4,13 @@ progress: 92
 kind: package
 cran_state: dev
 next: ⛔ BLOCKED — cascade Phase 4 (last), still waiting on 3 of 4 deps (re-verified against CRAN 2026-11-16: only medfit 0.3.2 and RMediation 1.6.1 are published; probmed, medrobust, medsim, missingmed are not). probmed hasn't submitted (needs Remotes drop + version bump + submit, see probmed `.STATUS`); medrobust ⏸ ON HOLD (CRAN-ready 0E/0W/1N, submission paused pending its associated manuscript's journal submission — not a technical blocker); medsim ⛔ blocked purely on medrobust's hold. Once probmed + medrobust + medsim are all on CRAN: drop Remotes entries here, CRAN-check, submit.
-done: 2026-11-16 — registry refactor, `mediationverse_citations()`, `sitrep(checks = TRUE)` and the two Codex-review fixes are implemented on `claude/restore-342f7b` (spec/plan in `planning/*release-0.2.0*`; not yet released). Earlier, 2026-06-22 — test coverage 83.1%→93.9% (sitrep.R + packages.R now 100%; cli-fallback + not-installed branches covered) via PR #12; suite is 103 tests / 0 fail (NOT the "thin 1 test_that" the old note claimed — that was stale). Removed the non-functional Gemini review bot (5 gemini-*.yml failing every PR on missing GEMINI_API_KEY) via PR #13.
+done: 2026-11-17 — 0.3.0 prepared: sitrep install-provenance (PR #33), `mediationverse_news()`, `mediationverse_attach_all()` and the `mediationverse.quiet` option (PR #34); plan in `planning/PLAN-release-0.3.0-2026-11-17.md`. Earlier, 2026-11-16 — registry refactor, `mediationverse_citations()`, `sitrep(checks = TRUE)` and the two Codex-review fixes were released as 0.2.0 (tag `v0.2.0`; spec/plan in `planning/*release-0.2.0*`). Earlier, 2026-06-22 — test coverage 83.1%→93.9% (sitrep.R + packages.R now 100%; cli-fallback + not-installed branches covered) via PR #12; suite is 103 tests / 0 fail (NOT the "thin 1 test_that" the old note claimed — that was stale). Removed the non-functional Gemini review bot (5 gemini-*.yml failing every PR on missing GEMINI_API_KEY) via PR #13.
 type: r
-last_updated: 2026-11-16
+last_updated: 2026-11-17
 
 ## mediationverse — Ecosystem Meta-Package
 
-**Version**: 0.2.0 prepared 2026-11-16 (not yet merged, tagged or released); last release 0.1.1 on 2026-10-08 (tag `v0.1.1`); not yet on CRAN
+**Version**: 0.3.0 (release PR in progress; previous release 0.2.0, tag `v0.2.0`); not yet on CRAN
 
 Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 `RMediation`, `medrobust`, `medsim`, `missingmed`.

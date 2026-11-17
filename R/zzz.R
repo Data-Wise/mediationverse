@@ -1,5 +1,10 @@
 # Package startup and attachment
 
+# Is the attach banner suppressed? Set options(mediationverse.quiet = TRUE).
+mv_quiet <- function() {
+  isTRUE(getOption("mediationverse.quiet", FALSE))
+}
+
 .onAttach <- function(libname, pkgname) {
   # Get version information
   med_version <- utils::packageVersion("mediationverse")
@@ -16,6 +21,10 @@
       return(invisible())
     }
   )
+
+  if (mv_quiet()) {
+    return(invisible())
+  }
 
   # Get medfit version
   medfit_version <- tryCatch(
