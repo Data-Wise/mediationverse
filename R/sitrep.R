@@ -11,13 +11,24 @@
 #'   conflicts among installed members.
 #'   Default `FALSE` leaves the report unchanged apart from a one-line hint.
 #'
+#' @param updates Logical. If `TRUE`, look up the newest version of each
+#'   installed member on its recommended source (CRAN for CRAN-recommended
+#'   members, the Data-Wise r-universe for GitHub-recommended ones) and report
+#'   which are outdated. This makes network requests (a few seconds at most);
+#'   a failed lookup is reported as "Could not check", never an error. Default
+#'   `FALSE` makes no requests.
+#'
 #' @return Invisibly returns a data frame with columns `package`, `installed`,
 #'   `version`, `source` and `installed_from`. `installed_from` is detected from
 #'   the installed copy's `DESCRIPTION`: `"CRAN"`, `"GitHub"`, `"r-universe"`,
 #'   `"base"`, `"local"` (source or `load_all()` installs), `"other"`, or `NA`
 #'   (not installed or unreadable). `source` is the *recommended* install source
 #'   (`"CRAN"` or `"GitHub"`) from the ecosystem registry; compare it with
-#'   `installed_from` to see whether an install matches. With `checks = TRUE` the checks are attached as the
+#'   `installed_from` to see whether an install matches. With `updates = TRUE`
+#'   two more columns are added: `latest` (newest version on the recommended
+#'   source, `NA` when unknown or not installed) and `outdated` (`TRUE` when the
+#'   installed version is older than `latest`, `NA` when either is unknown).
+#'   With `checks = TRUE` the checks are attached as the
 #'   `"checks"` attribute: a data frame with columns `check`, `status`
 #'   (`"pass"`, `"warn"` or `"fail"`), `message` and `fix`. Called mainly for
 #'   its side effect of printing the situation report.
@@ -25,9 +36,16 @@
 #' @examples
 #' mediationverse_sitrep()
 #' mediationverse_sitrep(checks = TRUE)
+#' \dontrun{
+#' mediationverse_sitrep(updates = TRUE)  # contacts CRAN and r-universe
+#' }
 #'
 #' @export
-mediationverse_sitrep <- function(checks = FALSE) {
+mediationverse_sitrep <- function(checks = FALSE, updates = FALSE) {
+  if (!is.logical(updates) || length(updates) != 1L || is.na(updates)) {
+    cli::cli_abort("{.arg updates} must be TRUE or FALSE.")
+  }
+
   # Members, install sources and repositories come from the internal registry.
   core <- mv_core_packages()
   github_repos <- mv_repos()
@@ -61,8 +79,11 @@ mediationverse_sitrep <- function(checks = FALSE) {
     source <- mv_source(pkg)
     # Where the installed copy actually came from (NA when not installed).
     from <- if (inst) pkg_provenance(pkg) else NA_character_
+    # Newest version on the recommended source; only looked up on request.
+    latest <- if (updates && inst) pkg_latest(pkg, source) else NA_character_
     list(package = pkg, installed = inst, version = ver, source = source,
-         installed_from = from)
+         installed_from = from, latest = latest,
+         outdated = if (updates) is_outdated(ver, latest) else NA)
   })
 
   for (pd in pkg_data) {
@@ -78,7 +99,7 @@ mediationverse_sitrep <- function(checks = FALSE) {
         ver_label <- if (is.na(pd$version)) "unknown" else pd$version
         from_label <- from_text(pd$installed_from)
         cli::cli_text(
-          "  {tick} {.pkg {pd$package}} {.field {ver_label}} ({from_label}) [recommended: {src_label}]"
+          "  {tick} {.pkg {pd$package}} {.field {ver_label}} ({from_label}) [recommended: {src_label}]{newer_text(pd)}"
         )
       } else {
         cross <- cli::col_red(cli::symbol$cross)
@@ -102,7 +123,8 @@ mediationverse_sitrep <- function(checks = FALSE) {
         pd$version
       }
       from_str <- if (pd$installed) sprintf(" (%s)", from_text(pd$installed_from)) else ""
-      cat(sprintf("  %s %s %s%s [recommended: %s]\n", status, pd$package, ver_str, from_str, pd$source))
+      cat(sprintf("  %s %s %s%s [recommended: %s]%s\n", status, pd$package, ver_str, from_str,
+                  pd$source, newer_text(pd)))
     }
   }
 
@@ -140,6 +162,10 @@ mediationverse_sitrep <- function(checks = FALSE) {
     }
   }
 
+  if (updates) {
+    print_updates(pkg_data, use_cli)
+  }
+
   checks_df <- NULL
   if (isTRUE(checks)) {
     checks_df <- mv_checks()
@@ -150,6 +176,15 @@ mediationverse_sitrep <- function(checks = FALSE) {
     )
   } else {
     cat("Run mediationverse_sitrep(checks = TRUE) for dependency checks.\n")
+  }
+  if (!updates) {
+    if (use_cli) {
+      cli::cli_text(
+        "Use {.code mediationverse_sitrep(updates = TRUE)} to check for newer versions."
+      )
+    } else {
+      cat("Use mediationverse_sitrep(updates = TRUE) to check for newer versions.\n")
+    }
   }
 
   out <- as.data.frame(
@@ -165,6 +200,11 @@ mediationverse_sitrep <- function(checks = FALSE) {
     })),
     stringsAsFactors = FALSE
   )
+
+  if (updates) {
+    out$latest <- vapply(pkg_data, function(pd) pd$latest, character(1), USE.NAMES = FALSE)
+    out$outdated <- vapply(pkg_data, function(pd) pd$outdated, logical(1), USE.NAMES = FALSE)
+  }
 
   if (!is.null(checks_df)) {
     attr(out, "checks") <- checks_df
@@ -194,4 +234,66 @@ source_matches <- function(from, recommended) {
   } else {
     from %in% c("GitHub", "r-universe")
   }
+}
+
+# TRUE when `installed` is an older version than `latest`; NA when either is
+# unknown or not a version. Compares numerically (0.9.0 < 0.10.0).
+#' @noRd
+is_outdated <- function(installed, latest) {
+  if (is.na(installed) || is.na(latest)) {
+    return(NA)
+  }
+  a <- suppressWarnings(numeric_version(installed, strict = FALSE))
+  b <- suppressWarnings(numeric_version(latest, strict = FALSE))
+  if (is.na(a) || is.na(b)) {
+    return(NA)
+  }
+  a < b
+}
+
+# " -> x available" suffix for an outdated member's report line, else "".
+#' @noRd
+newer_text <- function(pd) {
+  if (isTRUE(pd$outdated)) sprintf(" -> %s available", pd$latest) else ""
+}
+
+# The "Updates" section of the report (only printed with updates = TRUE).
+#' @noRd
+print_updates <- function(pkg_data, use_cli) {
+  installed <- Filter(function(pd) isTRUE(pd$installed), pkg_data)
+  old <- Filter(function(pd) isTRUE(pd$outdated), installed)
+  unknown <- Filter(function(pd) is.na(pd$outdated), installed)
+  old_lines <- vapply(old, function(pd) {
+    sprintf("%s %s -> %s", pd$package, pd$version, pd$latest)
+  }, character(1))
+  unknown_names <- vapply(unknown, function(pd) pd$package, character(1))
+
+  if (use_cli) {
+    cli::cli_rule()
+    cli::cli_h2("Updates")
+    if (length(old_lines) > 0L) {
+      bullets <- old_lines
+      names(bullets) <- rep("!", length(bullets))
+      cli::cli_bullets(bullets)
+      cli::cli_text("Run {.code mediationverse_update()} to install.")
+    } else if (length(unknown_names) < length(installed)) {
+      cli::cli_text("All checked members are up to date.")
+    }
+    if (length(unknown_names) > 0L) {
+      cli::cli_text("Could not check: {unknown_names}")
+    }
+  } else {
+    cat(strrep("-", 50), "\n")
+    cat("Updates:\n")
+    if (length(old_lines) > 0L) {
+      for (line in old_lines) cat(sprintf("  [!] %s\n", line))
+      cat("  Run mediationverse_update() to install.\n")
+    } else if (length(unknown_names) < length(installed)) {
+      cat("  All checked members are up to date.\n")
+    }
+    if (length(unknown_names) > 0L) {
+      cat(sprintf("  Could not check: %s\n", paste(unknown_names, collapse = ", ")))
+    }
+  }
+  invisible()
 }

@@ -4,7 +4,7 @@
 \alias{mediationverse_sitrep}
 \title{Situation Report for the mediationverse Ecosystem}
 \usage{
-mediationverse_sitrep(checks = FALSE)
+mediationverse_sitrep(checks = FALSE, updates = FALSE)
 }
 \arguments{
 \item{checks}{Logical. If \code{TRUE}, also run environment checks and print
@@ -13,6 +13,13 @@ ecosystem requires (failing below it, e.g. medfit before 0.5.0), optional
 dependencies (OpenMx, needed for \code{RMediation::mbco()}), and function
 conflicts among installed members.
 Default \code{FALSE} leaves the report unchanged apart from a one-line hint.}
+
+\item{updates}{Logical. If \code{TRUE}, look up the newest version of each
+installed member on its recommended source (CRAN for CRAN-recommended
+members, the Data-Wise r-universe for GitHub-recommended ones) and report
+which are outdated. This makes network requests (a few seconds at most);
+a failed lookup is reported as "Could not check", never an error. Default
+\code{FALSE} makes no requests.}
 }
 \value{
 Invisibly returns a data frame with columns \code{package}, \code{installed},
@@ -21,7 +28,11 @@ the installed copy's \code{DESCRIPTION}: \code{"CRAN"}, \code{"GitHub"}, \code{"
 \code{"base"}, \code{"local"} (source or \code{load_all()} installs), \code{"other"}, or \code{NA}
 (not installed or unreadable). \code{source} is the \emph{recommended} install source
 (\code{"CRAN"} or \code{"GitHub"}) from the ecosystem registry; compare it with
-\code{installed_from} to see whether an install matches. With \code{checks = TRUE} the checks are attached as the
+\code{installed_from} to see whether an install matches. With \code{updates = TRUE}
+two more columns are added: \code{latest} (newest version on the recommended
+source, \code{NA} when unknown or not installed) and \code{outdated} (\code{TRUE} when the
+installed version is older than \code{latest}, \code{NA} when either is unknown).
+With \code{checks = TRUE} the checks are attached as the
 \code{"checks"} attribute: a data frame with columns \code{check}, \code{status}
 (\code{"pass"}, \code{"warn"} or \code{"fail"}), \code{message} and \code{fix}. Called mainly for
 its side effect of printing the situation report.
@@ -33,5 +44,8 @@ and installation sources. Inspired by \code{tidyverse::tidyverse_sitrep()}.
 \examples{
 mediationverse_sitrep()
 mediationverse_sitrep(checks = TRUE)
+\dontrun{
+mediationverse_sitrep(updates = TRUE)  # contacts CRAN and r-universe
+}
 
 }
