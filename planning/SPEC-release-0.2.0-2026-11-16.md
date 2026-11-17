@@ -93,12 +93,9 @@ sibling's declared constraints; the medfit minimum is set by the strictest depen
 
 ## Out of scope / risks
 
-- Known limitation (Codex review, 2026-11-16): `pkg_installed()` uses `requireNamespace()`, so
-  an installed member whose namespace fails to load (for example a broken dependency) is
-  treated as absent and skipped by the conflict check, which can then pass as if every
-  installed member was inspected. Fixing it needs a separate installed-but-unloadable state
-  across `sitrep()`, `mediationverse_packages()` and the checks; deferred as rare, and
-  `sitrep(checks = TRUE)` is opt-in.
+- Resolved 2026-11-16 (see `PLAN-fixes-2026-11-16.md`): an installed member whose namespace fails
+  to load was previously skipped by the conflict check. `pkg_state()` now separates absent, ok
+  and broken; broken members fail the `load` check and mark the conflict check incomplete.
 
 - Not a CRAN release; do not touch `Remotes:` (probmed pins `medfit@v0.3.0`, conflicting with
   missingmed `medfit (>= 0.3.1)`).

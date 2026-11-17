@@ -6,6 +6,8 @@ mock_env <- function(versions, installed = names(versions), openmx = TRUE,
       if (identical(pkg, "OpenMx")) openmx else pkg %in% installed
     },
     pkg_has_export = function(pkg, name) mbco,
+    # Every package a test calls "not installed" is truly absent, not broken.
+    pkg_on_disk = function(pkg) pkg %in% installed,
     pkg_version = function(pkg) {
       if (identical(pkg, "OpenMx")) {
         openmx_version
@@ -350,4 +352,140 @@ test_that("mediationverse_packages() tolerates an unreadable version", {
   res <- NULL
   expect_no_error(res <- mediationverse_packages())
   expect_true(all(is.na(res$version[res$installed])))
+})
+
+# Package-state mocks: `ok` loads, `broken` is on disk but fails to load,
+# anything else is absent.
+mock_states <- function(ok = character(), broken = character(),
+                        versions = c(medfit = "0.7.0", RMediation = "1.6.1"),
+                        env = parent.frame()) {
+  testthat::local_mocked_bindings(
+    pkg_installed = function(pkg) pkg %in% ok,
+    pkg_on_disk = function(pkg) pkg %in% c(ok, broken),
+    pkg_version = function(pkg) {
+      if (pkg %in% names(versions)) versions[[pkg]] else NA_character_
+    },
+    find_conflicts = function(pkgs) {
+      data.frame(
+        function_name = character(0), packages = character(0),
+        winner = character(0), stringsAsFactors = FALSE
+      )
+    },
+    .env = env
+  )
+}
+
+test_that("pkg_state() tells absent, ok and broken apart", {
+  mock_states(ok = "medfit", broken = "probmed")
+
+  expect_identical(mediationverse:::pkg_state("medfit"), "ok")
+  expect_identical(mediationverse:::pkg_state("probmed"), "broken")
+  expect_identical(mediationverse:::pkg_state("medsim"), "absent")
+})
+
+test_that("pkg_on_disk() reflects installed packages", {
+  expect_true(mediationverse:::pkg_on_disk("stats"))
+  expect_false(mediationverse:::pkg_on_disk("__no_such_pkg__"))
+})
+
+test_that("the load check passes when nothing is broken", {
+  mock_states(ok = c("medfit", "RMediation"))
+
+  res <- mediationverse:::check_loadable()
+
+  expect_identical(res$check, "load")
+  expect_identical(res$status, "pass")
+})
+
+test_that("an absent member is not reported as broken", {
+  mock_states(ok = "medfit")
+
+  expect_identical(mediationverse:::check_loadable()$status, "pass")
+  expect_length(mediationverse:::broken_members(), 0L)
+})
+
+test_that("the load check fails and names installed-but-unloadable members", {
+  mock_states(ok = "RMediation", broken = c("medfit", "probmed"))
+
+  res <- mediationverse:::check_loadable()
+
+  expect_identical(res$status, "fail")
+  expect_match(res$message, "medfit, probmed are installed but cannot be loaded")
+  expect_match(res$fix, "Reinstall medfit, probmed")
+})
+
+test_that("a single broken member reads grammatically", {
+  mock_states(ok = "RMediation", broken = "medfit")
+
+  expect_match(mediationverse:::check_loadable()$message, "^medfit is installed but")
+})
+
+test_that("a broken member is not double-reported as 'not installed' by the version check", {
+  mock_states(ok = "RMediation", broken = "medfit")
+
+  res <- mediationverse:::check_min_versions()
+
+  expect_false("version:medfit" %in% res$check)
+  expect_false(any(grepl("not installed", res$message)))
+  expect_true("version:RMediation" %in% res$check)
+})
+
+test_that("a truly absent member is still reported as not installed", {
+  mock_states(ok = "RMediation")
+
+  res <- mediationverse:::check_min_versions()
+
+  expect_identical(res$status[res$check == "version:medfit"], "warn")
+  expect_match(res$message[res$check == "version:medfit"], "not installed")
+})
+
+test_that("the conflicts check warns when an installed member cannot be loaded", {
+  # Everything else loads cleanly and nothing conflicts: previously a clean pass.
+  mock_states(ok = c("RMediation", "medrobust"), broken = "medfit")
+
+  res <- mediationverse:::check_conflicts()
+
+  expect_identical(res$status, "warn")
+  expect_match(res$message, "medfit could not be inspected")
+  expect_match(res$message, "incomplete")
+  expect_false(grepl("^No export conflicts among installed", res$message))
+})
+
+test_that("the conflicts check combines broken members with failed export lookups", {
+  testthat::local_mocked_bindings(
+    pkg_installed = function(pkg) pkg != "medfit",
+    pkg_on_disk = function(pkg) TRUE,
+    find_conflicts = function(pkgs) {
+      structure(
+        data.frame(
+          function_name = character(0), packages = character(0),
+          winner = character(0), stringsAsFactors = FALSE
+        ),
+        failed_lookup = "probmed"
+      )
+    }
+  )
+
+  res <- mediationverse:::check_conflicts()
+
+  expect_identical(res$status, "warn")
+  expect_match(res$message, "probmed")
+  expect_match(res$message, "medfit")
+})
+
+test_that("the conflicts check still passes when every member is loadable and clean", {
+  mock_states(ok = mediationverse:::mv_core_packages())
+
+  expect_identical(mediationverse:::check_conflicts()$status, "pass")
+})
+
+test_that("mv_checks() includes the load check and sitrep(checks = TRUE) reports a broken member", {
+  mock_states(ok = "RMediation", broken = "medfit")
+
+  checks <- mediationverse:::mv_checks()
+  expect_true("load" %in% checks$check)
+  expect_identical(checks$status[checks$check == "load"], "fail")
+
+  r <- run_sitrep(checks = TRUE)
+  expect_true(any(grepl("installed but cannot be loaded", r$text)))
 })

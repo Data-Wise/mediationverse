@@ -14,6 +14,34 @@ pkg_version <- function(pkg) {
   )
 }
 
+# Is the package present on disk (installed), whether or not it can load?
+# Isolated so tests can mock it.
+#' @noRd
+pkg_on_disk <- function(pkg) {
+  nzchar(system.file(package = pkg))
+}
+
+# State of one package: "ok" (loadable), "broken" (installed but its namespace
+# fails to load, e.g. a broken dependency) or "absent" (not installed).
+# pkg_installed() alone cannot tell the last two apart.
+#' @noRd
+pkg_state <- function(pkg) {
+  if (pkg_installed(pkg)) {
+    "ok"
+  } else if (pkg_on_disk(pkg)) {
+    "broken"
+  } else {
+    "absent"
+  }
+}
+
+# Core members that are installed but cannot be loaded.
+#' @noRd
+broken_members <- function() {
+  pkgs <- mv_core_packages()
+  pkgs[vapply(pkgs, function(p) identical(pkg_state(p), "broken"), logical(1))]
+}
+
 #' @noRd
 check_row <- function(check, status, message, fix = "") {
   data.frame(
@@ -36,7 +64,14 @@ check_min_versions <- function() {
     min_ver <- reg$min_version[i]
     check <- paste0("version:", pkg)
 
-    if (!pkg_installed(pkg)) {
+    state <- pkg_state(pkg)
+
+    # Reported by the "load" check; do not double-report it as "not installed".
+    if (identical(state, "broken")) {
+      return(NULL)
+    }
+
+    if (identical(state, "absent")) {
       return(check_row(
         check, "warn",
         sprintf("%s is not installed (needs >= %s)", pkg, min_ver),
@@ -78,6 +113,27 @@ check_min_versions <- function() {
   })
 
   do.call(rbind, rows)
+}
+
+# Installed members must be loadable: an installed package whose namespace
+# fails to load (for example a broken dependency) is unusable, and the other
+# checks cannot inspect it.
+#' @noRd
+check_loadable <- function() {
+  broken <- broken_members()
+
+  if (length(broken) == 0) {
+    return(check_row("load", "pass", "All installed members can be loaded"))
+  }
+
+  check_row(
+    "load", "fail",
+    sprintf(
+      "%s installed but cannot be loaded",
+      paste0(paste(broken, collapse = ", "), if (length(broken) == 1) " is" else " are")
+    ),
+    sprintf("Reinstall %s and its dependencies", paste(broken, collapse = ", "))
+  )
 }
 
 # Does an installed package export a given name? Isolated so tests can mock it.
@@ -174,12 +230,15 @@ check_optional_deps <- function() {
 # Functions exported by more than one installed member.
 #' @noRd
 check_conflicts <- function() {
-  installed <- mv_core_packages()
-  installed <- installed[vapply(installed, pkg_installed, logical(1))]
+  members <- mv_core_packages()
+  states <- vapply(members, pkg_state, character(1))
+  installed <- members[states == "ok"]
+  # Installed but unloadable members cannot be inspected either.
+  broken <- members[states == "broken"]
 
   conflicts <- find_conflicts(installed)
   n <- nrow(conflicts)
-  failed <- attr(conflicts, "failed_lookup")
+  failed <- union(attr(conflicts, "failed_lookup"), broken)
 
   found <- if (n == 0) {
     "No export conflicts among inspected members"
@@ -195,10 +254,10 @@ check_conflicts <- function() {
     return(check_row(
       "conflicts", "warn",
       sprintf(
-        "%s; exports of %s could not be read, so the check is incomplete",
+        "%s; %s could not be inspected (exports unreadable or package fails to load), so the check is incomplete",
         found, paste(failed, collapse = ", ")
       ),
-      "Reinstall the package(s) whose exports could not be read"
+      "Reinstall the package(s) that could not be inspected"
     ))
   }
 
@@ -216,6 +275,7 @@ check_conflicts <- function() {
 #' @noRd
 mv_checks <- function() {
   out <- rbind(
+    check_loadable(),
     check_min_versions(),
     check_optional_deps(),
     check_conflicts()

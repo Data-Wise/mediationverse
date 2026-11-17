@@ -18,7 +18,9 @@ not a CRAN release.
   available only when OpenMx meets RMediation's declared minimum, 2.13, and RMediation meets its own minimum and exports `mbco()`), and
   function conflicts among installed members (a package whose exports cannot
   be read, or an OpenMx whose version cannot be read, makes its check warn
-  instead of pass). The results are attached to the returned
+  instead of pass; an installed member whose namespace fails to load, for
+  example because of a broken dependency, fails a separate `load` check and
+  is reported as uninspected rather than silently skipped). The results are attached to the returned
   data frame as the `"checks"` attribute. The default report is unchanged apart
   from a one-line hint.
 
