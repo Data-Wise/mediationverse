@@ -242,6 +242,7 @@ Following principles from [tidyverse](https://design.tidyverse.org/) and [easyst
 
 ### Getting Started
 - [Quick Start Guide](https://data-wise.github.io/mediationverse/articles/getting-started.html)
+- [A First Analysis in Four Calls](https://data-wise.github.io/mediationverse/articles/first-analysis.html)
 - [Complete Workflow](https://data-wise.github.io/mediationverse/articles/mediationverse-workflow.html)
 
 ### Status & Planning
