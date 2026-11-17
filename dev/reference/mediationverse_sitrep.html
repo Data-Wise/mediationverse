@@ -92,11 +92,12 @@ Default <code>FALSE</code> leaves the report unchanged apart from a one-line hin
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Invisibly returns a data frame with columns <code>package</code>, <code>installed</code>,
-<code>version</code> and <code>source</code>. <code>source</code> is the <em>recommended</em> install source
-(<code>"CRAN"</code> or <code>"GitHub"</code>) from the ecosystem registry; it is not detected
-from the installed copy, so a package installed from elsewhere (for
-example a CRAN <code>medfit</code> that predates the GitHub fixes) still shows its
-recommended source. With <code>checks = TRUE</code> the checks are attached as the
+<code>version</code>, <code>source</code> and <code>installed_from</code>. <code>installed_from</code> is detected from
+the installed copy's <code>DESCRIPTION</code>: <code>"CRAN"</code>, <code>"GitHub"</code>, <code>"r-universe"</code>,
+<code>"base"</code>, <code>"local"</code> (source or <code>load_all()</code> installs), <code>"other"</code>, or <code>NA</code>
+(not installed or unreadable). <code>source</code> is the <em>recommended</em> install source
+(<code>"CRAN"</code> or <code>"GitHub"</code>) from the ecosystem registry; compare it with
+<code>installed_from</code> to see whether an install matches. With <code>checks = TRUE</code> the checks are attached as the
 <code>"checks"</code> attribute: a data frame with columns <code>check</code>, <code>status</code>
 (<code>"pass"</code>, <code>"warn"</code> or <code>"fail"</code>), <code>message</code> and <code>fix</code>. Called mainly for
 its side effect of printing the situation report.</p>
@@ -113,21 +114,18 @@ its side effect of printing the situation report.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Core packages</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medfit</span> <span style="color: #00BB00;">0.18.0</span> [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">probmed</span> <span style="color: #00BB00;">0.4.1</span> [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">RMediation</span> <span style="color: #00BB00;">1.6.1</span> [recommended: <span style="color: #0000BB;">CRAN</span>]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medrobust</span> <span style="color: #00BB00;">0.4.4</span> [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medsim</span> <span style="color: #00BB00;">0.6.0</span> [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medfit</span> <span style="color: #00BB00;">0.18.0</span> (from GitHub) [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">probmed</span> <span style="color: #00BB00;">0.4.1</span> (from GitHub) [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">RMediation</span> <span style="color: #00BB00;">1.6.1</span> (from CRAN) [recommended: <span style="color: #0000BB;">CRAN</span>]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medrobust</span> <span style="color: #00BB00;">0.4.4</span> (from GitHub) [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medsim</span> <span style="color: #00BB00;">0.6.0</span> (from GitHub) [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">missingmed</span> <span style="font-style: italic;">(not installed)</span> [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Install: `pak::pak("Data-Wise/missingmed")`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">CRAN status</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Install sources</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> <span style="color: #0000BB;">RMediation</span> <span style="color: #00BB00;">1.6.1</span> - <span style="color: #0000BB; font-style: italic;">&lt;https://cran.r-project.org/package=RMediation&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #0000BB;">medfit</span> - install from GitHub; CRAN has <span style="color: #00BB00;">0.3.2</span>, which predates two</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   result-changing fixes in <span style="color: #00BB00;">0.5.0</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #0000BB;">probmed</span>, <span style="color: #0000BB;">medrobust</span>, <span style="color: #0000BB;">medsim</span>, <span style="color: #0000BB;">missingmed</span> - GitHub only (pre-CRAN)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Installed members come from their recommended source.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Run `mediationverse_sitrep(checks = TRUE)` for dependency checks.</span>
 <span class="r-in"><span><span class="fu">mediationverse_sitrep</span><span class="op">(</span>checks <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
@@ -138,21 +136,18 @@ its side effect of printing the situation report.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Core packages</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medfit</span> <span style="color: #00BB00;">0.18.0</span> [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">probmed</span> <span style="color: #00BB00;">0.4.1</span> [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">RMediation</span> <span style="color: #00BB00;">1.6.1</span> [recommended: <span style="color: #0000BB;">CRAN</span>]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medrobust</span> <span style="color: #00BB00;">0.4.4</span> [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medsim</span> <span style="color: #00BB00;">0.6.0</span> [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medfit</span> <span style="color: #00BB00;">0.18.0</span> (from GitHub) [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">probmed</span> <span style="color: #00BB00;">0.4.1</span> (from GitHub) [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">RMediation</span> <span style="color: #00BB00;">1.6.1</span> (from CRAN) [recommended: <span style="color: #0000BB;">CRAN</span>]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medrobust</span> <span style="color: #00BB00;">0.4.4</span> (from GitHub) [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medsim</span> <span style="color: #00BB00;">0.6.0</span> (from GitHub) [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">missingmed</span> <span style="font-style: italic;">(not installed)</span> [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Install: `pak::pak("Data-Wise/missingmed")`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">CRAN status</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Install sources</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> <span style="color: #0000BB;">RMediation</span> <span style="color: #00BB00;">1.6.1</span> - <span style="color: #0000BB; font-style: italic;">&lt;https://cran.r-project.org/package=RMediation&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #0000BB;">medfit</span> - install from GitHub; CRAN has <span style="color: #00BB00;">0.3.2</span>, which predates two</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   result-changing fixes in <span style="color: #00BB00;">0.5.0</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #0000BB;">probmed</span>, <span style="color: #0000BB;">medrobust</span>, <span style="color: #0000BB;">medsim</span>, <span style="color: #0000BB;">missingmed</span> - GitHub only (pre-CRAN)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Installed members come from their recommended source.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checks</span> ──</span>
@@ -160,6 +155,7 @@ its side effect of printing the situation report.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> All installed members can be loaded</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> medfit 0.18.0 meets the minimum 0.5.0</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> RMediation 1.6.1 meets the minimum 1.5.0</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Installed members come from their recommended source</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> OpenMx is not installed; RMediation::mbco() will not work</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Fix: install.packages("OpenMx")</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> 1 function exported by more than one member: extract_mediation</span>
