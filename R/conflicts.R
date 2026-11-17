@@ -26,7 +26,10 @@
 #'
 #' @export
 mediationverse_conflicts <- function(only_loaded = TRUE) {
-  core <- c("medfit", "probmed", "RMediation", "medrobust", "medsim", "missingmed")
+  core <- mv_core_packages()
+  # Installed members that cannot be loaded are never inspected; remember them
+  # so a clean-looking result is not reported as complete.
+  broken <- character(0)
 
   if (only_loaded) {
     # Only check packages that are attached
@@ -35,12 +38,13 @@ mediationverse_conflicts <- function(only_loaded = TRUE) {
     }, logical(1))]
   } else {
     # Check all installed packages
-    core <- core[vapply(core, function(pkg) {
-      requireNamespace(pkg, quietly = TRUE)
-    }, logical(1))]
+    states <- vapply(core, pkg_state, character(1))
+    broken <- core[states == "broken"]
+    core <- core[states == "ok"]
   }
 
   if (length(core) < 2) {
+    warn_incomplete_conflicts(broken)
     if (requireNamespace("cli", quietly = TRUE)) {
       cli::cli_alert_info("No conflicts possible with fewer than 2 packages loaded.")
     } else {
@@ -54,15 +58,93 @@ mediationverse_conflicts <- function(only_loaded = TRUE) {
     )))
   }
 
-  # Get exports from each package
-  pkg_exports <- lapply(core, function(pkg) {
-    ns <- tryCatch(
+  conflicts <- find_conflicts(core)
+  failed <- union(attr(conflicts, "failed_lookup"), broken)
+  # The attribute is internal; the returned object keeps its documented shape.
+  attr(conflicts, "failed_lookup") <- NULL
+
+  # An incomplete inspection must not read as a clean result.
+  warn_incomplete_conflicts(failed)
+
+  if (nrow(conflicts) == 0 && length(failed) > 0) {
+    return(invisible(conflicts))
+  }
+
+  if (nrow(conflicts) == 0) {
+    if (requireNamespace("cli", quietly = TRUE)) {
+      cli::cli_alert_success("No conflicts found among mediationverse packages!")
+    } else {
+      message("No conflicts found among mediationverse packages!")
+    }
+    return(invisible(conflicts))
+  }
+
+  class(conflicts) <- c("mediationverse_conflicts", "data.frame")
+  conflicts
+}
+
+# Warn that the conflict inspection skipped packages (exports unreadable or the
+# package fails to load), so "no conflicts" cannot be read as complete.
+#' @noRd
+warn_incomplete_conflicts <- function(failed) {
+  if (length(failed) == 0) {
+    return(invisible(NULL))
+  }
+  incomplete <- sprintf(
+    "Could not inspect %s (exports unreadable or package fails to load); results are incomplete.",
+    paste(failed, collapse = ", ")
+  )
+  if (requireNamespace("cli", quietly = TRUE)) {
+    cli::cli_alert_warning(incomplete)
+  } else {
+    message(incomplete)
+  }
+  invisible(NULL)
+}
+
+# Quiet conflict finder: no messages, no classing. Returns a data frame with
+# columns `function_name`, `packages` and `winner`; zero rows when fewer than
+# two packages are given or nothing conflicts. The "failed_lookup" attribute
+# lists packages whose exports could not be read (an incomplete inspection,
+# not "no conflict"). Used by
+# mediationverse_conflicts() and by the sitrep checks.
+#' @noRd
+find_conflicts <- function(pkgs) {
+  failed <- character(0)
+
+  finish <- function(df) {
+    attr(df, "failed_lookup") <- failed
+    df
+  }
+
+  empty <- data.frame(
+    function_name = character(0),
+    packages = character(0),
+    winner = character(0),
+    stringsAsFactors = FALSE
+  )
+
+  if (length(pkgs) < 2) {
+    return(finish(empty))
+  }
+
+  # Get exports from each package, remembering lookups that failed
+  pkg_exports <- lapply(pkgs, function(pkg) {
+    tryCatch(
       getNamespaceExports(pkg),
-      error = function(e) character(0)
+      error = function(e) {
+        failed <<- c(failed, pkg)
+        character(0)
+      }
     )
-    ns
   })
-  names(pkg_exports) <- core
+  names(pkg_exports) <- pkgs
+
+  # Drop S4/S7 method-table internals (".__T__...", ".__C__..."); they are
+  # not user-facing functions and always look like conflicts.
+  pkg_exports <- lapply(pkg_exports, function(exports) {
+    exports[!startsWith(exports, ".__")]
+  })
 
   # Find all unique function names
   all_funs <- unique(unlist(pkg_exports))
@@ -70,7 +152,7 @@ mediationverse_conflicts <- function(only_loaded = TRUE) {
   # Find functions exported by multiple packages
   conflicts <- list()
   for (fun in all_funs) {
-    pkgs_with_fun <- core[vapply(pkg_exports, function(exports) {
+    pkgs_with_fun <- pkgs[vapply(pkg_exports, function(exports) {
       fun %in% exports
     }, logical(1))]
 
@@ -80,38 +162,25 @@ mediationverse_conflicts <- function(only_loaded = TRUE) {
   }
 
   if (length(conflicts) == 0) {
-    if (requireNamespace("cli", quietly = TRUE)) {
-      cli::cli_alert_success("No conflicts found among mediationverse packages!")
-    } else {
-      message("No conflicts found among mediationverse packages!")
-    }
-    return(invisible(data.frame(
-      function_name = character(0),
-      packages = character(0),
-      winner = character(0),
-      stringsAsFactors = FALSE
-    )))
+    return(finish(empty))
   }
 
   # Determine which package "wins" (last in search path)
   search_order <- rev(search())
 
-  df <- data.frame(
+  finish(data.frame(
     function_name = names(conflicts),
     packages = vapply(conflicts, paste, character(1), collapse = ", "),
-    winner = vapply(conflicts, function(pkgs) {
-      pkg_positions <- vapply(pkgs, function(p) {
-        pos <- which(search_order == paste0("package:", p))
+    winner = vapply(conflicts, function(p) {
+      pkg_positions <- vapply(p, function(x) {
+        pos <- which(search_order == paste0("package:", x))
         if (length(pos) == 0) Inf else pos
       }, numeric(1))
-      pkgs[which.min(pkg_positions)]
+      p[which.min(pkg_positions)]
     }, character(1)),
     row.names = NULL,
     stringsAsFactors = FALSE
-  )
-
-  class(df) <- c("mediationverse_conflicts", "data.frame")
-  df
+  ))
 }
 
 #' @export

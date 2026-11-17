@@ -3,14 +3,14 @@ priority: P2
 progress: 92
 kind: package
 cran_state: dev
-next: ⛔ BLOCKED — cascade Phase 4 (last), still waiting on 3 of 4 deps as of 2026-07-23. Status: RMediation ✅ ACCEPTED+PUBLISHED on CRAN (1.6.1, 2026-07-21 — corrected from stale "submitted 06-20, awaiting acceptance"); medfit ✅ ACCEPTED+PUBLISHED on CRAN (0.3.2, 2026-07-23) — this just unblocked probmed's `Imports` gate, but probmed itself hasn't submitted yet (still needs Remotes drop + version bump + submit, see probmed `.STATUS`); medrobust ⏸ ON HOLD (CRAN-ready 0E/0W/1N, but submission deliberately paused pending its associated manuscript being submitted to a journal — not a technical blocker); medsim ⛔ blocked purely on medrobust's hold (medrobust itself, not CRAN review — medrobust hasn't submitted). Once probmed + medrobust + medsim are all on CRAN: drop Remotes entries here, CRAN-check, submit.
-done: 2026-06-22 — test coverage 83.1%→93.9% (sitrep.R + packages.R now 100%; cli-fallback + not-installed branches covered) via PR #12; suite is 103 tests / 0 fail (NOT the "thin 1 test_that" the old note claimed — that was stale). Removed the non-functional Gemini review bot (5 gemini-*.yml failing every PR on missing GEMINI_API_KEY) via PR #13.
+next: ⛔ BLOCKED — cascade Phase 4 (last), still waiting on 3 of 4 deps (re-verified against CRAN 2026-11-16: only medfit 0.3.2 and RMediation 1.6.1 are published; probmed, medrobust, medsim, missingmed are not). probmed hasn't submitted (needs Remotes drop + version bump + submit, see probmed `.STATUS`); medrobust ⏸ ON HOLD (CRAN-ready 0E/0W/1N, submission paused pending its associated manuscript's journal submission — not a technical blocker); medsim ⛔ blocked purely on medrobust's hold. Once probmed + medrobust + medsim are all on CRAN: drop Remotes entries here, CRAN-check, submit.
+done: 2026-11-16 — registry refactor, `mediationverse_citations()`, `sitrep(checks = TRUE)` and the two Codex-review fixes are implemented on `claude/restore-342f7b` (spec/plan in `planning/*release-0.2.0*`; not yet released). Earlier, 2026-06-22 — test coverage 83.1%→93.9% (sitrep.R + packages.R now 100%; cli-fallback + not-installed branches covered) via PR #12; suite is 103 tests / 0 fail (NOT the "thin 1 test_that" the old note claimed — that was stale). Removed the non-functional Gemini review bot (5 gemini-*.yml failing every PR on missing GEMINI_API_KEY) via PR #13.
 type: r
-last_updated: 2026-10-08
+last_updated: 2026-11-16
 
 ## mediationverse — Ecosystem Meta-Package
 
-**Version**: 0.1.1 (not yet on CRAN)
+**Version**: 0.2.0 prepared 2026-11-16 (not yet merged, tagged or released); last release 0.1.1 on 2026-10-08 (tag `v0.1.1`); not yet on CRAN
 
 Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 `RMediation`, `medrobust`, `medsim`, `missingmed`.
@@ -26,7 +26,7 @@ Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 | probmed | ❌ | Still GitHub-only |
 | medsim | ❌ | Still in `Remotes: Data-Wise/medsim` |
 | medrobust | ❌ | Still in `Remotes: Data-Wise/medrobust` |
-| missingmed | ❌ | Core member since the dev version; not in `Remotes`/`Suggests` (probmed's `medfit@v0.3.0` pin conflicts with missingmed's medfit >= 0.3.1); 0.6.0 on r-universe |
+| missingmed | ❌ | Core member since the dev version; not in `Remotes`/`Suggests`; the old probmed `medfit@v0.3.0` pin no longer exists (probmed 0.4.1 and missingmed 0.10.0 resolve together, verified with pak 2026-11-16), so it could be added later; 0.6.0 on r-universe |
 
 ---
 
@@ -75,7 +75,7 @@ Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 - **Site deployment changed** (grill `GRILL-mediationverse-site-2026-10-08.md` in the
   missingmed repo): the 2026-08-12 note below that `pkgdown.yaml` "deploys on push to `dev`
   too, so the live site updates without a `dev` → `main` release" no longer holds. `dev`
-  now carries a `.9000` version, so pkgdown auto mode deploys it to `/dev/`; only `main`
+  now carries a `.9000` version, so pkgdown auto mode deploys it to `/dev/` (verified: `/dev/` serves 200); only `main`
   updates the site root. `gh-pages` still holds altdoc leftovers (`freeze.rds`,
   `_quarto.yml`, `custom.scss`, `quarto_website.yml`, `vignettes/`), untouched.
 
@@ -98,8 +98,8 @@ Meta-package that loads the core mediation ecosystem: `medfit`, `probmed`,
 ## Next
 
 1. **CRAN path for medsim / medrobust / probmed** — unblocks dropping their `Remotes:` entries and submitting mediationverse itself to CRAN.
-2. **Test coverage** — currently 1 `test_that`; expand before CRAN.
-3. **mediationverse_sitrep()** — add situation report function (see BRAINSTORM-tidyverse-functions-2026-06-19.md).
+2. **Test coverage** — done: 36 `test_that` blocks across 5 test files; 93.88% coverage, re-measured 2026-11-16 (was 93.9% after PR #12); weakest file is `R/zzz.R` at 64.29%.
+3. **mediationverse_sitrep()** — done (shipped; covered in `test-sitrep.R`).
 
 ## Ecosystem roadmap (moved out of public README.md, 2026-08-04)
 

@@ -109,6 +109,7 @@ reference:
       - mediationverse_packages
       - mediationverse_update
       - mediationverse_conflicts
+      - mediationverse_citations
 
   - title: "Package Documentation"
     desc: "Package-level documentation"

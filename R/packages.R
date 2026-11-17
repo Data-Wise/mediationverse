@@ -18,8 +18,7 @@
 #'
 #' @export
 mediationverse_packages <- function(include_self = TRUE) {
-  core <- c("medfit", "probmed", "RMediation", "medrobust", "medsim", "missingmed")
-
+  core <- mv_core_packages()
 
   if (include_self) {
     core <- c("mediationverse", core)
@@ -31,7 +30,7 @@ mediationverse_packages <- function(include_self = TRUE) {
 
   versions <- vapply(core, function(pkg) {
     if (requireNamespace(pkg, quietly = TRUE)) {
-      as.character(utils::packageVersion(pkg))
+      pkg_version(pkg)
     } else {
       NA_character_
     }

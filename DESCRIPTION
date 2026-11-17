@@ -1,7 +1,7 @@
 Package: mediationverse
 Type: Package
 Title: Ecosystem for Mediation Analysis in R
-Version: 0.1.1
+Version: 0.2.0
 Authors@R: person("Davood", "Tofighi",
     email = "dtofighi@gmail.com",
     role = c("aut", "cre"),
@@ -19,8 +19,9 @@ Depends:
     R (>= 4.1.0)
 Imports:
     cli,
-    medfit (>= 0.2.0)
+    medfit (>= 0.5.0)
 Remotes:
+    Data-Wise/medfit,
     Data-Wise/medsim,
     Data-Wise/medrobust,
     Data-Wise/probmed

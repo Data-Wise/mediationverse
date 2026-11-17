@@ -4,11 +4,26 @@
 \alias{mediationverse_sitrep}
 \title{Situation Report for the mediationverse Ecosystem}
 \usage{
-mediationverse_sitrep()
+mediationverse_sitrep(checks = FALSE)
+}
+\arguments{
+\item{checks}{Logical. If \code{TRUE}, also run environment checks and print
+them after the report: installed members against the minimum versions the
+ecosystem requires (failing below it, e.g. medfit before 0.5.0), optional
+dependencies (OpenMx, needed for \code{RMediation::mbco()}), and function
+conflicts among installed members.
+Default \code{FALSE} leaves the report unchanged apart from a one-line hint.}
 }
 \value{
-Invisibly returns a data frame with package status. Called for its
-side effect of printing the situation report.
+Invisibly returns a data frame with columns \code{package}, \code{installed},
+\code{version} and \code{source}. \code{source} is the \emph{recommended} install source
+(\code{"CRAN"} or \code{"GitHub"}) from the ecosystem registry; it is not detected
+from the installed copy, so a package installed from elsewhere (for
+example a CRAN \code{medfit} that predates the GitHub fixes) still shows its
+recommended source. With \code{checks = TRUE} the checks are attached as the
+\code{"checks"} attribute: a data frame with columns \code{check}, \code{status}
+(\code{"pass"}, \code{"warn"} or \code{"fail"}), \code{message} and \code{fix}. Called mainly for
+its side effect of printing the situation report.
 }
 \description{
 Prints a summary of the installed mediationverse packages, their versions,
@@ -16,5 +31,6 @@ and installation sources. Inspired by \code{tidyverse::tidyverse_sitrep()}.
 }
 \examples{
 mediationverse_sitrep()
+mediationverse_sitrep(checks = TRUE)
 
 }
