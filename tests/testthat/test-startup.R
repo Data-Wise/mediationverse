@@ -41,3 +41,18 @@ test_that(".onAttach() still reports a medfit load failure when quiet", {
     expect_match(paste(startup_messages(), collapse = "\n"), "medfit could not be loaded")
   })
 })
+
+test_that(".onAttach() falls back to a plain banner without cli", {
+  real_require <- base::requireNamespace
+  testthat::local_mocked_bindings(mediationverse_attach = function() invisible())
+  testthat::local_mocked_bindings(
+    requireNamespace = function(package, ...) {
+      if (identical(package, "cli")) FALSE else real_require(package, ...)
+    },
+    .package = "base"
+  )
+  with_quiet(NULL, {
+    txt <- paste(startup_messages(), collapse = "\n")
+    expect_match(txt, "-- Attaching mediationverse")
+  })
+})

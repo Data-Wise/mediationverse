@@ -84,3 +84,12 @@ test_that("attach_all() suggests conflicts when 2+ are attached", {
   mock_attach(st)
   expect_false(grepl("mediationverse_conflicts", paste(run_attach_all()$msgs, collapse = "\n")))
 })
+
+test_that("pkg_attach() attaches a package quietly and invisibly", {
+  skip_if(is_attached("tools"), "tools already attached")
+  withr_free <- function() detach("package:tools", unload = FALSE, character.only = TRUE)
+  on.exit(withr_free(), add = TRUE)
+  res <- withVisible(pkg_attach("tools"))
+  expect_false(res$visible)
+  expect_true(is_attached("tools"))
+})

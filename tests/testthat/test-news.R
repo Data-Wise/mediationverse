@@ -135,3 +135,36 @@ test_that("select_news_versions() ignores rows with NA version", {
   expect_equal(unique(res$Version), "0.1.0")
   expect_equal(nrow(select_news_versions(df[0, ], 3)), 0L)
 })
+
+test_that("news() with nothing installed returns an empty frame and notes", {
+  mock_news_helpers(list())
+  r <- run_news(n = 1)
+  expect_equal(nrow(r$res), 0L)
+  expect_named(r$res, c("package", "version", "date", "category", "text"))
+  expect_setequal(attr(r$res, "not_installed"), mv_core_packages())
+})
+
+test_that("news_one_line() collapses whitespace, caps length and handles NA", {
+  expect_equal(news_one_line("a \n  b\tc"), "a b c")
+  long <- news_one_line(strrep("x", 500), width = 50L)
+  expect_equal(nchar(long), 50L)
+  expect_match(long, "\\.\\.\\.$")
+  expect_equal(news_one_line(NA_character_), "")
+})
+
+test_that("pkg_news() returns NULL for an unknown package and a frame otherwise", {
+  expect_null(pkg_news("noSuchPackageXyz"))
+  res <- pkg_news("utils")
+  if (!is.null(res)) {
+    expect_named(res, c("Version", "Date", "Category", "Text"))
+  }
+  testthat::local_mocked_bindings(
+    news = function(...) {
+      data.frame(Version = "1.0", Date = "2026", Category = "", Text = "x",
+                 HTML = "x", stringsAsFactors = FALSE)
+    },
+    .package = "utils"
+  )
+  res <- pkg_news("whatever")
+  expect_named(res, c("Version", "Date", "Category", "Text"))
+})
