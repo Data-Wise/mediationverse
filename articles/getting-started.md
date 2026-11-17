@@ -67,6 +67,15 @@ prints a situation report of all ecosystem packages, their versions, and
 installation sources — useful for diagnosing missing or outdated
 packages.
 
+Three more helpers cover everyday sessions:
+
+``` r
+
+mediationverse_news(n = 2)       # latest NEWS of every installed member
+mediationverse_attach_all()      # attach every installed member at once
+options(mediationverse.quiet = TRUE)  # silence the banner (e.g. in ~/.Rprofile)
+```
+
 This attaches medfit and displays helpful information:
 
     ── Attaching mediationverse 0.2.0 ──

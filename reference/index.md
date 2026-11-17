@@ -14,6 +14,10 @@ Functions for managing the mediationverse ecosystem
   : Show mediationverse Conflicts
 - [`mediationverse_citations()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_citations.md)
   : Cite the mediationverse Packages
+- [`mediationverse_news()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_news.md)
+  : Recent News from the mediationverse Packages
+- [`mediationverse_attach_all()`](https://Data-Wise.github.io/mediationverse/reference/mediationverse_attach_all.md)
+  : Attach All mediationverse Packages
 
 ## Package Documentation
 

@@ -32,7 +32,7 @@
 
     <a class="navbar-brand me-2" href="index.html">mediationverse</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.0</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -139,11 +139,24 @@
 </h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Prints a situation report of all ecosystem packages, their versions,</span></span>
-<span><span class="co"># and recommended install sources</span></span>
+<span><span class="co"># the recommended install source, and where each copy was actually installed from</span></span>
 <span><span class="fu"><a href="reference/mediationverse_sitrep.html">mediationverse_sitrep</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Also check minimum versions, optional dependencies and function conflicts</span></span>
 <span><span class="fu"><a href="reference/mediationverse_sitrep.html">mediationverse_sitrep</a></span><span class="op">(</span>checks <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="session-helpers">Session helpers<a class="anchor" aria-label="anchor" href="#session-helpers"></a>
+</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Latest released versions' NEWS for every installed member (default: 3 versions)</span></span>
+<span><span class="fu"><a href="reference/mediationverse_news.html">mediationverse_news</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Attach every installed member at once (library(mediationverse) attaches medfit only)</span></span>
+<span><span class="fu"><a href="reference/mediationverse_attach_all.html">mediationverse_attach_all</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># In ~/.Rprofile: silence the banner printed by library(mediationverse)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>mediationverse.quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -242,7 +255,7 @@ medci()        bootstrap_mediation()
 <h3 id="from-r-universe-recommended">From r-universe (recommended)<a class="anchor" aria-label="anchor" href="#from-r-universe-recommended"></a>
 </h3>
 <p>The whole ecosystem is available as pre-built binaries at the <a href="https://data-wise.r-universe.dev/mediationverse" class="external-link">Data-Wise r-universe</a> — no compiler needed, and GitHub-only packages resolve automatically:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span></span>
 <span>  <span class="st">"mediationverse"</span>,</span>
 <span>  repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://data-wise.r-universe.dev"</span>, <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span></span>
@@ -251,7 +264,7 @@ medci()        bootstrap_mediation()
 <div class="section level3">
 <h3 id="from-github-development">From GitHub (development)<a class="anchor" aria-label="anchor" href="#from-github-development"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install via pak. medfit is installed from GitHub (listed in Remotes) because</span></span>
 <span><span class="co"># CRAN's 0.3.2 predates result-changing fixes in 0.5.0.</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"Data-Wise/mediationverse"</span><span class="op">)</span></span></code></pre></div>
@@ -259,7 +272,7 @@ medci()        bootstrap_mediation()
 <div class="section level3">
 <h3 id="from-cran-future">From CRAN (future)<a class="anchor" aria-label="anchor" href="#from-cran-future"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Planned — once mediationverse itself is submitted to CRAN</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"mediationverse"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -271,7 +284,7 @@ medci()        bootstrap_mediation()
 <h3 id="loading-packages">Loading Packages<a class="anchor" aria-label="anchor" href="#loading-packages"></a>
 </h3>
 <p>The mediationverse uses <strong>selective loading</strong>: only the foundation package (<code>medfit</code>) is loaded by default. Load other packages as needed for your analysis.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://Data-Wise.github.io/mediationverse/">mediationverse</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; ── Attaching mediationverse 0.2.0 ──</span></span>
 <span><span class="co">#&gt; ✔ medfit 0.3.2 (foundation package)</span></span>
@@ -285,7 +298,7 @@ medci()        bootstrap_mediation()
 <div class="section level3">
 <h3 id="package-management">Package Management<a class="anchor" aria-label="anchor" href="#package-management"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># List installed packages and versions</span></span>
 <span><span class="fu"><a href="reference/mediationverse_packages.html">mediationverse_packages</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -301,7 +314,7 @@ medci()        bootstrap_mediation()
 <div class="section level3">
 <h3 id="complete-analysis-workflow">Complete Analysis Workflow<a class="anchor" aria-label="anchor" href="#complete-analysis-workflow"></a>
 </h3>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load foundation and packages you need</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://Data-Wise.github.io/mediationverse/">mediationverse</a></span><span class="op">)</span>  <span class="co"># Loads medfit (foundation)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://data-wise.github.io/rmediation/" class="external-link">RMediation</a></span><span class="op">)</span>      <span class="co"># For confidence intervals</span></span>

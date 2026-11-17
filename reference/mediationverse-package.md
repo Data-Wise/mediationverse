@@ -48,6 +48,13 @@ Update all packages:
 
     mediationverse_update()
 
+### Options
+
+- `mediationverse.quiet`: logical, default `FALSE`. Set to `TRUE` (for
+  example in `~/.Rprofile`) to suppress the banner printed by
+  [`library(mediationverse)`](https://Data-Wise.github.io/mediationverse/).
+  A failure to load medfit is still reported.
+
 ### Learn More
 
 - medfit: <https://data-wise.github.io/medfit/>
