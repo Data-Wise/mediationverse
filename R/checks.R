@@ -260,12 +260,43 @@ check_conflicts <- function() {
   }
 }
 
+# Members installed from somewhere other than their recommended source. A
+# warning, not a failure: the version check already fails on a bad version, and
+# a differing source (say, RMediation from GitHub instead of CRAN) can be
+# deliberate.
+#' @noRd
+check_sources <- function() {
+  reg <- mv_registry()
+  reg <- reg[reg$core, , drop = FALSE]
+
+  off <- character(0)
+  for (i in seq_len(nrow(reg))) {
+    pkg <- reg$package[i]
+    if (!identical(pkg_state(pkg), "ok")) next
+    from <- pkg_provenance(pkg)
+    if (!is.na(from) && !source_matches(from, reg$source[i])) {
+      off <- c(off, sprintf("%s (%s, recommended %s)", pkg, from, reg$source[i]))
+    }
+  }
+
+  if (length(off) == 0) {
+    return(check_row("source", "pass", "Installed members come from their recommended source"))
+  }
+
+  check_row(
+    "source", "warn",
+    sprintf("Installed from a different source than recommended: %s", paste(off, collapse = "; ")),
+    "Reinstall with pak::pak() from the recommended source if this was not intended"
+  )
+}
+
 # Run every check and bind the rows.
 #' @noRd
 mv_checks <- function() {
   out <- rbind(
     check_loadable(),
     check_min_versions(),
+    check_sources(),
     check_optional_deps(),
     check_conflicts()
   )
