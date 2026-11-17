@@ -140,10 +140,30 @@ test_that("OpenMx present but RMediation absent does not claim mbco() is availab
 })
 
 test_that("OpenMx present but RMediation without mbco() warns", {
-  mock_env(c(medfit = "0.7.0", RMediation = "1.0.0"), openmx = TRUE, mbco = FALSE)
+  mock_env(c(medfit = "0.7.0", RMediation = "1.6.1"), openmx = TRUE, mbco = FALSE)
   res <- mediationverse:::check_optional_deps()
   expect_identical(res$status, "warn")
   expect_match(res$message, "does not export mbco")
+})
+
+test_that("mbco() is not reported available when RMediation is below its minimum", {
+  mock_env(c(medfit = "0.7.0", RMediation = "1.4.0"), openmx = TRUE, mbco = TRUE)
+  res <- mediationverse:::check_optional_deps()
+  expect_identical(res$status, "warn")
+  expect_match(res$message, "RMediation 1.4.0 is older than the required 1.5.0")
+  expect_match(res$fix, "RMediation")
+})
+
+test_that("RMediation at its minimum with mbco() passes", {
+  mock_env(c(medfit = "0.7.0", RMediation = "1.5.0"), openmx = TRUE, mbco = TRUE)
+  expect_identical(mediationverse:::check_optional_deps()$status, "pass")
+})
+
+test_that("an unreadable RMediation version does not pass the mbco() check", {
+  mock_env(c(medfit = "0.7.0"), installed = c("medfit", "RMediation"), openmx = TRUE, mbco = TRUE)
+  res <- mediationverse:::check_optional_deps()
+  expect_identical(res$status, "warn")
+  expect_match(res$message, "RMediation's version could not be read")
 })
 
 test_that("pkg_has_export() reflects real exports and is FALSE for missing packages", {

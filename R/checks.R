@@ -136,6 +136,27 @@ check_optional_deps <- function() {
     ))
   }
 
+  reg <- mv_registry()
+  rmed_min <- reg$min_version[reg$package == "RMediation"]
+  rmed_ver <- pkg_version("RMediation")
+  if (is.na(rmed_ver)) {
+    return(check_row(
+      "optional:OpenMx", "warn",
+      "RMediation's version could not be read, so mbco() availability cannot be confirmed",
+      "install.packages(\"RMediation\")"
+    ))
+  }
+  if (package_version(rmed_ver) < package_version(rmed_min)) {
+    return(check_row(
+      "optional:OpenMx", "warn",
+      sprintf(
+        "RMediation %s is older than the required %s, so mbco() availability cannot be confirmed",
+        rmed_ver, rmed_min
+      ),
+      "install.packages(\"RMediation\")"
+    ))
+  }
+
   if (!pkg_has_export("RMediation", "mbco")) {
     return(check_row(
       "optional:OpenMx", "warn",
