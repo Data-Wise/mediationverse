@@ -9,6 +9,16 @@ execute:
   eval: false
 ---
 
+::: {.tldr}
+**TL;DR**
+
+- One simulated dataset goes through seven steps: simulate, fit, extract, confidence intervals, effect size, sensitivity, bootstrap.
+- Each step uses the package built for it (`medfit`, `RMediation`, `probmed`, `medrobust`).
+- The true indirect effect is 0.20, so you can check every result against the truth.
+:::
+
+⏱️ **25 minutes** • 🟡 Intermediate • ✓ 7 steps
+
 ## Overview
 
 This vignette demonstrates a complete mediation analysis workflow using all
@@ -357,3 +367,7 @@ sessionInfo()
 
 - VanderWeele, T. J. (2015). Explanation in Causal Inference: Methods for
   Mediation and Interaction. Oxford University Press.
+
+::: {.next-action}
+**Next step:** see how the packages fit together in the [Ecosystem Overview](ecosystem.html).
+:::

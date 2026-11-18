@@ -9,6 +9,17 @@ execute:
   eval: false
 ---
 
+::: {.tldr}
+**TL;DR**
+
+- Install the meta-package with `pak::pak("data-wise/mediationverse")`.
+- `library(mediationverse)` attaches only `medfit`; load the other packages when you need them.
+- `mediationverse_sitrep()` shows what is installed and current.
+- The core workflow is fit, extract, then choose an analysis (interval, effect size, sensitivity, bootstrap).
+:::
+
+⏱️ **15 minutes** • 🟢 Beginner • ✓ 5 steps (install, load, manage, workflow, design)
+
 ## Introduction
 
 The **mediationverse** is a collection of R packages for mediation analysis.
@@ -69,10 +80,12 @@ mediationverse_sitrep()
 `mediationverse_sitrep()` prints a situation report of all ecosystem packages,
 their versions, and installation sources — useful for diagnosing missing or
 outdated packages.
+
 Add `updates = TRUE` to look up the newest version of each installed package
 (this contacts CRAN and r-universe), and use
 `mediationverse_update(only_outdated = TRUE)` to update only what is behind
 (`dry_run = TRUE` previews it).
+
 Add `contracts = TRUE` to confirm the installed packages still work together: it
 fits a small simulated analysis with `medfit::med()` and hands the fit to
 RMediation and probmed, reporting a failing row if a hand-off breaks (it takes a
@@ -295,3 +308,7 @@ med_data <- MediationData(
 #| eval: true
 sessionInfo()
 ```
+
+::: {.next-action}
+**Next step:** run a complete analysis in four calls with [A First Analysis in Four Calls](first-analysis.html).
+:::
