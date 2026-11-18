@@ -73,7 +73,7 @@ mediationverse_sitrep()
 #> 
 #> ── mediationverse situation report ─────────────────────────────────────────────
 #> R 4.6.2 | Platform x86_64-pc-linux-gnu
-#> mediationverse 0.4.0.9000
+#> mediationverse 0.5.0.9000
 #> ────────────────────────────────────────────────────────────────────────────────
 #> 
 #> ── Core packages ──
@@ -96,7 +96,7 @@ mediationverse_sitrep(checks = TRUE)
 #> 
 #> ── mediationverse situation report ─────────────────────────────────────────────
 #> R 4.6.2 | Platform x86_64-pc-linux-gnu
-#> mediationverse 0.4.0.9000
+#> mediationverse 0.5.0.9000
 #> ────────────────────────────────────────────────────────────────────────────────
 #> 
 #> ── Core packages ──
