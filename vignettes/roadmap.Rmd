@@ -24,8 +24,6 @@ knitr::opts_chunk$set(
 - Read the four-step direction below, then follow the hub links for detail.
 :::
 
-# mediationverse Development Roadmap
-
 > **Authoritative, always-current roadmap:** the
 > [mediation-planning hub](https://github.com/data-wise/mediation-planning).
 > This page is a high-level orientation only — detailed phases, milestones, and

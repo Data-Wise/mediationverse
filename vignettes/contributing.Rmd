@@ -24,8 +24,6 @@ knitr::opts_chunk$set(
 - Skim "Development Workflow" first; the rest is reference to come back to.
 :::
 
-# Contributing to mediationverse
-
 Thank you for your interest in contributing to the mediationverse ecosystem!
 This guide will help you get started.
 
