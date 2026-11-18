@@ -2,6 +2,19 @@
 
 ## mediationverse (development version)
 
+- `mediationverse_sitrep(contracts = TRUE)` checks that the installed
+  members still work together. It fits a small simulated analysis with
+  [`medfit::med()`](https://data-wise.github.io/medfit/reference/med.html)
+  and hands the fit to
+  [`RMediation::ci_mediation_data()`](https://data-wise.github.io/rmediation/reference/ci_mediation_data.html)
+  and
+  [`probmed::pmed()`](https://data-wise.github.io/probmed/reference/pmed.html),
+  adding a `contract:RMediation` and a `contract:probmed` row to the
+  checks (`"fail"` with the error when a hand-off breaks). It runs real
+  model code, so it is opt-in; it leaves your random-number state
+  untouched, implies the checks report, and skips members that are not
+  installed.
+
 - New article “A First Analysis in Four Calls”: simulate,
   [`medfit::med()`](https://data-wise.github.io/medfit/reference/med.html),
   an `RMediation` interval and a `probmed` effect size on one fitted
