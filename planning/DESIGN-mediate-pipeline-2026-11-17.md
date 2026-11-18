@@ -1,6 +1,6 @@
 # Design notes: `mediate()` / `mediation_pipeline()` for mediationverse
 
-Date: 2026-11-17 | Status: design only, no code. Origin: `BRAINSTORM-tidyverse-functions-2026-06-19.md`
+Date: 2026-11-17 | Status: design only, no code in the package. Option C shipped as `vignettes/first-analysis.qmd` (PR #42, in dev, reaches the root site with the next release). Origin: `BRAINSTORM-tidyverse-functions-2026-06-19.md`
 items 6 and 8, deferred from 0.2.0 and 0.3.0.
 
 ## Recommendation
