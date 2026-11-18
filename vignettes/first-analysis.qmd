@@ -100,8 +100,6 @@ if (requireNamespace("probmed", quietly = TRUE)) {
 
 - `mediationverse_sitrep()` shows which of these packages are installed and
   current; `mediationverse_news()` shows what changed in each.
-- `vignette("mediationverse-workflow")` extends this to sensitivity analysis
-  and simulation.
 - Assumptions (sequential ignorability, positivity, consistency) still apply;
   none of the four calls checks them.
 
