@@ -74,10 +74,30 @@
 </h1>
 </div>
 <blockquote>
-<p>Unified ecosystem for mediation analysis in R</p>
+<p>Unified ecosystem for mediation analysis in R: fit a mediation model, get confidence intervals, and check your install in a few lines.</p>
 </blockquote>
 <!-- badges: start -->
 
+<div class="tldr">
+<p><strong>TL;DR:</strong> Install with <code>pak</code>, load with <code><a href="https://Data-Wise.github.io/mediationverse/">library(mediationverse)</a></code>, then run <code><a href="reference/mediationverse_sitrep.html">mediationverse_sitrep()</a></code> to confirm everything works.</p>
+</div>
+<div class="section level2">
+<h2 id="stopwatch-first-30-seconds">⏱️ First 30 Seconds<a class="anchor" aria-label="anchor" href="#stopwatch-first-30-seconds"></a>
+</h2>
+<p>⏱️ <strong>30 seconds</strong> • 🟢 Beginner • ✓ 3 steps</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># 1. Install (medfit &gt;= 0.5.0 comes from GitHub via Remotes; RMediation is opt-in)</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Data-Wise/mediationverse"</span>, <span class="st">"RMediation"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 2. Load (attaches the foundation package, medfit)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://Data-Wise.github.io/mediationverse/">mediationverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 3. Verify: prints all ecosystem packages, versions and install sources</span></span>
+<span><span class="fu"><a href="reference/mediationverse_sitrep.html">mediationverse_sitrep</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="next-action">
+<p><strong>Next:</strong> <a href="https://data-wise.github.io/mediationverse/articles/first-analysis.html" class="external-link">A First Analysis in Four Calls</a></p>
+</div>
+</div>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
@@ -90,7 +110,7 @@
 <div class="section level2">
 <h2 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install mediationverse (it requires medfit &gt;= 0.5.0, installed from GitHub via</span></span>
 <span><span class="co"># Remotes: CRAN's 0.3.2 predates result-changing fixes), plus RMediation (opt-in: it</span></span>
 <span><span class="co"># is not installed automatically with mediationverse)</span></span>
@@ -111,7 +131,7 @@
 <div class="section level3">
 <h3 id="verify-your-installation">Verify your installation<a class="anchor" aria-label="anchor" href="#verify-your-installation"></a>
 </h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Prints a situation report of all ecosystem packages, their versions,</span></span>
 <span><span class="co"># the recommended install source, and where each copy was actually installed from</span></span>
 <span><span class="fu"><a href="reference/mediationverse_sitrep.html">mediationverse_sitrep</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -130,7 +150,7 @@
 <div class="section level3">
 <h3 id="session-helpers">Session helpers<a class="anchor" aria-label="anchor" href="#session-helpers"></a>
 </h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Latest released versions' NEWS for every installed member (default: 3 versions)</span></span>
 <span><span class="fu"><a href="reference/mediationverse_news.html">mediationverse_news</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
@@ -139,95 +159,6 @@
 <span></span>
 <span><span class="co"># In ~/.Rprofile: silence the banner printed by library(mediationverse)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>mediationverse.quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="ecosystem-status-dashboard">Ecosystem Status Dashboard<a class="anchor" aria-label="anchor" href="#ecosystem-status-dashboard"></a>
-</h2>
-<blockquote>
-<p><strong>📊 <a href="https://github.com/data-wise/mediationverse/blob/main/STATUS.md" class="external-link">View Full Dashboard</a></strong> | <strong>🗺️ <a href="https://data-wise.github.io/mediationverse/articles/roadmap.html" class="external-link">Development Roadmap</a></strong></p>
-</blockquote>
-<div class="section level3">
-<h3 id="package-overview">Package Overview<a class="anchor" aria-label="anchor" href="#package-overview"></a>
-</h3>
-<blockquote>
-<p><strong>CRAN</strong> and <strong>Build</strong> columns are live badges (shields.io / GitHub Actions) — they reflect real-time status and update automatically as packages are submitted, accepted, or re-checked. No manual edits needed here when a package’s CRAN state changes. (Deliberately using <code>img.shields.io/cran/v/&lt;pkg&gt;</code>, not <code>r-pkg.org/badges/version/&lt;pkg&gt;</code> — the latter 404s with a broken HTML error page, not a valid SVG, for packages not yet on CRAN.)</p>
-</blockquote>
-<table class="table">
-<colgroup>
-<col width="13%">
-<col width="23%">
-<col width="31%">
-<col width="27%">
-<col width="5%">
-</colgroup>
-<thead><tr>
-<th>Package</th>
-<th>CRAN</th>
-<th>Build</th>
-<th>Website</th>
-<th>Role</th>
-</tr></thead>
-<tbody>
-<tr>
-<td><a href="https://cran.r-project.org/package=medfit" class="external-link"><strong>medfit</strong></a></td>
-<td><a href="https://CRAN.R-project.org/package=medfit" class="external-link"><img src="https://img.shields.io/cran/v/medfit" alt="CRAN"></a></td>
-<td><a href="https://github.com/Data-Wise/medfit/actions" class="external-link"><img src="https://github.com/Data-Wise/medfit/actions/workflows/R-CMD-check.yaml/badge.svg" alt="Build"></a></td>
-<td><a href="https://Data-Wise.github.io/medfit/" class="external-link"><img src="https://github.com/Data-Wise/medfit/actions/workflows/pkgdown.yaml/badge.svg" alt="Docs"></a></td>
-<td><strong>Foundation</strong></td>
-</tr>
-<tr>
-<td><a href="https://cran.r-project.org/package=RMediation" class="external-link"><strong>RMediation</strong></a></td>
-<td><a href="https://CRAN.R-project.org/package=RMediation" class="external-link"><img src="https://img.shields.io/cran/v/RMediation" alt="CRAN"></a></td>
-<td><a href="https://github.com/Data-Wise/rmediation/actions" class="external-link"><img src="https://github.com/Data-Wise/rmediation/actions/workflows/R-CMD-check.yaml/badge.svg" alt="Build"></a></td>
-<td><a href="https://Data-Wise.github.io/rmediation/" class="external-link"><img src="https://github.com/Data-Wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg" alt="Docs"></a></td>
-<td>Confidence Intervals</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="section level2">
-<h2 id="package-ecosystem">Package Ecosystem<a class="anchor" aria-label="anchor" href="#package-ecosystem"></a>
-</h2>
-<p>The mediationverse follows a <strong>modular architecture</strong> with <strong>selective loading</strong> inspired by <a href="https://www.tidyverse.org/" class="external-link">tidyverse</a> and <a href="https://easystats.github.io/easystats/" class="external-link">easystats</a>:</p>
-<div class="section level3">
-<h3 id="data-flow">Data Flow<a class="anchor" aria-label="anchor" href="#data-flow"></a>
-</h3>
-<pre><code>User Data
-   │
-   ▼
-fit_mediation() or lm()/glm()/lavaan::sem()
-   │
-   ▼
-extract_mediation()  ──────►  MediationData object
-   │                                  │
-   ├──────────────┬───────────────────┘
-   │              │
-   ▼              ▼
-RMediation::   medfit::
-medci()        bootstrap_mediation()
-   │              │
-   └──────────────┘
-          │
-          ▼
-  Results &amp; Inference</code></pre>
-</div>
-<div class="section level3">
-<h3 id="core-packages">Core Packages<a class="anchor" aria-label="anchor" href="#core-packages"></a>
-</h3>
-<div class="section level4">
-<h4 id="medfit-foundation-infrastructure">medfit: Foundation Infrastructure<a class="anchor" aria-label="anchor" href="#medfit-foundation-infrastructure"></a>
-</h4>
-<p><strong>Purpose</strong>: Unified S7-based infrastructure for mediation analysis <strong>Status</strong>: Phase 4 in progress <strong>Provides</strong>: - S7 classes (<code>MediationData</code>, <code>SerialMediationData</code>, <code>BootstrapResult</code>) - Model extraction from lm/glm/lavaan - Bootstrap inference (parametric, nonparametric, plugin) - Type-safe data structures</p>
-<p><strong>Links</strong>: <a href="https://data-wise.github.io/medfit/" class="external-link">Website</a> | <a href="https://github.com/data-wise/medfit" class="external-link">GitHub</a> | <a href="https://github.com/data-wise/medfit/issues" class="external-link">Issues</a></p>
-</div>
-<div class="section level4">
-<h4 id="rmediation-confidence-intervals">RMediation: Confidence Intervals<a class="anchor" aria-label="anchor" href="#rmediation-confidence-intervals"></a>
-</h4>
-<p><strong>Purpose</strong>: Asymmetric confidence intervals via Distribution of Product <strong>Status</strong>: Stable on CRAN <strong>Provides</strong>: - Distribution of Product (DOP) method - Monte Carlo (MC) confidence intervals - MBCO bootstrap method - Integration with standard R models</p>
-<p><strong>Links</strong>: <a href="https://cran.r-project.org/package=RMediation" class="external-link">CRAN</a> | <a href="https://data-wise.github.io/rmediation/" class="external-link">Website</a> | <a href="https://github.com/data-wise/rmediation" class="external-link">GitHub</a></p>
-</div>
 </div>
 </div>
 <div class="section level2">
@@ -317,25 +248,6 @@ medci()        bootstrap_mediation()
 </div>
 </div>
 <div class="section level2">
-<h2 id="design-philosophy">Design Philosophy<a class="anchor" aria-label="anchor" href="#design-philosophy"></a>
-</h2>
-<p>Following principles from <a href="https://design.tidyverse.org/" class="external-link">tidyverse</a> and <a href="https://easystats.github.io/easystats/" class="external-link">easystats</a>:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Foundation Package</strong>: medfit provides shared S7 infrastructure</li>
-<li>
-<strong>Specialized Packages</strong>: Each package focuses on one methodological contribution</li>
-<li>
-<strong>Consistent API</strong>: Unified interfaces across all packages</li>
-<li>
-<strong>Type Safety</strong>: S7 classes ensure data integrity</li>
-<li>
-<strong>Low Dependencies</strong>: Minimal external dependencies for stability</li>
-<li>
-<strong>Comprehensive Testing</strong>: &gt;90% code coverage across packages</li>
-</ol>
-</div>
-<div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h2>
 <div class="section level3">
@@ -367,6 +279,114 @@ medci()        bootstrap_mediation()
 <li><a href="https://data-wise.github.io/rmediation/" class="external-link">RMediation Documentation</a></li>
 </ul>
 </div>
+</div>
+<div class="section level2">
+<h2 id="package-ecosystem">Package Ecosystem<a class="anchor" aria-label="anchor" href="#package-ecosystem"></a>
+</h2>
+<p>The mediationverse follows a <strong>modular architecture</strong> with <strong>selective loading</strong> inspired by <a href="https://www.tidyverse.org/" class="external-link">tidyverse</a> and <a href="https://easystats.github.io/easystats/" class="external-link">easystats</a>:</p>
+<div class="section level3">
+<h3 id="data-flow">Data Flow<a class="anchor" aria-label="anchor" href="#data-flow"></a>
+</h3>
+<pre><code>User Data
+   │
+   ▼
+fit_mediation() or lm()/glm()/lavaan::sem()
+   │
+   ▼
+extract_mediation()  ──────►  MediationData object
+   │                                  │
+   ├──────────────┬───────────────────┘
+   │              │
+   ▼              ▼
+RMediation::   medfit::
+medci()        bootstrap_mediation()
+   │              │
+   └──────────────┘
+          │
+          ▼
+  Results &amp; Inference</code></pre>
+</div>
+<div class="section level3">
+<h3 id="core-packages">Core Packages<a class="anchor" aria-label="anchor" href="#core-packages"></a>
+</h3>
+<div class="section level4">
+<h4 id="medfit-foundation-infrastructure">medfit: Foundation Infrastructure<a class="anchor" aria-label="anchor" href="#medfit-foundation-infrastructure"></a>
+</h4>
+<p><strong>Purpose</strong>: Unified S7-based infrastructure for mediation analysis <strong>Status</strong>: Phase 4 in progress <strong>Provides</strong>: - S7 classes (<code>MediationData</code>, <code>SerialMediationData</code>, <code>BootstrapResult</code>) - Model extraction from lm/glm/lavaan - Bootstrap inference (parametric, nonparametric, plugin) - Type-safe data structures</p>
+<p><strong>Links</strong>: <a href="https://data-wise.github.io/medfit/" class="external-link">Website</a> | <a href="https://github.com/data-wise/medfit" class="external-link">GitHub</a> | <a href="https://github.com/data-wise/medfit/issues" class="external-link">Issues</a></p>
+</div>
+<div class="section level4">
+<h4 id="rmediation-confidence-intervals">RMediation: Confidence Intervals<a class="anchor" aria-label="anchor" href="#rmediation-confidence-intervals"></a>
+</h4>
+<p><strong>Purpose</strong>: Asymmetric confidence intervals via Distribution of Product <strong>Status</strong>: Stable on CRAN <strong>Provides</strong>: - Distribution of Product (DOP) method - Monte Carlo (MC) confidence intervals - MBCO bootstrap method - Integration with standard R models</p>
+<p><strong>Links</strong>: <a href="https://cran.r-project.org/package=RMediation" class="external-link">CRAN</a> | <a href="https://data-wise.github.io/rmediation/" class="external-link">Website</a> | <a href="https://github.com/data-wise/rmediation" class="external-link">GitHub</a></p>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="ecosystem-status-dashboard">Ecosystem Status Dashboard<a class="anchor" aria-label="anchor" href="#ecosystem-status-dashboard"></a>
+</h2>
+<blockquote>
+<p><strong>📊 <a href="https://github.com/data-wise/mediationverse/blob/main/STATUS.md" class="external-link">View Full Dashboard</a></strong> | <strong>🗺️ <a href="https://data-wise.github.io/mediationverse/articles/roadmap.html" class="external-link">Development Roadmap</a></strong></p>
+</blockquote>
+<div class="section level3">
+<h3 id="package-overview">Package Overview<a class="anchor" aria-label="anchor" href="#package-overview"></a>
+</h3>
+<blockquote>
+<p><strong>CRAN</strong> and <strong>Build</strong> columns are live badges (shields.io / GitHub Actions) — they reflect real-time status and update automatically as packages are submitted, accepted, or re-checked. No manual edits needed here when a package’s CRAN state changes. (Deliberately using <code>img.shields.io/cran/v/&lt;pkg&gt;</code>, not <code>r-pkg.org/badges/version/&lt;pkg&gt;</code> — the latter 404s with a broken HTML error page, not a valid SVG, for packages not yet on CRAN.)</p>
+</blockquote>
+<table class="table">
+<colgroup>
+<col width="13%">
+<col width="23%">
+<col width="31%">
+<col width="27%">
+<col width="5%">
+</colgroup>
+<thead><tr>
+<th>Package</th>
+<th>CRAN</th>
+<th>Build</th>
+<th>Website</th>
+<th>Role</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><a href="https://cran.r-project.org/package=medfit" class="external-link"><strong>medfit</strong></a></td>
+<td><a href="https://CRAN.R-project.org/package=medfit" class="external-link"><img src="https://img.shields.io/cran/v/medfit" alt="CRAN"></a></td>
+<td><a href="https://github.com/Data-Wise/medfit/actions" class="external-link"><img src="https://github.com/Data-Wise/medfit/actions/workflows/R-CMD-check.yaml/badge.svg" alt="Build"></a></td>
+<td><a href="https://Data-Wise.github.io/medfit/" class="external-link"><img src="https://github.com/Data-Wise/medfit/actions/workflows/pkgdown.yaml/badge.svg" alt="Docs"></a></td>
+<td><strong>Foundation</strong></td>
+</tr>
+<tr>
+<td><a href="https://cran.r-project.org/package=RMediation" class="external-link"><strong>RMediation</strong></a></td>
+<td><a href="https://CRAN.R-project.org/package=RMediation" class="external-link"><img src="https://img.shields.io/cran/v/RMediation" alt="CRAN"></a></td>
+<td><a href="https://github.com/Data-Wise/rmediation/actions" class="external-link"><img src="https://github.com/Data-Wise/rmediation/actions/workflows/R-CMD-check.yaml/badge.svg" alt="Build"></a></td>
+<td><a href="https://Data-Wise.github.io/rmediation/" class="external-link"><img src="https://github.com/Data-Wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg" alt="Docs"></a></td>
+<td>Confidence Intervals</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section level2">
+<h2 id="design-philosophy">Design Philosophy<a class="anchor" aria-label="anchor" href="#design-philosophy"></a>
+</h2>
+<p>Following principles from <a href="https://design.tidyverse.org/" class="external-link">tidyverse</a> and <a href="https://easystats.github.io/easystats/" class="external-link">easystats</a>:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Foundation Package</strong>: medfit provides shared S7 infrastructure</li>
+<li>
+<strong>Specialized Packages</strong>: Each package focuses on one methodological contribution</li>
+<li>
+<strong>Consistent API</strong>: Unified interfaces across all packages</li>
+<li>
+<strong>Type Safety</strong>: S7 classes ensure data integrity</li>
+<li>
+<strong>Low Dependencies</strong>: Minimal external dependencies for stability</li>
+<li>
+<strong>Comprehensive Testing</strong>: &gt;90% code coverage across packages</li>
+</ol>
 </div>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>

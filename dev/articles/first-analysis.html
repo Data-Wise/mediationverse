@@ -81,7 +81,18 @@
 
 
 
-    <section class="level2"><h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+    <div class="tldr">
+<p><strong>TL;DR</strong></p>
+<ul>
+<li>
+<code><a href="https://data-wise.github.io/medfit/reference/med.html" class="external-link">medfit::med()</a></code> fits the mediation model in one call.</li>
+<li>
+<code>RMediation</code> gives the confidence interval and <code>probmed</code> the effect size P<sub>med</sub>.</li>
+<li>Optional packages are guarded, so the page runs even if they are missing.</li>
+</ul>
+</div>
+<p>⏱️ <strong>5 minutes</strong> • 🟢 Beginner • ✓ 4 steps</p>
+<section class="level2"><h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p>mediationverse does not define its own <code>mediate()</code> function. The entry point already exists upstream: <code><a href="https://data-wise.github.io/medfit/reference/med.html" class="external-link">medfit::med()</a></code> takes a data frame and three variable names and returns a fitted mediation object. The other packages then work on that same object.</p>
 <p>This article runs one complete analysis in four calls:</p>
@@ -177,11 +188,11 @@ P_med: Probability of Mediated Shift
 ====================================
 
 Estimate: 0.55
-95% CI: [ 0.519 ,  0.58 ]
+95% CI: [ 0.521 ,  0.58 ]
 
 Indirect Effect (Product of Coefficients):
-Estimate: 0.205
-95% CI: [ 0.0898 ,  0.33 ]
+Estimate: 0.206
+95% CI: [ 0.0967 ,  0.338 ]
 
 Inference: parametric_bootstrap
 Bootstrap samples: 1000
@@ -201,7 +212,11 @@ Interpretation:
 <li>
 <code><a href="../articles/mediationverse-workflow.html">vignette("mediationverse-workflow")</a></code> extends this to sensitivity analysis and simulation.</li>
 <li>Assumptions (sequential ignorability, positivity, consistency) still apply; none of the four calls checks them.</li>
-</ul></section><script id="quarto-html-after-body" type="application/javascript">
+</ul>
+<div class="next-action">
+<p><strong>Next step:</strong> extend this to sensitivity analysis and simulation in the <a href="mediationverse-workflow.html">Complete Mediation Analysis Workflow</a>.</p>
+</div>
+</section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);

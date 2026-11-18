@@ -1,12 +1,21 @@
 # The mediationverse Ecosystem
 
+⏱️ **3 minutes** • 📖 Reference
+
+**TL;DR**
+
+- **medfit** is the shared foundation; the other packages build on it.
+- The **mediationverse** meta-package loads only `medfit` by default.
+- Use the package table below to find the right package and its website.
+
 ## What the ecosystem is
 
 The mediationverse builds outward from a shared foundation — **medfit**
 (S7 data classes, model extraction, fitting, and bootstrap inference) —
-that the analysis packages build on. The **mediationverse** meta-package
-ties them together with selective loading: only `medfit` loads by
-default, and
+that the analysis packages build on.
+
+The **mediationverse** meta-package ties them together with selective
+loading: only `medfit` loads by default, and
 [`library(mediationverse)`](https://Data-Wise.github.io/mediationverse/)
 makes the others available without forcing every dependency into memory.
 
@@ -48,3 +57,7 @@ article — not duplicated here.
 - [Report an issue](https://github.com/data-wise/mediationverse/issues)
 - [Request a
   feature](https://github.com/data-wise/mediationverse/issues/new)
+
+**Next step:** Open the [Contributing
+Guide](https://Data-Wise.github.io/mediationverse/dev/articles/contributing.md)
+to help with any of these packages.

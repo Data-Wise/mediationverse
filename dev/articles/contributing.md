@@ -1,5 +1,15 @@
 # Contributing to mediationverse
 
+⏱️ **10 minutes** • 📖 Reference
+
+**TL;DR**
+
+- Bugs, ideas and docs fixes start as a GitHub issue.
+- Code changes follow a fork, branch, commit and pull request workflow
+  that targets `dev`.
+- Skim “Development Workflow” first; the rest is reference to come back
+  to.
+
 ## Contributing to mediationverse
 
 Thank you for your interest in contributing to the mediationverse
@@ -7,7 +17,7 @@ ecosystem! This guide will help you get started.
 
 ### Ways to Contribute
 
-#### 🐛 Report Bugs
+#### Report bugs
 
 Found a bug? Please [open an
 issue](https://github.com/data-wise/mediationverse/issues/new) with:
@@ -34,7 +44,7 @@ extract_mediation(fit)  # Error occurs here
 sessionInfo()
 ```
 
-#### 💡 Suggest Features
+#### Suggest features
 
 Have an idea? [Open a feature
 request](https://github.com/data-wise/mediationverse/issues/new) with:
@@ -44,7 +54,7 @@ request](https://github.com/data-wise/mediationverse/issues/new) with:
 - **Alternatives**: What else have you considered?
 - **Related work**: Similar features in other packages?
 
-#### 📖 Improve Documentation
+#### Improve documentation
 
 Documentation improvements are always welcome:
 
@@ -53,7 +63,7 @@ Documentation improvements are always welcome:
 - Write or improve vignettes
 - Create blog posts or tutorials
 
-#### 🔧 Contribute Code
+#### Contribute code
 
 Follow the workflow below for code contributions.
 
@@ -397,3 +407,7 @@ valued and appreciated.
 **Questions?** Open an
 [issue](https://github.com/data-wise/mediationverse/issues) or email
 <dtofighi@gmail.com>
+
+**Next step:** [Open an
+issue](https://github.com/data-wise/mediationverse/issues/new)
+describing the bug, idea or docs fix you have in mind.

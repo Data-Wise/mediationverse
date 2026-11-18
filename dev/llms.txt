@@ -1,6 +1,32 @@
 # mediationverse
 
-> Unified ecosystem for mediation analysis in R
+> Unified ecosystem for mediation analysis in R: fit a mediation model,
+> get confidence intervals, and check your install in a few lines.
+
+**TL;DR:** Install with `pak`, load with
+[`library(mediationverse)`](https://Data-Wise.github.io/mediationverse/),
+then run
+[`mediationverse_sitrep()`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse_sitrep.md)
+to confirm everything works.
+
+## ⏱️ First 30 Seconds
+
+⏱️ **30 seconds** • 🟢 Beginner • ✓ 3 steps
+
+``` r
+
+# 1. Install (medfit >= 0.5.0 comes from GitHub via Remotes; RMediation is opt-in)
+pak::pak(c("Data-Wise/mediationverse", "RMediation"))
+
+# 2. Load (attaches the foundation package, medfit)
+library(mediationverse)
+
+# 3. Verify: prints all ecosystem packages, versions and install sources
+mediationverse_sitrep()
+```
+
+**Next:** [A First Analysis in Four
+Calls](https://data-wise.github.io/mediationverse/articles/first-analysis.html)
 
 ## Overview
 
@@ -66,80 +92,6 @@ mediationverse_attach_all()
 # In ~/.Rprofile: silence the banner printed by library(mediationverse)
 options(mediationverse.quiet = TRUE)
 ```
-
-## Ecosystem Status Dashboard
-
-> **📊 [View Full
-> Dashboard](https://github.com/data-wise/mediationverse/blob/main/STATUS.md)**
-> \| **🗺️ [Development
-> Roadmap](https://data-wise.github.io/mediationverse/articles/roadmap.html)**
-
-### Package Overview
-
-> **CRAN** and **Build** columns are live badges (shields.io / GitHub
-> Actions) — they reflect real-time status and update automatically as
-> packages are submitted, accepted, or re-checked. No manual edits
-> needed here when a package’s CRAN state changes. (Deliberately using
-> `img.shields.io/cran/v/<pkg>`, not `r-pkg.org/badges/version/<pkg>` —
-> the latter 404s with a broken HTML error page, not a valid SVG, for
-> packages not yet on CRAN.)
-
-| Package | CRAN | Build | Website | Role |
-|----|----|----|----|----|
-| [**medfit**](https://cran.r-project.org/package=medfit) | [![CRAN](https://img.shields.io/cran/v/medfit)](https://CRAN.R-project.org/package=medfit) | [![Build](https://github.com/Data-Wise/medfit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medfit/actions) | [![Docs](https://github.com/Data-Wise/medfit/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medfit/) | **Foundation** |
-| [**RMediation**](https://cran.r-project.org/package=RMediation) | [![CRAN](https://img.shields.io/cran/v/RMediation)](https://CRAN.R-project.org/package=RMediation) | [![Build](https://github.com/Data-Wise/rmediation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/rmediation/actions) | [![Docs](https://github.com/Data-Wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/rmediation/) | Confidence Intervals |
-
-## Package Ecosystem
-
-The mediationverse follows a **modular architecture** with **selective
-loading** inspired by [tidyverse](https://www.tidyverse.org/) and
-[easystats](https://easystats.github.io/easystats/):
-
-### Data Flow
-
-    User Data
-       │
-       ▼
-    fit_mediation() or lm()/glm()/lavaan::sem()
-       │
-       ▼
-    extract_mediation()  ──────►  MediationData object
-       │                                  │
-       ├──────────────┬───────────────────┘
-       │              │
-       ▼              ▼
-    RMediation::   medfit::
-    medci()        bootstrap_mediation()
-       │              │
-       └──────────────┘
-              │
-              ▼
-      Results & Inference
-
-### Core Packages
-
-#### medfit: Foundation Infrastructure
-
-**Purpose**: Unified S7-based infrastructure for mediation analysis
-**Status**: Phase 4 in progress **Provides**: - S7 classes
-(`MediationData`, `SerialMediationData`, `BootstrapResult`) - Model
-extraction from lm/glm/lavaan - Bootstrap inference (parametric,
-nonparametric, plugin) - Type-safe data structures
-
-**Links**: [Website](https://data-wise.github.io/medfit/) \|
-[GitHub](https://github.com/data-wise/medfit) \|
-[Issues](https://github.com/data-wise/medfit/issues)
-
-#### RMediation: Confidence Intervals
-
-**Purpose**: Asymmetric confidence intervals via Distribution of Product
-**Status**: Stable on CRAN **Provides**: - Distribution of Product (DOP)
-method - Monte Carlo (MC) confidence intervals - MBCO bootstrap method -
-Integration with standard R models
-
-**Links**: [CRAN](https://cran.r-project.org/package=RMediation) \|
-[Website](https://data-wise.github.io/rmediation/) \|
-[GitHub](https://github.com/data-wise/rmediation)
 
 ## Installation
 
@@ -238,19 +190,6 @@ boot_result <- bootstrap_mediation(med_data, n_boot = 2000)
 ci_result <- ci(med_data, type = "dop")
 ```
 
-## Design Philosophy
-
-Following principles from [tidyverse](https://design.tidyverse.org/) and
-[easystats](https://easystats.github.io/easystats/):
-
-1.  **Foundation Package**: medfit provides shared S7 infrastructure
-2.  **Specialized Packages**: Each package focuses on one methodological
-    contribution
-3.  **Consistent API**: Unified interfaces across all packages
-4.  **Type Safety**: S7 classes ensure data integrity
-5.  **Low Dependencies**: Minimal external dependencies for stability
-6.  **Comprehensive Testing**: \>90% code coverage across packages
-
 ## Documentation
 
 ### Getting Started
@@ -280,6 +219,93 @@ Following principles from [tidyverse](https://design.tidyverse.org/) and
 
 - [medfit Documentation](https://data-wise.github.io/medfit/)
 - [RMediation Documentation](https://data-wise.github.io/rmediation/)
+
+## Package Ecosystem
+
+The mediationverse follows a **modular architecture** with **selective
+loading** inspired by [tidyverse](https://www.tidyverse.org/) and
+[easystats](https://easystats.github.io/easystats/):
+
+### Data Flow
+
+    User Data
+       │
+       ▼
+    fit_mediation() or lm()/glm()/lavaan::sem()
+       │
+       ▼
+    extract_mediation()  ──────►  MediationData object
+       │                                  │
+       ├──────────────┬───────────────────┘
+       │              │
+       ▼              ▼
+    RMediation::   medfit::
+    medci()        bootstrap_mediation()
+       │              │
+       └──────────────┘
+              │
+              ▼
+      Results & Inference
+
+### Core Packages
+
+#### medfit: Foundation Infrastructure
+
+**Purpose**: Unified S7-based infrastructure for mediation analysis
+**Status**: Phase 4 in progress **Provides**: - S7 classes
+(`MediationData`, `SerialMediationData`, `BootstrapResult`) - Model
+extraction from lm/glm/lavaan - Bootstrap inference (parametric,
+nonparametric, plugin) - Type-safe data structures
+
+**Links**: [Website](https://data-wise.github.io/medfit/) \|
+[GitHub](https://github.com/data-wise/medfit) \|
+[Issues](https://github.com/data-wise/medfit/issues)
+
+#### RMediation: Confidence Intervals
+
+**Purpose**: Asymmetric confidence intervals via Distribution of Product
+**Status**: Stable on CRAN **Provides**: - Distribution of Product (DOP)
+method - Monte Carlo (MC) confidence intervals - MBCO bootstrap method -
+Integration with standard R models
+
+**Links**: [CRAN](https://cran.r-project.org/package=RMediation) \|
+[Website](https://data-wise.github.io/rmediation/) \|
+[GitHub](https://github.com/data-wise/rmediation)
+
+## Ecosystem Status Dashboard
+
+> **📊 [View Full
+> Dashboard](https://github.com/data-wise/mediationverse/blob/main/STATUS.md)**
+> \| **🗺️ [Development
+> Roadmap](https://data-wise.github.io/mediationverse/articles/roadmap.html)**
+
+### Package Overview
+
+> **CRAN** and **Build** columns are live badges (shields.io / GitHub
+> Actions) — they reflect real-time status and update automatically as
+> packages are submitted, accepted, or re-checked. No manual edits
+> needed here when a package’s CRAN state changes. (Deliberately using
+> `img.shields.io/cran/v/<pkg>`, not `r-pkg.org/badges/version/<pkg>` —
+> the latter 404s with a broken HTML error page, not a valid SVG, for
+> packages not yet on CRAN.)
+
+| Package | CRAN | Build | Website | Role |
+|----|----|----|----|----|
+| [**medfit**](https://cran.r-project.org/package=medfit) | [![CRAN](https://img.shields.io/cran/v/medfit)](https://CRAN.R-project.org/package=medfit) | [![Build](https://github.com/Data-Wise/medfit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/medfit/actions) | [![Docs](https://github.com/Data-Wise/medfit/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/medfit/) | **Foundation** |
+| [**RMediation**](https://cran.r-project.org/package=RMediation) | [![CRAN](https://img.shields.io/cran/v/RMediation)](https://CRAN.R-project.org/package=RMediation) | [![Build](https://github.com/Data-Wise/rmediation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Data-Wise/rmediation/actions) | [![Docs](https://github.com/Data-Wise/rmediation/actions/workflows/pkgdown.yaml/badge.svg)](https://Data-Wise.github.io/rmediation/) | Confidence Intervals |
+
+## Design Philosophy
+
+Following principles from [tidyverse](https://design.tidyverse.org/) and
+[easystats](https://easystats.github.io/easystats/):
+
+1.  **Foundation Package**: medfit provides shared S7 infrastructure
+2.  **Specialized Packages**: Each package focuses on one methodological
+    contribution
+3.  **Consistent API**: Unified interfaces across all packages
+4.  **Type Safety**: S7 classes ensure data integrity
+5.  **Low Dependencies**: Minimal external dependencies for stability
+6.  **Comprehensive Testing**: \>90% code coverage across packages
 
 ## Contributing
 

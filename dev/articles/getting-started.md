@@ -1,5 +1,18 @@
 # Getting Started with mediationverse
 
+**TL;DR**
+
+- Install the meta-package with `pak::pak("data-wise/mediationverse")`.
+- [`library(mediationverse)`](https://Data-Wise.github.io/mediationverse/)
+  attaches only `medfit`; load the other packages when you need them.
+- [`mediationverse_sitrep()`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse_sitrep.md)
+  shows what is installed and current.
+- The core workflow is fit, extract, then choose an analysis (interval,
+  effect size, sensitivity, bootstrap).
+
+⏱️ **15 minutes** • 🟢 Beginner • ✓ 5 steps (install, load, manage,
+workflow, design)
+
 ## Introduction
 
 The **mediationverse** is a collection of R packages for mediation
@@ -65,12 +78,15 @@ mediationverse_sitrep()
 [`mediationverse_sitrep()`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse_sitrep.md)
 prints a situation report of all ecosystem packages, their versions, and
 installation sources — useful for diagnosing missing or outdated
-packages. Add `updates = TRUE` to look up the newest version of each
-installed package (this contacts CRAN and r-universe), and use
+packages.
+
+Add `updates = TRUE` to look up the newest version of each installed
+package (this contacts CRAN and r-universe), and use
 `mediationverse_update(only_outdated = TRUE)` to update only what is
-behind (`dry_run = TRUE` previews it). Add `contracts = TRUE` to confirm
-the installed packages still work together: it fits a small simulated
-analysis with
+behind (`dry_run = TRUE` previews it).
+
+Add `contracts = TRUE` to confirm the installed packages still work
+together: it fits a small simulated analysis with
 [`medfit::med()`](https://data-wise.github.io/medfit/reference/med.html)
 and hands the fit to RMediation and probmed, reporting a failing row if
 a hand-off breaks (it takes a few seconds and leaves your random-number
@@ -321,3 +337,7 @@ sessionInfo()
      [5] htmltools_0.5.9 otel_0.3.0      yaml_2.3.12     rmarkdown_2.32
      [9] knitr_1.52      jsonlite_2.0.0  xfun_0.62       digest_0.6.39
     [13] rlang_1.3.0     evaluate_1.0.5 
+
+**Next step:** run a complete analysis in four calls with [A First
+Analysis in Four
+Calls](https://Data-Wise.github.io/mediationverse/dev/articles/first-analysis.md).

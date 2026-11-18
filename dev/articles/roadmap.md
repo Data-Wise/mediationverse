@@ -1,5 +1,15 @@
 # Development Roadmap
 
+⏱️ **2 minutes** • 📖 Reference
+
+**TL;DR**
+
+- This page is a short orientation only.
+- The authoritative, always-current roadmap lives in the
+  mediation-planning hub.
+- Read the four-step direction below, then follow the hub links for
+  detail.
+
 ## mediationverse Development Roadmap
 
 > **Authoritative, always-current roadmap:** the [mediation-planning
@@ -53,3 +63,7 @@ vignette):
 **Project Lead:** Davood Tofighi (<dtofighi@gmail.com>) · [GitHub
 Issues](https://github.com/data-wise/mediationverse/issues) · [Feature
 Requests](https://github.com/data-wise/mediationverse/issues/new)
+
+**Next step:** Open the [Master
+Roadmap](https://github.com/data-wise/mediation-planning/blob/main/docs/ROADMAP.md)
+for the detailed phases.

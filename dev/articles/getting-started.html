@@ -81,7 +81,19 @@
 
 
 
-    <section class="level2"><h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+    <div class="tldr">
+<p><strong>TL;DR</strong></p>
+<ul>
+<li>Install the meta-package with <code>pak::pak("data-wise/mediationverse")</code>.</li>
+<li>
+<code><a href="https://Data-Wise.github.io/mediationverse/">library(mediationverse)</a></code> attaches only <code>medfit</code>; load the other packages when you need them.</li>
+<li>
+<code><a href="../reference/mediationverse_sitrep.html">mediationverse_sitrep()</a></code> shows what is installed and current.</li>
+<li>The core workflow is fit, extract, then choose an analysis (interval, effect size, sensitivity, bootstrap).</li>
+</ul>
+</div>
+<p>⏱️ <strong>15 minutes</strong> • 🟢 Beginner • ✓ 5 steps (install, load, manage, workflow, design)</p>
+<section class="level2"><h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p>The <strong>mediationverse</strong> is a collection of R packages for mediation analysis. It provides a unified ecosystem for model fitting, effect size computation, confidence interval estimation, sensitivity analysis, and simulation studies.</p>
 <p>This vignette introduces the core concepts and shows how to get started with the mediationverse ecosystem.</p>
@@ -128,7 +140,9 @@
 <span><span class="co"># Check what's installed and available</span></span>
 <span><span class="fu"><a href="../reference/mediationverse_sitrep.html">mediationverse_sitrep</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
-<p><code><a href="../reference/mediationverse_sitrep.html">mediationverse_sitrep()</a></code> prints a situation report of all ecosystem packages, their versions, and installation sources — useful for diagnosing missing or outdated packages. Add <code>updates = TRUE</code> to look up the newest version of each installed package (this contacts CRAN and r-universe), and use <code>mediationverse_update(only_outdated = TRUE)</code> to update only what is behind (<code>dry_run = TRUE</code> previews it). Add <code>contracts = TRUE</code> to confirm the installed packages still work together: it fits a small simulated analysis with <code><a href="https://data-wise.github.io/medfit/reference/med.html" class="external-link">medfit::med()</a></code> and hands the fit to RMediation and probmed, reporting a failing row if a hand-off breaks (it takes a few seconds and leaves your random-number state alone).</p>
+<p><code><a href="../reference/mediationverse_sitrep.html">mediationverse_sitrep()</a></code> prints a situation report of all ecosystem packages, their versions, and installation sources — useful for diagnosing missing or outdated packages.</p>
+<p>Add <code>updates = TRUE</code> to look up the newest version of each installed package (this contacts CRAN and r-universe), and use <code>mediationverse_update(only_outdated = TRUE)</code> to update only what is behind (<code>dry_run = TRUE</code> previews it).</p>
+<p>Add <code>contracts = TRUE</code> to confirm the installed packages still work together: it fits a small simulated analysis with <code><a href="https://data-wise.github.io/medfit/reference/med.html" class="external-link">medfit::med()</a></code> and hands the fit to RMediation and probmed, reporting a failing row if a hand-off breaks (it takes a few seconds and leaves your random-number state alone).</p>
 <p>Three more helpers cover everyday sessions:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/mediationverse_news.html">mediationverse_news</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>       <span class="co"># latest NEWS of every installed member</span></span>
@@ -368,6 +382,9 @@ loaded via a namespace (and not attached):
  [9] knitr_1.52      jsonlite_2.0.0  xfun_0.62       digest_0.6.39
 [13] rlang_1.3.0     evaluate_1.0.5 </code></pre>
 </div>
+</div>
+<div class="next-action">
+<p><strong>Next step:</strong> run a complete analysis in four calls with <a href="first-analysis.html">A First Analysis in Four Calls</a>.</p>
 </div>
 </section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

@@ -81,7 +81,16 @@
 
 
 
-    <section class="level2"><h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+    <div class="tldr">
+<p><strong>TL;DR</strong></p>
+<ul>
+<li>One simulated dataset goes through seven steps: simulate, fit, extract, confidence intervals, effect size, sensitivity, bootstrap.</li>
+<li>Each step uses the package built for it (<code>medfit</code>, <code>RMediation</code>, <code>probmed</code>, <code>medrobust</code>).</li>
+<li>The true indirect effect is 0.20, so you can check every result against the truth.</li>
+</ul>
+</div>
+<p>⏱️ <strong>25 minutes</strong> • 🟡 Intermediate • ✓ 7 steps</p>
+<section class="level2"><h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p>This vignette demonstrates a complete mediation analysis workflow using all packages in the mediationverse ecosystem. We will:</p>
 <ol type="1">
@@ -412,7 +421,11 @@ loaded via a namespace (and not attached):
 <li><p>MacKinnon, D. P. (2008). Introduction to Statistical Mediation Analysis. New York: Lawrence Erlbaum.</p></li>
 <li><p>Tofighi, D., &amp; MacKinnon, D. P. (2011). RMediation: An R package for mediation analysis confidence intervals. Behavior Research Methods, 43, 692-700.</p></li>
 <li><p>VanderWeele, T. J. (2015). Explanation in Causal Inference: Methods for Mediation and Interaction. Oxford University Press.</p></li>
-</ul></section><script id="quarto-html-after-body" type="application/javascript">
+</ul>
+<div class="next-action">
+<p><strong>Next step:</strong> see how the packages fit together in the <a href="ecosystem.html">Ecosystem Overview</a>.</p>
+</div>
+</section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);

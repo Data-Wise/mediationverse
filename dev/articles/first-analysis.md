@@ -1,5 +1,16 @@
 # A First Analysis in Four Calls
 
+**TL;DR**
+
+- [`medfit::med()`](https://data-wise.github.io/medfit/reference/med.html)
+  fits the mediation model in one call.
+- `RMediation` gives the confidence interval and `probmed` the effect
+  size P_(med).
+- Optional packages are guarded, so the page runs even if they are
+  missing.
+
+⏱️ **5 minutes** • 🟢 Beginner • ✓ 4 steps
+
 ## Overview
 
 mediationverse does not define its own `mediate()` function. The entry
@@ -121,11 +132,11 @@ if (requireNamespace("probmed", quietly = TRUE)) {
     ====================================
 
     Estimate: 0.55
-    95% CI: [ 0.519 ,  0.58 ]
+    95% CI: [ 0.521 ,  0.58 ]
 
     Indirect Effect (Product of Coefficients):
-    Estimate: 0.205
-    95% CI: [ 0.0898 ,  0.33 ]
+    Estimate: 0.206
+    95% CI: [ 0.0967 ,  0.338 ]
 
     Inference: parametric_bootstrap
     Bootstrap samples: 1000
@@ -146,3 +157,7 @@ if (requireNamespace("probmed", quietly = TRUE)) {
   extends this to sensitivity analysis and simulation.
 - Assumptions (sequential ignorability, positivity, consistency) still
   apply; none of the four calls checks them.
+
+**Next step:** extend this to sensitivity analysis and simulation in the
+[Complete Mediation Analysis
+Workflow](https://Data-Wise.github.io/mediationverse/dev/articles/mediationverse-workflow.md).

@@ -1,5 +1,16 @@
 # Complete Mediation Analysis Workflow
 
+**TL;DR**
+
+- One simulated dataset goes through seven steps: simulate, fit,
+  extract, confidence intervals, effect size, sensitivity, bootstrap.
+- Each step uses the package built for it (`medfit`, `RMediation`,
+  `probmed`, `medrobust`).
+- The true indirect effect is 0.20, so you can check every result
+  against the truth.
+
+⏱️ **25 minutes** • 🟡 Intermediate • ✓ 7 steps
+
 ## Overview
 
 This vignette demonstrates a complete mediation analysis workflow using
@@ -375,3 +386,6 @@ sessionInfo()
 
 - VanderWeele, T. J. (2015). Explanation in Causal Inference: Methods
   for Mediation and Interaction. Oxford University Press.
+
+**Next step:** see how the packages fit together in the [Ecosystem
+Overview](https://Data-Wise.github.io/mediationverse/dev/articles/ecosystem.md).
