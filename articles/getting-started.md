@@ -68,7 +68,13 @@ installation sources — useful for diagnosing missing or outdated
 packages. Add `updates = TRUE` to look up the newest version of each
 installed package (this contacts CRAN and r-universe), and use
 `mediationverse_update(only_outdated = TRUE)` to update only what is
-behind (`dry_run = TRUE` previews it).
+behind (`dry_run = TRUE` previews it). Add `contracts = TRUE` to confirm
+the installed packages still work together: it fits a small simulated
+analysis with
+[`medfit::med()`](https://data-wise.github.io/medfit/reference/med.html)
+and hands the fit to RMediation and probmed, reporting a failing row if
+a hand-off breaks (it takes a few seconds and leaves your random-number
+state alone).
 
 Three more helpers cover everyday sessions:
 

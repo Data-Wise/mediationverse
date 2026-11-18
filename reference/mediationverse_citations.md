@@ -47,7 +47,7 @@ mediationverse_citations()
 #> ── medfit ──
 #> 
 #> Tofighi D (2026). _medfit: Infrastructure for Mediation Model Fitting
-#> and Extraction_. R package version 0.18.0,
+#> and Extraction_. R package version 0.19.0,
 #> <https://data-wise.github.io/medfit/>.
 #> 
 #> MacKinnon D, Lockwood C, Williams J (2004). “Confidence Limits for the
@@ -103,7 +103,7 @@ mediationverse_citations(style = "bibtex")
 #>   title = {{medfit}: Infrastructure for Mediation Model Fitting and Extraction},
 #>   author = {Davood Tofighi},
 #>   year = {2026},
-#>   note = {R package version 0.18.0},
+#>   note = {R package version 0.19.0},
 #>   url = {https://data-wise.github.io/medfit/},
 #> }
 #> 

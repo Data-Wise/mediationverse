@@ -9,7 +9,7 @@ and installation sources. Inspired by tidyverse::tidyverse_sitrep()."><meta prop
 
     <a class="navbar-brand me-2" href="../index.html">mediationverse</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.0</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,6 +22,7 @@ and installation sources. Inspired by tidyverse::tidyverse_sitrep()."><meta prop
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/getting-started.html">Getting Started</a></li>
+    <li><a class="dropdown-item" href="../articles/first-analysis.html">A First Analysis in Four Calls</a></li>
     <li><a class="dropdown-item" href="../articles/ecosystem.html">Ecosystem</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Ecosystem Overview</h6></li>
@@ -62,7 +63,7 @@ and installation sources. Inspired by tidyverse::tidyverse_sitrep()."><meta prop
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Situation Report for the mediationverse Ecosystem</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Data-Wise/mediationverse/blob/v0.4.0/R/sitrep.R" class="external-link"><code>R/sitrep.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Data-Wise/mediationverse/blob/dev/R/sitrep.R" class="external-link"><code>R/sitrep.R</code></a></small>
       <div class="d-none name"><code>mediationverse_sitrep.Rd</code></div>
     </div>
 
@@ -73,7 +74,7 @@ and installation sources. Inspired by <code>tidyverse::tidyverse_sitrep()</code>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mediationverse_sitrep</span><span class="op">(</span>checks <span class="op">=</span> <span class="cn">FALSE</span>, updates <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mediationverse_sitrep</span><span class="op">(</span>checks <span class="op">=</span> <span class="cn">FALSE</span>, updates <span class="op">=</span> <span class="cn">FALSE</span>, contracts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -98,6 +99,17 @@ which are outdated. This makes network requests (a few seconds at most);
 a failed lookup is reported as "Could not check", never an error. Default
 <code>FALSE</code> makes no requests.</p></dd>
 
+
+<dt id="arg-contracts">contracts<a class="anchor" aria-label="anchor" href="#arg-contracts"></a></dt>
+<dd><p>Logical. If <code>TRUE</code>, also check that the installed members
+still work together: a small simulated analysis is fitted with
+<code><a href="https://data-wise.github.io/medfit/reference/med.html" class="external-link">medfit::med()</a></code> and handed to <code><a href="https://data-wise.github.io/rmediation/reference/ci_mediation_data.html" class="external-link">RMediation::ci_mediation_data()</a></code> and
+<code><a href="https://data-wise.github.io/probmed/reference/pmed.html" class="external-link">probmed::pmed()</a></code>. Each installed member gets a <code>contract:&lt;package&gt;</code> row in
+the checks (<code>"fail"</code> with the error when a hand-off breaks). This runs real
+model code (a few seconds), leaves your random-number state untouched, and
+implies the checks report even when <code>checks = FALSE</code>. Members that are not
+installed are skipped. Default <code>FALSE</code> runs no model code.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -111,7 +123,7 @@ the installed copy's <code>DESCRIPTION</code>: <code>"CRAN"</code>, <code>"GitHu
 two more columns are added: <code>latest</code> (newest version on the recommended
 source, <code>NA</code> when unknown or not installed) and <code>outdated</code> (<code>TRUE</code> when the
 installed version is older than <code>latest</code>, <code>NA</code> when either is unknown).
-With <code>checks = TRUE</code> the checks are attached as the
+With <code>checks = TRUE</code> (or <code>contracts = TRUE</code>) the checks are attached as the
 <code>"checks"</code> attribute: a data frame with columns <code>check</code>, <code>status</code>
 (<code>"pass"</code>, <code>"warn"</code> or <code>"fail"</code>), <code>message</code> and <code>fix</code>. Called mainly for
 its side effect of printing the situation report.</p>
@@ -123,12 +135,12 @@ its side effect of printing the situation report.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">mediationverse situation report</span> <span style="color: #00BBBB;">─────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">R</span> 4.6.2 | <span style="font-weight: bold;">Platform</span> x86_64-pc-linux-gnu</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">mediationverse</span> 0.4.0</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">mediationverse</span> 0.5.0</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Core packages</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medfit</span> <span style="color: #00BB00;">0.18.0</span> (from GitHub) [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medfit</span> <span style="color: #00BB00;">0.19.0</span> (from GitHub) [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">probmed</span> <span style="color: #00BB00;">0.4.1</span> (from GitHub) [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">RMediation</span> <span style="color: #00BB00;">1.6.1</span> (from CRAN) [recommended: <span style="color: #0000BB;">CRAN</span>]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medrobust</span> <span style="color: #00BB00;">0.4.4</span> (from GitHub) [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
@@ -146,12 +158,12 @@ its side effect of printing the situation report.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">mediationverse situation report</span> <span style="color: #00BBBB;">─────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">R</span> 4.6.2 | <span style="font-weight: bold;">Platform</span> x86_64-pc-linux-gnu</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">mediationverse</span> 0.4.0</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">mediationverse</span> 0.5.0</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Core packages</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medfit</span> <span style="color: #00BB00;">0.18.0</span> (from GitHub) [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medfit</span> <span style="color: #00BB00;">0.19.0</span> (from GitHub) [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">probmed</span> <span style="color: #00BB00;">0.4.1</span> (from GitHub) [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">RMediation</span> <span style="color: #00BB00;">1.6.1</span> (from CRAN) [recommended: <span style="color: #0000BB;">CRAN</span>]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">medrobust</span> <span style="color: #00BB00;">0.4.4</span> (from GitHub) [recommended: <span style="color: #00BBBB;">GitHub</span>]</span>
@@ -168,7 +180,7 @@ its side effect of printing the situation report.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checks</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> All installed members can be loaded</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> medfit 0.18.0 meets the minimum 0.5.0</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> medfit 0.19.0 meets the minimum 0.5.0</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> RMediation 1.6.1 meets the minimum 1.5.0</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Installed members come from their recommended source</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> OpenMx is not installed; RMediation::mbco() will not work</span>
@@ -178,6 +190,7 @@ its side effect of printing the situation report.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Use `mediationverse_sitrep(updates = TRUE)` to check for newer versions.</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu">mediationverse_sitrep</span><span class="op">(</span>updates <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  <span class="co"># contacts CRAN and r-universe</span></span></span>
+<span class="r-in"><span><span class="fu">mediationverse_sitrep</span><span class="op">(</span>contracts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  <span class="co"># fits a small analysis through the members</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

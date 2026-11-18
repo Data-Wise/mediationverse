@@ -6,6 +6,8 @@
   mediationverse](https://Data-Wise.github.io/mediationverse/articles/contributing.md):
 - [The mediationverse
   Ecosystem](https://Data-Wise.github.io/mediationverse/articles/ecosystem.md):
+- [A First Analysis in Four
+  Calls](https://Data-Wise.github.io/mediationverse/articles/first-analysis.md):
 - [Getting Started with
   mediationverse](https://Data-Wise.github.io/mediationverse/articles/getting-started.md):
 - [Complete Mediation Analysis

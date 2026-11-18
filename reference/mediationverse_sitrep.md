@@ -7,7 +7,7 @@ versions, and installation sources. Inspired by
 ## Usage
 
 ``` r
-mediationverse_sitrep(checks = FALSE, updates = FALSE)
+mediationverse_sitrep(checks = FALSE, updates = FALSE, contracts = FALSE)
 ```
 
 ## Arguments
@@ -33,6 +33,21 @@ mediationverse_sitrep(checks = FALSE, updates = FALSE)
   failed lookup is reported as "Could not check", never an error.
   Default `FALSE` makes no requests.
 
+- contracts:
+
+  Logical. If `TRUE`, also check that the installed members still work
+  together: a small simulated analysis is fitted with
+  [`medfit::med()`](https://data-wise.github.io/medfit/reference/med.html)
+  and handed to
+  [`RMediation::ci_mediation_data()`](https://data-wise.github.io/rmediation/reference/ci_mediation_data.html)
+  and
+  [`probmed::pmed()`](https://data-wise.github.io/probmed/reference/pmed.html).
+  Each installed member gets a `contract:<package>` row in the checks
+  (`"fail"` with the error when a hand-off breaks). This runs real model
+  code (a few seconds), leaves your random-number state untouched, and
+  implies the checks report even when `checks = FALSE`. Members that are
+  not installed are skipped. Default `FALSE` runs no model code.
+
 ## Value
 
 Invisibly returns a data frame with columns `package`, `installed`,
@@ -45,11 +60,11 @@ registry; compare it with `installed_from` to see whether an install
 matches. With `updates = TRUE` two more columns are added: `latest`
 (newest version on the recommended source, `NA` when unknown or not
 installed) and `outdated` (`TRUE` when the installed version is older
-than `latest`, `NA` when either is unknown). With `checks = TRUE` the
-checks are attached as the `"checks"` attribute: a data frame with
-columns `check`, `status` (`"pass"`, `"warn"` or `"fail"`), `message`
-and `fix`. Called mainly for its side effect of printing the situation
-report.
+than `latest`, `NA` when either is unknown). With `checks = TRUE` (or
+`contracts = TRUE`) the checks are attached as the `"checks"` attribute:
+a data frame with columns `check`, `status` (`"pass"`, `"warn"` or
+`"fail"`), `message` and `fix`. Called mainly for its side effect of
+printing the situation report.
 
 ## Examples
 
@@ -58,12 +73,12 @@ mediationverse_sitrep()
 #> 
 #> ── mediationverse situation report ─────────────────────────────────────────────
 #> R 4.6.2 | Platform x86_64-pc-linux-gnu
-#> mediationverse 0.4.0
+#> mediationverse 0.5.0
 #> ────────────────────────────────────────────────────────────────────────────────
 #> 
 #> ── Core packages ──
 #> 
-#> ✔ medfit 0.18.0 (from GitHub) [recommended: GitHub]
+#> ✔ medfit 0.19.0 (from GitHub) [recommended: GitHub]
 #> ✔ probmed 0.4.1 (from GitHub) [recommended: GitHub]
 #> ✔ RMediation 1.6.1 (from CRAN) [recommended: CRAN]
 #> ✔ medrobust 0.4.4 (from GitHub) [recommended: GitHub]
@@ -81,12 +96,12 @@ mediationverse_sitrep(checks = TRUE)
 #> 
 #> ── mediationverse situation report ─────────────────────────────────────────────
 #> R 4.6.2 | Platform x86_64-pc-linux-gnu
-#> mediationverse 0.4.0
+#> mediationverse 0.5.0
 #> ────────────────────────────────────────────────────────────────────────────────
 #> 
 #> ── Core packages ──
 #> 
-#> ✔ medfit 0.18.0 (from GitHub) [recommended: GitHub]
+#> ✔ medfit 0.19.0 (from GitHub) [recommended: GitHub]
 #> ✔ probmed 0.4.1 (from GitHub) [recommended: GitHub]
 #> ✔ RMediation 1.6.1 (from CRAN) [recommended: CRAN]
 #> ✔ medrobust 0.4.4 (from GitHub) [recommended: GitHub]
@@ -103,7 +118,7 @@ mediationverse_sitrep(checks = TRUE)
 #> ── Checks ──
 #> 
 #> ✔ All installed members can be loaded
-#> ✔ medfit 0.18.0 meets the minimum 0.5.0
+#> ✔ medfit 0.19.0 meets the minimum 0.5.0
 #> ✔ RMediation 1.6.1 meets the minimum 1.5.0
 #> ✔ Installed members come from their recommended source
 #> ! OpenMx is not installed; RMediation::mbco() will not work
@@ -113,5 +128,6 @@ mediationverse_sitrep(checks = TRUE)
 #> Use `mediationverse_sitrep(updates = TRUE)` to check for newer versions.
 if (FALSE) { # \dontrun{
 mediationverse_sitrep(updates = TRUE)  # contacts CRAN and r-universe
+mediationverse_sitrep(contracts = TRUE)  # fits a small analysis through the members
 } # }
 ```

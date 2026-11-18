@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mediationverse</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.0</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +45,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/getting-started.html">Getting Started</a></li>
+    <li><a class="dropdown-item" href="../articles/first-analysis.html">A First Analysis in Four Calls</a></li>
     <li><a class="dropdown-item" href="../articles/ecosystem.html">Ecosystem</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Ecosystem Overview</h6></li>
@@ -98,7 +99,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/Data-Wise/mediationverse/blob/v0.4.0/vignettes/getting-started.qmd" class="external-link"><code>vignettes/getting-started.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Data-Wise/mediationverse/blob/dev/vignettes/getting-started.qmd" class="external-link"><code>vignettes/getting-started.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -154,7 +155,7 @@
 <span><span class="co"># Check what's installed and available</span></span>
 <span><span class="fu"><a href="../reference/mediationverse_sitrep.html">mediationverse_sitrep</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
-<p><code><a href="../reference/mediationverse_sitrep.html">mediationverse_sitrep()</a></code> prints a situation report of all ecosystem packages, their versions, and installation sources — useful for diagnosing missing or outdated packages. Add <code>updates = TRUE</code> to look up the newest version of each installed package (this contacts CRAN and r-universe), and use <code>mediationverse_update(only_outdated = TRUE)</code> to update only what is behind (<code>dry_run = TRUE</code> previews it).</p>
+<p><code><a href="../reference/mediationverse_sitrep.html">mediationverse_sitrep()</a></code> prints a situation report of all ecosystem packages, their versions, and installation sources — useful for diagnosing missing or outdated packages. Add <code>updates = TRUE</code> to look up the newest version of each installed package (this contacts CRAN and r-universe), and use <code>mediationverse_update(only_outdated = TRUE)</code> to update only what is behind (<code>dry_run = TRUE</code> previews it). Add <code>contracts = TRUE</code> to confirm the installed packages still work together: it fits a small simulated analysis with <code><a href="https://data-wise.github.io/medfit/reference/med.html" class="external-link">medfit::med()</a></code> and hands the fit to RMediation and probmed, reporting a failing row if a hand-off breaks (it takes a few seconds and leaves your random-number state alone).</p>
 <p>Three more helpers cover everyday sessions:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/mediationverse_news.html">mediationverse_news</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>       <span class="co"># latest NEWS of every installed member</span></span>

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mediationverse</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.0</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,6 +20,7 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/getting-started.html">Getting Started</a></li>
+    <li><a class="dropdown-item" href="../articles/first-analysis.html">A First Analysis in Four Calls</a></li>
     <li><a class="dropdown-item" href="../articles/ecosystem.html">Ecosystem</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Ecosystem Overview</h6></li>
@@ -60,9 +61,22 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/Data-Wise/mediationverse/blob/v0.4.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/Data-Wise/mediationverse/blob/dev/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.5.0" id="mediationverse-050">mediationverse 0.5.0<a class="anchor" aria-label="anchor" href="#mediationverse-050"></a></h2>
+<p>Feature release: <code>sitrep()</code> can now check that the installed members still work together, not only that they are installed and current. The check is opt-in because it runs a small real analysis. Distributed through GitHub and r-universe; not a CRAN release.</p>
+<div class="section level3">
+<h3 id="new-features-0-5-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-0"></a></h3>
+<ul><li>
+<code>mediationverse_sitrep(contracts = TRUE)</code> checks that the installed members still work together. It fits a small simulated analysis with <code><a href="https://data-wise.github.io/medfit/reference/med.html" class="external-link">medfit::med()</a></code> and hands the fit to <code><a href="https://data-wise.github.io/rmediation/reference/ci_mediation_data.html" class="external-link">RMediation::ci_mediation_data()</a></code> and <code><a href="https://data-wise.github.io/probmed/reference/pmed.html" class="external-link">probmed::pmed()</a></code>, adding a <code>contract:RMediation</code> and a <code>contract:probmed</code> row to the checks (<code>"fail"</code> with the error when a hand-off breaks). It runs real model code, so it is opt-in; it leaves your random-number state untouched, implies the checks report, and skips members that are not installed.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentation-0-5-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-5-0"></a></h3>
+<ul><li>New article “A First Analysis in Four Calls”: simulate, <code><a href="https://data-wise.github.io/medfit/reference/med.html" class="external-link">medfit::med()</a></code>, an <code>RMediation</code> interval and a <code>probmed</code> effect size on one fitted object. Documentation only; mediationverse adds no <code>mediate()</code> function because <code><a href="https://data-wise.github.io/medfit/reference/med.html" class="external-link">medfit::med()</a></code> already is that entry point.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4.0" id="mediationverse-040">mediationverse 0.4.0<a class="anchor" aria-label="anchor" href="#mediationverse-040"></a></h2>
 <p>Feature release: <code>sitrep()</code> and <code><a href="../reference/mediationverse_update.html">mediationverse_update()</a></code> can now tell which installed members are behind the newest version on their recommended source. The lookups are opt-in; nothing contacts the network by default. Distributed through GitHub and r-universe; not a CRAN release.</p>
