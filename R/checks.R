@@ -328,15 +328,125 @@ check_updates <- function() {
   check_row("updates", "pass", "Installed members are up to date")
 }
 
-# Run every check and bind the rows. The updates check needs the network, so it
-# is opt-in.
+# Evaluate `expr`, then put the caller's random-number state back. The contract
+# analysis draws random numbers and must not change the user's stream, including
+# when the session had not drawn any yet (no `.Random.seed`).
 #' @noRd
-mv_checks <- function(updates = FALSE) {
+preserve_rng <- function(expr) {
+  env <- globalenv()
+  had <- exists(".Random.seed", envir = env, inherits = FALSE)
+  old <- if (had) get(".Random.seed", envir = env, inherits = FALSE)
+  on.exit(
+    if (had) {
+      assign(".Random.seed", old, envir = env)
+    } else if (exists(".Random.seed", envir = env, inherits = FALSE)) {
+      rm(".Random.seed", envir = env)
+    },
+    add = TRUE
+  )
+  expr
+}
+
+# A tiny deterministic mediation data set for the contract checks.
+#' @noRd
+contract_data <- function(n = 120L, seed = 9L) {
+  set.seed(seed)
+  a <- stats::rbinom(n, 1L, 0.5)
+  m <- 0.5 * a + stats::rnorm(n)
+  y <- 0.4 * m + 0.2 * a + stats::rnorm(n)
+  data.frame(A = a, M = m, Y = y)
+}
+
+# The three hand-offs below are isolated so tests can mock them.
+#' @noRd
+contract_fit <- function() {
+  medfit::med(contract_data(), treatment = "A", mediator = "M", outcome = "Y")
+}
+
+# Confidence interval for the indirect effect, from RMediation.
+#' @noRd
+contract_ci <- function(fit) {
+  RMediation::ci_mediation_data(fit)$CI
+}
+
+# P_med point estimate from probmed. S7 properties are attributes, so no S7
+# dependency is needed to read one.
+#' @noRd
+contract_pmed <- function(fit) {
+  attr(probmed::pmed(fit), "estimate", exact = TRUE)
+}
+
+# Do the installed members still accept a shared medfit fit? Runs a tiny real
+# analysis, so it is opt-in. Members that are absent or broken get no row (the
+# version and load checks report them).
+#' @noRd
+check_contracts <- function() {
+  preserve_rng(run_contracts())
+}
+
+#' @noRd
+run_contracts <- function() {
+  if (!identical(pkg_state("medfit"), "ok")) {
+    return(check_row(
+      "contract:medfit", "warn",
+      "medfit is not available, so the member contracts were not checked",
+      "pak::pak(\"Data-Wise/medfit\")"
+    ))
+  }
+
+  fit <- tryCatch(contract_fit(), error = function(e) e)
+  if (inherits(fit, "error")) {
+    return(check_row(
+      "contract:medfit", "fail",
+      sprintf("medfit could not fit the contract analysis: %s", conditionMessage(fit)),
+      "Run mediationverse_update()"
+    ))
+  }
+
+  contracts <- list(
+    RMediation = list(call = contract_ci, what = "RMediation::ci_mediation_data()", len = 2L),
+    probmed = list(call = contract_pmed, what = "probmed::pmed()", len = 1L)
+  )
+
+  rows <- lapply(names(contracts), function(pkg) {
+    if (!identical(pkg_state(pkg), "ok")) {
+      return(NULL)
+    }
+    ct <- contracts[[pkg]]
+    check <- paste0("contract:", pkg)
+    fix <- sprintf("Update medfit and %s together (mediationverse_update())", pkg)
+
+    res <- tryCatch(ct$call(fit), error = function(e) e)
+    if (inherits(res, "error")) {
+      return(check_row(
+        check, "fail",
+        sprintf("%s failed on a medfit fit: %s", ct$what, conditionMessage(res)),
+        fix
+      ))
+    }
+    if (!is.numeric(res) || length(res) != ct$len || !all(is.finite(res))) {
+      return(check_row(
+        check, "fail",
+        sprintf("%s returned an unexpected result for a medfit fit", ct$what),
+        fix
+      ))
+    }
+    check_row(check, "pass", sprintf("%s accepts a medfit fit", ct$what))
+  })
+
+  do.call(rbind, rows)
+}
+
+# Run every check and bind the rows. The updates check needs the network and the
+# contract checks run real model code, so both are opt-in.
+#' @noRd
+mv_checks <- function(updates = FALSE, contracts = FALSE) {
   out <- rbind(
     check_loadable(),
     check_min_versions(),
     check_sources(),
     if (updates) check_updates(),
+    if (contracts) check_contracts(),
     check_optional_deps(),
     check_conflicts()
   )
