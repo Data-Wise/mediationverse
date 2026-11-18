@@ -1,5 +1,7 @@
 # Plan: mediationverse 0.4.0 (self-contained, executable without questions)
 
+Status: **released** as 0.4.0 (tag `v0.4.0` at bc3643f, PRs #38 to #40).
+
 Date: 2026-11-17 | Base: `dev` at 6fcd462 (0.3.0.9000; 0.3.0 released, tag `v0.3.0`).
 Distribution: GitHub + r-universe, not CRAN (blockers unchanged in `.STATUS`).
 Branch for the work: `feature/release-0.4.0` (this file is its first commit).

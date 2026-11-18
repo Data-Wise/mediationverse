@@ -1,5 +1,7 @@
 # Plan: mediationverse 0.3.0 (self-contained, executable without questions)
 
+Status: **released** as 0.3.0 (tag `v0.3.0` at c634ef0, PRs #34 to #36).
+
 Date: 2026-11-17 | Branch `feature/release-0.3.0` off `dev` at 477908a (0.2.0.9000, includes sitrep
 provenance, PR #33). Worktree: `/Users/davood/.worktree/mediationverse/restore-342f7b`.
 Backlog source: `BRAINSTORM-tidyverse-functions-2026-06-19.md` (items 3, 4, 6, 8, 9, 10 unbuilt) and the
