@@ -36,68 +36,30 @@ logo:
 
 navbar:
   structure:
-    left:  [home, reference, articles, ecosystem, status, news]
+    left:  [start, reference, articles]
     right: [search, github]
   components:
-    home:
-      icon: fas fa-home fa-lg
-      href: index.html
-      aria-label: Home
+    start:
+      text: Get started
+      href: articles/getting-started.html
     reference:
       text: Reference
       href: reference/index.html
     articles:
-      text: Articles
+      text: Guides
       menu:
-      - text: "Getting Started"
-        href: articles/getting-started.html
-      - text: "A First Analysis in Four Calls"
+      - text: "A first analysis in four calls"
         href: articles/first-analysis.html
+      - text: "Workflow"
+        href: articles/mediationverse-workflow.html
       - text: "Ecosystem"
         href: articles/ecosystem.html
-      - text: "---------"
-      - text: "Ecosystem Overview"
-      - text: "mediationverse Workflow"
-        href: articles/mediationverse-workflow.html
-    ecosystem:
-      text: Ecosystem
-      menu:
-      - text: "📖 Ecosystem Overview (full page)"
-        href: articles/ecosystem.html
-      - text: "---------"
-      - text: "Core Packages"
-      - text: "medfit (Foundation)"
-        href: https://Data-Wise.github.io/medfit/
-      - text: "probmed (P_med Effect Size)"
-        href: https://Data-Wise.github.io/probmed/
-      - text: "RMediation (Confidence Intervals)"
-        href: https://Data-Wise.github.io/rmediation/
-      - text: "medrobust (Sensitivity Analysis)"
-        href: https://Data-Wise.github.io/medrobust/
-      - text: "missingmed (Missing Data)"
-        href: https://Data-Wise.github.io/missingmed/
-      - text: "---------"
-      - text: "Support Packages"
-      - text: "medsim (Simulation Infrastructure)"
-        href: https://Data-Wise.github.io/medsim/
-    status:
-      icon: fas fa-chart-line
-      text: Status
-      menu:
-      - text: "📊 Package Status Dashboard"
-        href: https://github.com/Data-Wise/mediationverse/blob/main/STATUS.md
-      - text: "🗺️ Development Roadmap"
+      - text: "Roadmap"
         href: articles/roadmap.html
-      - text: "🤝 Contributing Guide"
+      - text: "Contributing"
         href: articles/contributing.html
-      - text: "---------"
-      - text: "🧭 Planning Hub"
-        href: https://github.com/Data-Wise/mediation-planning/blob/main/PROJECT-HUB.md
-      - text: "📋 Ecosystem Coordination"
-        href: https://github.com/Data-Wise/mediation-planning/blob/main/docs/ECOSYSTEM-COORDINATION.md
-    news:
-      text: News
-      href: news/index.html
+      - text: "News"
+        href: news/index.html
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/Data-Wise/mediationverse
@@ -133,6 +95,7 @@ authors:
 footer:
   structure:
     left: [developed_by, built_with]
+    center: [ecosystem, status]
     right: [package_version]
   components:
     package_version: "Version {version}"
@@ -140,3 +103,14 @@ footer:
       Developed by [Davood Tofighi](https://orcid.org/0000-0001-8523-7776)
     built_with: |
       Built with [pkgdown](https://pkgdown.r-lib.org/)
+    ecosystem: |
+      **Ecosystem:** [medfit](https://Data-Wise.github.io/medfit/),
+      [probmed](https://Data-Wise.github.io/probmed/),
+      [RMediation](https://Data-Wise.github.io/rmediation/),
+      [medrobust](https://Data-Wise.github.io/medrobust/),
+      [missingmed](https://Data-Wise.github.io/missingmed/),
+      [medsim](https://Data-Wise.github.io/medsim/)
+    status: |
+      **Status:** [Package dashboard](https://github.com/Data-Wise/mediationverse/blob/main/STATUS.md),
+      [Planning hub](https://github.com/Data-Wise/mediation-planning/blob/main/PROJECT-HUB.md),
+      [Ecosystem coordination](https://github.com/Data-Wise/mediation-planning/blob/main/docs/ECOSYSTEM-COORDINATION.md)

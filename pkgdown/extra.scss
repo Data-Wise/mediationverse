@@ -1,0 +1,73 @@
+/*-- scss:rules --*/
+/* ADHD-friendly design system: readable measure, calm spacing, clear
+   focus, no forced motion. Colors are chosen for WCAG AA (4.5:1). */
+:root {
+  --mv-accent: #0054AD;
+  --mv-text-muted: #4a4d50;
+  --mv-callout-bg: #f4f7fb;
+  --mv-tldr-bg: #eef3f9;
+  --mv-nav-text: #3f4244;
+}
+
+body { line-height: 1.6; }
+
+main,
+.row > main { max-width: 72ch; }
+main pre,
+main .sourceCode,
+main table { max-width: 100%; overflow-x: auto; }
+main table { display: block; }
+
+main h2 { margin-top: 2.5em; }
+main h3 { margin-top: 2em; }
+
+.navbar .nav-link,
+.navbar .nav-link.dropdown-toggle { color: var(--mv-nav-text); }
+.navbar small.nav-text,
+.navbar .text-default { color: var(--mv-text-muted) !important; }
+.template-home .developers small.roles { color: var(--mv-text-muted); }
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+summary:focus-visible,
+.nav-link:focus-visible,
+.dropdown-item:focus-visible {
+  outline: 2px solid var(--mv-accent);
+  outline-offset: 2px;
+}
+
+/* Page-top summary box */
+.tldr {
+  border-left: 4px solid var(--mv-accent);
+  background: var(--mv-tldr-bg);
+  padding: 0.75rem 1rem;
+  margin: 1rem 0 1.5rem;
+  border-radius: 0 4px 4px 0;
+}
+.tldr > :last-child { margin-bottom: 0; }
+
+/* One-step callout at page end */
+.next-action {
+  border-left: 4px solid #0054AD;
+  background: var(--mv-callout-bg);
+  padding: 0.4rem 0.8rem;
+  margin: 1.5rem 0;
+}
+.next-action > :last-child { margin-bottom: 0; }
+
+/* Time/level/steps line, e.g. "10 minutes - Beginner - 4 steps" */
+.time-line {
+  font-size: 0.85rem;
+  color: var(--mv-text-muted);
+  margin: 0 0 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
