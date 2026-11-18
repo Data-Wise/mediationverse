@@ -1,10 +1,18 @@
-# mediationverse (development version)
+# mediationverse 0.5.0
+
+Feature release: `sitrep()` can now check that the installed members still work together, not only that
+they are installed and current. The check is opt-in because it runs a small real analysis. Distributed
+through GitHub and r-universe; not a CRAN release.
+
+## New features
 
 * `mediationverse_sitrep(contracts = TRUE)` checks that the installed members still work together. It fits a
   small simulated analysis with `medfit::med()` and hands the fit to `RMediation::ci_mediation_data()` and
   `probmed::pmed()`, adding a `contract:RMediation` and a `contract:probmed` row to the checks (`"fail"` with the
   error when a hand-off breaks). It runs real model code, so it is opt-in; it leaves your random-number state
   untouched, implies the checks report, and skips members that are not installed.
+
+## Documentation
 
 * New article "A First Analysis in Four Calls": simulate, `medfit::med()`, an `RMediation` interval and a
   `probmed` effect size on one fitted object. Documentation only; mediationverse adds no `mediate()`
