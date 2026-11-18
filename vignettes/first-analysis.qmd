@@ -7,6 +7,16 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+::: {.tldr}
+**TL;DR**
+
+- `medfit::med()` fits the mediation model in one call.
+- `RMediation` gives the confidence interval and `probmed` the effect size P~med~.
+- Optional packages are guarded, so the page runs even if they are missing.
+:::
+
+⏱️ **5 minutes** • 🟢 Beginner • ✓ 4 steps
+
 ## Overview
 
 mediationverse does not define its own `mediate()` function. The entry point
@@ -94,3 +104,7 @@ if (requireNamespace("probmed", quietly = TRUE)) {
   and simulation.
 - Assumptions (sequential ignorability, positivity, consistency) still apply;
   none of the four calls checks them.
+
+::: {.next-action}
+**Next step:** extend this to sensitivity analysis and simulation in the [Complete Mediation Analysis Workflow](mediationverse-workflow.html).
+:::
