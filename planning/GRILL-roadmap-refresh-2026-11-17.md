@@ -19,9 +19,9 @@ one question per decision.
 
 1. **Write scope: hub plus mediationverse only.** Package `planning/` directories stay with their owners.
    Rejected: editing all seven package repos (eight PRs, high drift risk).
-2. **Hub shape: refresh facts, keep structure.** Update Quick Status, phases, versions and CRAN state, dated
-   2026-11-17, and mark May's open PRs resolved. Rejected: thin pointer page (loses the narrative); a drift
-   check script (new tooling not requested).
+2. **Hub shape (revised, see 7): manifest facts plus roadmap prose.** First locked as "refresh facts in
+   ROADMAP.md", then superseded once the hub's own 2026-10-26 rule surfaced. Rejected: thin pointer page (loses
+   the narrative); a drift check script (new tooling not requested).
 3. **Source of truth: CRAN and GitHub tags win over `.STATUS`.** `.STATUS` supplies next steps and blockers only;
    stale lines are listed, not copied.
 4. **Schedule: gated milestones, no calendar quarters.** Gates in order: probmed submits, medrobust hold lifts,
@@ -31,6 +31,16 @@ one question per decision.
    `DESIGN-mediate-pipeline-2026-11-17.md` are met.
 6. **Hub edits go through a new worktree off the hub's `main` and a PR.** The hub's checked-out
    `docs/missingmed-0.6.0` is not touched. Rejected: committing on that branch; a patch file only.
+
+7. **Revision of decision 2: follow the hub's own policy.** The hub marked `ROADMAP.md` historical on 2026-10-26 and
+   made `ECOSYSTEM-MANIFEST.yaml` the live source, so versions and CRAN state are refreshed in the manifest only,
+   and the roadmap carries direction, gates and candidates without version numbers. Rejected: keeping decision 2
+   as first locked (contradicts the banner); manifest only (decisions 4 and 5 would have nowhere to land).
+
+## Outcome
+
+Hub PR (mediation-planning) carries the manifest and roadmap edits; this repo carries the ledger. The package
+repos' own `planning/` directories were not touched (decision 1).
 
 ## Open questions
 
