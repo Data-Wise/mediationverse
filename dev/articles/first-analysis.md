@@ -121,11 +121,11 @@ if (requireNamespace("probmed", quietly = TRUE)) {
     ====================================
 
     Estimate: 0.55
-    95% CI: [ 0.521 ,  0.58 ]
+    95% CI: [ 0.519 ,  0.58 ]
 
     Indirect Effect (Product of Coefficients):
-    Estimate: 0.206
-    95% CI: [ 0.0967 ,  0.338 ]
+    Estimate: 0.205
+    95% CI: [ 0.0898 ,  0.33 ]
 
     Inference: parametric_bootstrap
     Bootstrap samples: 1000
