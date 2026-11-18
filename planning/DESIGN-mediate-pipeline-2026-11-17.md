@@ -1,6 +1,6 @@
 # Design notes: `mediate()` / `mediation_pipeline()` for mediationverse
 
-Date: 2026-11-17 | Status: design only, no code. Origin: `BRAINSTORM-tidyverse-functions-2026-06-19.md`
+Date: 2026-11-17 | Status: design only, no code in the package. Option C shipped as `vignettes/first-analysis.qmd` (PR #42, in dev, reaches the root site with the next release). Origin: `BRAINSTORM-tidyverse-functions-2026-06-19.md`
 items 6 and 8, deferred from 0.2.0 and 0.3.0.
 
 ## Recommendation
@@ -56,3 +56,16 @@ installed on CI. No new exports, no new dependencies.
 
 `mv_options()`: still no sibling reads a `mediationverse.*` option (checked 2026-11-17: medfit reads only its
 own `medfit.*` options). Revisit when criterion 2 produces shared defaults.
+
+## Exit criteria check, 2026-11-17
+
+Run when planning 0.5.0 (`PLAN-release-0.5.0-2026-11-17.md`):
+
+1. **Not met.** `medfit::med()` kept its signature through medfit 0.16.0 to 0.18.0, but `fit_mediation()` renamed
+   `engine = "native"` to `engine = "sem"` in 0.18.0 and moved `control` handling into a documented object.
+2. **Partly met.** `RMediation::ci_mediation_data()` and `probmed::pmed()` both accept a `medfit` fit. 0.5.0 turns that
+   into a standing check, `mediationverse_sitrep(contracts = TRUE)`, so a break shows up the day it happens.
+   medrobust and missingmed still take their own objects.
+
+Decision unchanged: no `mediate()` or pipeline object. Revisit when criterion 1 holds for three consecutive
+releases and the contract checks have stayed green across them.

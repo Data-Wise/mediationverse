@@ -1,0 +1,96 @@
+---
+title: "A First Analysis in Four Calls"
+format: html
+vignette: >
+  %\VignetteIndexEntry{A First Analysis in Four Calls}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Overview
+
+mediationverse does not define its own `mediate()` function. The entry point
+already exists upstream: `medfit::med()` takes a data frame and three variable
+names and returns a fitted mediation object. The other packages then work on
+that same object.
+
+This article runs one complete analysis in four calls:
+
+1. Simulate data (or bring your own).
+2. Fit the model with `medfit::med()`.
+3. Get a confidence interval for the indirect effect with `RMediation`.
+4. Get the effect size P~med~ with `probmed`.
+
+`medfit` is attached with `library(mediationverse)`; the code below calls it
+with `medfit::` so it runs the same either way. `RMediation` and `probmed` are
+optional, so each of their calls is guarded and is skipped when the package is
+not installed.
+
+## Call 1: data
+
+A binary treatment `A`, a mediator `M`, an outcome `Y` and one covariate `C`.
+The true indirect effect is 0.5 x 0.4 = 0.2.
+
+```{r}
+#| label: data
+set.seed(1)
+n <- 300
+A <- rbinom(n, 1, 0.5)
+C <- rnorm(n)
+M <- 0.5 * A + 0.3 * C + rnorm(n)
+Y <- 0.4 * M + 0.2 * A + 0.1 * C + rnorm(n)
+dat <- data.frame(A, M, Y, C)
+```
+
+## Call 2: fit
+
+```{r}
+#| label: fit
+fit <- medfit::med(
+  dat,
+  treatment = "A",
+  mediator = "M",
+  outcome = "Y",
+  covariates = "C"
+)
+fit
+```
+
+Extractors return single effects: `medfit::nie(fit)` (natural indirect),
+`medfit::nde(fit)` (natural direct), `medfit::te(fit)` (total) and
+`medfit::pm(fit)` (proportion mediated). For bootstrap inference add
+`boot = TRUE, n_boot = 1000, seed = 123` to the call.
+
+## Call 3: confidence interval for the indirect effect
+
+`RMediation::ci_mediation_data()` accepts the fitted object directly and uses
+the distribution of the product by default.
+
+```{r}
+#| label: ci
+if (requireNamespace("RMediation", quietly = TRUE)) {
+  RMediation::ci_mediation_data(fit, level = 0.95)
+}
+```
+
+## Call 4: effect size
+
+`probmed::pmed()` also accepts the fitted object. P~med~ is the probability
+that the mediator shift leaves a random individual better off.
+
+```{r}
+#| label: pmed
+if (requireNamespace("probmed", quietly = TRUE)) {
+  set.seed(2)
+  probmed::pmed(fit)
+}
+```
+
+## Where to go next
+
+- `mediationverse_sitrep()` shows which of these packages are installed and
+  current; `mediationverse_news()` shows what changed in each.
+- `vignette("mediationverse-workflow")` extends this to sensitivity analysis
+  and simulation.
+- Assumptions (sequential ignorability, positivity, consistency) still apply;
+  none of the four calls checks them.

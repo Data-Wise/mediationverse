@@ -19,6 +19,15 @@
 #'   a failed lookup is reported as "Could not check", never an error. Default
 #'   `FALSE` makes no requests.
 #'
+#' @param contracts Logical. If `TRUE`, also check that the installed members
+#'   still work together: a small simulated analysis is fitted with
+#'   `medfit::med()` and handed to `RMediation::ci_mediation_data()` and
+#'   `probmed::pmed()`. Each installed member gets a `contract:<package>` row in
+#'   the checks (`"fail"` with the error when a hand-off breaks). This runs real
+#'   model code (a few seconds), leaves your random-number state untouched, and
+#'   implies the checks report even when `checks = FALSE`. Members that are not
+#'   installed are skipped. Default `FALSE` runs no model code.
+#'
 #' @return Invisibly returns a data frame with columns `package`, `installed`,
 #'   `version`, `source` and `installed_from`. `installed_from` is detected from
 #'   the installed copy's `DESCRIPTION`: `"CRAN"`, `"GitHub"`, `"r-universe"`,
@@ -29,7 +38,7 @@
 #'   two more columns are added: `latest` (newest version on the recommended
 #'   source, `NA` when unknown or not installed) and `outdated` (`TRUE` when the
 #'   installed version is older than `latest`, `NA` when either is unknown).
-#'   With `checks = TRUE` the checks are attached as the
+#'   With `checks = TRUE` (or `contracts = TRUE`) the checks are attached as the
 #'   `"checks"` attribute: a data frame with columns `check`, `status`
 #'   (`"pass"`, `"warn"` or `"fail"`), `message` and `fix`. Called mainly for
 #'   its side effect of printing the situation report.
@@ -39,12 +48,16 @@
 #' mediationverse_sitrep(checks = TRUE)
 #' \dontrun{
 #' mediationverse_sitrep(updates = TRUE)  # contacts CRAN and r-universe
+#' mediationverse_sitrep(contracts = TRUE)  # fits a small analysis through the members
 #' }
 #'
 #' @export
-mediationverse_sitrep <- function(checks = FALSE, updates = FALSE) {
+mediationverse_sitrep <- function(checks = FALSE, updates = FALSE, contracts = FALSE) {
   if (!is.logical(updates) || length(updates) != 1L || is.na(updates)) {
     cli::cli_abort("{.arg updates} must be TRUE or FALSE.")
+  }
+  if (!is.logical(contracts) || length(contracts) != 1L || is.na(contracts)) {
+    cli::cli_abort("{.arg contracts} must be TRUE or FALSE.")
   }
 
   # Members, install sources and repositories come from the internal registry.
@@ -168,8 +181,8 @@ mediationverse_sitrep <- function(checks = FALSE, updates = FALSE) {
   }
 
   checks_df <- NULL
-  if (isTRUE(checks)) {
-    checks_df <- mv_checks(updates = updates)
+  if (isTRUE(checks) || contracts) {
+    checks_df <- mv_checks(updates = updates, contracts = contracts)
     if (use_cli) print_checks(checks_df) else print_checks_plain(checks_df)
   } else if (use_cli) {
     cli::cli_text(

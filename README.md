@@ -50,6 +50,9 @@ mediationverse_sitrep()
 # Also check minimum versions, optional dependencies and function conflicts
 mediationverse_sitrep(checks = TRUE)
 
+# Check the installed members still work together (fits a small analysis through RMediation and probmed)
+mediationverse_sitrep(contracts = TRUE)
+
 # Look up newer versions (contacts CRAN and r-universe), then update only what is behind
 mediationverse_sitrep(updates = TRUE)
 mediationverse_update(only_outdated = TRUE, dry_run = TRUE)  # preview
@@ -242,6 +245,7 @@ Following principles from [tidyverse](https://design.tidyverse.org/) and [easyst
 
 ### Getting Started
 - [Quick Start Guide](https://data-wise.github.io/mediationverse/articles/getting-started.html)
+- [A First Analysis in Four Calls](https://data-wise.github.io/mediationverse/articles/first-analysis.html)
 - [Complete Workflow](https://data-wise.github.io/mediationverse/articles/mediationverse-workflow.html)
 
 ### Status & Planning
