@@ -4,7 +4,7 @@
 \alias{mediationverse_sitrep}
 \title{Situation Report for the mediationverse Ecosystem}
 \usage{
-mediationverse_sitrep(checks = FALSE, updates = FALSE)
+mediationverse_sitrep(checks = FALSE, updates = FALSE, contracts = FALSE)
 }
 \arguments{
 \item{checks}{Logical. If \code{TRUE}, also run environment checks and print
@@ -21,6 +21,15 @@ members, the Data-Wise r-universe for GitHub-recommended ones) and report
 which are outdated. This makes network requests (a few seconds at most);
 a failed lookup is reported as "Could not check", never an error. Default
 \code{FALSE} makes no requests.}
+
+\item{contracts}{Logical. If \code{TRUE}, also check that the installed members
+still work together: a small simulated analysis is fitted with
+\code{medfit::med()} and handed to \code{RMediation::ci_mediation_data()} and
+\code{probmed::pmed()}. Each installed member gets a \verb{contract:<package>} row in
+the checks (\code{"fail"} with the error when a hand-off breaks). This runs real
+model code (a few seconds), leaves your random-number state untouched, and
+implies the checks report even when \code{checks = FALSE}. Members that are not
+installed are skipped. Default \code{FALSE} runs no model code.}
 }
 \value{
 Invisibly returns a data frame with columns \code{package}, \code{installed},
@@ -33,7 +42,7 @@ the installed copy's \code{DESCRIPTION}: \code{"CRAN"}, \code{"GitHub"}, \code{"
 two more columns are added: \code{latest} (newest version on the recommended
 source, \code{NA} when unknown or not installed) and \code{outdated} (\code{TRUE} when the
 installed version is older than \code{latest}, \code{NA} when either is unknown).
-With \code{checks = TRUE} the checks are attached as the
+With \code{checks = TRUE} (or \code{contracts = TRUE}) the checks are attached as the
 \code{"checks"} attribute: a data frame with columns \code{check}, \code{status}
 (\code{"pass"}, \code{"warn"} or \code{"fail"}), \code{message} and \code{fix}. Called mainly for
 its side effect of printing the situation report.
@@ -47,6 +56,7 @@ mediationverse_sitrep()
 mediationverse_sitrep(checks = TRUE)
 \dontrun{
 mediationverse_sitrep(updates = TRUE)  # contacts CRAN and r-universe
+mediationverse_sitrep(contracts = TRUE)  # fits a small analysis through the members
 }
 
 }

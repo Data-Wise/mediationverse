@@ -582,3 +582,171 @@ test_that("sitrep(checks = TRUE, updates = TRUE) reports the updates check", {
   expect_true("updates" %in% checks$check)
   expect_identical(checks$status[checks$check == "updates"], "warn")
 })
+
+# --- contract checks (sitrep(contracts = TRUE)) ------------------------------
+
+mock_contracts <- function(ci = function(fit) c(0.1, 0.4),
+                           pmed = function(fit) 0.55,
+                           fit = function() "a-fit",
+                           installed = c("medfit", "RMediation", "probmed"),
+                           env = parent.frame()) {
+  mock_env(
+    c(medfit = "0.19.0", RMediation = "1.6.1", probmed = "0.4.1"),
+    installed = installed, env = env
+  )
+  testthat::local_mocked_bindings(
+    contract_fit = fit, contract_ci = ci, contract_pmed = pmed, .env = env
+  )
+}
+
+contract_rows <- function(res) res[grepl("^contract:", res$check), , drop = FALSE]
+
+test_that("check_contracts() passes one row per installed hand-off", {
+  mock_contracts()
+  res <- mediationverse:::check_contracts()
+  expect_equal(res$check, c("contract:RMediation", "contract:probmed"))
+  expect_equal(res$status, c("pass", "pass"))
+  expect_match(res$message[1], "RMediation::ci_mediation_data\\(\\) accepts a medfit fit")
+  expect_equal(res$fix, c("", ""))
+})
+
+test_that("check_contracts() fails with the error when a hand-off breaks, others still run", {
+  mock_contracts(ci = function(fit) stop("wrong class"))
+  res <- mediationverse:::check_contracts()
+  expect_equal(res$status, c("fail", "pass"))
+  expect_match(res$message[1], "failed on a medfit fit: wrong class")
+  expect_match(res$fix[1], "Update medfit and RMediation together")
+})
+
+test_that("check_contracts() fails on a wrong-shaped or non-finite result", {
+  for (bad in list(c(0.1, NA), 0.1, "x", numeric(0))) {
+    mock_contracts(ci = function(fit) bad)
+    res <- mediationverse:::check_contracts()
+    expect_equal(res$status[1], "fail")
+    expect_match(res$message[1], "unexpected result")
+  }
+  mock_contracts(pmed = function(fit) c(0.5, 0.6))
+  expect_equal(mediationverse:::check_contracts()$status[2], "fail")
+  mock_contracts(pmed = function(fit) NULL)
+  expect_equal(mediationverse:::check_contracts()$status[2], "fail")
+})
+
+test_that("check_contracts() warns once and skips when medfit is not available", {
+  called <- FALSE
+  mock_contracts(
+    fit = function() {
+      called <<- TRUE
+      "a-fit"
+    },
+    installed = c("RMediation", "probmed")
+  )
+  res <- mediationverse:::check_contracts()
+  expect_equal(res$check, "contract:medfit")
+  expect_equal(res$status, "warn")
+  expect_false(called)
+})
+
+test_that("check_contracts() fails when medfit cannot fit the analysis", {
+  mock_contracts(fit = function() stop("engine gone"))
+  res <- mediationverse:::check_contracts()
+  expect_equal(res$check, "contract:medfit")
+  expect_equal(res$status, "fail")
+  expect_match(res$message, "engine gone")
+})
+
+test_that("check_contracts() gives no row to absent or broken siblings", {
+  mock_contracts(installed = c("medfit", "RMediation"))
+  expect_equal(mediationverse:::check_contracts()$check, "contract:RMediation")
+
+  # probmed is on disk but cannot load: reported by the load check, not here.
+  mock_contracts()
+  testthat::local_mocked_bindings(
+    pkg_installed = function(pkg) pkg %in% c("medfit", "RMediation")
+  )
+  expect_equal(mediationverse:::check_contracts()$check, "contract:RMediation")
+
+  mock_contracts(installed = "medfit")
+  expect_null(mediationverse:::check_contracts())
+})
+
+test_that("mv_checks() has no contract rows unless asked, then places them after source", {
+  mock_contracts()
+  expect_equal(nrow(contract_rows(mediationverse:::mv_checks())), 0L)
+  res <- mediationverse:::mv_checks(contracts = TRUE)
+  expect_equal(contract_rows(res)$check, c("contract:RMediation", "contract:probmed"))
+  expect_equal(which(res$check == "contract:RMediation"), which(res$check == "source") + 1L)
+})
+
+test_that("check_contracts() leaves the caller's random-number state untouched", {
+  env <- globalenv()
+  had <- exists(".Random.seed", envir = env, inherits = FALSE)
+  old <- if (had) get(".Random.seed", envir = env, inherits = FALSE)
+  on.exit(
+    if (had) {
+      assign(".Random.seed", old, envir = env)
+    } else if (exists(".Random.seed", envir = env, inherits = FALSE)) {
+      rm(".Random.seed", envir = env)
+    },
+    add = TRUE
+  )
+
+  draw <- function() {
+    stats::runif(5)
+    "a-fit"
+  }
+
+  # A seeded session: the stream is exactly where the user left it.
+  set.seed(123)
+  before <- get(".Random.seed", envir = env)
+  mock_contracts(fit = draw)
+  mediationverse:::check_contracts()
+  expect_identical(get(".Random.seed", envir = env), before)
+
+  # A session that has not drawn yet: the check must not leave a seed behind.
+  rm(".Random.seed", envir = env)
+  mediationverse:::check_contracts()
+  expect_false(exists(".Random.seed", envir = env, inherits = FALSE))
+})
+
+test_that("contract_data() is deterministic and shaped for medfit::med()", {
+  a <- mediationverse:::contract_data()
+  b <- mediationverse:::contract_data()
+  expect_identical(a, b)
+  expect_named(a, c("A", "M", "Y"))
+  expect_equal(nrow(a), 120L)
+  expect_true(all(a$A %in% c(0L, 1L)))
+})
+
+test_that("contract_pmed() reads the estimate attribute without needing S7", {
+  skip_if_not_installed("probmed")
+  fake <- structure(list(), estimate = 0.61, class = "fake_pmed")
+  testthat::local_mocked_bindings(pmed = function(object, ...) fake, .package = "probmed")
+  expect_equal(mediationverse:::contract_pmed("x"), 0.61)
+})
+
+test_that("mediationverse_sitrep(contracts = TRUE) runs the checks and validates the flag", {
+  seen <- NULL
+  testthat::local_mocked_bindings(
+    mv_checks = function(updates = FALSE, contracts = FALSE) {
+      seen <<- contracts
+      mediationverse:::check_row("contract:RMediation", "pass", "ok")
+    }
+  )
+  res <- suppressMessages(utils::capture.output(
+    out <- mediationverse_sitrep(contracts = TRUE)
+  ))
+  expect_true(seen)
+  expect_equal(attr(out, "checks")$check, "contract:RMediation")
+  for (bad in list(NA, "yes", c(TRUE, FALSE), NULL)) {
+    expect_error(mediationverse_sitrep(contracts = bad), "must be TRUE or FALSE")
+  }
+})
+
+test_that("the real contract chain passes when every member is installed", {
+  skip_if_not_installed("medfit")
+  skip_if_not_installed("RMediation")
+  skip_if_not_installed("probmed")
+  res <- mediationverse:::check_contracts()
+  expect_equal(res$check, c("contract:RMediation", "contract:probmed"))
+  expect_equal(res$status, c("pass", "pass"))
+})

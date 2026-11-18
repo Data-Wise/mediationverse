@@ -50,6 +50,9 @@ mediationverse_sitrep()
 # Also check minimum versions, optional dependencies and function conflicts
 mediationverse_sitrep(checks = TRUE)
 
+# Check the installed members still work together (fits a small analysis through RMediation and probmed)
+mediationverse_sitrep(contracts = TRUE)
+
 # Look up newer versions (contacts CRAN and r-universe), then update only what is behind
 mediationverse_sitrep(updates = TRUE)
 mediationverse_update(only_outdated = TRUE, dry_run = TRUE)  # preview
