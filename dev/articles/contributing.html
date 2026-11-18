@@ -88,17 +88,14 @@ that targets <code>dev</code>.</li>
 back to.</li>
 </ul>
 </div>
-<div class="section level2">
-<h2 id="contributing-to-mediationverse">Contributing to mediationverse<a class="anchor" aria-label="anchor" href="#contributing-to-mediationverse"></a>
-</h2>
 <p>Thank you for your interest in contributing to the mediationverse
 ecosystem! This guide will help you get started.</p>
+<div class="section level2">
+<h2 id="ways-to-contribute">Ways to Contribute<a class="anchor" aria-label="anchor" href="#ways-to-contribute"></a>
+</h2>
 <div class="section level3">
-<h3 id="ways-to-contribute">Ways to Contribute<a class="anchor" aria-label="anchor" href="#ways-to-contribute"></a>
+<h3 id="report-bugs">Report bugs<a class="anchor" aria-label="anchor" href="#report-bugs"></a>
 </h3>
-<div class="section level4">
-<h4 id="report-bugs">Report bugs<a class="anchor" aria-label="anchor" href="#report-bugs"></a>
-</h4>
 <p>Found a bug? Please <a href="https://github.com/data-wise/mediationverse/issues/new" class="external-link">open an
 issue</a> with:</p>
 <ul>
@@ -128,9 +125,9 @@ demonstrates the bug</li>
 <span><span class="co"># Session info</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="suggest-features">Suggest features<a class="anchor" aria-label="anchor" href="#suggest-features"></a>
-</h4>
+<div class="section level3">
+<h3 id="suggest-features">Suggest features<a class="anchor" aria-label="anchor" href="#suggest-features"></a>
+</h3>
 <p>Have an idea? <a href="https://github.com/data-wise/mediationverse/issues/new" class="external-link">Open a
 feature request</a> with:</p>
 <ul>
@@ -145,9 +142,9 @@ feature request</a> with:</p>
 packages?</li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="improve-documentation">Improve documentation<a class="anchor" aria-label="anchor" href="#improve-documentation"></a>
-</h4>
+<div class="section level3">
+<h3 id="improve-documentation">Improve documentation<a class="anchor" aria-label="anchor" href="#improve-documentation"></a>
+</h3>
 <p>Documentation improvements are always welcome:</p>
 <ul>
 <li>Fix typos or clarify wording</li>
@@ -156,19 +153,19 @@ packages?</li>
 <li>Create blog posts or tutorials</li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="contribute-code">Contribute code<a class="anchor" aria-label="anchor" href="#contribute-code"></a>
-</h4>
+<div class="section level3">
+<h3 id="contribute-code">Contribute code<a class="anchor" aria-label="anchor" href="#contribute-code"></a>
+</h3>
 <p>Follow the workflow below for code contributions.</p>
 <hr>
 </div>
 </div>
+<div class="section level2">
+<h2 id="development-workflow">Development Workflow<a class="anchor" aria-label="anchor" href="#development-workflow"></a>
+</h2>
 <div class="section level3">
-<h3 id="development-workflow">Development Workflow<a class="anchor" aria-label="anchor" href="#development-workflow"></a>
+<h3 id="setup">1. Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h3>
-<div class="section level4">
-<h4 id="setup">1. Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
-</h4>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Fork the repository on GitHub</span></span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co"># Clone your fork</span></span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/YOUR-USERNAME/mediationverse.git</span>
@@ -180,9 +177,9 @@ packages?</li>
 <span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co"># Install dependencies</span></span>
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'remotes::install_deps(dependencies = TRUE)'</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="create-a-branch">2. Create a Branch<a class="anchor" aria-label="anchor" href="#create-a-branch"></a>
-</h4>
+<div class="section level3">
+<h3 id="create-a-branch">2. Create a Branch<a class="anchor" aria-label="anchor" href="#create-a-branch"></a>
+</h3>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Fetch latest changes</span></span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">git</span> fetch upstream</span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">git</span> checkout dev</span>
@@ -195,9 +192,9 @@ New features - <code>fix/description</code> - Bug fixes -
 <code>docs/description</code> - Documentation -
 <code>test/description</code> - Tests</p>
 </div>
-<div class="section level4">
-<h4 id="make-changes">3. Make Changes<a class="anchor" aria-label="anchor" href="#make-changes"></a>
-</h4>
+<div class="section level3">
+<h3 id="make-changes">3. Make Changes<a class="anchor" aria-label="anchor" href="#make-changes"></a>
+</h3>
 <p>Follow our <a href="#coding-standards">coding standards</a>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load package</span></span>
@@ -210,9 +207,9 @@ New features - <code>fix/description</code> - Bug fixes -
 <span><span class="co"># Check package</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">check</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="commit">4. Commit<a class="anchor" aria-label="anchor" href="#commit"></a>
-</h4>
+<div class="section level3">
+<h3 id="commit">4. Commit<a class="anchor" aria-label="anchor" href="#commit"></a>
+</h3>
 <p>Write clear commit messages:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">git</span> add .</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"feat: add support for multiple mediators</span></span>
@@ -228,9 +225,9 @@ Documentation - <code>test:</code> - Tests - <code>refactor:</code> -
 Code refactoring - <code>style:</code> - Code style (formatting) -
 <code>chore:</code> - Maintenance</p>
 </div>
-<div class="section level4">
-<h4 id="submit-pull-request">5. Submit Pull Request<a class="anchor" aria-label="anchor" href="#submit-pull-request"></a>
-</h4>
+<div class="section level3">
+<h3 id="submit-pull-request">5. Submit Pull Request<a class="anchor" aria-label="anchor" href="#submit-pull-request"></a>
+</h3>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Push to your fork</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">git</span> push origin feature/your-feature-name</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
@@ -244,12 +241,12 @@ and atomic</p>
 <hr>
 </div>
 </div>
+<div class="section level2">
+<h2 id="coding-standards">Coding Standards<a class="anchor" aria-label="anchor" href="#coding-standards"></a>
+</h2>
 <div class="section level3">
-<h3 id="coding-standards">Coding Standards<a class="anchor" aria-label="anchor" href="#coding-standards"></a>
+<h3 id="r-style">R Style<a class="anchor" aria-label="anchor" href="#r-style"></a>
 </h3>
-<div class="section level4">
-<h4 id="r-style">R Style<a class="anchor" aria-label="anchor" href="#r-style"></a>
-</h4>
 <p>Follow the <a href="https://style.tidyverse.org/" class="external-link">tidyverse style
 guide</a> with these specifics:</p>
 <p><strong>Naming</strong>: - Functions: <code>snake_case()</code>
@@ -274,9 +271,9 @@ functions: <code>.snake_case()</code> (e.g.,
 <span>  <span class="va">result</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="documentation-roxygen2">Documentation (roxygen2)<a class="anchor" aria-label="anchor" href="#documentation-roxygen2"></a>
-</h4>
+<div class="section level3">
+<h3 id="documentation-roxygen2">Documentation (roxygen2)<a class="anchor" aria-label="anchor" href="#documentation-roxygen2"></a>
+</h3>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' Extract Mediation Structure from Models</span></span>
 <span><span class="co">#'</span></span>
@@ -311,9 +308,9 @@ functions: <code>.snake_case()</code> (e.g.,
 <span><span class="co">#' @export</span></span>
 <span><span class="va">extract_mediation</span> <span class="op">&lt;-</span> <span class="fu">S7</span><span class="fu">::</span><span class="fu"><a href="https://rconsortium.github.io/S7/reference/new_generic.html" class="external-link">new_generic</a></span><span class="op">(</span><span class="st">"extract_mediation"</span>, <span class="st">"object"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a>
-</h4>
+<div class="section level3">
+<h3 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a>
+</h3>
 <p>Write tests for all new functionality:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># tests/testthat/test-extraction.R</span></span>
@@ -342,9 +339,9 @@ functions: <code>.snake_case()</code> (e.g.,
 <span>               <span class="st">"treatment.*not found"</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="package-structure">Package Structure<a class="anchor" aria-label="anchor" href="#package-structure"></a>
-</h4>
+<div class="section level3">
+<h3 id="package-structure">Package Structure<a class="anchor" aria-label="anchor" href="#package-structure"></a>
+</h3>
 <pre><code>mediationverse/
 ├── R/
 │   ├── aaa-imports.R      # Imports
@@ -363,12 +360,12 @@ functions: <code>.snake_case()</code> (e.g.,
 <hr>
 </div>
 </div>
+<div class="section level2">
+<h2 id="package-specific-guidelines">Package-Specific Guidelines<a class="anchor" aria-label="anchor" href="#package-specific-guidelines"></a>
+</h2>
 <div class="section level3">
-<h3 id="package-specific-guidelines">Package-Specific Guidelines<a class="anchor" aria-label="anchor" href="#package-specific-guidelines"></a>
+<h3 id="medfit">medfit<a class="anchor" aria-label="anchor" href="#medfit"></a>
 </h3>
-<div class="section level4">
-<h4 id="medfit">medfit<a class="anchor" aria-label="anchor" href="#medfit"></a>
-</h4>
 <ul>
 <li>Focus on infrastructure, not effect sizes</li>
 <li>Maintain S7 class integrity</li>
@@ -376,36 +373,36 @@ functions: <code>.snake_case()</code> (e.g.,
 <li>Document breaking changes prominently</li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="probmed">probmed<a class="anchor" aria-label="anchor" href="#probmed"></a>
-</h4>
+<div class="section level3">
+<h3 id="probmed">probmed<a class="anchor" aria-label="anchor" href="#probmed"></a>
+</h3>
 <ul>
 <li>Keep P_med computation separate from infrastructure</li>
 <li>Maintain formula interface</li>
 <li>Ensure backward compatibility with the current release</li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="rmediation">RMediation<a class="anchor" aria-label="anchor" href="#rmediation"></a>
-</h4>
+<div class="section level3">
+<h3 id="rmediation">RMediation<a class="anchor" aria-label="anchor" href="#rmediation"></a>
+</h3>
 <ul>
 <li>Maintain CRAN stability</li>
 <li>Coordinate with medfit changes</li>
 <li>Keep DOP/MBCO methods intact</li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="medrobust">medrobust<a class="anchor" aria-label="anchor" href="#medrobust"></a>
-</h4>
+<div class="section level3">
+<h3 id="medrobust">medrobust<a class="anchor" aria-label="anchor" href="#medrobust"></a>
+</h3>
 <ul>
 <li>Focus on sensitivity analysis</li>
 <li>Keep bounds computation efficient</li>
 <li>Provide clear falsification output</li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="medsim">medsim<a class="anchor" aria-label="anchor" href="#medsim"></a>
-</h4>
+<div class="section level3">
+<h3 id="medsim">medsim<a class="anchor" aria-label="anchor" href="#medsim"></a>
+</h3>
 <ul>
 <li>Maintain environment detection</li>
 <li>Keep parallel processing robust</li>
@@ -414,9 +411,9 @@ functions: <code>.snake_case()</code> (e.g.,
 <hr>
 </div>
 </div>
-<div class="section level3">
-<h3 id="code-review-process">Code Review Process<a class="anchor" aria-label="anchor" href="#code-review-process"></a>
-</h3>
+<div class="section level2">
+<h2 id="code-review-process">Code Review Process<a class="anchor" aria-label="anchor" href="#code-review-process"></a>
+</h2>
 <p>All contributions go through code review:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -440,9 +437,9 @@ and complete? - Style: Does it follow guidelines? - Performance: Is it
 efficient?</p>
 <hr>
 </div>
-<div class="section level3">
-<h3 id="release-process">Release Process<a class="anchor" aria-label="anchor" href="#release-process"></a>
-</h3>
+<div class="section level2">
+<h2 id="release-process">Release Process<a class="anchor" aria-label="anchor" href="#release-process"></a>
+</h2>
 <p>Releases follow <a href="https://semver.org/" class="external-link">semantic
 versioning</a>:</p>
 <ul>
@@ -459,12 +456,12 @@ in DESCRIPTION 3. Run R CMD check 4. Create release branch 5. Tag
 release 6. Submit to CRAN (if applicable) 7. Announce release</p>
 <hr>
 </div>
+<div class="section level2">
+<h2 id="communication">Communication<a class="anchor" aria-label="anchor" href="#communication"></a>
+</h2>
 <div class="section level3">
-<h3 id="communication">Communication<a class="anchor" aria-label="anchor" href="#communication"></a>
+<h3 id="github">GitHub<a class="anchor" aria-label="anchor" href="#github"></a>
 </h3>
-<div class="section level4">
-<h4 id="github">GitHub<a class="anchor" aria-label="anchor" href="#github"></a>
-</h4>
 <ul>
 <li>
 <strong>Issues</strong>: Bug reports, feature requests</li>
@@ -474,14 +471,14 @@ release 6. Submit to CRAN (if applicable) 7. Announce release</p>
 <strong>Pull requests</strong>: Code contributions</li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="email">Email<a class="anchor" aria-label="anchor" href="#email"></a>
-</h4>
+<div class="section level3">
+<h3 id="email">Email<a class="anchor" aria-label="anchor" href="#email"></a>
+</h3>
 <p>For private inquiries: <a href="mailto:dtofighi@gmail.com" class="email">dtofighi@gmail.com</a></p>
 </div>
-<div class="section level4">
-<h4 id="community-guidelines">Community Guidelines<a class="anchor" aria-label="anchor" href="#community-guidelines"></a>
-</h4>
+<div class="section level3">
+<h3 id="community-guidelines">Community Guidelines<a class="anchor" aria-label="anchor" href="#community-guidelines"></a>
+</h3>
 <ul>
 <li>Be respectful and inclusive</li>
 <li>Provide constructive feedback</li>
@@ -493,20 +490,20 @@ of Conduct</a>
 <hr>
 </div>
 </div>
-<div class="section level3">
-<h3 id="recognition">Recognition<a class="anchor" aria-label="anchor" href="#recognition"></a>
-</h3>
+<div class="section level2">
+<h2 id="recognition">Recognition<a class="anchor" aria-label="anchor" href="#recognition"></a>
+</h2>
 <p>Contributors are recognized in: - Package DESCRIPTION (Contributors
 field) - NEWS.md (with GitHub handle) - README.md (significant
 contributions) - Package website (Contributors page)</p>
 <hr>
 </div>
+<div class="section level2">
+<h2 id="resources">Resources<a class="anchor" aria-label="anchor" href="#resources"></a>
+</h2>
 <div class="section level3">
-<h3 id="resources">Resources<a class="anchor" aria-label="anchor" href="#resources"></a>
+<h3 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h3>
-<div class="section level4">
-<h4 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
-</h4>
 <ul>
 <li><a href="https://r-pkgs.org/" class="external-link">R Packages book</a></li>
 <li><a href="https://style.tidyverse.org/" class="external-link">tidyverse style
@@ -515,9 +512,9 @@ guide</a></li>
 documentation</a></li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="tools">Tools<a class="anchor" aria-label="anchor" href="#tools"></a>
-</h4>
+<div class="section level3">
+<h3 id="tools">Tools<a class="anchor" aria-label="anchor" href="#tools"></a>
+</h3>
 <ul>
 <li><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></li>
 <li><a href="https://usethis.r-lib.org/" class="external-link">usethis</a></li>
@@ -525,9 +522,9 @@ documentation</a></li>
 <li><a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a></li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="getting-help">Getting Help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
-</h4>
+<div class="section level3">
+<h3 id="getting-help">Getting Help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
+</h3>
 <ul>
 <li><a href="https://r-pkgs.org/" class="external-link">R Package Development course</a></li>
 <li><a href="https://community.rstudio.com/" class="external-link">RStudio Community</a></li>
@@ -537,9 +534,9 @@ Overflow</a></li>
 <hr>
 </div>
 </div>
-<div class="section level3">
-<h3 id="thank-you">Thank You!<a class="anchor" aria-label="anchor" href="#thank-you"></a>
-</h3>
+<div class="section level2">
+<h2 id="thank-you">Thank You!<a class="anchor" aria-label="anchor" href="#thank-you"></a>
+</h2>
 <p>Your contributions help make mediation analysis more accessible to
 researchers worldwide. Every contribution, no matter how small, is
 valued and appreciated.</p>
@@ -549,7 +546,6 @@ email <a href="mailto:dtofighi@gmail.com" class="email">dtofighi@gmail.com</a></
 <div class="next-action">
 <p><strong>Next step:</strong> <a href="https://github.com/data-wise/mediationverse/issues/new" class="external-link">Open an
 issue</a> describing the bug, idea or docs fix you have in mind.</p>
-</div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

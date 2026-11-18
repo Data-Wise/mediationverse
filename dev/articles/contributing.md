@@ -10,14 +10,12 @@
 - Skim “Development Workflow” first; the rest is reference to come back
   to.
 
-## Contributing to mediationverse
-
 Thank you for your interest in contributing to the mediationverse
 ecosystem! This guide will help you get started.
 
-### Ways to Contribute
+## Ways to Contribute
 
-#### Report bugs
+### Report bugs
 
 Found a bug? Please [open an
 issue](https://github.com/data-wise/mediationverse/issues/new) with:
@@ -44,7 +42,7 @@ extract_mediation(fit)  # Error occurs here
 sessionInfo()
 ```
 
-#### Suggest features
+### Suggest features
 
 Have an idea? [Open a feature
 request](https://github.com/data-wise/mediationverse/issues/new) with:
@@ -54,7 +52,7 @@ request](https://github.com/data-wise/mediationverse/issues/new) with:
 - **Alternatives**: What else have you considered?
 - **Related work**: Similar features in other packages?
 
-#### Improve documentation
+### Improve documentation
 
 Documentation improvements are always welcome:
 
@@ -63,15 +61,15 @@ Documentation improvements are always welcome:
 - Write or improve vignettes
 - Create blog posts or tutorials
 
-#### Contribute code
+### Contribute code
 
 Follow the workflow below for code contributions.
 
 ------------------------------------------------------------------------
 
-### Development Workflow
+## Development Workflow
 
-#### 1. Setup
+### 1. Setup
 
 ``` bash
 # Fork the repository on GitHub
@@ -86,7 +84,7 @@ git remote add upstream https://github.com/data-wise/mediationverse.git
 Rscript -e 'remotes::install_deps(dependencies = TRUE)'
 ```
 
-#### 2. Create a Branch
+### 2. Create a Branch
 
 ``` bash
 # Fetch latest changes
@@ -102,7 +100,7 @@ git checkout -b feature/your-feature-name
 `fix/description` - Bug fixes - `docs/description` - Documentation -
 `test/description` - Tests
 
-#### 3. Make Changes
+### 3. Make Changes
 
 Follow our [coding standards](#coding-standards):
 
@@ -119,7 +117,7 @@ devtools::load_all()
 devtools::check()
 ```
 
-#### 4. Commit
+### 4. Commit
 
 Write clear commit messages:
 
@@ -139,7 +137,7 @@ Closes #123"
 refactoring - `style:` - Code style (formatting) - `chore:` -
 Maintenance
 
-#### 5. Submit Pull Request
+### 5. Submit Pull Request
 
 ``` bash
 # Push to your fork
@@ -156,9 +154,9 @@ Commits are clear and atomic
 
 ------------------------------------------------------------------------
 
-### Coding Standards
+## Coding Standards
 
-#### R Style
+### R Style
 
 Follow the [tidyverse style guide](https://style.tidyverse.org/) with
 these specifics:
@@ -187,7 +185,7 @@ my_function <- function(x, y, method = "default") {
 }
 ```
 
-#### Documentation (roxygen2)
+### Documentation (roxygen2)
 
 ``` r
 
@@ -225,7 +223,7 @@ my_function <- function(x, y, method = "default") {
 extract_mediation <- S7::new_generic("extract_mediation", "object")
 ```
 
-#### Testing
+### Testing
 
 Write tests for all new functionality:
 
@@ -258,7 +256,7 @@ test_that("extract_mediation validates inputs", {
 })
 ```
 
-#### Package Structure
+### Package Structure
 
     mediationverse/
     ├── R/
@@ -278,34 +276,34 @@ test_that("extract_mediation validates inputs", {
 
 ------------------------------------------------------------------------
 
-### Package-Specific Guidelines
+## Package-Specific Guidelines
 
-#### medfit
+### medfit
 
 - Focus on infrastructure, not effect sizes
 - Maintain S7 class integrity
 - Ensure backward compatibility
 - Document breaking changes prominently
 
-#### probmed
+### probmed
 
 - Keep P_med computation separate from infrastructure
 - Maintain formula interface
 - Ensure backward compatibility with the current release
 
-#### RMediation
+### RMediation
 
 - Maintain CRAN stability
 - Coordinate with medfit changes
 - Keep DOP/MBCO methods intact
 
-#### medrobust
+### medrobust
 
 - Focus on sensitivity analysis
 - Keep bounds computation efficient
 - Provide clear falsification output
 
-#### medsim
+### medsim
 
 - Maintain environment detection
 - Keep parallel processing robust
@@ -313,7 +311,7 @@ test_that("extract_mediation validates inputs", {
 
 ------------------------------------------------------------------------
 
-### Code Review Process
+## Code Review Process
 
 All contributions go through code review:
 
@@ -329,7 +327,7 @@ Style: Does it follow guidelines? - Performance: Is it efficient?
 
 ------------------------------------------------------------------------
 
-### Release Process
+## Release Process
 
 Releases follow [semantic versioning](https://semver.org/):
 
@@ -343,19 +341,19 @@ CRAN (if applicable) 7. Announce release
 
 ------------------------------------------------------------------------
 
-### Communication
+## Communication
 
-#### GitHub
+### GitHub
 
 - **Issues**: Bug reports, feature requests
 - **Discussions**: Questions, ideas, announcements
 - **Pull requests**: Code contributions
 
-#### Email
+### Email
 
 For private inquiries: <dtofighi@gmail.com>
 
-#### Community Guidelines
+### Community Guidelines
 
 - Be respectful and inclusive
 - Provide constructive feedback
@@ -365,7 +363,7 @@ For private inquiries: <dtofighi@gmail.com>
 
 ------------------------------------------------------------------------
 
-### Recognition
+## Recognition
 
 Contributors are recognized in: - Package DESCRIPTION (Contributors
 field) - NEWS.md (with GitHub handle) - README.md (significant
@@ -373,22 +371,22 @@ contributions) - Package website (Contributors page)
 
 ------------------------------------------------------------------------
 
-### Resources
+## Resources
 
-#### Documentation
+### Documentation
 
 - [R Packages book](https://r-pkgs.org/)
 - [tidyverse style guide](https://style.tidyverse.org/)
 - [S7 package documentation](https://rconsortium.github.io/S7/)
 
-#### Tools
+### Tools
 
 - [devtools](https://devtools.r-lib.org/)
 - [usethis](https://usethis.r-lib.org/)
 - [testthat](https://testthat.r-lib.org/)
 - [pkgdown](https://pkgdown.r-lib.org/)
 
-#### Getting Help
+### Getting Help
 
 - [R Package Development course](https://r-pkgs.org/)
 - [RStudio Community](https://community.rstudio.com/)
@@ -396,7 +394,7 @@ contributions) - Package website (Contributors page)
 
 ------------------------------------------------------------------------
 
-### Thank You!
+## Thank You!
 
 Your contributions help make mediation analysis more accessible to
 researchers worldwide. Every contribution, no matter how small, is

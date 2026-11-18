@@ -10,21 +10,19 @@
 - Read the four-step direction below, then follow the hub links for
   detail.
 
-## mediationverse Development Roadmap
-
 > **Authoritative, always-current roadmap:** the [mediation-planning
 > hub](https://github.com/data-wise/mediation-planning). This page is a
 > high-level orientation only — detailed phases, milestones, and status
 > are maintained in the hub (and generated live by tooling), so they are
 > not duplicated here where they would drift.
 
-### What the ecosystem is
+## What the ecosystem is
 
 See the
 [Ecosystem](https://Data-Wise.github.io/mediationverse/dev/articles/ecosystem.md)
 article for the package map, roles, and status — not duplicated here.
 
-### Direction (high level)
+## Direction (high level)
 
 1.  **Foundation** — medfit feature-complete: extraction (lm/glm,
     lavaan), GLM fitting, bootstrap, S7 classes, plus tidyverse and
@@ -39,7 +37,7 @@ article for the package map, roles, and status — not duplicated here.
     (`lmer`) and Bayesian (`brms`) engines, and targeted learning
     (`tmle3`).
 
-### Current status & detailed plan
+## Current status & detailed plan
 
 Maintained in the hub so it stays current (rather than drifting in this
 vignette):
@@ -53,12 +51,12 @@ vignette):
   — active cross-package tasks
 - Live per-package health: `cd ~/projects/r-packages && /rforge:status`
 
-### See also
+## See also
 
 - [Ecosystem](https://Data-Wise.github.io/mediationverse/dev/articles/ecosystem.md)
   — package map, roles, websites
 
-### Feedback
+## Feedback
 
 **Project Lead:** Davood Tofighi (<dtofighi@gmail.com>) · [GitHub
 Issues](https://github.com/data-wise/mediationverse/issues) · [Feature

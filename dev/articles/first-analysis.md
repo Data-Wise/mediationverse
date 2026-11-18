@@ -153,8 +153,6 @@ if (requireNamespace("probmed", quietly = TRUE)) {
   shows which of these packages are installed and current;
   [`mediationverse_news()`](https://Data-Wise.github.io/mediationverse/dev/reference/mediationverse_news.md)
   shows what changed in each.
-- [`vignette("mediationverse-workflow")`](https://Data-Wise.github.io/mediationverse/dev/articles/mediationverse-workflow.md)
-  extends this to sensitivity analysis and simulation.
 - Assumptions (sequential ignorability, positivity, consistency) still
   apply; none of the four calls checks them.
 

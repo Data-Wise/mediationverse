@@ -292,11 +292,8 @@ med_data <- MediationData(
 )
 ```
 
-## Next Steps
+## Package documentation
 
-- Read the [mediationverse
-  Workflow](https://Data-Wise.github.io/mediationverse/dev/articles/mediationverse-workflow.md)
-  article for a complete analysis example
 - Explore individual package documentation:
   - [medfit](https://data-wise.github.io/medfit/)
   - [probmed](https://data-wise.github.io/probmed/)
